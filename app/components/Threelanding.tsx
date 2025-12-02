@@ -3,50 +3,43 @@
 import React, { Suspense, useMemo, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Environment, Stage } from "@react-three/drei";
-import Hotspot from './Hotspot';
+import Hotspot from './Hotspot'; // ✅ Same-folder import
 
 type SceneKey = "front" | "living" | "kitchen" | "bedroom-1" | "gate";
 
 function DemoLayout() {
   return (
     <group>
-      {/* ground */}
       <mesh position={[0, -0.1, 0]} receiveShadow>
         <boxGeometry args={[30, 0.2, 24]} />
         <meshStandardMaterial color={"#f3f5f7"} />
       </mesh>
 
-      {/* main block */}
       <mesh position={[0, 2, 0]}>
         <boxGeometry args={[12, 4, 8]} />
         <meshStandardMaterial color={"#ffffff"} />
       </mesh>
 
-      {/* second floor */}
       <mesh position={[0, 5.2, 0]}>
         <boxGeometry args={[10, 2.2, 6.8]} />
         <meshStandardMaterial color={"#f8fafc"} />
       </mesh>
 
-      {/* balcony */}
       <mesh position={[0, 4.1, -3.5]}>
         <boxGeometry args={[4.5, 0.2, 1]} />
         <meshStandardMaterial color={"#e6e9ee"} />
       </mesh>
 
-      {/* garage / extra room */}
       <mesh position={[-5.5, 1, 3]}>
         <boxGeometry args={[3.2, 2.2, 3.6]} />
         <meshStandardMaterial color={"#f1f5f9"} />
       </mesh>
 
-      {/* sliding gate */}
       <mesh position={[8, 1.0, 0]}>
         <boxGeometry args={[0.4, 2.4, 6]} />
         <meshStandardMaterial color={"#111827"} />
       </mesh>
 
-      {/* small devices */}
       <mesh position={[2.6, 0.8, 3.2]}>
         <boxGeometry args={[0.3, 0.4, 0.1]} />
         <meshStandardMaterial color={"#0f1724"} />
