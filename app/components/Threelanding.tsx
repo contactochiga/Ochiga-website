@@ -40,34 +40,48 @@ function Hotspot({ position, title, onOpen, color = "#ff7b2d" }: HotspotProps) {
 function DemoLayout() {
   return (
     <group>
+      {/* Ground */}
       <mesh position={[0, -0.1, 0]} receiveShadow>
         <boxGeometry args={[30, 0.2, 24]} />
         <meshStandardMaterial color={"#f3f5f7"} />
       </mesh>
+
+      {/* Main Block */}
       <mesh position={[0, 2, 0]}>
         <boxGeometry args={[12, 4, 8]} />
         <meshStandardMaterial color={"#ffffff"} />
       </mesh>
+
+      {/* Second Floor */}
       <mesh position={[0, 5.2, 0]}>
         <boxGeometry args={[10, 2.2, 6.8]} />
         <meshStandardMaterial color={"#f8fafc"} />
       </mesh>
+
+      {/* Balcony */}
       <mesh position={[0, 4.1, -3.5]}>
         <boxGeometry args={[4.5, 0.2, 1]} />
         <meshStandardMaterial color={"#e6e9ee"} />
       </mesh>
+
+      {/* Garage / Extra Room */}
       <mesh position={[-5.5, 1, 3]}>
         <boxGeometry args={[3.2, 2.2, 3.6]} />
         <meshStandardMaterial color={"#f1f5f9"} />
       </mesh>
+
+      {/* Sliding Gate */}
       <mesh position={[8, 1.0, 0]}>
         <boxGeometry args={[0.4, 2.4, 6]} />
         <meshStandardMaterial color={"#111827"} />
       </mesh>
+
+      {/* Small Devices */}
       <mesh position={[2.6, 0.8, 3.2]}>
         <boxGeometry args={[0.3, 0.4, 0.1]} />
         <meshStandardMaterial color={"#0f1724"} />
       </mesh>
+
       <mesh position={[0.6, 1.6, -2.2]}>
         <boxGeometry args={[0.35, 0.35, 0.35]} />
         <meshStandardMaterial color={"#0ea5a4"} />
@@ -178,16 +192,20 @@ export default function ThreeLanding() {
           <Stage adjustCamera={false} intensity={0.6}>
             <DemoLayout />
           </Stage>
+
+          {/* HOTSPOTS NOW INSIDE CANVAS */}
+          {sceneHotspots.map((h) => (
+            <Hotspot
+              key={h.id}
+              position={h.pos as [number, number, number]}
+              title={h.title}
+              onOpen={() => setActivePanel(h.id)}
+            />
+          ))}
+
           <OrbitControls makeDefault enablePan enableRotate enableZoom minDistance={5} maxDistance={50} />
         </Suspense>
       </Canvas>
-
-      {/* HOTSPOTS */}
-      <div className="tour-ui">
-        {sceneHotspots.map((h) => (
-          <Hotspot key={h.id} position={h.pos as [number, number, number]} title={h.title} onOpen={() => setActivePanel(h.id)} />
-        ))}
-      </div>
 
       {/* BOTTOM POPUP */}
       {activePanel && (
