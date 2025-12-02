@@ -1,85 +1,183 @@
+"use client";
+
+import Image from "next/image";
+import { useState } from "react";
+
 export default function Home() {
+  const [slide, setSlide] = useState(0);
+
+  const slides = [
+    {
+      title: "Ochiga Smart Estate Dashboard",
+      subtitle: "Launching January 15th – Be among the first.",
+      cta: "Join Waitlist",
+    },
+    {
+      title: "The Future of Smart Communities",
+      subtitle:
+        "High-tech infrastructure, automation, and digital management built into every estate.",
+      cta: "See Demo",
+    },
+  ];
+
+  const nextSlide = () => setSlide((slide + 1) % slides.length);
+  const prevSlide = () =>
+    setSlide((slide - 1 + slides.length) % slides.length);
+
   return (
-    <main className="bg-gray-50 min-h-screen text-gray-800">
-      {/* HERO */}
-      <section className="px-6 py-20 max-w-6xl mx-auto text-center">
-        <h1 className="text-5xl font-bold mb-6">
-          Welcome to <span className="text-blue-600">OCHIGA</span>
-        </h1>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          Smart estate management, smart home automation, IoT, visitor management,
-          and innovative digital property solutions — all in one platform powered
-          by OCHIGA Technologies.
-        </p>
-
-        <div className="mt-8 flex justify-center gap-4">
-          <a
-            href="#about"
-            className="px-6 py-3 bg-blue-600 text-white rounded-md shadow hover:bg-blue-700"
-          >
-            Learn More
-          </a>
-          <a
-            href="#contact"
-            className="px-6 py-3 border border-gray-400 rounded-md hover:bg-gray-200"
-          >
-            Contact Us
-          </a>
+    <main className="w-full min-h-screen overflow-x-hidden bg-white text-[#1A1A1A]">
+      {/* ================================
+          HERO SECTION — FULL SCREEN SLIDER
+      ================================= */}
+      <section className="relative w-full h-screen overflow-hidden bg-[#140A0A] text-white flex items-center justify-center">
+        <div className="absolute inset-0">
+          <Image
+            src="/hero-architecture.jpg"
+            alt="Architecture"
+            fill
+            className="object-cover opacity-40"
+          />
         </div>
-      </section>
 
-      {/* FEATURES */}
-      <section id="about" className="px-6 py-20 bg-white">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-semibold text-center mb-12">What We Do</h2>
+        <div className="relative z-10 text-center px-6 max-w-3xl">
+          <h1 className="text-4xl md:text-6xl font-bold mb-4 leading-tight">
+            {slides[slide].title}
+          </h1>
+          <p className="text-lg md:text-xl opacity-80 mb-6">
+            {slides[slide].subtitle}
+          </p>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            <Feature
-              title="Smart Home Automation"
-              text="Control lighting, gates, energy systems, and security with our IoT-powered solutions."
-            />
-            <Feature
-              title="Estate Management"
-              text="Visitor tracking, billing automation, resident database, and digital community tools."
-            />
-            <Feature
-              title="Access Control"
-              text="QR codes, biometrics, and intelligent gate management for secure estate access."
-            />
+          <button className="px-6 py-3 bg-white text-[#140A0A] rounded-lg font-semibold hover:bg-gray-200 transition">
+            {slides[slide].cta}
+          </button>
+
+          <div className="flex justify-center gap-4 mt-8">
+            <button
+              onClick={prevSlide}
+              className="w-3 h-3 bg-white rounded-full opacity-50 hover:opacity-100"
+            ></button>
+            <button
+              onClick={nextSlide}
+              className="w-3 h-3 bg-white rounded-full opacity-50 hover:opacity-100"
+            ></button>
           </div>
         </div>
       </section>
 
-      {/* CONTACT */}
-      <section id="contact" className="px-6 py-20 bg-gray-100">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-semibold mb-4">Get in Touch</h2>
-          <p className="text-gray-600 mb-8">
-            Have a question or want to partner with OCHIGA? We’d love to hear from you.
-          </p>
+      {/* ================================
+           SERVICES SECTION
+      ================================= */}
+      <section className="py-20 px-6 bg-[#f8f8f8]">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+          Our Core Services
+        </h2>
 
-          <a
-            href="mailto:info@ochiga.com.ng"
-            className="px-6 py-3 bg-blue-600 text-white rounded-md shadow hover:bg-blue-700"
-          >
-            Email Us
-          </a>
+        <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          {/* CARD — PRE-CONSTRUCTION */}
+          <div className="bg-white shadow-md rounded-2xl p-8 hover:-translate-y-1 transition cursor-pointer border">
+            <h3 className="text-2xl font-semibold mb-4">
+              Pre-Construction Consultation
+            </h3>
+            <p className="text-gray-600 mb-6">
+              From estate planning to smart backbone infrastructure. We guide
+              developers with technical clarity and automation-first design.
+            </p>
+            <button className="text-[#7A0026] font-semibold hover:underline">
+              Start Consultation →
+            </button>
+          </div>
+
+          {/* CARD — ON-CONSTRUCTION */}
+          <div className="bg-white shadow-md rounded-2xl p-8 hover:-translate-y-1 transition cursor-pointer border">
+            <h3 className="text-2xl font-semibold mb-4">
+              On-Construction Smart Infrastructure
+            </h3>
+            <p className="text-gray-600 mb-6">
+              FTTH, estate automation, smart building systems & IoT deployment
+              — fully integrated into your development.
+            </p>
+            <button className="text-[#7A0026] font-semibold hover:underline">
+              Begin Project →
+            </button>
+          </div>
+
+          {/* CARD — AFTER-CARE / OYI */}
+          <div className="bg-white shadow-md rounded-2xl p-8 hover:-translate-y-1 transition cursor-pointer border">
+            <h3 className="text-2xl font-semibold mb-4">Oyi Cloud OS</h3>
+            <p className="text-gray-600 mb-6">
+              The brain of your estate — digital management, automation,
+              facility workflows, billing, and resident engagement.
+            </p>
+            <button className="text-[#7A0026] font-semibold hover:underline">
+              Explore Oyi →
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* ================================
+          PARTNER LOGOS
+      ================================= */}
+      <section className="py-20 px-6 bg-white">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+          Brands & Technologies We Work With
+        </h2>
+
+        <div className="flex flex-wrap justify-center gap-12 opacity-80">
+          <Image src="/partner1.png" alt="Partner" width={120} height={40} />
+          <Image src="/partner2.png" alt="Partner" width={120} height={40} />
+          <Image src="/partner3.png" alt="Partner" width={120} height={40} />
+          <Image src="/partner4.png" alt="Partner" width={120} height={40} />
+        </div>
+      </section>
+
+      {/* ================================
+          WHY OCHIGA
+      ================================= */}
+      <section className="py-24 px-6 bg-[#140A0A] text-white">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
+          <div>
+            <h2 className="text-4xl font-bold mb-6">Why Choose Ochiga?</h2>
+            <p className="text-gray-300 leading-relaxed text-lg">
+              We are Africa’s new standard for real estate technology — merging
+              architecture, infrastructure, and cloud intelligence into one
+              unified ecosystem.
+              <br />
+              <br />
+              From planning to building to digital operations, Ochiga transforms
+              estates into fully connected, automated smart environments.
+            </p>
+          </div>
+
+          <div className="space-y-6">
+            <div className="bg-white/10 p-6 rounded-xl">
+              <h4 className="font-semibold text-xl">End-to-End Delivery</h4>
+              <p className="text-gray-300">
+                Consultation → Construction → Ongoing Smart Management.
+              </p>
+            </div>
+
+            <div className="bg-white/10 p-6 rounded-xl">
+              <h4 className="font-semibold text-xl">Oyi: The Brain</h4>
+              <p className="text-gray-300">
+                A cloud OS powering automation, billing, access, and workflows.
+              </p>
+            </div>
+
+            <div className="bg-white/10 p-6 rounded-xl">
+              <h4 className="font-semibold text-xl">Future-Proof Systems</h4>
+              <p className="text-gray-300">
+                Built with the latest in IoT, fiber, and estate automation.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* FOOTER */}
-      <footer className="py-6 text-center text-gray-600 text-sm">
-        © {new Date().getFullYear()} OCHIGA Technologies. All rights reserved.
+      <footer className="py-12 text-center text-gray-500">
+        © {new Date().getFullYear()} Ochiga — Smart Estate & Building Technology.
       </footer>
     </main>
-  );
-}
-
-function Feature({ title, text }) {
-  return (
-    <div className="p-6 border rounded-lg shadow-sm bg-gray-50">
-      <h3 className="text-xl font-bold mb-3">{title}</h3>
-      <p className="text-gray-600">{text}</p>
-    </div>
   );
 }
