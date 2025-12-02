@@ -3,7 +3,7 @@
 import React, { Suspense, useMemo, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Environment, Stage } from "@react-three/drei";
-import Hotspot from '../../components/Hotspot';
+import Hotspot from '../../../components/Hotspot'; // ✅ fixed import
 
 type SceneKey = "front" | "living" | "kitchen" | "bedroom-1" | "gate";
 
@@ -64,15 +64,18 @@ export default function ThreeLanding() {
   const [sceneKey, setSceneKey] = useState<SceneKey>("front");
   const [activePanel, setActivePanel] = useState<string | null>(null);
 
-  const hotspots = useMemo(() => [
-    { id: "smart-lock", title: "Smart Lock", pos: [2.6, 0.9, 3.2], scene: "front", content: "Keyless entry with logs + remote unlock." },
-    { id: "door-cam", title: "Door Camera", pos: [0.6, 1.6, -2.2], scene: "front", content: "1080p door cam with motion detection." },
-    { id: "kitchen-panel", title: "Control Panel", pos: [-1.8, 1.6, 0.6], scene: "kitchen", content: "Control hub for energy & automations." },
-    { id: "solar", title: "Solar Inverter", pos: [9.6, 0.7, -1.4], scene: "gate", content: "Hybrid inverter + battery ready." },
-    { id: "living-cam", title: "Living Camera", pos: [0.9, 2.1, -1.1], scene: "living", content: "Indoor camera with privacy shutter." },
-  ], []);
+  const hotspots = useMemo(
+    () => [
+      { id: "smart-lock", title: "Smart Lock", pos: [2.6, 0.9, 3.2], scene: "front", content: "Keyless entry with logs + remote unlock." },
+      { id: "door-cam", title: "Door Camera", pos: [0.6, 1.6, -2.2], scene: "front", content: "1080p door cam with motion detection." },
+      { id: "kitchen-panel", title: "Control Panel", pos: [-1.8, 1.6, 0.6], scene: "kitchen", content: "Control hub for energy & automations." },
+      { id: "solar", title: "Solar Inverter", pos: [9.6, 0.7, -1.4], scene: "gate", content: "Hybrid inverter + battery ready." },
+      { id: "living-cam", title: "Living Camera", pos: [0.9, 2.1, -1.1], scene: "living", content: "Indoor camera with privacy shutter." },
+    ],
+    []
+  );
 
-  const sceneHotspots = hotspots.filter(h => h.scene === sceneKey);
+  const sceneHotspots = hotspots.filter((h) => h.scene === sceneKey);
 
   const cameraPresets: Record<SceneKey, { pos: [number, number, number] }> = {
     front: { pos: [0, 4.4, 18] },
@@ -83,26 +86,48 @@ export default function ThreeLanding() {
   };
 
   return (
-    <div style={{ width: "100vw", height: "100vh", position: "relative" }}>
+    <div style={{ width: "100%", height: "100%", position: "relative" }}>
       {/* HEADER */}
       <header style={{ position: "absolute", top: 20, left: 20, zIndex: 60 }}>
         <h1 style={{ margin: 0, fontSize: 20 }}>Take our smart home tour</h1>
-        <p style={{ margin: 0, opacity: 0.9 }}>Tap on the products to see how security, energy & automation connect.</p>
+        <p style={{ margin: 0, opacity: 0.9 }}>
+          Tap on the products to see how security, energy & automation connect.
+        </p>
       </header>
 
       {/* SCENE CONTROLS */}
-      <div style={{ position: "absolute", bottom: 28, left: "50%", transform: "translateX(-50%)", zIndex: 60, display: "flex", gap: 12 }}>
-        <button onClick={() => {
-          const order: SceneKey[] = ["front", "living", "kitchen", "bedroom-1", "gate"];
-          const i = order.indexOf(sceneKey);
-          setSceneKey(order[(i - 1 + order.length) % order.length]);
-        }} style={{ padding: 12, borderRadius: 8 }}>←</button>
+      <div
+        style={{
+          position: "absolute",
+          bottom: 28,
+          left: "50%",
+          transform: "translateX(-50%)",
+          zIndex: 60,
+          display: "flex",
+          gap: 12,
+        }}
+      >
+        <button
+          onClick={() => {
+            const order: SceneKey[] = ["front", "living", "kitchen", "bedroom-1", "gate"];
+            const i = order.indexOf(sceneKey);
+            setSceneKey(order[(i - 1 + order.length) % order.length]);
+          }}
+          style={{ padding: 12, borderRadius: 8 }}
+        >
+          ←
+        </button>
 
-        <button onClick={() => {
-          const order: SceneKey[] = ["front", "living", "kitchen", "bedroom-1", "gate"];
-          const i = order.indexOf(sceneKey);
-          setSceneKey(order[(i + 1) % order.length]);
-        }} style={{ padding: 12, borderRadius: 8 }}>→</button>
+        <button
+          onClick={() => {
+            const order: SceneKey[] = ["front", "living", "kitchen", "bedroom-1", "gate"];
+            const i = order.indexOf(sceneKey);
+            setSceneKey(order[(i + 1) % order.length]);
+          }}
+          style={{ padding: 12, borderRadius: 8 }}
+        >
+          →
+        </button>
       </div>
 
       {/* RIGHT INFO PANEL */}
@@ -143,34 +168,33 @@ export default function ThreeLanding() {
 
       {/* HOTSPOTS */}
       <div className="tour-ui">
-        {sceneHotspots.map(h => (
-          <Hotspot
-            key={h.id}
-            position={h.pos as [number, number, number]}
-            title={h.title}
-            onOpen={() => setActivePanel(h.id)}
-          />
+        {sceneHotspots.map((h) => (
+          <Hotspot key={h.id} position={h.pos as [number, number, number]} title={h.title} onOpen={() => setActivePanel(h.id)} />
         ))}
       </div>
 
       {/* BOTTOM POPUP */}
       {activePanel && (
-        <div style={{
-          position: "absolute",
-          left: "50%",
-          transform: "translateX(-50%)",
-          bottom: 96,
-          zIndex: 70,
-          width: "min(980px, 94%)"
-        }}>
+        <div
+          style={{
+            position: "absolute",
+            left: "50%",
+            transform: "translateX(-50%)",
+            bottom: 96,
+            zIndex: 70,
+            width: "min(980px, 94%)",
+          }}
+        >
           <div style={{ padding: 18, background: "white", borderRadius: 12 }}>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <div>
-                <h3 style={{ margin: 0 }}>{hotspots.find(s => s.id === activePanel)?.title}</h3>
-                <p style={{ marginTop: 8 }}>{hotspots.find(s => s.id === activePanel)?.content}</p>
+                <h3 style={{ margin: 0 }}>{hotspots.find((s) => s.id === activePanel)?.title}</h3>
+                <p style={{ marginTop: 8 }}>{hotspots.find((s) => s.id === activePanel)?.content}</p>
               </div>
 
-              <button onClick={() => setActivePanel(null)} style={{ padding: 8 }}>Close</button>
+              <button onClick={() => setActivePanel(null)} style={{ padding: 8 }}>
+                Close
+              </button>
             </div>
 
             <div style={{ marginTop: 12, display: "flex", gap: 8 }}>
