@@ -1,12 +1,14 @@
 "use client";
 
-import React, { Suspense, useState } from "react";
-import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Html, Stage, Environment } from "@react-three/drei";
+import React, { Suspense, useMemo, useState } from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { OrbitControls, Environment, Html, useGLTF } from "@react-three/drei";
+import { Vector3 } from "three";
 import { animated, useSpring } from "@react-spring/three";
 
-type SceneKey = "front";
-
+// --------------------
+// Hotspot component
+// --------------------
 type HotspotProps = {
   position: [number, number, number];
   title: string;
@@ -14,11 +16,17 @@ type HotspotProps = {
   color?: string;
 };
 
-// Hotspot component
 function Hotspot({ position, title, onOpen, color = "#ff7b2d" }: HotspotProps) {
   return (
-    <Html position={position} center transform occluder>
-      <div style={{ transform: "translate(-50%,-50%)" }}>
+    <Html position={position} center transform occlude>
+      <div
+        style={{
+          transform: "translate(-50%,-50%)",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         <button
           onClick={onOpen}
           style={{
@@ -39,109 +47,111 @@ function Hotspot({ position, title, onOpen, color = "#ff7b2d" }: HotspotProps) {
   );
 }
 
-// Minimal house model (2 floors)
-function House({ lift }: { lift: number }) {
-  return (
-    <group position-y={lift}>
-      {/* Floor 1 */}
-      <mesh position={[0, 0, 0]} receiveShadow>
-        <boxGeometry args={[10, 0.2, 10]} />
-        <meshStandardMaterial color="#d9d9d9" />
-      </mesh>
-      <mesh position={[0, 1, 0]}>
-        <boxGeometry args={[10, 2, 10]} />
-        <meshStandardMaterial color="#ffffff" />
-      </mesh>
-      {/* Floor 2 */}
-      <mesh position={[0, 3.2, 0]}>
-        <boxGeometry args={[10, 2, 10]} />
-        <meshStandardMaterial color="#f0f0f0" />
-      </mesh>
-    </group>
-  );
+// --------------------
+// GLB Loader Hook
+// --------------------
+function House({ url }: { url: string }) {
+  const gltf = useGLTF(url);
+  return <primitive object={gltf.scene} scale={1} />;
 }
 
-// MEP Layer
-function MEP() {
-  return (
-    <group>
-      <mesh position={[0, -0.3, 0]}>
-        <boxGeometry args={[10, 0.1, 10]} />
-        <meshStandardMaterial color="#0ea5a4" />
-      </mesh>
-      {/* Simple junction boxes / pipes */}
-      <mesh position={[-3, -0.2, 2]}>
-        <boxGeometry args={[0.5, 0.5, 0.5]} />
-        <meshStandardMaterial color="#f59e0b" />
-      </mesh>
-      <mesh position={[2, -0.2, -2]}>
-        <boxGeometry args={[0.5, 0.5, 0.5]} />
-        <meshStandardMaterial color="#f59e0b" />
-      </mesh>
-    </group>
-  );
+// --------------------
+// MEP Layer Component
+// --------------------
+function MEPLayer({ url, visible }: { url: string; visible: boolean }) {
+  const gltf = useGLTF(url);
+  const { scale } = useSpring({ scale: visible ? 1 : 0, config: { mass: 1, tension: 170 } });
+
+  return <animated.primitive object={gltf.scene} scale={scale as any} />;
 }
 
-// Main Component
+// --------------------
+// Main Landing Component
+// --------------------
 export default function ThreeLanding() {
-  const [lift, setLift] = useState(0);
   const [activePanel, setActivePanel] = useState<string | null>(null);
+  const [showMEP, setShowMEP] = useState(false);
 
-  const hotspots = [
-    { id: "smart-lock", title: "Smart Lock", pos: [1, 1, 4], content: "Keyless entry + logs." },
-    { id: "camera", title: "Camera", pos: [-2, 1.5, -3], content: "Indoor camera with privacy." },
-    { id: "sensor", title: "Temp Sensor", pos: [3, 3, 0], content: "Room temperature sensor." },
-  ];
-
-  // Animate lift using react-spring
-  const { y } = useSpring({ y: lift, config: { mass: 1, tension: 170, friction: 26 } });
+  // Hotspots with 3D positions (placeholders)
+  const hotspots = useMemo(
+    () => [
+      { id: "smart-lock", title: "Smart Lock", pos: [1.2, 1.5, 2], content: "Keyless entry" },
+      { id: "door-cam", title: "Door Camera", pos: [-1.5, 2, -1.2], content: "1080p camera" },
+      { id: "smart-bulb", title: "Smart Bulb", pos: [0, 2.5, 0.5], content: "WiFi light control" },
+      { id: "motion-sensor", title: "Motion Sensor", pos: [2, 2, -0.5], content: "Detects movement" },
+      { id: "temperature-sensor", title: "Temp Sensor", pos: [-0.5, 2, 1.2], content: "Monitors temp" },
+    ],
+    []
+  );
 
   return (
-    <div style={{ width: "100%", height: "90vh", position: "relative" }}>
-      {/* Toggle MEP */}
+    <div style={{ width: "100%", height: "100%", position: "relative" }}>
+      {/* TOGGLE MEP BUTTON */}
       <button
-        onClick={() => setLift(lift === 0 ? 2 : 0)}
-        style={{ position: "absolute", top: 20, left: 20, zIndex: 50, padding: "10px 20px" }}
+        onClick={() => setShowMEP(!showMEP)}
+        style={{
+          position: "absolute",
+          top: 20,
+          left: 20,
+          zIndex: 60,
+          padding: "10px 16px",
+          borderRadius: 8,
+          background: "#ff7b2d",
+          color: "white",
+          fontWeight: "bold",
+        }}
       >
-        {lift === 0 ? "Reveal MEP" : "Hide MEP"}
+        {showMEP ? "Hide MEP Layer" : "Show MEP Layer"}
       </button>
+
+      {/* 3D CANVAS */}
+      <Canvas camera={{ position: [5, 5, 10], fov: 50 }}>
+        <Suspense fallback={null}>
+          <Environment preset="sunset" />
+          <ambientLight intensity={0.6} />
+          <directionalLight position={[10, 10, 5]} intensity={1.5} />
+          <OrbitControls makeDefault enablePan enableRotate enableZoom minDistance={5} maxDistance={30} />
+
+          {/* House Model */}
+          <House url="/placeholder_house.glb" />
+
+          {/* MEP Layer */}
+          <MEPLayer url="/placeholder_mep.glb" visible={showMEP} />
+
+          {/* Hotspots */}
+          {hotspots.map((h) => (
+            <Hotspot key={h.id} position={h.pos as [number, number, number]} title={h.title} onOpen={() => setActivePanel(h.id)} />
+          ))}
+        </Suspense>
+      </Canvas>
 
       {/* Info Panel */}
       {activePanel && (
-        <div style={{ position: "absolute", right: 20, top: 20, zIndex: 50, width: 250, background: "white", padding: 12, borderRadius: 12 }}>
-          <h4>{hotspots.find((h) => h.id === activePanel)?.title}</h4>
-          <p>{hotspots.find((h) => h.id === activePanel)?.content}</p>
-          <button onClick={() => setActivePanel(null)}>Close</button>
+        <div
+          style={{
+            position: "absolute",
+            left: "50%",
+            transform: "translateX(-50%)",
+            bottom: 50,
+            zIndex: 70,
+            width: "min(600px, 90%)",
+            background: "white",
+            borderRadius: 12,
+            padding: 16,
+            boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
+          }}
+        >
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div>
+              <h3 style={{ margin: 0 }}>{hotspots.find((s) => s.id === activePanel)?.title}</h3>
+              <p style={{ marginTop: 4 }}>{hotspots.find((s) => s.id === activePanel)?.content}</p>
+            </div>
+            <button onClick={() => setActivePanel(null)} style={{ padding: 6 }}>
+              Close
+            </button>
+          </div>
         </div>
       )}
-
-      <Canvas camera={{ position: [15, 10, 15], fov: 50 }}>
-        <Suspense fallback={null}>
-          <Environment preset="sunset" />
-          <ambientLight intensity={0.5} />
-          <directionalLight position={[10, 15, 10]} intensity={1.2} />
-          <Stage adjustCamera={false} intensity={0.6}>
-            {/* Animated House */}
-            <animated.group position-y={y}>
-              <House lift={lift} />
-            </animated.group>
-
-            {/* MEP (underground) */}
-            {lift > 0 && <MEP />}
-          </Stage>
-          <OrbitControls makeDefault enablePan enableRotate enableZoom minDistance={5} maxDistance={50} />
-        </Suspense>
-
-        {/* Hotspots */}
-        {hotspots.map((h) => (
-          <Hotspot
-            key={h.id}
-            position={h.pos as [number, number, number]}
-            title={h.title}
-            onOpen={() => setActivePanel(h.id)}
-          />
-        ))}
-      </Canvas>
     </div>
   );
 }
