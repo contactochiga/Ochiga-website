@@ -2,10 +2,40 @@
 
 import React, { Suspense, useMemo, useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Environment, Stage } from "@react-three/drei";
-import Hotspot from './Hotspot'; // ✅ Same-folder import
+import { OrbitControls, Environment, Stage, Html } from "@react-three/drei";
 
 type SceneKey = "front" | "living" | "kitchen" | "bedroom-1" | "gate";
+
+type HotspotProps = {
+  position: [number, number, number];
+  title: string;
+  onOpen: () => void;
+  color?: string;
+};
+
+function Hotspot({ position, title, onOpen, color = "#ff7b2d" }: HotspotProps) {
+  return (
+    <Html position={position} center transform occluder>
+      <div style={{ transform: "translate(-50%,-50%)", display: "flex", justifyContent: "center", alignItems: "center" }}>
+        <button
+          onClick={onOpen}
+          style={{
+            background: color,
+            border: "none",
+            padding: "10px 14px",
+            borderRadius: 999,
+            boxShadow: "0 8px 20px rgba(2,6,23,0.6)",
+            color: "#fff",
+            fontWeight: 700,
+            cursor: "pointer",
+          }}
+        >
+          {title}
+        </button>
+      </div>
+    </Html>
+  );
+}
 
 function DemoLayout() {
   return (
@@ -14,37 +44,30 @@ function DemoLayout() {
         <boxGeometry args={[30, 0.2, 24]} />
         <meshStandardMaterial color={"#f3f5f7"} />
       </mesh>
-
       <mesh position={[0, 2, 0]}>
         <boxGeometry args={[12, 4, 8]} />
         <meshStandardMaterial color={"#ffffff"} />
       </mesh>
-
       <mesh position={[0, 5.2, 0]}>
         <boxGeometry args={[10, 2.2, 6.8]} />
         <meshStandardMaterial color={"#f8fafc"} />
       </mesh>
-
       <mesh position={[0, 4.1, -3.5]}>
         <boxGeometry args={[4.5, 0.2, 1]} />
         <meshStandardMaterial color={"#e6e9ee"} />
       </mesh>
-
       <mesh position={[-5.5, 1, 3]}>
         <boxGeometry args={[3.2, 2.2, 3.6]} />
         <meshStandardMaterial color={"#f1f5f9"} />
       </mesh>
-
       <mesh position={[8, 1.0, 0]}>
         <boxGeometry args={[0.4, 2.4, 6]} />
         <meshStandardMaterial color={"#111827"} />
       </mesh>
-
       <mesh position={[2.6, 0.8, 3.2]}>
         <boxGeometry args={[0.3, 0.4, 0.1]} />
         <meshStandardMaterial color={"#0f1724"} />
       </mesh>
-
       <mesh position={[0.6, 1.6, -2.2]}>
         <boxGeometry args={[0.35, 0.35, 0.35]} />
         <meshStandardMaterial color={"#0ea5a4"} />
