@@ -2,12 +2,11 @@
 
 import Image from "next/image";
 import { useState, useRef } from "react";
-import Threelanding from "../components/Threelanding";
+import Threelanding from "./components/Threelanding"; // ✅ Correct path
 
 export default function Home() {
   const [slide, setSlide] = useState(0);
 
-  // Ref for scrolling to services section
   const servicesRef = useRef<HTMLElement>(null);
 
   const slides = [
@@ -29,15 +28,12 @@ export default function Home() {
     setSlide((slide - 1 + slides.length) % slides.length);
 
   const handleCTAClick = () => {
-    // Scroll to services section smoothly
     servicesRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <main className="w-full min-h-screen overflow-x-hidden bg-white text-[#1A1A1A]">
-      {/* ================================
-          HERO SECTION — FULL SCREEN SLIDER
-      ================================= */}
+      {/* HERO SECTION */}
       <section className="relative w-full h-screen overflow-hidden bg-[#140A0A] text-white flex items-center justify-center">
         <div className="absolute inset-0">
           <Image
@@ -76,26 +72,18 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ================================
-          3D / THREEJS LANDING SECTION
-      ================================= */}
+      {/* 3D / THREEJS LANDING SECTION */}
       <section className="w-full h-[80vh] md:h-[90vh] bg-[#140A0A] flex items-center justify-center">
         <Threelanding />
       </section>
 
-      {/* ================================
-           SERVICES SECTION
-      ================================= */}
-      <section
-        ref={servicesRef}
-        className="py-20 px-6 bg-[#f8f8f8]"
-      >
+      {/* SERVICES SECTION */}
+      <section ref={servicesRef} className="py-20 px-6 bg-[#f8f8f8]">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
           Our Core Services
         </h2>
 
         <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
-          {/* CARD — PRE-CONSTRUCTION */}
           <div className="bg-white shadow-md rounded-2xl p-8 hover:-translate-y-1 transition cursor-pointer border">
             <h3 className="text-2xl font-semibold mb-4">
               Pre-Construction Consultation
@@ -109,7 +97,6 @@ export default function Home() {
             </button>
           </div>
 
-          {/* CARD — ON-CONSTRUCTION */}
           <div className="bg-white shadow-md rounded-2xl p-8 hover:-translate-y-1 transition cursor-pointer border">
             <h3 className="text-2xl font-semibold mb-4">
               On-Construction Smart Infrastructure
@@ -123,7 +110,6 @@ export default function Home() {
             </button>
           </div>
 
-          {/* CARD — AFTER-CARE / OYI */}
           <div className="bg-white shadow-md rounded-2xl p-8 hover:-translate-y-1 transition cursor-pointer border">
             <h3 className="text-2xl font-semibold mb-4">Oyi Cloud OS</h3>
             <p className="text-gray-600 mb-6">
@@ -137,9 +123,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ================================
-          PARTNER LOGOS
-      ================================= */}
+      {/* PARTNER LOGOS */}
       <section className="py-20 px-6 bg-white">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
           Brands & Technologies We Work With
@@ -153,9 +137,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ================================
-          WHY OCHIGA
-      ================================= */}
+      {/* WHY OCHIGA */}
       <section className="py-24 px-6 bg-[#140A0A] text-white">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
           <div>
