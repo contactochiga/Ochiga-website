@@ -3,7 +3,7 @@
 import React, { Suspense, useMemo, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Environment, Stage } from "@react-three/drei";
-import Hotspot from '../../../components/Hotspot'; // ✅ fixed import
+import Hotspot from './Hotspot';
 
 type SceneKey = "front" | "living" | "kitchen" | "bedroom-1" | "gate";
 
