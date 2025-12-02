@@ -1,10 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import Threelanding from "../components/Threelanding";
 
 export default function Home() {
   const [slide, setSlide] = useState(0);
+
+  // Ref for scrolling to services section
+  const servicesRef = useRef<HTMLElement>(null);
 
   const slides = [
     {
@@ -23,6 +27,11 @@ export default function Home() {
   const nextSlide = () => setSlide((slide + 1) % slides.length);
   const prevSlide = () =>
     setSlide((slide - 1 + slides.length) % slides.length);
+
+  const handleCTAClick = () => {
+    // Scroll to services section smoothly
+    servicesRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
     <main className="w-full min-h-screen overflow-x-hidden bg-white text-[#1A1A1A]">
@@ -47,7 +56,10 @@ export default function Home() {
             {slides[slide].subtitle}
           </p>
 
-          <button className="px-6 py-3 bg-white text-[#140A0A] rounded-lg font-semibold hover:bg-gray-200 transition">
+          <button
+            onClick={handleCTAClick}
+            className="px-6 py-3 bg-white text-[#140A0A] rounded-lg font-semibold hover:bg-gray-200 transition"
+          >
             {slides[slide].cta}
           </button>
 
@@ -65,9 +77,19 @@ export default function Home() {
       </section>
 
       {/* ================================
+          3D / THREEJS LANDING SECTION
+      ================================= */}
+      <section className="w-full h-[80vh] md:h-[90vh] bg-[#140A0A] flex items-center justify-center">
+        <Threelanding />
+      </section>
+
+      {/* ================================
            SERVICES SECTION
       ================================= */}
-      <section className="py-20 px-6 bg-[#f8f8f8]">
+      <section
+        ref={servicesRef}
+        className="py-20 px-6 bg-[#f8f8f8]"
+      >
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
           Our Core Services
         </h2>
