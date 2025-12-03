@@ -1,5 +1,5 @@
+// app/components/Hotspot.tsx
 "use client";
-
 import React from "react";
 import { Html } from "@react-three/drei";
 
@@ -10,34 +10,27 @@ type HotspotProps = {
   color?: string;
 };
 
-export default function Hotspot({
-  position,
-  title,
-  onOpen,
-  color = "#ff7b2d",
-}: HotspotProps) {
+export default function Hotspot({ position, title, onOpen, color = "#ff7b2d" }: HotspotProps) {
   return (
-    <mesh position={position}>
-      <sphereGeometry args={[0.08, 16, 16]} />
-      <meshStandardMaterial color={color} />
-
-      <Html center distanceFactor={15}>
+    <Html position={position} center transform occlude>
+      <div style={{ transform: "translate(-50%,-50%)", display: "flex", justifyContent: "center", alignItems: "center" }}>
         <button
-          onClick={onOpen}
+          onClick={(e) => { e.stopPropagation(); onOpen(); }}
           style={{
-            padding: "4px 8px",
-            fontSize: "12px",
             background: color,
-            color: "white",
             border: "none",
-            borderRadius: "6px",
+            padding: "8px 12px",
+            borderRadius: 999,
+            color: "#fff",
+            fontWeight: 700,
             cursor: "pointer",
-            whiteSpace: "nowrap",
+            boxShadow: "0 6px 18px rgba(0,0,0,0.25)",
+            whiteSpace: "nowrap"
           }}
         >
           {title}
         </button>
-      </Html>
-    </mesh>
+      </div>
+    </Html>
   );
 }
