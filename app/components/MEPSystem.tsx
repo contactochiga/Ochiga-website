@@ -8,6 +8,7 @@ const SERVICE_COLOR: Record<string, string> = {
   water: "#06b6d4",
   fiber: "#60a5fa",
   gas: "#f97316",
+  fire: "#ef4444",
   sewer: "#94a3b8",
   hvac: "#c084fc",
   street: "#94a3b8",
@@ -24,10 +25,9 @@ function Pipe({ from, to, color }: { from: [number, number, number]; to: [number
   const length = Math.sqrt(dx * dx + dy * dy + dz * dz);
   const mid = [(from[0] + to[0]) / 2, (from[1] + to[1]) / 2, (from[2] + to[2]) / 2] as [number, number, number];
 
-  // rotation angles
-  const rotY = Math.atan2(dz, dx); // rotate around Y to align x/z plane
+  const rotY = Math.atan2(dz, dx);
   const horizontalDist = Math.sqrt(dx * dx + dz * dz);
-  const rotX = -Math.atan2(dy, horizontalDist); // tilt up/down
+  const rotX = -Math.atan2(dy, horizontalDist);
 
   return (
     <mesh position={mid} rotation={[rotX, -rotY, 0]}>
@@ -39,11 +39,8 @@ function Pipe({ from, to, color }: { from: [number, number, number]; to: [number
 
 /**
  * MEPSystem renders:
- * - pipes from facility points (simple: it connects each facility to each junction)
+ * - pipes from facility points to street access junctions
  * - junction spheres + hotspots
- *
- * estate: { junctions: [{id, type, coords, label}], facility: {powerHouse, waterPlant, serverRoom} }
- * activeLayers: { electrical: boolean, water:boolean, fiber:boolean, ... }
  */
 export default function MEPSystem({
   estate,
@@ -56,13 +53,27 @@ export default function MEPSystem({
 }) {
   const junctions = estate?.junctions ?? [];
 
+  // Define street access junctions for streets/L-turns
+  const streetAccessJunctions = [
+    { id: "street-right-1", type: "street", coords: [12, 0, -30], label: "Right Street 1 Access" },
+    { id: "street-right-2", type: "street", coords: [12, 0, -10], label: "Right Street 2 Access" },
+    { id: "street-right-3", type: "street", coords: [12, 0, 10], label: "Right Street 3 Access" },
+    { id: "street-left-1", type: "street", coords: [-12, 0, -30], label: "Left Street 1 Access" },
+    { id: "street-left-2", type: "street", coords: [-12, 0, -10], label: "Left Street 2 Access" },
+    { id: "street-left-3", type: "street", coords: [-12, 0, 10], label: "Left Street 3 Access" },
+    { id: "l-turn-access", type: "street", coords: [30, 0, 40], label: "L Turn Street Access" },
+  ];
+
+  // Merge estate junctions + street access junctions
+  const allJunctions = [...junctions, ...streetAccessJunctions];
+
   // facility lookup map
   const facilityMap: Record<string, any> = {
     electrical: estate?.facility?.powerHouse,
-    water: estate?.facility?.waterPlant,
-    fiber: estate?.facility?.serverRoom,
+    water: estate?.facility?.waterHouse,
+    fiber: estate?.facility?.fiberHouse ?? estate?.facility?.serverRoom,
     gas: estate?.facility?.gasPlant,
-    sewer: estate?.facility?.sewagePlant,
+    fire: estate?.facility?.fireHouse,
     hvac: estate?.facility?.powerHouse, // placeholder
   };
 
@@ -73,13 +84,15 @@ export default function MEPSystem({
       if (!activeLayers[k]) return;
       const facility = facilityMap[k];
       if (!facility) return;
-      junctions.forEach((j: any) => {
+
+      // Connect facility to each street access junction
+      streetAccessJunctions.forEach((j: any) => {
         const color = SERVICE_COLOR[k] ?? "#ffffff";
         res.push({ from: facility.coords as [number, number, number], to: j.coords as [number, number, number], color });
       });
     });
     return res;
-  }, [activeLayers, junctions, facilityMap]);
+  }, [activeLayers, facilityMap]);
 
   return (
     <group>
@@ -89,7 +102,7 @@ export default function MEPSystem({
       ))}
 
       {/* Junction markers + hotspots */}
-      {junctions.map((j: any) => {
+      {allJunctions.map((j: any) => {
         const color = SERVICE_COLOR[j.type] ?? "#999";
         return (
           <group key={j.id}>
