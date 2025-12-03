@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState, useRef } from "react";
-import Threelanding from "./components/Threelanding"; // ✅ Correct path
+import ThreeLanding from "./components/ThreeLanding"; // ✅ Correct path
 
 export default function Home() {
   const [slide, setSlide] = useState(0);
