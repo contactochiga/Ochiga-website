@@ -1,49 +1,9 @@
 "use client";
 
-import React, { Suspense, useMemo, useState, useEffect } from "react";
+import React, { Suspense, useMemo, useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import { Html, OrbitControls, useGLTF } from "@react-three/drei";
-import { Vector3 } from "three";
-import Hotspot from "./Hotspot";
+import { Html, OrbitControls } from "@react-three/drei";
 
-// ------------------------------
-// 3D Models Placeholders
-// ------------------------------
-function ModernVilla() {
-  const gltf = useGLTF("/house.glb");
-  return <primitive object={gltf.scene} scale={1} />;
-}
-
-function SchoolBuilding() {
-  return (
-    <mesh position={[0, 0, 0]}>
-      <boxGeometry args={[12, 6, 8]} />
-      <meshStandardMaterial color="#e6eef6" />
-    </mesh>
-  );
-}
-
-function MallBuilding() {
-  return (
-    <mesh position={[0, 0, 0]}>
-      <boxGeometry args={[20, 8, 12]} />
-      <meshStandardMaterial color="#cbd5e1" />
-    </mesh>
-  );
-}
-
-function GymArea() {
-  return (
-    <mesh position={[0, 0, 0]}>
-      <boxGeometry args={[10, 5, 6]} />
-      <meshStandardMaterial color="#f3f4f6" />
-    </mesh>
-  );
-}
-
-// ------------------------------
-// Types
-// ------------------------------
 type HotspotInfo = {
   id: string;
   title: string;
@@ -52,19 +12,132 @@ type HotspotInfo = {
 };
 
 // ------------------------------
-// Camera Controller
+// Simple Box Room / Window
 // ------------------------------
-function CameraController({ target, lookAt }: { target: Vector3 | null; lookAt: Vector3 | null }) {
-  const { camera } = useThree();
+function RoomBox({
+  pos,
+  size,
+  color = "#fff",
+  opacity = 1,
+}: {
+  pos: [number, number, number];
+  size: [number, number, number];
+  color?: string;
+  opacity?: number;
+}) {
+  return (
+    <mesh position={pos} castShadow receiveShadow>
+      <boxGeometry args={size} />
+      <meshStandardMaterial color={color} transparent opacity={opacity} />
+    </mesh>
+  );
+}
 
-  useEffect(() => {
-    if (target && lookAt) {
-      camera.position.copy(target);
-      camera.lookAt(lookAt);
-    }
-  }, [target, lookAt, camera]);
+// ------------------------------
+// Hotspot Button
+// ------------------------------
+function Hotspot({
+  position,
+  title,
+  onOpen,
+  color = "#ff7b2d",
+}: {
+  position: [number, number, number];
+  title: string;
+  onOpen: () => void;
+  color?: string;
+}) {
+  return (
+    <Html position={position} center transform occlude>
+      <button
+        onClick={onOpen}
+        style={{
+          background: color,
+          padding: "8px 12px",
+          borderRadius: 999,
+          color: "white",
+          border: "none",
+          cursor: "pointer",
+          fontWeight: 700,
+          boxShadow: "0 6px 16px rgba(0,0,0,0.3)",
+        }}
+      >
+        {title}
+      </button>
+    </Html>
+  );
+}
 
-  return null;
+// ------------------------------
+// MEP Pipes
+// ------------------------------
+function MEP({ visible }: { visible: boolean }) {
+  if (!visible) return null;
+
+  return (
+    <group>
+      <mesh position={[0, -0.6, 0]}>
+        <cylinderGeometry args={[0.06, 0.06, 12, 12]} />
+        <meshStandardMaterial color="#0ea5a4" />
+      </mesh>
+
+      <mesh position={[3.2, -0.4, -1.6]} rotation={[0, 0, Math.PI / 2]}>
+        <cylinderGeometry args={[0.05, 0.05, 4.8, 12]} />
+        <meshStandardMaterial color="#f59e0b" />
+      </mesh>
+
+      <mesh position={[-2.6, -0.4, 1.6]}>
+        <boxGeometry args={[0.4, 0.25, 0.4]} />
+        <meshStandardMaterial color="#f97316" />
+      </mesh>
+
+      <mesh position={[1.8, -0.4, -2.2]}>
+        <boxGeometry args={[0.4, 0.25, 0.4]} />
+        <meshStandardMaterial color="#f97316" />
+      </mesh>
+    </group>
+  );
+}
+
+// ------------------------------
+// Modern Villa Layout
+// ------------------------------
+function ModernVilla() {
+  return (
+    <group>
+      {/* Ground */}
+      <RoomBox pos={[0, -0.75, 0]} size={[30, 1.5, 22]} color="#e6eef6" />
+
+      {/* Ground Floor */}
+      <RoomBox pos={[0, 0.9, 0]} size={[12, 1.8, 9]} color="#ffffff" />
+      <RoomBox pos={[-4, 1.0, 4]} size={[2, 1.6, 0.2]} color="#9fd4f8" opacity={0.3} />
+      <RoomBox pos={[4, 1.0, 4]} size={[2, 1.6, 0.2]} color="#9fd4f8" opacity={0.3} />
+
+      {/* First Floor */}
+      <RoomBox pos={[0, 2.8, 0]} size={[12, 1.8, 9]} color="#f3f4f6" />
+      <RoomBox pos={[-4, 3.0, 4]} size={[2, 1.6, 0.2]} color="#9fd4f8" opacity={0.3} />
+      <RoomBox pos={[4, 3.0, 4]} size={[2, 1.6, 0.2]} color="#9fd4f8" opacity={0.3} />
+
+      {/* Roof */}
+      <RoomBox pos={[0, 4.0, 0]} size={[12.6, 0.2, 9.6]} color="#cbd5e1" />
+
+      {/* Parking */}
+      <RoomBox pos={[-10.2, 0.1, 2.6]} size={[6, 0.2, 10]} color="#d1d5db" />
+
+      {/* Pool */}
+      <RoomBox pos={[8.5, 0.1, -3.2]} size={[8, 0.2, 6]} color="#60a5fa" />
+
+      {/* Outdoor Lounge */}
+      <RoomBox pos={[8.5, 0.9, 2.4]} size={[5, 1.6, 3]} color="#f8fafc" />
+
+      {/* Bedrooms */}
+      <RoomBox pos={[-4.2, 2.8, -2.2]} size={[2.8, 1.6, 3]} color="#fef2f2" />
+      <RoomBox pos={[-1.2, 2.8, -2.2]} size={[2.8, 1.6, 3]} color="#fff1f2" />
+      <RoomBox pos={[1.8, 2.8, -2.2]} size={[2.8, 1.6, 3]} color="#fef6ee" />
+      <RoomBox pos={[-1.2, 2.8, 1.6]} size={[2.8, 1.6, 3]} color="#f0fdf4" />
+      <RoomBox pos={[3.2, 2.8, 1.6]} size={[3.2, 1.6, 3.6]} color="#eef2ff" />
+    </group>
+  );
 }
 
 // ------------------------------
@@ -72,151 +145,96 @@ function CameraController({ target, lookAt }: { target: Vector3 | null; lookAt: 
 // ------------------------------
 export default function ThreeLanding() {
   const [activeHotspot, setActiveHotspot] = useState<HotspotInfo | null>(null);
-  const [selectedView, setSelectedView] = useState<string>("Smart Home");
-  const [cameraTarget, setCameraTarget] = useState<Vector3 | null>(new Vector3(15, 10, 15));
-  const [cameraLookAt, setCameraLookAt] = useState<Vector3 | null>(new Vector3(0, 0, 0));
+  const [showMEP, setShowMEP] = useState(false);
 
-  // --------------------------
-  // Infrastructure Camera Positions
-  // --------------------------
-  const infrastructureViews: Record<string, [number, number, number]> = {
-    "Smart Home": [15, 10, 15],
-    "Smart School": [-15, 10, 10],
-    "Smart Mall": [10, 15, -20],
-    "Gym & Recreation": [-10, 5, -15],
-  };
-
-  useEffect(() => {
-    if (selectedView) {
-      const [x, y, z] = infrastructureViews[selectedView];
-      setCameraTarget(new Vector3(x, y, z));
-      setCameraLookAt(new Vector3(0, 0, 0));
-    }
-  }, [selectedView]);
-
-  // --------------------------
-  // Hotspots for Smart Home
-  // --------------------------
   const houseHotspots: HotspotInfo[] = useMemo(
     () => [
-      { id: "cam1", title: "Door Camera", pos: [-2.4, 1.6, -1.6], content: "HD Door Camera with smart access monitoring." },
-      { id: "lock1", title: "Smart Lock", pos: [-3.2, 0.9, -0.2], content: "Fingerprint + PIN + Phone Unlock" },
-      { id: "temp1", title: "Thermostat", pos: [0.8, 1.9, 2.0], content: "Main Temperature Control Panel" },
-      { id: "kitchen-panel", title: "Kitchen Automation", pos: [2.0, 1.1, 2.4], content: "Kitchen Control Panel" },
-      { id: "living-sensor", title: "Motion Sensor", pos: [-2.6, 1.9, -0.2], content: "Living room Motion + Lighting automation" },
+      { id: "cam1", title: "Door Camera", pos: [-2.4, 1.6, -1.6], content: "HD Door Camera" },
+      { id: "lock1", title: "Smart Lock", pos: [-3.2, 0.9, -0.2], content: "Keyless entry" },
+      { id: "temp1", title: "Thermostat", pos: [0.8, 1.9, 2.0], content: "Temperature Control" },
     ],
     []
   );
 
-  const handleHotspotClick = (h: HotspotInfo) => {
-    setActiveHotspot(h);
-  };
+  const mepHotspots: HotspotInfo[] = useMemo(
+    () => [
+      { id: "junction1", title: "Junction Box", pos: [-2.6, -0.3, 1.6], content: "Electrical junction" },
+      { id: "pipe1", title: "Water Inlet", pos: [1.8, -0.3, -2.2], content: "Water pipe inlet" },
+    ],
+    []
+  );
 
-  // --------------------------
-  // Infrastructure Renderer
-  // --------------------------
-  const renderInfrastructure = () => {
-    switch (selectedView) {
-      case "Smart Home":
-        return <ModernVilla />;
-      case "Smart School":
-        return <SchoolBuilding />;
-      case "Smart Mall":
-        return <MallBuilding />;
-      case "Gym & Recreation":
-        return <GymArea />;
-      default:
-        return null;
-    }
-  };
+  const hotspots = showMEP ? mepHotspots : houseHotspots;
 
   return (
-    <div style={{ width: "100%", height: "100vh", position: "relative" }}>
-      {/* Caption + Infrastructure Buttons */}
-      <div style={{ position: "absolute", top: 16, left: "50%", transform: "translateX(-50%)", zIndex: 20, width: "90%", maxWidth: 1200 }}>
-        <h2 style={{ color: "#111827", fontSize: 28, fontWeight: 700, textAlign: "center", marginBottom: 12 }}>
-          Welcome to a Smart Residential Estate Demo
+    <div style={{ width: "100%", height: "90vh", position: "relative" }}>
+      {/* Caption */}
+      <div style={{ position: "absolute", top: 12, left: "50%", transform: "translateX(-50%)", textAlign: "center", zIndex: 10 }}>
+        <h2 style={{ margin: 0, fontSize: 24, fontWeight: 700, color: "#111827" }}>
+          Take our smart infrastructure tour
         </h2>
-
-        <div style={{ display: "flex", justifyContent: "center", gap: 12 }}>
-          {["Smart Home", "Smart School", "Smart Mall", "Gym & Recreation"].map((label) => (
-            <button
-              key={label}
-              onClick={() => setSelectedView(label)}
-              style={{
-                padding: "10px 20px",
-                borderRadius: 999,
-                border: "2px solid #111827",
-                background: selectedView === label ? "#111827" : "transparent",
-                color: selectedView === label ? "white" : "#111827",
-                fontWeight: 600,
-                position: "relative",
-                overflow: "hidden",
-              }}
-            >
-              {label}
-              {selectedView === label && (
-                <span style={{
-                  position: "absolute",
-                  bottom: 0,
-                  left: 0,
-                  width: "100%",
-                  height: 2,
-                  background: "#ff7b2d",
-                  transition: "width 0.3s",
-                }} />
-              )}
-            </button>
-          ))}
+        <p style={{ margin: "4px 0 12px 0", fontSize: 16, color: "#4b5563" }}>
+          Tap on the products below to see how Ochiga connects security, energy, automation and more—all in one place.
+        </p>
+        <div style={{ display: "flex", justifyContent: "center", gap: 16, fontSize: 16, color: "#111827" }}>
+          <span style={{ cursor: "pointer" }}>Smart Home</span>
+          <span style={{ cursor: "pointer" }}>Smart Estate</span>
+          <span style={{ cursor: "pointer" }}>Safety & Access Control</span>
         </div>
       </div>
 
-      {/* 3D Canvas */}
-      <Canvas camera={{ position: [15, 10, 15], fov: 45 }}>
+      {/* Buttons (MEP) */}
+      <div style={{ position: "absolute", bottom: 12, left: 12, display: "flex", gap: 8, zIndex: 10 }}>
+        <button
+          onClick={() => setShowMEP((v) => !v)}
+          style={{ padding: "8px 12px", borderRadius: 8, background: "#111827", color: "white" }}
+        >
+          {showMEP ? "Hide MEP" : "Show MEP"}
+        </button>
+      </div>
+
+      <Canvas camera={{ position: [15, 10, 15], fov: 50 }}>
         <ambientLight intensity={0.6} />
         <directionalLight position={[10, 10, 10]} intensity={1} />
 
         <Suspense fallback={null}>
-          {renderInfrastructure()}
+          <ModernVilla />
+          <MEP visible={showMEP} />
 
-          {/* Render hotspots only for Smart Home */}
-          {selectedView === "Smart Home" &&
-            houseHotspots.map((h) => (
-              <Hotspot key={h.id} position={h.pos} title={h.title} onOpen={() => handleHotspotClick(h)} />
-            ))
-          }
+          {hotspots.map((h) => (
+            <Hotspot
+              key={h.id}
+              position={h.pos}
+              title={h.title}
+              onOpen={() => setActiveHotspot(h)}
+              color={showMEP ? "#00aaff" : "#ff7b2d"}
+            />
+          ))}
 
-          <OrbitControls enableZoom={true} enablePan={true} />
-          <CameraController target={cameraTarget} lookAt={cameraLookAt} />
+          <OrbitControls />
         </Suspense>
       </Canvas>
 
-      {/* Popup Information Panel */}
+      {/* Hotspot panel */}
       {activeHotspot && (
-        <div style={{
-          position: "absolute",
-          bottom: "20px",
-          left: "20px",
-          padding: "16px",
-          background: "white",
-          borderRadius: "12px",
-          boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
-          width: "260px",
-          zIndex: 10,
-        }}>
-          <h3 style={{ margin: 0, fontWeight: "600" }}>{activeHotspot.title}</h3>
-          <p style={{ marginTop: "8px" }}>{activeHotspot.content}</p>
-
+        <div
+          style={{
+            position: "absolute",
+            bottom: 20,
+            left: 20,
+            width: 260,
+            padding: 16,
+            background: "white",
+            borderRadius: 12,
+            boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+            zIndex: 10,
+          }}
+        >
+          <h3 style={{ margin: 0 }}>{activeHotspot.title}</h3>
+          <p style={{ marginTop: 8 }}>{activeHotspot.content}</p>
           <button
             onClick={() => setActiveHotspot(null)}
-            style={{
-              marginTop: "10px",
-              padding: "8px 14px",
-              background: "#ff7b2d",
-              color: "white",
-              borderRadius: "8px",
-              border: "none",
-            }}
+            style={{ marginTop: 10, padding: "8px 14px", background: "#ff7b2d", color: "white", borderRadius: 8, border: "none" }}
           >
             Close
           </button>
