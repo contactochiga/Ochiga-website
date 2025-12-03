@@ -74,7 +74,7 @@ export default function Home() {
 
       {/* 3D / THREEJS LANDING SECTION */}
       <section className="w-full h-[80vh] md:h-[90vh] bg-[#140A0A] flex items-center justify-center">
-        <Threelanding />
+        <ThreeLanding />
       </section>
 
       {/* SERVICES SECTION */}
