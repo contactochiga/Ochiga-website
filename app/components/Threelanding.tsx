@@ -97,29 +97,36 @@ function MEP({ visible }: { visible: boolean }) {
 }
 
 // ------------------------------
-// Modern Villa Layout
+// Villa Layout
 // ------------------------------
 function ModernVilla() {
   return (
     <group>
       {/* Ground */}
       <RoomBox pos={[0, -0.75, 0]} size={[30, 1.5, 22]} color="#e6eef6" />
-      {/* Ground Floor */}
+
+      {/* Ground Floor Walls */}
       <RoomBox pos={[0, 0.9, 0]} size={[12, 1.8, 9]} color="#ffffff" />
       <RoomBox pos={[-4, 1.0, 4]} size={[2, 1.6, 0.2]} color="#9fd4f8" opacity={0.3} />
       <RoomBox pos={[4, 1.0, 4]} size={[2, 1.6, 0.2]} color="#9fd4f8" opacity={0.3} />
+
       {/* First Floor */}
       <RoomBox pos={[0, 2.8, 0]} size={[12, 1.8, 9]} color="#f3f4f6" />
       <RoomBox pos={[-4, 3.0, 4]} size={[2, 1.6, 0.2]} color="#9fd4f8" opacity={0.3} />
       <RoomBox pos={[4, 3.0, 4]} size={[2, 1.6, 0.2]} color="#9fd4f8" opacity={0.3} />
+
       {/* Roof */}
       <RoomBox pos={[0, 4.0, 0]} size={[12.6, 0.2, 9.6]} color="#cbd5e1" />
+
       {/* Parking */}
       <RoomBox pos={[-10.2, 0.1, 2.6]} size={[6, 0.2, 10]} color="#d1d5db" />
+
       {/* Pool */}
       <RoomBox pos={[8.5, 0.1, -3.2]} size={[8, 0.2, 6]} color="#60a5fa" />
+
       {/* Outdoor Lounge */}
       <RoomBox pos={[8.5, 0.9, 2.4]} size={[5, 1.6, 3]} color="#f8fafc" />
+
       {/* Bedrooms */}
       <RoomBox pos={[-4.2, 2.8, -2.2]} size={[2.8, 1.6, 3]} color="#fef2f2" />
       <RoomBox pos={[-1.2, 2.8, -2.2]} size={[2.8, 1.6, 3]} color="#fff1f2" />
@@ -131,7 +138,7 @@ function ModernVilla() {
 }
 
 // ------------------------------
-// Main Component
+// MAIN COMPONENT
 // ------------------------------
 export default function ThreeLanding() {
   const [activeHotspot, setActiveHotspot] = useState<HotspotInfo | null>(null);
@@ -158,20 +165,20 @@ export default function ThreeLanding() {
 
   return (
     <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: 16 }}>
-      {/* Caption + Categories */}
-      <div style={{ textAlign: "center", padding: "16px 8px" }}>
+      {/* Caption */}
+      <div style={{ textAlign: "center", padding: "16px" }}>
         <h2 style={{ margin: 0, fontSize: 24, fontWeight: 700 }}>Take our smart infrastructure tour</h2>
-        <p style={{ margin: "8px 0", fontSize: 16, color: "#4b5563" }}>
+        <p style={{ marginTop: 8, fontSize: 16, color: "#4b5563" }}>
           Tap on the products below to see how Ochiga connects security, energy, automation and more—all in one place.
         </p>
-        <div style={{ display: "flex", justifyContent: "center", gap: 16, flexWrap: "wrap", fontSize: 16, color: "#111827" }}>
+        <div style={{ display: "flex", justifyContent: "center", gap: 16, marginTop: 8, flexWrap: "wrap", fontWeight: 600 }}>
           <span style={{ cursor: "pointer" }}>Smart Home</span>
           <span style={{ cursor: "pointer" }}>Smart Estate</span>
           <span style={{ cursor: "pointer" }}>Safety & Access Control</span>
         </div>
       </div>
 
-      {/* 3D Canvas */}
+      {/* Canvas */}
       <div style={{ width: "100%", minHeight: "60vh", position: "relative" }}>
         <Canvas camera={{ position: [15, 10, 15], fov: 50 }}>
           <ambientLight intensity={0.6} />
@@ -195,13 +202,13 @@ export default function ThreeLanding() {
           </Suspense>
         </Canvas>
 
-        {/* Hotspot Panel */}
+        {/* Hotspot panel */}
         {activeHotspot && (
           <div
             style={{
               position: "absolute",
-              bottom: 16,
-              left: 16,
+              bottom: 20,
+              left: 20,
               width: 260,
               padding: 16,
               background: "white",
@@ -222,8 +229,8 @@ export default function ThreeLanding() {
         )}
       </div>
 
-      {/* MEP / Controls */}
-      <div style={{ display: "flex", justifyContent: "center", gap: 8, paddingBottom: 16 }}>
+      {/* Show MEP Button */}
+      <div style={{ display: "flex", justifyContent: "center", marginBottom: 16 }}>
         <button
           onClick={() => setShowMEP((v) => !v)}
           style={{ padding: "8px 16px", borderRadius: 8, background: "#111827", color: "white" }}
