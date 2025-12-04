@@ -10,12 +10,20 @@ type HotspotProps = {
   color?: string;
 };
 
-export default function Hotspot({ position, title, onOpen, color = "#ff7b2d" }: HotspotProps) {
+export default function Hotspot({
+  position,
+  title,
+  onOpen,
+  color = "#ff7b2d",
+}: HotspotProps) {
   return (
     <Html position={position} center transform occlude>
       <div style={{ transform: "translate(-50%,-50%)", display: "flex", justifyContent: "center", alignItems: "center" }}>
         <button
-          onClick={(e) => { e.stopPropagation(); onOpen(); }}
+          onClick={(e) => {
+            e.stopPropagation();
+            onOpen();
+          }}
           style={{
             background: color,
             border: "none",
@@ -25,7 +33,7 @@ export default function Hotspot({ position, title, onOpen, color = "#ff7b2d" }: 
             fontWeight: 700,
             cursor: "pointer",
             boxShadow: "0 6px 18px rgba(0,0,0,0.25)",
-            whiteSpace: "nowrap"
+            whiteSpace: "nowrap",
           }}
         >
           {title}
