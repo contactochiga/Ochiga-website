@@ -1,6 +1,5 @@
 // app/components/ThreeLanding.tsx
 "use client";
-
 import React, { Suspense, useMemo, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
@@ -9,7 +8,7 @@ import Hotspot from "./Hotspot";
 import MEPSystem from "./MEPSystem";
 import useTelemetrySimulator from "./TelemetrySimulator";
 
-/* ---------- Simple Box helper ---------- */
+/* Simple box helper */
 function Box({ pos, size, color = "#fff", opacity = 1 }: { pos: [number, number, number]; size: [number, number, number]; color?: string; opacity?: number }) {
   return (
     <mesh position={pos as any} castShadow receiveShadow>
@@ -19,144 +18,100 @@ function Box({ pos, size, color = "#fff", opacity = 1 }: { pos: [number, number,
   );
 }
 
-/* ---------- Estate layout (DT / PT mapping) ---------- */
-/**
- * Layout notes:
- * - Coordinates are meters in a local plane.
- * - Right-hand side has rows of DT (5-bed duplex/terrace).
- * - Left-hand side has PT blocks (multi-storey flats).
- * - Facility buildings are at the top of the plan.
- *
- * Modify coords to match exact placement later.
- */
-const exampleEstate = {
-  name: "Ochiga Demo Estate",
-  // Facility cluster (top)
-  facility: {
-    powerHouse: { id: "power-house", type: "electrical", coords: [0, -0.4, -40], label: "Power House" },
-    waterPlant: { id: "water-plant", type: "water", coords: [-30, -0.4, 30], label: "Water Plant" },
-    serverRoom: { id: "fiber-hub", type: "fiber", coords: [30, -0.4, 30], label: "Fiber Headend" },
-    gasPlant: { id: "gas-plant", type: "gas", coords: [0, -0.4, 42], label: "Gas Plant" },
-    fireHouse: { id: "fire-house", type: "fire", coords: [-14, -0.4, 42], label: "Fire House" },
-    sewagePlant: { id: "sewage-plant", type: "sewer", coords: [14, -0.4, 42], label: "Sewage Plant" },
-  },
-
-  // Junctions along streets (where pipes/ducts meet the road)
-  junctions: [
-    { id: "jn-main-1", type: "street", coords: [0, -0.3, 0], label: "Main Street Junction" },
-    { id: "jn-right-1", type: "street", coords: [18, -0.3, -8], label: "Right Street J1" },
-    { id: "jn-right-2", type: "street", coords: [18, -0.3, 8], label: "Right Street J2" },
-    { id: "jn-left-1", type: "street", coords: [-18, -0.3, -8], label: "Left Street J1" },
-    { id: "jn-left-2", type: "street", coords: [-18, -0.3, 8], label: "Left Street J2" },
-    { id: "jn-bottom", type: "street", coords: [0, -0.3, 40], label: "Bottom Junction" },
-  ],
-
-  // Units: DT = terrace duplex (5-bed), PT = multi-storey (2/3/7-bed)
-  units: [
-    // Right side: DT1..DT6 — five-bedroom 2-floor terraces arranged down the right side
-    { id: "DT1", type: "5bed-terrace", coords: [30, 0.8, -18] },
-    { id: "DT2", type: "5bed-terrace", coords: [30, 0.8, -6] },
-    { id: "DT3", type: "5bed-terrace", coords: [30, 0.8, 6] },
-    { id: "DT4", type: "5bed-terrace", coords: [30, 0.8, 18] },
-    { id: "DT5", type: "5bed-terrace", coords: [42, 0.8, -10] },
-    { id: "DT6", type: "5bed-terrace", coords: [42, 0.8, 10] },
-
-    // Left side: PT1..PT4
-    // PT1: 2-bedroom (multi-storey)
-    { id: "PT1-A", type: "2bed-flat", coords: [-28, 1.6, -14] },
-    { id: "PT1-B", type: "2bed-flat", coords: [-28, 1.6, -4] },
-
-    // PT2: 3-bedroom (multi-storey)
-    { id: "PT2-A", type: "3bed-flat", coords: [-28, 1.6, 4] },
-    { id: "PT2-B", type: "3bed-flat", coords: [-28, 1.6, 14] },
-
-    // PT3 & PT4: larger terrace/penthouses (7-bed style)
-    { id: "PT3-1", type: "7bed-terrace", coords: [-8, 2.4, -18] },
-    { id: "PT3-2", type: "7bed-terrace", coords: [-8, 2.4, -6] },
-    { id: "PT4-1", type: "7bed-terrace", coords: [-8, 2.4, 6] },
-    { id: "PT4-2", type: "7bed-terrace", coords: [-8, 2.4, 18] },
-
-    // Facility support / common areas (pool, gym, parking)
-    { id: "pool", type: "amenity-pool", coords: [0, 0.3, 8] },
-    { id: "gym", type: "amenity-gym", coords: [0, 0.3, -12] },
-    { id: "facility-office", type: "facility-office", coords: [0, 0.3, 34] },
-  ],
-};
-
-/* ---------- Small visual building generator ---------- */
-function EstateMasses() {
-  return (
-    <group>
-      {/* large ground plane */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.01, 0]}>
-        <planeGeometry args={[180, 160]} />
-        <meshStandardMaterial color="#0b1220" />
-      </mesh>
-
-      {/* central road (white visible band) */}
-      <mesh position={[0, 0.02, 0]}>
-        <boxGeometry args={[8, 0.04, 120]} />
-        <meshStandardMaterial color="#0f1724" />
-      </mesh>
-
-      {/* buildings placeholder for units */}
-      {exampleEstate.units.map((u: any) => {
-        // small heuristic for color by type
-        const color =
-          u.type.includes("5bed") ? "#fef08a" :
-          u.type.includes("7bed") ? "#fb923c" :
-          u.type.includes("3bed") ? "#bae6fd" :
-          u.type.includes("2bed") ? "#bbf7d0" :
-          u.type.includes("amenity") ? "#60a5fa" :
-          "#c7c7c7";
-
-        // size heuristics
-        const size: [number, number, number] =
-          u.type.includes("7bed") ? [8, 5, 8] :
-          u.type.includes("5bed") ? [7, 3.6, 6] :
-          u.type.includes("3bed") ? [6, 3.2, 5] :
-          u.type.includes("2bed") ? [5, 3, 4.4] :
-          [4, 2, 4];
-
-        return <Box key={u.id} pos={u.coords} size={size} color={color} />;
-      })}
-
-      {/* facility cluster boxes */}
-      {Object.values(exampleEstate.facility).map((f: any) => (
-        <Box key={f.id} pos={f.coords} size={[6, 3, 6]} color="#7dd3fc" />
-      ))}
-
-      {/* junction markers (small boxes for clarity) */}
-      {exampleEstate.junctions.map((j: any) => (
-        <Box key={j.id} pos={j.coords} size={[1.2, 0.8, 1.2]} color="#94a3b8" />
-      ))}
-    </group>
-  );
+/* Convert lat/lng -> rough meters relative coordinate so we can keep the map anchored (optional) */
+function latLngToXZ(lat: number, lng: number, originLat: number, originLng: number): [number, number] {
+  const metersPerDeg = 111000;
+  const x = (lng - originLng) * metersPerDeg;
+  const z = (lat - originLat) * metersPerDeg;
+  return [x, z];
 }
 
-/* ---------- Main component ---------- */
+/* Use your coordinates as a scaled estate footprint (we keep simple units) */
+const estateLatLng = [
+  [6.4516412, 3.5418909],
+  [6.4506977, 3.5419019],
+  [6.4507024, 3.5414641],
+  [6.4501151, 3.5415003],
+  [6.4500751, 3.5425571],
+  [6.4512871, 3.5425742],
+  [6.4513031, 3.5423874],
+  [6.4516179, 3.5423827],
+  [6.4516412, 3.5418909],
+];
+
+const originLat = estateLatLng[0][0];
+const originLng = estateLatLng[0][1];
+const estateXZ = estateLatLng.map(([lat, lng]) => {
+  const [x, z] = latLngToXZ(lat, lng, originLat, originLng);
+  // scale down so it fits nicely in the 3D scene
+  const scale = 0.06; // tune if needed
+  return [x * scale, 0, z * scale] as [number, number, number];
+});
+
+/* Full estate data (facilities + junctions + units) */
+const fullEstate = {
+  name: "Ochiga Estate - Digital Twin",
+  // Example: 15 DT units (5-bed duplex row), PT multi-story blocks, etc.
+  // coords chosen roughly around the estateXZ origin; tweak for fine placement later.
+  buildings: [
+    { id: "street-left-row", kind: "dt-row", coords: [-22, 0.9, -6] },
+    { id: "street-right-block", kind: "pt-block", coords: [22, 0.9, -6] },
+    { id: "duplex-row-right", kind: "duplex", coords: [36, 0.9, 10] },
+  ],
+  // units (a few samples; expand programmatically later)
+  units: [
+    { id: "DT1", type: "5bed-duplex", coords: [32, 1.2, 12] },
+    { id: "DT2", type: "5bed-duplex", coords: [36, 1.2, 12] },
+    { id: "DT3", type: "DT-...sample", coords: [40, 1.2, 12] },
+    { id: "PT1-101", type: "3bed-apt", coords: [20, 1.2, -4] },
+    { id: "PT1-102", type: "2bed-apt", coords: [24, 1.2, -4] },
+    { id: "PT2-201", type: "3bed-apt", coords: [-18, 1.2, -4] },
+    // ... expand to full estate programmatically later
+  ],
+  junctions: [
+    // street junctions around estate (these will be endpoints for pipes)
+    { id: "jn-main-entrance", type: "electrical", coords: [0, -0.3, 28], label: "Entrance Junction" },
+    { id: "jn-st-1", type: "street", coords: [0, -0.3, 0], label: "Main Junction" },
+    { id: "jn-st-2", type: "street", coords: [16, -0.3, 8], label: "Junction 2" },
+    { id: "jn-st-3", type: "street", coords: [-16, -0.3, 8], label: "Junction 3" },
+    // sample junctions near PT/DT clusters
+    { id: "jn-pt1", type: "electrical", coords: [20, -0.3, -6], label: "PT1 Junction" },
+    { id: "jn-dt-row", type: "electrical", coords: [36, -0.3, 10], label: "DT Row Junction" },
+  ],
+  facility: {
+    powerHouse: { id: "powerhouse", type: "electrical", coords: [0, -0.5, 36] },
+    waterHouse: { id: "waterhouse", type: "water", coords: [-26, -0.5, 12] },
+    fiberHouse: { id: "fiberhouse", type: "fiber", coords: [-26, -0.4, -6] },
+    gasPlant: { id: "gasplant", type: "gas", coords: [28, -0.4, 36] },
+    fireHouse: { id: "firehouse", type: "fire", coords: [-10, -0.4, -18] },
+    sewagePlant: { id: "sewerhouse", type: "sewer", coords: [8, -0.4, -28] },
+  },
+};
+
+/* Main scene */
 export default function ThreeLanding() {
   const [activeLayers, setActiveLayers] = useState<Record<string, boolean>>({
     electrical: true,
-    water: false,
+    water: true,
     fiber: false,
     gas: false,
     sewer: false,
+    fire: false,
     hvac: false,
   });
 
   const [selectedJunction, setSelectedJunction] = useState<any | null>(null);
-  const telemetry = useTelemetrySimulator(exampleEstate);
+  const telemetry = useTelemetrySimulator(fullEstate);
 
   const toggleLayer = (k: string) => setActiveLayers((s) => ({ ...s, [k]: !s[k] }));
 
   return (
     <div style={{ width: "100%", height: "92vh", position: "relative", background: "#020408" }}>
-      {/* Caption */}
+      {/* Top caption */}
       <div style={{ position: "absolute", left: 20, top: 18, zIndex: 60, color: "white", maxWidth: 520 }}>
         <h3 style={{ margin: 0 }}>Take our smart infrastructure tour</h3>
         <div style={{ opacity: 0.85, marginTop: 6, fontSize: 13 }}>
-          Tap the hotspots to inspect junctions, units and live telemetry — power, water, fiber, gas and more.
+          Tap on the products below to see how Ochiga connects security, energy, automation and more — all in one place.
         </div>
         <div style={{ marginTop: 8, display: "flex", gap: 12, color: "#cbd5e1", fontSize: 13 }}>
           <span>Smart Home</span>
@@ -165,43 +120,68 @@ export default function ThreeLanding() {
         </div>
       </div>
 
-      {/* Layer controls */}
+      {/* Left controls */}
       <div style={{ position: "absolute", left: 18, bottom: 18, zIndex: 70, display: "flex", gap: 8 }}>
-        <button onClick={() => toggleLayer("electrical")} style={{ padding: 8, borderRadius: 8, background: activeLayers.electrical ? "#facc15" : "#222", border: "none", color: "#000" }}>
-          Electrical
+        <button onClick={() => toggleLayer("electrical")} style={{ padding: 8, borderRadius: 8, background: activeLayers.electrical ? "#16a34a" : "#222", color: "#fff", border: "none" }}>
+          Power
         </button>
-        <button onClick={() => toggleLayer("water")} style={{ padding: 8, borderRadius: 8, background: activeLayers.water ? "#06b6d4" : "#222", border: "none", color: "#fff" }}>
+        <button onClick={() => toggleLayer("water")} style={{ padding: 8, borderRadius: 8, background: activeLayers.water ? "#06b6d4" : "#222", color: "#fff", border: "none" }}>
           Water
         </button>
-        <button onClick={() => toggleLayer("fiber")} style={{ padding: 8, borderRadius: 8, background: activeLayers.fiber ? "#60a5fa" : "#222", border: "none", color: "#fff" }}>
+        <button onClick={() => toggleLayer("fiber")} style={{ padding: 8, borderRadius: 8, background: activeLayers.fiber ? "#2563eb" : "#222", color: "#fff", border: "none" }}>
           Fiber
         </button>
-        <button onClick={() => toggleLayer("gas")} style={{ padding: 8, borderRadius: 8, background: activeLayers.gas ? "#fb923c" : "#222", border: "none", color: "#fff" }}>
+        <button onClick={() => toggleLayer("gas")} style={{ padding: 8, borderRadius: 8, background: activeLayers.gas ? "#ef4444" : "#222", color: "#fff", border: "none" }}>
           Gas
         </button>
-        <button onClick={() => toggleLayer("sewer")} style={{ padding: 8, borderRadius: 8, background: activeLayers.sewer ? "#94a3b8" : "#222", border: "none", color: "#fff" }}>
+        <button onClick={() => toggleLayer("sewer")} style={{ padding: 8, borderRadius: 8, background: activeLayers.sewer ? "#6b7280" : "#222", color: "#fff", border: "none" }}>
           Sewer
+        </button>
+        <button onClick={() => toggleLayer("fire")} style={{ padding: 8, borderRadius: 8, background: activeLayers.fire ? "#ef4444" : "#222", color: "#fff", border: "none" }}>
+          Fire
         </button>
       </div>
 
-      <Canvas camera={{ position: [80, 50, 80], fov: 50 }}>
-        <ambientLight intensity={0.8} />
-        <directionalLight position={[60, 120, 40]} intensity={1.2} />
+      {/* 3D Canvas */}
+      <Canvas camera={{ position: [50, 28, 50], fov: 50 }}>
+        <ambientLight intensity={0.7} />
+        <directionalLight position={[40, 60, 20]} intensity={1.2} />
         <Suspense fallback={null}>
-          <EstateMasses />
+          {/* estate ground */}
+          <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.01, 0]}>
+            <planeGeometry args={[200, 200]} />
+            <meshStandardMaterial color="#071025" />
+          </mesh>
 
-          <MEPSystem estate={exampleEstate} activeLayers={activeLayers} onOpenJunction={(j: any) => setSelectedJunction(j)} />
-
-          {/* Unit hotspots */}
-          {exampleEstate.units.map((u: any) => (
-            <Hotspot key={u.id} position={u.coords} title={u.id} onOpen={() => setSelectedJunction({ unit: u })} color="#ff7b2d" />
+          {/* draw estate footprint (thin line boxes) */}
+          {estateXZ.map((p, i) => (
+            <mesh key={`foot-${i}`} position={p}>
+              <sphereGeometry args={[0.2, 6, 6]} />
+              <meshStandardMaterial color="#94a3b8" />
+            </mesh>
           ))}
+
+          {/* buildings (boxes) */}
+          {fullEstate.buildings.map((b: any) => (
+            <Box key={b.id} pos={b.coords} size={[12, 3.5, 8]} color="#f3f4f6" />
+          ))}
+
+          {/* units hotspots */}
+          {fullEstate.units.map((u: any) => (
+            <group key={u.id}>
+              <Box pos={u.coords} size={[4, 2.4, 3]} color="#f59e0b" />
+              <Hotspot position={u.coords} title={u.id} onOpen={() => setSelectedJunction({ unit: u })} color="#ff7b2d" />
+            </group>
+          ))}
+
+          {/* facilities + MEP pipes */}
+          <MEPSystem estate={fullEstate} activeLayers={activeLayers} onOpenJunction={(j: any) => setSelectedJunction(j)} />
 
           <OrbitControls enablePan enableZoom enableRotate />
         </Suspense>
       </Canvas>
 
-      {/* Selected Junction/Unit panel */}
+      {/* Right-bottom selected panel */}
       {selectedJunction && (
         <div style={{
           position: "absolute", right: 18, bottom: 18, zIndex: 99,
@@ -214,6 +194,7 @@ export default function ThreeLanding() {
                 <div>Type: {selectedJunction.unit.type}</div>
                 <div style={{ marginTop: 6 }}>Electric: {telemetry[`elec-${selectedJunction.unit.id}`]?.value ?? "–"} kW</div>
                 <div>Water: {telemetry[`water-${selectedJunction.unit.id}`]?.value ?? "–"} L/s</div>
+                <div>Temp: {telemetry[`temp-${selectedJunction.unit.id}`]?.value ?? "–"} °C</div>
               </div>
             </>
           ) : (
