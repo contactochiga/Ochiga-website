@@ -1,9 +1,26 @@
 import "./globals.css";
-import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Ochiga – Smart Estates & Building Technology",
-  description: "Building the future of smart estates with automation, FTTH, and Oyi Cloud OS.",
+export const metadata = {
+  title: "Ochiga | Smart Infrastructure Operating System",
+  description:
+    "Ochiga designs, deploys, and operates digital-twin powered smart infrastructure for estates, buildings, and connected communities.",
+  keywords: [
+    "smart estate",
+    "smart infrastructure",
+    "digital twin",
+    "estate management software",
+    "smart home platform",
+    "FTTH infrastructure",
+    "property technology",
+  ],
+  openGraph: {
+    title: "Ochiga | Smart Infrastructure OS",
+    description:
+      "The operating system for smart estates and infrastructure.",
+    url: "https://ochiga.com.ng",
+    siteName: "Ochiga",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
