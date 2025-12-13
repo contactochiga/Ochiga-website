@@ -1,6 +1,17 @@
 import Header from "../components/Header";
+import Link from "next/link";
+import { sanityClient } from "../../lib/sanity";
+import { POSTS_QUERY } from "../../lib/queries";
 
-export default function BlogPage() {
+export const revalidate = 60; // ISR (enterprise friendly)
+
+async function getPosts() {
+  return sanityClient.fetch(POSTS_QUERY);
+}
+
+export default async function BlogPage() {
+  const posts = await getPosts();
+
   return (
     <main className="pt-16 bg-white text-[#1A1A1A]">
       <Header />
@@ -13,7 +24,7 @@ export default function BlogPage() {
           </h1>
           <p className="text-gray-300 max-w-3xl">
             Thought leadership on smart infrastructure, digital twins, estate
-            operations, and the future of connected environments.
+            operations, and connected environments.
           </p>
         </div>
       </section>
@@ -21,20 +32,25 @@ export default function BlogPage() {
       {/* POSTS */}
       <section className="py-24 px-6">
         <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-10">
-          {[1, 2, 3].map((i) => (
+          {posts.map((post: any) => (
             <article
-              key={i}
+              key={post._id}
               className="border rounded-2xl p-6 hover:-translate-y-1 transition"
             >
               <h3 className="text-xl font-semibold mb-2">
-                Designing Smart Estates for Long-Term Operations
+                {post.title}
               </h3>
+
               <p className="text-gray-600 text-sm mb-4">
-                Why infrastructure-first thinking matters more than devices.
+                {post.excerpt}
               </p>
-              <span className="text-[#7A0026] font-semibold">
+
+              <Link
+                href={`/blog/${post.slug.current}`}
+                className="text-[#7A0026] font-semibold"
+              >
                 Read Article →
-              </span>
+              </Link>
             </article>
           ))}
         </div>
