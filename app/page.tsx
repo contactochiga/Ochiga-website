@@ -1,13 +1,29 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import ThreeLanding from "./components/ThreeLanding";
 import Header from "./components/Header";
+import { fadeInUp } from "./lib/animate";
 
 export default function Home() {
   const [slide, setSlide] = useState(0);
+
+  // Animation refs
+  const heroRef = useRef<HTMLElement>(null);
+  const lifecycleRef = useRef<HTMLElement>(null);
+  const trainingRef = useRef<HTMLElement>(null);
+  const whyRef = useRef<HTMLElement>(null);
+
+  // Scroll target
   const servicesRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (heroRef.current) fadeInUp(heroRef.current);
+    if (lifecycleRef.current) fadeInUp(lifecycleRef.current);
+    if (trainingRef.current) fadeInUp(trainingRef.current);
+    if (whyRef.current) fadeInUp(whyRef.current);
+  }, []);
 
   const slides = [
     {
@@ -37,7 +53,10 @@ export default function Home() {
       <Header />
 
       {/* HERO SECTION */}
-      <section className="relative w-full h-screen overflow-hidden bg-[#140A0A] text-white flex items-center justify-center">
+      <section
+        ref={heroRef}
+        className="relative w-full h-screen overflow-hidden bg-[#140A0A] text-white flex items-center justify-center"
+      >
         <div className="absolute inset-0">
           <Image
             src="/hero-architecture.jpg"
@@ -81,7 +100,13 @@ export default function Home() {
       </section>
 
       {/* INFRASTRUCTURE LIFECYCLE */}
-      <section ref={servicesRef} className="py-24 px-6 bg-[#f8f8f8]">
+      <section
+        ref={(el) => {
+          servicesRef.current = el;
+          lifecycleRef.current = el;
+        }}
+        className="py-24 px-6 bg-[#f8f8f8]"
+      >
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
           Our Infrastructure Lifecycle
         </h2>
@@ -91,7 +116,7 @@ export default function Home() {
         </p>
 
         <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
-          <div className="bg-white shadow-md rounded-2xl p-8 border hover:-translate-y-1 transition">
+          <div className="bg-white shadow-md rounded-2xl p-8 border">
             <h3 className="text-2xl font-semibold mb-4">
               Pre-Construction & Design
             </h3>
@@ -104,7 +129,7 @@ export default function Home() {
             </span>
           </div>
 
-          <div className="bg-white shadow-md rounded-2xl p-8 border hover:-translate-y-1 transition">
+          <div className="bg-white shadow-md rounded-2xl p-8 border">
             <h3 className="text-2xl font-semibold mb-4">
               Deployment & FTTH Infrastructure
             </h3>
@@ -117,7 +142,7 @@ export default function Home() {
             </span>
           </div>
 
-          <div className="bg-white shadow-md rounded-2xl p-8 border hover:-translate-y-1 transition">
+          <div className="bg-white shadow-md rounded-2xl p-8 border">
             <h3 className="text-2xl font-semibold mb-4">
               Cloud OS, Aftercare & Operations
             </h3>
@@ -133,7 +158,7 @@ export default function Home() {
       </section>
 
       {/* TRAINING & CERTIFICATION */}
-      <section className="py-24 px-6 bg-white">
+      <section ref={trainingRef} className="py-24 px-6 bg-white">
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
             Training & Certification
@@ -176,7 +201,10 @@ export default function Home() {
       </section>
 
       {/* WHY OCHIGA */}
-      <section className="py-24 px-6 bg-[#140A0A] text-white">
+      <section
+        ref={whyRef}
+        className="py-24 px-6 bg-[#140A0A] text-white"
+      >
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
           <div>
             <h2 className="text-4xl font-bold mb-6">Why Ochiga</h2>
