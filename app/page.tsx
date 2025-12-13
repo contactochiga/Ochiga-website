@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
 import ThreeLanding from "./components/ThreeLanding";
 import Header from "./components/Header";
-import { fadeInUp } from "./lib/animate";
+import { fadeInUp } from "../lib/animate";
 
 export default function Home() {
   const [slide, setSlide] = useState(0);
