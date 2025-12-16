@@ -9,7 +9,7 @@
     "lint": "next lint",
 
     "sanity": "sanity",
-    "sanity:start": "sanity start",
+    "sanity:dev": "sanity dev",
     "sanity:build": "sanity build"
   },
   "dependencies": {
@@ -26,7 +26,8 @@
     "react-dom": "18.2.0",
 
     "@sanity/client": "^6.21.0",
-    "@sanity/image-url": "^1.0.2"
+    "@sanity/image-url": "^1.0.2",
+    "@sanity/vision": "^3.42.0"
   },
   "devDependencies": {
     "@types/node": "^20.11.16",
