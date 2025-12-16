@@ -1,17 +1,22 @@
-import { defineConfig } from "sanity";
-import { schemaTypes } from "./schemas";
+import { defineConfig } from 'sanity'
+import { deskTool } from 'sanity/desk'
+import { visionTool } from '@sanity/vision'
+
+import { schemaTypes } from './sanity/schemas'
 
 export default defineConfig({
-  name: "default",
-  title: "Ochiga",
+  name: 'ochiga-studio',
+  title: 'Ochiga CMS',
 
-  projectId: "ap1ku6sf",   // ✅ must match screenshot
-  dataset: "production",   // ✅
+  projectId: 'ap1ku6sf',
+  dataset: 'production',
 
-  apiVersion: "2024-01-01",
-  useCdn: true,
+  plugins: [
+    deskTool(),
+    visionTool(),
+  ],
 
   schema: {
     types: schemaTypes,
   },
-});
+})
