@@ -7,27 +7,23 @@ import ThreeLanding from "./components/ThreeLanding";
 import Header from "./components/Header";
 import { fadeInUp } from "../lib/animate";
 
-export default function Home({
+export default function HomeClient({
   featuredPosts = [],
 }: {
   featuredPosts: any[];
 }) {
   const [slide, setSlide] = useState(0);
 
-  // Animation refs
   const heroRef = useRef<HTMLElement>(null);
   const lifecycleRef = useRef<HTMLElement>(null);
   const trainingRef = useRef<HTMLElement>(null);
-  const whyRef = useRef<HTMLElement>(null);
 
-  // Scroll target
   const servicesRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     if (heroRef.current) fadeInUp(heroRef.current);
     if (lifecycleRef.current) fadeInUp(lifecycleRef.current);
     if (trainingRef.current) fadeInUp(trainingRef.current);
-    if (whyRef.current) fadeInUp(whyRef.current);
   }, []);
 
   const slides = [
@@ -45,10 +41,6 @@ export default function Home({
     },
   ];
 
-  const nextSlide = () => setSlide((slide + 1) % slides.length);
-  const prevSlide = () =>
-    setSlide((slide - 1 + slides.length) % slides.length);
-
   const handleCTAClick = () => {
     servicesRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -57,7 +49,7 @@ export default function Home({
     <main className="pt-16 w-full min-h-screen overflow-x-hidden bg-white text-[#1A1A1A]">
       <Header />
 
-      {/* ================= HERO ================= */}
+      {/* HERO */}
       <section
         ref={heroRef}
         className="relative w-full h-screen bg-[#140A0A] text-white flex items-center justify-center"
@@ -88,51 +80,17 @@ export default function Home({
         </div>
       </section>
 
-      {/* ================= THREE JS ================= */}
+      {/* THREE JS */}
       <section className="h-[90vh] bg-[#140A0A] flex items-center justify-center">
         <ThreeLanding />
       </section>
 
-      {/* ================= INFRASTRUCTURE ================= */}
-      <section
-        ref={(el) => {
-          servicesRef.current = el;
-          lifecycleRef.current = el;
-        }}
-        className="py-24 px-6 bg-[#f8f8f8]"
-      >
-        <h2 className="text-4xl font-bold text-center mb-12">
-          Our Infrastructure Lifecycle
-        </h2>
-      </section>
-
-      {/* ================= TRAINING ================= */}
-      <section ref={trainingRef} className="py-24 px-6 bg-white">
-        <h2 className="text-4xl font-bold text-center mb-12">
-          Training & Certification
-        </h2>
-      </section>
-
-      {/* ================= BLOG SNIPPETS ================= */}
+      {/* BLOG SNIPPETS */}
       <section className="py-24 px-6 bg-[#f8f8f8]">
         <div className="max-w-7xl mx-auto">
-          <div className="flex justify-between items-end mb-12">
-            <div>
-              <h2 className="text-4xl font-bold mb-2">
-                Insights & Publications
-              </h2>
-              <p className="text-gray-600">
-                Perspectives on smart infrastructure and digital twins.
-              </p>
-            </div>
-
-            <Link
-              href="/blog"
-              className="text-[#7A0026] font-semibold hidden md:block"
-            >
-              View all →
-            </Link>
-          </div>
+          <h2 className="text-4xl font-bold mb-12">
+            Insights & Publications
+          </h2>
 
           <div className="grid md:grid-cols-3 gap-8">
             {featuredPosts.map((post) => (
@@ -140,13 +98,11 @@ export default function Home({
                 key={post._id}
                 className="bg-white border rounded-2xl overflow-hidden"
               >
-                <div className="h-48">
-                  <img
-                    src={post.image}
-                    alt={post.title}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+                <img
+                  src={post.image}
+                  alt={post.title}
+                  className="w-full h-48 object-cover"
+                />
 
                 <div className="p-6">
                   <h3 className="text-xl font-semibold mb-3">
@@ -168,7 +124,6 @@ export default function Home({
         </div>
       </section>
 
-      {/* ================= FOOTER ================= */}
       <footer className="py-12 text-center text-gray-500">
         © {new Date().getFullYear()} Ochiga — Smart Infrastructure Systems.
       </footer>
