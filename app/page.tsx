@@ -57,15 +57,17 @@ export default function Home({
     <main className="pt-16 w-full min-h-screen overflow-x-hidden bg-white text-[#1A1A1A]">
       <Header />
 
-      {/* HERO */}
+      {/* ================= HERO ================= */}
       <section
         ref={heroRef}
         className="relative w-full h-screen bg-[#140A0A] text-white flex items-center justify-center"
       >
         <Image
-          src="/hero-architecture.jpg"
-          alt="Smart Infrastructure"
+          src="/8EF3039C-5E31-4A61-9296-745B359E6916.png"
+          alt="Ochiga smart infrastructure digital twin estate"
           fill
+          priority
+          unoptimized
           className="object-cover opacity-40"
         />
 
@@ -86,12 +88,12 @@ export default function Home({
         </div>
       </section>
 
-      {/* THREE JS */}
+      {/* ================= THREE JS ================= */}
       <section className="h-[90vh] bg-[#140A0A] flex items-center justify-center">
         <ThreeLanding />
       </section>
 
-      {/* INFRASTRUCTURE */}
+      {/* ================= INFRASTRUCTURE ================= */}
       <section
         ref={(el) => {
           servicesRef.current = el;
@@ -104,14 +106,14 @@ export default function Home({
         </h2>
       </section>
 
-      {/* TRAINING */}
+      {/* ================= TRAINING ================= */}
       <section ref={trainingRef} className="py-24 px-6 bg-white">
         <h2 className="text-4xl font-bold text-center mb-12">
           Training & Certification
         </h2>
       </section>
 
-      {/* BLOG SNIPPETS */}
+      {/* ================= BLOG SNIPPETS ================= */}
       <section className="py-24 px-6 bg-[#f8f8f8]">
         <div className="max-w-7xl mx-auto">
           <div className="flex justify-between items-end mb-12">
@@ -166,7 +168,7 @@ export default function Home({
         </div>
       </section>
 
-      {/* FOOTER */}
+      {/* ================= FOOTER ================= */}
       <footer className="py-12 text-center text-gray-500">
         © {new Date().getFullYear()} Ochiga — Smart Infrastructure Systems.
       </footer>
