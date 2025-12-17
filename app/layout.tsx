@@ -1,36 +1,21 @@
-import "./globals.css";
+import "./styles/globals.css";
+import Nav from "../components/Nav";
+import Footer from "../components/Footer";
 
 export const metadata = {
-  title: "Ochiga | Smart Infrastructure Operating System",
+  title: "Ochiga — Infrastructure Operating System",
   description:
-    "Ochiga designs, deploys, and operates digital-twin powered smart infrastructure for estates, buildings, and connected communities.",
-  keywords: [
-    "smart estate",
-    "smart infrastructure",
-    "digital twin",
-    "estate management software",
-    "smart home platform",
-    "FTTH infrastructure",
-    "property technology",
-  ],
-  openGraph: {
-    title: "Ochiga | Smart Infrastructure OS",
-    description:
-      "The operating system for smart estates and infrastructure.",
-    url: "https://ochiga.com.ng",
-    siteName: "Ochiga",
-    type: "website",
-  },
+    "The operating system beneath physical infrastructure, estates, and smart cities.",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <Nav />
+        <main>{children}</main>
+        <Footer />
+      </body>
     </html>
   );
 }
