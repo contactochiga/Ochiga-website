@@ -1,4 +1,4 @@
-export const fullEstate = {
+export const estateTopology = {
   buildings: [
     { id: "PT1", coords: [-22, 0, 18], size: [18, 8, 18] },
     { id: "PT2", coords: [-20, 0, -12], size: [18, 8, 18] },
