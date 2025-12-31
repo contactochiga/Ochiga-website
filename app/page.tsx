@@ -1,93 +1,52 @@
-import ConsoleFrame from "@/app/components/ConsoleFrame";
 import ThreeLanding from "@/app/components/ThreeLanding";
-import Link from "next/link";
+import TwinFrame from "@/app/components/TwinFrame";
+import CapabilityCard from "@/app/components/CapabilityCard";
 
 export default function Home() {
   return (
-    <ConsoleFrame>
+    <main className="home">
 
       {/* HERO */}
-      <section style={{ marginBottom: "140px" }}>
+      <section className="hero">
         <h1>The Operating System for Physical Infrastructure</h1>
-
         <p>
-          Ochiga builds the foundational systems that govern people, assets,
-          access, payments, events, and digital twins across estates,
-          utilities, and cities.
+          Ochiga governs people, assets, access, payments, events,
+          and digital twins across real-world environments.
         </p>
-
-        <p>
-          This is not an application.
-          <br />
-          <strong>This is infrastructure.</strong>
-        </p>
+        <strong>This is infrastructure.</strong>
       </section>
 
-      {/* DIGITAL TWIN */}
-      <section style={{ marginBottom: "160px" }}>
-        <small>LIVE SYSTEM VIEW</small>
-        <h2>Digital Twin Layer</h2>
-
-        <p>
-          A real-time spatial representation of physical assets,
-          infrastructure nodes, and operational zones.
-        </p>
-
-        <div style={{ height: "520px", marginTop: "40px" }}>
+      {/* TWIN */}
+      <section className="twin-section">
+        <TwinFrame>
           <ThreeLanding />
-        </div>
+        </TwinFrame>
       </section>
 
-      {/* HOW IT WORKS */}
-      <section style={{ marginBottom: "160px" }}>
-        <h2>How Ochiga Works</h2>
-
-        <pre>
-Identity & Authority
-        │
-Assets & Locations
-        │
-Events & Automation
-        │
-Wallets & Payments
-        │
-Digital Twins & Control
-        </pre>
-
-        <p>
-          Every action in the system is authenticated, logged, auditable,
-          and linked to a real-world entity.
-        </p>
+      {/* CAPABILITIES */}
+      <section className="caps">
+        <CapabilityCard
+          title="Smart Home"
+          color="#00E5FF"
+          description="Unified control of residential devices and access."
+        />
+        <CapabilityCard
+          title="Smart Safety"
+          color="#FFB300"
+          description="Emergency systems, alerts, and incident response."
+        />
+        <CapabilityCard
+          title="Smart Security"
+          color="#FF3B3B"
+          description="Identity-driven access control and surveillance."
+        />
+        <CapabilityCard
+          title="Utilities"
+          color="#9C27B0"
+          description="Power, water, gas, and infrastructure monitoring."
+        />
       </section>
 
-      {/* READ ONLY CONSOLE */}
-      <section style={{ marginBottom: "160px" }}>
-        <small>READ-ONLY MODE</small>
-        <h2>Infrastructure Console</h2>
-
-        <p>
-          Operators, administrators, and authorities observe system state
-          without direct intervention.
-        </p>
-
-        <Link href="/twin">View Live Twin →</Link>
-      </section>
-
-      {/* DEPLOYMENTS */}
-      <section>
-        <h2>Designed for Scale</h2>
-
-        <ul>
-          <li>Smart estates & large residential developments</li>
-          <li>Utility networks & service providers</li>
-          <li>Government & public infrastructure</li>
-        </ul>
-
-        <p>
-          Typical deployment: <strong>10,000+ physical assets</strong>
-        </p>
-      </section>
-
-    </ConsoleFrame>
+    </main>
   );
 }
