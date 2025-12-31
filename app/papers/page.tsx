@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Section from "../../components/Section";
+import Section from "@/app/components/Section";
 
 const papers = [
   {
@@ -16,12 +16,12 @@ export default function Papers() {
   return (
     <Section title="Papers">
       <ul>
-        {papers.map(p => (
+        {papers.map((p) => (
           <li key={p.slug}>
             <Link href={`/papers/${p.slug}`}>{p.title}</Link>
           </li>
         ))}
       </ul>
     </Section>
-  );
+  ); 
 }
