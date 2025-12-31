@@ -1,15 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Metric from "../../components/Metric";
-import EventLog from "../../components/EventLog";
-import TwinMap from "../../components/TwinMap";
+import Metric from "@/app/components/Metric";
+import EventLog from "@/app/components/EventLog";
+import TwinMap from "@/app/components/TwinMap";
 
 export default function Twin() {
   const [data, setData] = useState<any>(null);
 
   useEffect(() => {
-    fetch("/api/twin").then(r => r.json()).then(setData);
+    fetch("/api/twin")
+      .then((r) => r.json())
+      .then(setData);
   }, []);
 
   if (!data) return <p>INITIALIZING DIGITAL TWIN…</p>;
@@ -20,13 +22,13 @@ export default function Twin() {
       <h1>Live Digital Twin</h1>
 
       <div className="grid">
-        <Metric label="Assets" value={data.assets} />
-        <Metric label="Devices" value={data.devices} />
-        <Metric label="Events/min" value={data.eventsPerMinute} />
-        <Metric label="Health" value={data.health} />
+        <Metric label="Assets" value={data.metrics.assets} />
+        <Metric label="Devices" value={data.metrics.devices} />
+        <Metric label="Events / min" value={data.metrics.eventsPerMinute} />
+        <Metric label="Health" value={data.metrics.health} />
       </div>
 
-      <TwinMap />
+      <TwinMap topology={data.topology} />
       <EventLog events={data.events} />
     </section>
   );
