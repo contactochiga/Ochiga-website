@@ -1,58 +1,75 @@
-:root {
-  --bg: #05060a;
-  --fg: #e8eaf0;
-  --muted: #9aa0b2;
-  --accent: #7c8cff;
+.home {
+  padding: 24px;
 }
 
-* {
-  box-sizing: border-box;
+.hero {
+  margin-bottom: 80px;
 }
 
-html, body {
-  margin: 0;
-  padding: 0;
-  background: radial-gradient(1200px 600px at 50% -20%, #0b0f2a, #05060a);
-  color: var(--fg);
-  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont;
+.hero h1 {
+  font-size: 2rem;
+  line-height: 1.2;
 }
 
-main {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 96px 20px;
-}
-
-h1 {
-  font-size: clamp(2.4rem, 5vw, 4rem);
-  letter-spacing: -0.03em;
-  margin-bottom: 24px;
-}
-
-p {
-  max-width: 760px;
-  font-size: 1.05rem;
-  line-height: 1.7;
-  color: var(--fg);
-}
-
-ul {
-  max-width: 720px;
-  line-height: 1.8;
-}
-
-.section {
-  margin-bottom: 120px;
-}
-
-.console-frame {
-  border: 1px solid rgba(255,255,255,0.08);
+.twin-frame {
+  background: rgba(20, 20, 25, 0.9);
   border-radius: 18px;
-  padding: 48px;
-  background: linear-gradient(
-    180deg,
-    rgba(255,255,255,0.04),
-    rgba(255,255,255,0.01)
-  );
-  box-shadow: 0 40px 120px rgba(0,0,0,0.6);
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.twin-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  font-size: 12px;
+  background: rgba(0,0,0,0.4);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background: #00e676;
+  border-radius: 50%;
+}
+
+.twin-body {
+  height: 420px;
+}
+
+@media (min-width: 768px) {
+  .twin-body {
+    height: 520px;
+  }
+}
+
+.caps {
+  margin-top: 80px;
+  display: grid;
+  gap: 16px;
+}
+
+.cap-card {
+  display: flex;
+  gap: 14px;
+  padding: 16px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.cap-bar {
+  width: 4px;
+  border-radius: 2px;
+}
+
+.cap-card h4 {
+  margin: 0;
+}
+
+.cap-card p {
+  margin: 4px 0 0;
+  font-size: 14px;
+  opacity: 0.8;
 }
