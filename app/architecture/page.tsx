@@ -1,4 +1,4 @@
-import Section from "../../components/Section";
+import Section from "@/app/components/Section";
 
 export default function Architecture() {
   return (
@@ -13,7 +13,7 @@ Applications / Dashboards / Devices
             │
            APIs
             │
-        OCHIGA CORE
+        OYI CORE
 (Identity · Assets · Events · Wallets)
             │
    Physical Infrastructure
