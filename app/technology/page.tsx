@@ -1,4 +1,4 @@
-import Section from "../../components/Section";
+import Section from "@/app/components/Section";
 
 export default function Technology() {
   return (
