@@ -1,6 +1,5 @@
-import "./styles/globals.css";
-import Nav from "../components/Nav";
-import Footer from "../components/Footer";
+import "./globals.css";
+import Header from "@/app/components/Header";
 
 export const metadata = {
   title: "Ochiga — Infrastructure Operating System",
@@ -8,13 +7,16 @@ export const metadata = {
     "The operating system beneath physical infrastructure, estates, and smart cities.",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
       <body>
-        <Nav />
+        <Header />
         <main>{children}</main>
-        <Footer />
       </body>
     </html>
   );
