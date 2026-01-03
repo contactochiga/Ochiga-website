@@ -3,36 +3,56 @@ import Link from "next/link";
 export default function HomePage() {
   return (
     <main className="bg-black text-white">
+
       {/* ===============================
-         SECTION 1 — OPENING (HERO)
+         SECTION 1 — OPENING (VIDEO HERO)
       =============================== */}
-      <section className="min-h-screen flex flex-col justify-center px-6 md:px-20">
-        <h1 className="text-4xl md:text-7xl font-semibold tracking-tight mb-6">
-          Ochiga
-        </h1>
+      <section className="relative min-h-screen flex items-center px-6 md:px-20 overflow-hidden bg-black">
+        
+        {/* Background video */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          className="absolute inset-0 w-full h-full object-cover opacity-40"
+        >
+          <source src="/media/hero.mp4" type="video/mp4" />
+        </video>
 
-        <h2 className="text-xl md:text-2xl text-white/80 mb-8">
-          Infrastructure Operating System
-        </h2>
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-black/40" />
 
-        <p className="max-w-2xl text-lg md:text-xl text-white/70 mb-12">
-          Operate digital infrastructure across estates and buildings.
-        </p>
+        {/* Content */}
+        <div className="relative z-10 max-w-3xl">
+          <h1 className="text-4xl md:text-7xl font-semibold tracking-tight mb-6">
+            Ochiga
+          </h1>
 
-        <div className="flex flex-wrap gap-4">
-          <Link
-            href="/oyi"
-            className="px-8 py-3 rounded-full bg-white text-black text-sm font-medium hover:bg-white/90 transition"
-          >
-            Explore Oyi
-          </Link>
+          <h2 className="text-xl md:text-2xl text-white/80 mb-8">
+            Infrastructure Operating System
+          </h2>
 
-          <Link
-            href="/deployments"
-            className="px-8 py-3 rounded-full border border-white/30 text-sm hover:bg-white/10 transition"
-          >
-            Request Deployment
-          </Link>
+          <p className="max-w-2xl text-lg md:text-xl text-white/70 mb-12">
+            Operate digital infrastructure across estates and buildings.
+          </p>
+
+          <div className="flex flex-wrap gap-4">
+            <Link
+              href="/oyi"
+              className="px-8 py-3 rounded-full bg-white text-black text-sm font-medium hover:bg-white/90 transition"
+            >
+              Explore Oyi
+            </Link>
+
+            <Link
+              href="/deployments"
+              className="px-8 py-3 rounded-full border border-white/30 text-sm hover:bg-white/10 transition"
+            >
+              Request Deployment
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -83,7 +103,6 @@ export default function HomePage() {
 
       {/* ===============================
          SECTION 4 — DIGITAL TWIN
-         (IMAGE / VIDEO READY)
       =============================== */}
       <section className="min-h-screen flex flex-col justify-center px-6 md:px-20 border-t border-white/10">
         <p className="uppercase text-xs tracking-widest text-white/50 mb-4">
@@ -103,14 +122,6 @@ export default function HomePage() {
           and operational state in real time.
         </p>
 
-        {/* 
-          This section is intentionally clean.
-          You can drop:
-          - a background video
-          - a large image
-          - a controlled demo iframe
-        */}
-
         <Link
           href="/digital-twin"
           className="inline-block px-8 py-3 rounded-full border border-white/30 hover:bg-white/10 transition"
@@ -120,7 +131,7 @@ export default function HomePage() {
       </section>
 
       {/* ===============================
-         SECTION 5 — INFRASTRUCTURE LIFECYCLE
+         SECTION 5 — LIFECYCLE
       =============================== */}
       <section className="min-h-screen flex flex-col justify-center px-6 md:px-20 border-t border-white/10">
         <h2 className="text-3xl md:text-6xl font-medium mb-16">
