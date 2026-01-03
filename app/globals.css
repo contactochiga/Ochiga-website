@@ -1,30 +1,78 @@
-.home {
-  padding: 24px;
+/* ===============================
+   GLOBAL RESET & BASE
+================================ */
+
+* {
+  box-sizing: border-box;
 }
 
-.hero {
-  margin-bottom: 80px;
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #000;
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI",
+    Helvetica, Arial, sans-serif;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
 }
 
-.hero h1 {
-  font-size: 2rem;
-  line-height: 1.2;
+/* Prevent scroll when overlays are open */
+body.sidebar-open {
+  overflow: hidden;
 }
+
+/* ===============================
+   SECTION BEHAVIOR
+================================ */
+
+section {
+  position: relative;
+  width: 100%;
+}
+
+/* ===============================
+   CINEMATIC BACKGROUNDS
+================================ */
+
+.bg-grid {
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.04) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.04) 1px,
+      transparent 1px
+    );
+  background-size: 48px 48px;
+}
+
+/* ===============================
+   DIGITAL TWIN FRAME
+================================ */
 
 .twin-frame {
-  background: rgba(20, 20, 25, 0.9);
-  border-radius: 18px;
+  background: radial-gradient(
+    circle at top,
+    rgba(255, 255, 255, 0.06),
+    rgba(0, 0, 0, 0.9)
+  );
+  border-radius: 24px;
   overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
 }
 
 .twin-header {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 12px 16px;
+  padding: 14px 18px;
   font-size: 12px;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0, 0, 0, 0.45);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .status-dot {
@@ -35,41 +83,25 @@
 }
 
 .twin-body {
-  height: 420px;
+  height: 70vh;
+  min-height: 420px;
 }
 
-@media (min-width: 768px) {
-  .twin-body {
-    height: 520px;
+/* ===============================
+   FADE + SLIDE (ALIEN MOTION)
+================================ */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-.caps {
-  margin-top: 80px;
-  display: grid;
-  gap: 16px;
-}
-
-.cap-card {
-  display: flex;
-  gap: 14px;
-  padding: 16px;
-  border-radius: 14px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.06);
-}
-
-.cap-bar {
-  width: 4px;
-  border-radius: 2px;
-}
-
-.cap-card h4 {
-  margin: 0;
-}
-
-.cap-card p {
-  margin: 4px 0 0;
-  font-size: 14px;
-  opacity: 0.8;
+.animate-fade-up {
+  animation: fadeUp 0.9s ease-out forwards;
 }
