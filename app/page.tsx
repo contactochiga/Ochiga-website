@@ -5,24 +5,22 @@ export default function HomePage() {
     <main className="bg-black text-white">
 
       {/* ===============================
-         SECTION 1 — OPENING (VIDEO HERO)
+         SECTION 1 — OPENING (IMAGE HERO)
       =============================== */}
-      <section className="relative min-h-screen flex items-center px-6 md:px-20 overflow-hidden bg-black">
-        
-        {/* Background video */}
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          className="absolute inset-0 w-full h-full object-cover opacity-40"
-        >
-          <source src="/media/hero.mp4" type="video/mp4" />
-        </video>
+      <section className="relative min-h-screen flex items-center px-6 md:px-20 overflow-hidden">
 
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-black/40" />
+        {/* Background image */}
+        <img
+          src="/media/infrastructure.png"
+          alt="Infrastructure city overview"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+
+        {/* Dark cinematic overlay */}
+        <div className="absolute inset-0 bg-black/60" />
+
+        {/* Subtle gradient for depth */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
 
         {/* Content */}
         <div className="relative z-10 max-w-3xl">
@@ -67,8 +65,7 @@ export default function HomePage() {
         <p className="max-w-3xl text-lg md:text-xl text-white/70">
           Ochiga designs, deploys, and operates the digital backbone that runs
           modern estates, buildings, and physical environments.
-          <br />
-          <br />
+          <br /><br />
           We replace fragmented tools and manual processes with a unified
           infrastructure operating layer.
         </p>
@@ -116,10 +113,6 @@ export default function HomePage() {
         <p className="max-w-3xl text-lg md:text-xl text-white/70 mb-12">
           Ochiga builds digital twins as operational infrastructure —
           not visual simulations.
-          <br />
-          <br />
-          Each deployment represents real buildings, assets, systems,
-          and operational state in real time.
         </p>
 
         <Link
@@ -131,59 +124,7 @@ export default function HomePage() {
       </section>
 
       {/* ===============================
-         SECTION 5 — LIFECYCLE
-      =============================== */}
-      <section className="min-h-screen flex flex-col justify-center px-6 md:px-20 border-t border-white/10">
-        <h2 className="text-3xl md:text-6xl font-medium mb-16">
-          Across the Infrastructure Lifecycle
-        </h2>
-
-        <div className="grid md:grid-cols-3 gap-14 text-white/80">
-          <div>
-            <h3 className="text-xl mb-3">Pre-Construction</h3>
-            <p className="text-white/60">
-              Digital planning, identity models, infrastructure design,
-              and system architecture.
-            </p>
-          </div>
-
-          <div>
-            <h3 className="text-xl mb-3">During Construction</h3>
-            <p className="text-white/60">
-              Digital twin development, asset mapping,
-              and system integration.
-            </p>
-          </div>
-
-          <div>
-            <h3 className="text-xl mb-3">Post-Construction</h3>
-            <p className="text-white/60">
-              Live operations, access control,
-              utilities, payments, and governance.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* ===============================
-         SECTION 6 — WHO IT’S FOR
-      =============================== */}
-      <section className="min-h-screen flex flex-col justify-center px-6 md:px-20 border-t border-white/10">
-        <h2 className="text-3xl md:text-6xl font-medium mb-12">
-          Built for operators, not consumers.
-        </h2>
-
-        <ul className="space-y-3 text-white/70 text-lg">
-          <li>• Real-estate developers and estate owners</li>
-          <li>• Estate and facility management companies</li>
-          <li>• Utility and service providers</li>
-          <li>• Public and private infrastructure operators</li>
-          <li>• Government agencies and authorities</li>
-        </ul>
-      </section>
-
-      {/* ===============================
-         SECTION 7 — DEPLOYMENT CTA
+         SECTION 5 — DEPLOYMENT CTA
       =============================== */}
       <section className="min-h-screen flex flex-col justify-center px-6 md:px-20 border-t border-white/10">
         <h2 className="text-3xl md:text-6xl font-medium mb-6">
@@ -191,10 +132,9 @@ export default function HomePage() {
         </h2>
 
         <p className="max-w-3xl text-lg md:text-xl text-white/70 mb-12">
-          Ochiga is deployed as core infrastructure.
-          <br />
-          Each deployment is tailored to the physical,
-          operational, and regulatory realities of its environment.
+          Ochiga is deployed as core infrastructure —
+          tailored to the physical, operational,
+          and regulatory realities of its environment.
         </p>
 
         <div className="flex flex-wrap gap-4">
