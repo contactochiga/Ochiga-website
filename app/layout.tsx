@@ -4,7 +4,7 @@ import Header from "@/app/components/Header";
 export const metadata = {
   title: "Ochiga — Infrastructure Operating System",
   description:
-    "The operating system beneath physical infrastructure, estates, and smart cities.",
+    "Operate digital infrastructure across estates and buildings. Access, assets, utilities, payments, and live digital twins.",
 };
 
 export default function RootLayout({
@@ -13,10 +13,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>
+    <html lang="en" suppressHydrationWarning>
+      <body className="bg-black text-white antialiased">
+        {/* Global Navigation */}
         <Header />
-        <main>{children}</main>
+
+        {/* Page Content */}
+        <main className="relative overflow-x-hidden">
+          {children}
+        </main>
       </body>
     </html>
   );
