@@ -4,10 +4,10 @@ export default function HomePage() {
   return (
     <main className="bg-black text-white">
 
-      {/* ===============================
-         SECTION 1 — OPENING (IMAGE HERO)
-      =============================== */}
-      <section className="relative min-h-screen flex items-center px-6 md:px-20 overflow-hidden">
+      {/* =====================================================
+         SECTION 1 — CINEMATIC IMAGE HERO (INFRASTRUCTURE)
+      ====================================================== */}
+      <section className="relative min-h-screen flex items-end px-6 md:px-20 pb-24 md:pb-32 overflow-hidden">
 
         {/* Background image */}
         <img
@@ -16,37 +16,37 @@ export default function HomePage() {
           className="absolute inset-0 w-full h-full object-cover"
         />
 
-        {/* Dark cinematic overlay */}
-        <div className="absolute inset-0 bg-black/60" />
+        {/* Cinematic overlays */}
+        <div className="absolute inset-0 bg-black/55" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
 
-        {/* Subtle gradient for depth */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-
-        {/* Content */}
-        <div className="relative z-10 max-w-3xl">
-          <h1 className="text-4xl md:text-7xl font-semibold tracking-tight mb-6">
+        {/* Hero content */}
+        <div className="relative z-10 max-w-2xl">
+          <p className="text-xs uppercase tracking-[0.35em] text-white/60 mb-4">
             Ochiga
+          </p>
+
+          <h1 className="text-4xl md:text-6xl font-semibold leading-tight mb-5">
+            Infrastructure
+            <br />
+            Operating System
           </h1>
 
-          <h2 className="text-xl md:text-2xl text-white/80 mb-8">
-            Infrastructure Operating System
-          </h2>
-
-          <p className="max-w-2xl text-lg md:text-xl text-white/70 mb-12">
+          <p className="text-lg md:text-xl text-white/70 mb-10 max-w-xl">
             Operate digital infrastructure across estates and buildings.
           </p>
 
           <div className="flex flex-wrap gap-4">
             <Link
               href="/oyi"
-              className="px-8 py-3 rounded-full bg-white text-black text-sm font-medium hover:bg-white/90 transition"
+              className="px-7 py-3 rounded-full bg-white text-black text-sm font-medium hover:bg-white/90 transition"
             >
               Explore Oyi
             </Link>
 
             <Link
               href="/deployments"
-              className="px-8 py-3 rounded-full border border-white/30 text-sm hover:bg-white/10 transition"
+              className="px-7 py-3 rounded-full border border-white/30 text-sm hover:bg-white/10 transition"
             >
               Request Deployment
             </Link>
@@ -54,9 +54,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ===============================
+      {/* =====================================================
          SECTION 2 — WHAT OCHIGA DOES
-      =============================== */}
+      ====================================================== */}
       <section className="min-h-screen flex flex-col justify-center px-6 md:px-20 border-t border-white/10">
         <h2 className="text-3xl md:text-6xl font-medium mb-10 max-w-4xl">
           One system to govern access, assets, utilities, and payments.
@@ -71,9 +71,9 @@ export default function HomePage() {
         </p>
       </section>
 
-      {/* ===============================
-         SECTION 3 — PRODUCT (OYI)
-      =============================== */}
+      {/* =====================================================
+         SECTION 3 — PRODUCT: OYI
+      ====================================================== */}
       <section className="min-h-screen flex flex-col justify-center px-6 md:px-20 border-t border-white/10">
         <h2 className="text-3xl md:text-6xl font-medium mb-6">
           Oyi
@@ -98,9 +98,9 @@ export default function HomePage() {
         </Link>
       </section>
 
-      {/* ===============================
+      {/* =====================================================
          SECTION 4 — DIGITAL TWIN
-      =============================== */}
+      ====================================================== */}
       <section className="min-h-screen flex flex-col justify-center px-6 md:px-20 border-t border-white/10">
         <p className="uppercase text-xs tracking-widest text-white/50 mb-4">
           Digital Twin Infrastructure
@@ -123,9 +123,9 @@ export default function HomePage() {
         </Link>
       </section>
 
-      {/* ===============================
+      {/* =====================================================
          SECTION 5 — DEPLOYMENT CTA
-      =============================== */}
+      ====================================================== */}
       <section className="min-h-screen flex flex-col justify-center px-6 md:px-20 border-t border-white/10">
         <h2 className="text-3xl md:text-6xl font-medium mb-6">
           Deploy Ochiga
@@ -153,6 +153,7 @@ export default function HomePage() {
           </Link>
         </div>
       </section>
+
     </main>
   );
 }
