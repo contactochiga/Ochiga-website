@@ -15,10 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="bg-black text-white antialiased">
-        {/* Global Navigation */}
         <Header />
-
-        {/* Page Content */}
         <main className="relative overflow-x-hidden">
           {children}
         </main>
