@@ -5,65 +5,69 @@ export default function HomePage() {
     <main className="bg-black text-white">
 
       {/* =====================================================
-         SECTION 1 — CINEMATIC HERO (TESLA-STYLE)
+         SECTION 1 — HERO (TESLA-STYLE CANVAS)
       ====================================================== */}
-      <section className="relative h-[100svh] w-full overflow-hidden">
+      <section className="relative h-[85vh] min-h-[640px] w-full overflow-hidden">
 
         {/* Background image */}
         <img
           src="/media/infrastructure.png"
-          alt="Infrastructure city overview"
+          alt="Infrastructure overview"
           className="absolute inset-0 w-full h-full object-cover"
         />
 
-        {/* Dark cinematic overlay */}
+        {/* Dark overlay for readability */}
         <div className="absolute inset-0 bg-black/50" />
 
-        {/* Subtle depth gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/80" />
+        {/* Optional gradient depth */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/80" />
 
         {/* Hero content */}
-        <div className="relative z-10 h-full flex items-center">
-          <div className="px-6 md:px-20 max-w-4xl">
+        <div className="relative z-10 h-full flex flex-col justify-center px-6 md:px-20 max-w-7xl">
 
-            <p className="text-xs uppercase tracking-[0.35em] text-white/60 mb-4">
-              Ochiga
-            </p>
+          <p className="text-xs uppercase tracking-[0.35em] text-white/60 mb-4">
+            Ochiga
+          </p>
 
-            <h1 className="text-4xl md:text-7xl font-semibold leading-tight mb-6">
-              Infrastructure
-              <br />
-              Operating System
-            </h1>
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-semibold leading-tight max-w-3xl mb-6">
+            Infrastructure
+            <br />
+            Operating System
+          </h1>
 
-            <p className="text-lg md:text-2xl text-white/75 max-w-2xl mb-10">
-              Operate digital infrastructure across estates and buildings.
-            </p>
+          <p className="text-base md:text-xl text-white/80 max-w-2xl mb-10">
+            Operate digital infrastructure across estates and buildings.
+          </p>
 
-            <div className="flex flex-wrap gap-4">
-              <Link
-                href="/oyi"
-                className="px-8 py-3 rounded-full bg-white text-black text-sm font-medium hover:bg-white/90 transition"
-              >
-                Explore Oyi
-              </Link>
+          <div className="flex flex-wrap gap-4">
+            <Link
+              href="/oyi"
+              className="px-8 py-3 rounded-full bg-white text-black text-sm font-medium hover:bg-white/90 transition"
+            >
+              Explore Oyi
+            </Link>
 
-              <Link
-                href="/deployments"
-                className="px-8 py-3 rounded-full border border-white/40 text-sm hover:bg-white/10 transition"
-              >
-                Request Deployment
-              </Link>
-            </div>
-
+            <Link
+              href="/deployments"
+              className="px-8 py-3 rounded-full border border-white/40 text-sm hover:bg-white/10 transition"
+            >
+              Request Deployment
+            </Link>
           </div>
+        </div>
+
+        {/* Slider dots (future-ready) */}
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
+          <span className="w-2 h-2 rounded-full bg-white/90" />
+          <span className="w-2 h-2 rounded-full bg-white/40" />
+          <span className="w-2 h-2 rounded-full bg-white/40" />
         </div>
       </section>
 
       {/* =====================================================
          SECTION 2 — WHAT OCHIGA DOES
       ====================================================== */}
-      <section className="min-h-screen flex flex-col justify-center px-6 md:px-20 border-t border-white/10">
+      <section className="py-28 px-6 md:px-20 border-t border-white/10">
         <h2 className="text-3xl md:text-6xl font-medium mb-10 max-w-4xl">
           One system to govern access, assets, utilities, and payments.
         </h2>
@@ -80,7 +84,7 @@ export default function HomePage() {
       {/* =====================================================
          SECTION 3 — PRODUCT: OYI
       ====================================================== */}
-      <section className="min-h-screen flex flex-col justify-center px-6 md:px-20 border-t border-white/10">
+      <section className="py-28 px-6 md:px-20 border-t border-white/10">
         <h2 className="text-3xl md:text-6xl font-medium mb-6">
           Oyi
         </h2>
@@ -98,7 +102,7 @@ export default function HomePage() {
 
         <Link
           href="/oyi"
-          className="inline-block px-8 py-3 rounded-full border border-white/30 hover:bg-white/10 transition"
+          className="inline-block px-8 py-3 rounded-full border border-white/40 hover:bg-white/10 transition"
         >
           View Oyi
         </Link>
@@ -107,7 +111,7 @@ export default function HomePage() {
       {/* =====================================================
          SECTION 4 — DIGITAL TWIN
       ====================================================== */}
-      <section className="min-h-screen flex flex-col justify-center px-6 md:px-20 border-t border-white/10">
+      <section className="py-28 px-6 md:px-20 border-t border-white/10">
         <p className="uppercase text-xs tracking-widest text-white/50 mb-4">
           Digital Twin Infrastructure
         </p>
@@ -123,7 +127,7 @@ export default function HomePage() {
 
         <Link
           href="/digital-twin"
-          className="inline-block px-8 py-3 rounded-full border border-white/30 hover:bg-white/10 transition"
+          className="inline-block px-8 py-3 rounded-full border border-white/40 hover:bg-white/10 transition"
         >
           View Read-Only Demo
         </Link>
@@ -132,7 +136,7 @@ export default function HomePage() {
       {/* =====================================================
          SECTION 5 — DEPLOYMENT CTA
       ====================================================== */}
-      <section className="min-h-screen flex flex-col justify-center px-6 md:px-20 border-t border-white/10">
+      <section className="py-28 px-6 md:px-20 border-t border-white/10">
         <h2 className="text-3xl md:text-6xl font-medium mb-6">
           Deploy Ochiga
         </h2>
@@ -153,7 +157,7 @@ export default function HomePage() {
 
           <Link
             href="/papers"
-            className="px-8 py-3 rounded-full border border-white/30 text-sm hover:bg-white/10 transition"
+            className="px-8 py-3 rounded-full border border-white/40 text-sm hover:bg-white/10 transition"
           >
             Read Infrastructure Papers
           </Link>
