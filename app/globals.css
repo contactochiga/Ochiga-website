@@ -1,208 +1,210 @@
-/* ===============================
-   GLOBAL RESET
-================================ */
+// app/page.tsx
+"use client";
 
-* {
-  box-sizing: border-box;
-}
+import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 
-html,
-body {
-  margin: 0;
-  padding: 0;
-  background: #000;
-  color: #fff;
-  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI",
-    Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-}
+const slides = [
+  {
+    title: (
+      <>
+        Infrastructure
+        <br />
+        Operating System
+      </>
+    ),
+    description:
+      "Operate digital infrastructure across estates and buildings — access, assets, utilities, payments, and live digital twins.",
+    image: "/media/infrastructure.png",
+  },
+  {
+    title: (
+      <>
+        Smart Estate
+        <br />
+        Operations
+      </>
+    ),
+    description:
+      "Unified control for access management, utilities, billing, and shared infrastructure across modern estates.",
+    image: "/media/infrastructure.png",
+  },
+  {
+    title: (
+      <>
+        Live Digital
+        <br />
+        Twins
+      </>
+    ),
+    description:
+      "Operational digital twins representing real buildings, assets, and systems in real time.",
+    image: "/media/infrastructure.png",
+  },
+];
 
-/* ===============================
-   HERO FRAME
-================================ */
+export default function HomePage() {
+  const [active, setActive] = useState(0);
+  const touchStartX = useRef<number | null>(null);
 
-.hero-frame {
-  position: relative;
-  width: 100%;
-  max-width: 1400px;
-  height: min(90vh, 820px);
-  margin: 0 auto;
-  border-radius: 28px;
-  overflow: hidden;
-  background: #000;
-}
+  /* Auto slide */
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActive((prev) => (prev + 1) % slides.length);
+    }, 9000);
+    return () => clearInterval(interval);
+  }, []);
 
-/* Background image */
-.hero-bg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transform: scale(1.02);
-}
+  /* Swipe */
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
 
-/* Dark overlay */
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.45);
-}
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const diff = e.changedTouches[0].clientX - touchStartX.current;
 
-/* Gradient */
-.hero-gradient {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.15) 0%,
-    rgba(0, 0, 0, 0.55) 45%,
-    rgba(0, 0, 0, 0.85) 100%
+    if (diff > 60) setActive((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
+    if (diff < -60) setActive((prev) => (prev + 1) % slides.length);
+
+    touchStartX.current = null;
+  };
+
+  return (
+    <main className="bg-black text-white">
+
+      {/* =================================================
+          SECTION 1 — ENTERPRISE HERO
+      ================================================== */}
+      <section className="px-4 md:px-8 pt-24 md:pt-28">
+        <div
+          className="hero-frame"
+          onTouchStart={onTouchStart}
+          onTouchEnd={onTouchEnd}
+        >
+          <img src={slides[active].image} className="hero-bg" alt="" />
+          <div className="hero-overlay" />
+          <div className="hero-gradient" />
+
+          <div className="hero-content animate-fade-up">
+            <h1 className="hero-title">{slides[active].title}</h1>
+
+            <p className="hero-description">
+              {slides[active].description}
+            </p>
+
+            <div className="hero-cta">
+              <Link href="/oyi" className="btn-primary">Explore Oyi</Link>
+              <Link href="/deployments" className="btn-secondary">
+                Request Deployment
+              </Link>
+            </div>
+          </div>
+
+          <div className="hero-dots">
+            {slides.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setActive(i)}
+                className={`slider-dot ${active === i ? "active" : ""}`}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* =================================================
+          SECTION 2 — CORE STATEMENT
+      ================================================== */}
+      <section className="px-6 md:px-20 py-28 md:py-36">
+        <h2 className="text-3xl md:text-6xl font-medium max-w-5xl mb-10">
+          One system for real-world infrastructure.
+        </h2>
+
+        <p className="text-lg md:text-xl text-white/70 max-w-3xl">
+          Ochiga designs and operates the digital backbone that governs access,
+          assets, utilities, payments, and live systems across physical
+          environments.
+          <br /><br />
+          We deliver operator-focused infrastructure — not apps, not dashboards,
+          but systems that run estates, buildings, and cities.
+        </p>
+      </section>
+
+      {/* =================================================
+          SECTION 3 — OYI
+      ================================================== */}
+      <section className="px-6 md:px-20 py-28 md:py-36 border-t border-white/10">
+        <h2 className="text-3xl md:text-6xl font-medium mb-6">Oyi</h2>
+
+        <p className="text-lg md:text-2xl text-white/80 mb-10 max-w-3xl">
+          Smart Building & Estate Infrastructure Operating System
+        </p>
+
+        <ul className="space-y-4 text-white/70 text-lg max-w-3xl mb-12">
+          <li>• Identity-driven access control and governance</li>
+          <li>• Building systems and shared infrastructure operations</li>
+          <li>• Utilities, metering, billing, and payments</li>
+          <li>• Estate-wide operations, events, and audit trails</li>
+        </ul>
+
+        <Link href="/oyi" className="btn-secondary inline-block">
+          View Oyi
+        </Link>
+      </section>
+
+      {/* =================================================
+          SECTION 4 — DIGITAL TWIN
+      ================================================== */}
+      <section className="px-6 md:px-20 py-28 md:py-36 border-t border-white/10">
+        <p className="uppercase text-xs tracking-widest text-white/50 mb-4">
+          Digital Twin Infrastructure
+        </p>
+
+        <h2 className="text-3xl md:text-6xl font-medium mb-8 max-w-4xl">
+          Live digital twins for real-world infrastructure.
+        </h2>
+
+        <p className="text-lg md:text-xl text-white/70 max-w-3xl mb-12">
+          Ochiga builds digital twins as operational infrastructure — not visual
+          simulations.
+        </p>
+
+        <Link href="/digital-twin" className="btn-secondary">
+          View Read-Only Demo
+        </Link>
+      </section>
+
+      {/* =================================================
+          SECTION 5 — DEPLOYMENT
+      ================================================== */}
+      <section className="px-6 md:px-20 py-32 md:py-40 border-t border-white/10">
+        <h2 className="text-3xl md:text-6xl font-medium mb-6">
+          Deploy Ochiga
+        </h2>
+
+        <p className="text-lg md:text-xl text-white/70 max-w-3xl mb-12">
+          Ochiga is deployed as core infrastructure — tailored to physical,
+          operational, and regulatory realities.
+        </p>
+
+        <div className="flex flex-col sm:flex-row gap-4">
+          <Link href="/deployments" className="btn-primary">
+            Request Deployment
+          </Link>
+
+          <Link href="/papers" className="btn-secondary">
+            Read Infrastructure Papers
+          </Link>
+        </div>
+      </section>
+
+      {/* =================================================
+          FOOTER
+      ================================================== */}
+      <footer className="py-12 text-center text-white/40 text-sm">
+        OCHIGA © {new Date().getFullYear()}
+      </footer>
+    </main>
   );
-}
-
-/* ===============================
-   HERO CONTENT
-================================ */
-
-.hero-content {
-  position: relative;
-  z-index: 5;
-  height: 100%;
-  max-width: 720px;
-  padding: 72px 56px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.hero-title {
-  font-size: 52px;
-  font-weight: 600;
-  line-height: 1.08;
-  letter-spacing: -0.02em;
-  margin-bottom: 16px;
-}
-
-.hero-description {
-  font-size: 17px;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.75);
-  max-width: 520px;
-  margin-bottom: 18px;
-}
-
-/* ===============================
-   CTA GROUP
-================================ */
-
-.hero-cta {
-  display: flex;
-  gap: 10px;
-  margin-top: 6px;
-}
-
-/* Buttons */
-.btn-primary {
-  padding: 9px 18px;
-  border-radius: 12px;
-  background: #ff8c2a;
-  color: #000;
-  font-weight: 600;
-  font-size: 13px;
-  transition: all 0.25s ease;
-}
-
-.btn-primary:hover {
-  background: #ff9c47;
-  transform: translateY(-1px);
-}
-
-.btn-secondary {
-  padding: 9px 18px;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  color: #fff;
-  font-weight: 500;
-  font-size: 13px;
-  backdrop-filter: blur(6px);
-  transition: all 0.25s ease;
-}
-
-.btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.08);
-}
-
-/* ===============================
-   SLIDER DOTS
-================================ */
-
-.hero-dots {
-  position: absolute;
-  bottom: 20px;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  z-index: 10;
-}
-
-.slider-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.4);
-  border: none;
-}
-
-.slider-dot.active {
-  background: #fff;
-}
-
-/* ===============================
-   MOBILE REFINEMENT
-================================ */
-
-@media (max-width: 768px) {
-  .hero-frame {
-    height: 88vh;
-    border-radius: 18px;
-  }
-
-  .hero-content {
-    padding: 56px 24px;
-  }
-
-  .hero-title {
-    font-size: 34px;
-  }
-
-  .hero-description {
-    font-size: 15px;
-  }
-
-  .hero-cta {
-    flex-direction: column;
-    gap: 8px;
-  }
-}
-
-/* ===============================
-   ANIMATION
-================================ */
-
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(18px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-fade-up {
-  animation: fadeUp 0.8s ease-out forwards;
 }
