@@ -1,77 +1,7 @@
 // app/page.tsx
-"use client";
-
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
-
-const slides = [
-  {
-    title: (
-      <>
-        Infrastructure
-        <br />
-        Operating System
-      </>
-    ),
-    description:
-      "Operate digital infrastructure across estates and buildings — access, assets, utilities, payments, and live digital twins.",
-    image: "/media/infrastructure.png",
-  },
-  {
-    title: (
-      <>
-        Smart Estate
-        <br />
-        Operations
-      </>
-    ),
-    description:
-      "Unified control for access management, utilities, billing, and shared infrastructure across modern estates.",
-    image: "/media/infrastructure.png",
-  },
-  {
-    title: (
-      <>
-        Live Digital
-        <br />
-        Twins
-      </>
-    ),
-    description:
-      "Operational digital twins representing real buildings, assets, and systems in real time.",
-    image: "/media/infrastructure.png",
-  },
-];
 
 export default function HomePage() {
-  const [active, setActive] = useState(0);
-  const touchStartX = useRef<number | null>(null);
-
-  // Auto slide
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setActive((prev) => (prev + 1) % slides.length);
-    }, 8000);
-    return () => clearInterval(timer);
-  }, []);
-
-  // Swipe
-  const onTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX;
-  };
-
-  const onTouchEnd = (e: React.TouchEvent) => {
-    if (touchStartX.current === null) return;
-    const diff = e.changedTouches[0].clientX - touchStartX.current;
-
-    if (diff > 60) {
-      setActive((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
-    } else if (diff < -60) {
-      setActive((prev) => (prev + 1) % slides.length);
-    }
-    touchStartX.current = null;
-  };
-
   return (
     <main className="bg-black text-white">
 
@@ -79,15 +9,12 @@ export default function HomePage() {
           SECTION 1 — ENTERPRISE HERO (LOCKED)
       ================================================== */}
       <section className="px-4 md:px-8 pt-24 md:pt-28">
-        <div
-          className="hero-frame"
-          onTouchStart={onTouchStart}
-          onTouchEnd={onTouchEnd}
-        >
-          {/* Background */}
+        <div className="hero-frame">
+
+          {/* Background image */}
           <img
-            src={slides[active].image}
-            alt="Infrastructure"
+            src="/media/infrastructure.png"
+            alt="Smart estate infrastructure"
             className="hero-bg"
           />
 
@@ -95,44 +22,38 @@ export default function HomePage() {
           <div className="hero-overlay" />
           <div className="hero-gradient" />
 
-          {/* Content */}
+          {/* Hero Content */}
           <div className="hero-content animate-fade-up">
-            <h1 className="text-4xl md:text-[52px] font-semibold leading-tight mb-4">
-              {slides[active].title}
+            <p className="hero-eyebrow">Ochiga</p>
+
+            <h1 className="hero-title">
+              Infrastructure
+              <br />
+              Operating System
             </h1>
 
-            <p className="text-[15px] md:text-[17px] text-white/75 max-w-xl mb-6">
-              {slides[active].description}
+            <p className="hero-subtitle">
+              Operate digital infrastructure across estates and buildings —
+              access, assets, utilities, payments, and live digital twins.
             </p>
 
-            {/* CTA GROUP — MICRO-TUNED */}
-            <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 mt-2">
-              <Link
-                href="/oyi"
-                className="btn-primary text-center text-[13px] px-4 py-[9px]"
-              >
+            {/* CTA Buttons */}
+            <div className="hero-cta-group">
+              <Link href="/oyi" className="btn-primary">
                 Explore Oyi
               </Link>
 
-              <Link
-                href="/deployments"
-                className="btn-secondary text-center text-[13px] px-4 py-[9px]"
-              >
+              <Link href="/deployments" className="btn-secondary">
                 Request Deployment
               </Link>
             </div>
           </div>
 
-          {/* Slider dots — manual control */}
-          <div className="absolute bottom-6 left-0 right-0 flex justify-center gap-2 z-10">
-            {slides.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setActive(i)}
-                className={`slider-dot ${active === i ? "active" : ""}`}
-                aria-label={`Slide ${i + 1}`}
-              />
-            ))}
+          {/* Slider Dots (manual-ready) */}
+          <div className="hero-dots">
+            <span className="slider-dot active" />
+            <span className="slider-dot" />
+            <span className="slider-dot" />
           </div>
         </div>
       </section>
@@ -149,12 +70,90 @@ export default function HomePage() {
           Ochiga designs and operates the digital backbone that governs access,
           assets, utilities, payments, and live systems across physical
           environments.
+          <br />
+          <br />
+          We deliver integrated, operator-focused infrastructure — not apps,
+          not dashboards, but systems that run estates, buildings, and cities.
         </p>
       </section>
 
+      {/* =================================================
+          SECTION 3 — PRODUCT: OYI
+      ================================================== */}
+      <section className="px-6 md:px-20 py-28 md:py-36 border-t border-white/10">
+        <h2 className="text-3xl md:text-6xl font-medium mb-6">
+          Oyi
+        </h2>
+
+        <p className="text-lg md:text-2xl text-white/80 mb-10 max-w-3xl">
+          Smart Building & Estate Infrastructure Operating System
+        </p>
+
+        <ul className="space-y-4 text-white/70 text-lg max-w-3xl mb-12">
+          <li>• Identity-driven access control and governance</li>
+          <li>• Building systems and shared infrastructure operations</li>
+          <li>• Utilities, metering, billing, and payments</li>
+          <li>• Estate-wide operations, events, and audit trails</li>
+        </ul>
+
+        <Link href="/oyi" className="btn-secondary inline-block">
+          View Oyi
+        </Link>
+      </section>
+
+      {/* =================================================
+          SECTION 4 — DIGITAL TWIN
+      ================================================== */}
+      <section className="px-6 md:px-20 py-28 md:py-36 border-t border-white/10">
+        <p className="uppercase text-xs tracking-widest text-white/50 mb-4">
+          Digital Twin Infrastructure
+        </p>
+
+        <h2 className="text-3xl md:text-6xl font-medium mb-8 max-w-4xl">
+          Live digital twins for real-world infrastructure.
+        </h2>
+
+        <p className="text-lg md:text-xl text-white/70 max-w-3xl mb-12">
+          Ochiga builds digital twins as operational infrastructure —
+          not visual simulations.
+        </p>
+
+        <Link href="/digital-twin" className="btn-secondary">
+          View Read-Only Demo
+        </Link>
+      </section>
+
+      {/* =================================================
+          SECTION 5 — DEPLOYMENT CTA
+      ================================================== */}
+      <section className="px-6 md:px-20 py-32 md:py-40 border-t border-white/10">
+        <h2 className="text-3xl md:text-6xl font-medium mb-6">
+          Deploy Ochiga
+        </h2>
+
+        <p className="text-lg md:text-xl text-white/70 max-w-3xl mb-12">
+          Ochiga is deployed as core infrastructure — tailored to the physical,
+          operational, and regulatory realities of its environment.
+        </p>
+
+        <div className="flex flex-col sm:flex-row gap-4">
+          <Link href="/deployments" className="btn-primary">
+            Request Deployment
+          </Link>
+
+          <Link href="/papers" className="btn-secondary">
+            Read Infrastructure Papers
+          </Link>
+        </div>
+      </section>
+
+      {/* =================================================
+          FOOTER
+      ================================================== */}
       <footer className="py-12 text-center text-white/40 text-sm">
         OCHIGA © {new Date().getFullYear()}
       </footer>
+
     </main>
   );
 }
