@@ -4,15 +4,14 @@ import Link from "next/link";
 import { useState } from "react";
 
 export default function HomePage() {
-  /* =====================================================
-     HERO SLIDES (TESLA-STYLE)
-  ====================================================== */
+  const [active, setActive] = useState(0);
+
   const slides = [
     {
-      image: "/media/infrastructure.png",
       title: "Transform Estates Into Smart Ecosystems",
       subtitle:
         "Elevate your property with Ochiga’s operating system for smart estates.",
+      image: "/media/infrastructure.png",
       primaryCta: {
         label: "Explore Oyi",
         href: "/oyi",
@@ -23,10 +22,10 @@ export default function HomePage() {
       },
     },
     {
-      image: "/media/infrastructure-2.png",
       title: "The Operating System for Smart Infrastructure",
       subtitle:
-        "Digital twin–powered control for estates, buildings, and communities.",
+        "Digital twin–powered platforms for estates, buildings, and communities.",
+      image: "/media/infrastructure.png",
       primaryCta: {
         label: "View Platform",
         href: "/oyi",
@@ -37,13 +36,13 @@ export default function HomePage() {
       },
     },
     {
-      image: "/media/infrastructure-3.png",
-      title: "Design. Deploy. Operate.",
+      title: "Design. Deploy. Operate at Scale.",
       subtitle:
-        "One unified system to manage access, utilities, assets, and payments.",
+        "From pre-construction planning to long-term infrastructure operations.",
+      image: "/media/infrastructure.png",
       primaryCta: {
-        label: "Get Started",
-        href: "/deployments",
+        label: "See Use Cases",
+        href: "/digital-twin",
       },
       secondaryCta: {
         label: "Read Papers",
@@ -52,36 +51,38 @@ export default function HomePage() {
     },
   ];
 
-  const [active, setActive] = useState(0);
-
   return (
-    <main className="bg-black text-white">
+    <main className="bg-black text-white overflow-x-hidden">
 
       {/* =====================================================
-         SECTION 1 — TESLA-STYLE HERO
+          SECTION 1 — TESLA-STYLE HERO (FIXED PROPERLY)
       ====================================================== */}
-      <section className="relative h-[100svh] w-full overflow-hidden">
+      <section className="relative min-h-screen w-full overflow-hidden">
 
         {/* Background Image */}
         <img
           src={slides[active].image}
           alt="Ochiga smart infrastructure"
-          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
+          className="absolute inset-0 w-full h-full object-cover"
         />
 
         {/* Overlays */}
         <div className="absolute inset-0 bg-black/55" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
 
         {/* Hero Content */}
-        <div className="relative z-10 h-full flex items-center justify-center">
+        <div className="relative z-10 min-h-screen flex items-center justify-center">
           <div className="text-center px-6 md:px-20 max-w-4xl">
+
+            <p className="text-xs uppercase tracking-[0.35em] text-white/60 mb-6">
+              OCHIGA
+            </p>
 
             <h1 className="text-4xl md:text-7xl font-semibold leading-tight mb-6">
               {slides[active].title}
             </h1>
 
-            <p className="text-lg md:text-2xl text-white/80 mb-10">
+            <p className="text-base md:text-2xl text-white/80 mb-10">
               {slides[active].subtitle}
             </p>
 
@@ -120,7 +121,7 @@ export default function HomePage() {
       </section>
 
       {/* =====================================================
-         SECTION 2 — WHAT OCHIGA DOES
+          SECTION 2 — WHAT OCHIGA DOES
       ====================================================== */}
       <section className="min-h-screen flex flex-col justify-center px-6 md:px-20 border-t border-white/10">
         <h2 className="text-3xl md:text-6xl font-medium mb-10 max-w-4xl">
@@ -137,7 +138,7 @@ export default function HomePage() {
       </section>
 
       {/* =====================================================
-         SECTION 3 — PRODUCT: OYI
+          SECTION 3 — PRODUCT: OYI
       ====================================================== */}
       <section className="min-h-screen flex flex-col justify-center px-6 md:px-20 border-t border-white/10">
         <h2 className="text-3xl md:text-6xl font-medium mb-6">
@@ -164,7 +165,7 @@ export default function HomePage() {
       </section>
 
       {/* =====================================================
-         SECTION 4 — DIGITAL TWIN
+          SECTION 4 — DIGITAL TWIN
       ====================================================== */}
       <section className="min-h-screen flex flex-col justify-center px-6 md:px-20 border-t border-white/10">
         <p className="uppercase text-xs tracking-widest text-white/50 mb-4">
@@ -189,7 +190,7 @@ export default function HomePage() {
       </section>
 
       {/* =====================================================
-         SECTION 5 — DEPLOYMENT CTA
+          SECTION 5 — DEPLOYMENT CTA
       ====================================================== */}
       <section className="min-h-screen flex flex-col justify-center px-6 md:px-20 border-t border-white/10">
         <h2 className="text-3xl md:text-6xl font-medium mb-6">
