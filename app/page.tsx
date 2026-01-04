@@ -1,62 +1,121 @@
+"use client";
+
 import Link from "next/link";
+import { useState } from "react";
 
 export default function HomePage() {
+  /* =====================================================
+     HERO SLIDES (TESLA-STYLE)
+  ====================================================== */
+  const slides = [
+    {
+      image: "/media/infrastructure.png",
+      title: "Transform Estates Into Smart Ecosystems",
+      subtitle:
+        "Elevate your property with Ochiga’s operating system for smart estates.",
+      primaryCta: {
+        label: "Explore Oyi",
+        href: "/oyi",
+      },
+      secondaryCta: {
+        label: "Request Deployment",
+        href: "/deployments",
+      },
+    },
+    {
+      image: "/media/infrastructure-2.png",
+      title: "The Operating System for Smart Infrastructure",
+      subtitle:
+        "Digital twin–powered control for estates, buildings, and communities.",
+      primaryCta: {
+        label: "View Platform",
+        href: "/oyi",
+      },
+      secondaryCta: {
+        label: "Talk to Us",
+        href: "/deployments",
+      },
+    },
+    {
+      image: "/media/infrastructure-3.png",
+      title: "Design. Deploy. Operate.",
+      subtitle:
+        "One unified system to manage access, utilities, assets, and payments.",
+      primaryCta: {
+        label: "Get Started",
+        href: "/deployments",
+      },
+      secondaryCta: {
+        label: "Read Papers",
+        href: "/papers",
+      },
+    },
+  ];
+
+  const [active, setActive] = useState(0);
+
   return (
     <main className="bg-black text-white">
 
       {/* =====================================================
-         SECTION 1 — TESLA-STYLE HERO (BACKGROUND IMAGE)
+         SECTION 1 — TESLA-STYLE HERO
       ====================================================== */}
-      <section className="relative h-[90vh] w-full overflow-hidden">
+      <section className="relative h-[100svh] w-full overflow-hidden">
 
         {/* Background Image */}
         <img
-          src="/media/infrastructure.png"
-          alt="Infrastructure city overview"
-          className="absolute inset-0 w-full h-full object-cover"
+          src={slides[active].image}
+          alt="Ochiga smart infrastructure"
+          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
         />
 
-        {/* Dark overlay */}
+        {/* Overlays */}
         <div className="absolute inset-0 bg-black/55" />
-
-        {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
 
         {/* Hero Content */}
-        <div className="relative z-10 h-full flex items-center">
-          <div className="px-6 md:px-20 max-w-5xl">
-
-            <p className="text-xs uppercase tracking-[0.35em] text-white/60 mb-6">
-              Ochiga
-            </p>
+        <div className="relative z-10 h-full flex items-center justify-center">
+          <div className="text-center px-6 md:px-20 max-w-4xl">
 
             <h1 className="text-4xl md:text-7xl font-semibold leading-tight mb-6">
-              Infrastructure
-              <br />
-              Operating System
+              {slides[active].title}
             </h1>
 
-            <p className="max-w-2xl text-lg md:text-2xl text-white/80 mb-10">
-              Operate digital infrastructure across estates and buildings.
+            <p className="text-lg md:text-2xl text-white/80 mb-10">
+              {slides[active].subtitle}
             </p>
 
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                href="/oyi"
+                href={slides[active].primaryCta.href}
                 className="px-8 py-3 rounded-full bg-white text-black text-sm font-medium hover:bg-white/90 transition"
               >
-                Explore Oyi
+                {slides[active].primaryCta.label}
               </Link>
 
               <Link
-                href="/deployments"
-                className="px-8 py-3 rounded-full border border-white/30 text-sm hover:bg-white/10 transition"
+                href={slides[active].secondaryCta.href}
+                className="px-8 py-3 rounded-full border border-white/40 text-sm hover:bg-white/10 transition"
               >
-                Request Deployment
+                {slides[active].secondaryCta.label}
               </Link>
             </div>
-
           </div>
+        </div>
+
+        {/* Slide Dots */}
+        <div className="absolute bottom-8 left-0 right-0 flex justify-center gap-3 z-20">
+          {slides.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setActive(index)}
+              className={`w-2.5 h-2.5 rounded-full transition ${
+                active === index
+                  ? "bg-white"
+                  : "bg-white/40 hover:bg-white/70"
+              }`}
+            />
+          ))}
         </div>
       </section>
 
