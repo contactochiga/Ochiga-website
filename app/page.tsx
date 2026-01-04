@@ -24,7 +24,8 @@ export default function HomePage() {
 
           {/* Hero Content */}
           <div className="hero-content animate-fade-up">
-            <p className="hero-eyebrow">Ochiga</p>
+
+            {/* REMOVED: Ochiga eyebrow */}
 
             <h1 className="hero-title">
               Infrastructure
@@ -49,7 +50,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Slider Dots (manual-ready) */}
+          {/* Slider Dots */}
           <div className="hero-dots">
             <span className="slider-dot active" />
             <span className="slider-dot" />
