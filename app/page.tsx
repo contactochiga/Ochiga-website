@@ -5,56 +5,58 @@ export default function HomePage() {
     <main className="bg-black text-white">
 
       {/* =====================================================
-         SECTION 1 — TESLA-STYLE HERO (IMAGE AS BACKGROUND)
+         SECTION 1 — TESLA-STYLE HERO (BACKGROUND IMAGE)
       ====================================================== */}
-      <section className="relative min-h-[90vh] flex items-center justify-center px-6 md:px-20 overflow-hidden">
+      <section className="relative h-[90vh] w-full overflow-hidden">
 
-        {/* Background image */}
+        {/* Background Image */}
         <img
           src="/media/infrastructure.png"
           alt="Infrastructure city overview"
           className="absolute inset-0 w-full h-full object-cover"
         />
 
-        {/* Dark overlay for readability */}
-        <div className="absolute inset-0 bg-black/60" />
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-black/55" />
 
-        {/* Cinematic gradient */}
+        {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
 
-        {/* HERO CONTENT */}
-        <div className="relative z-10 w-full max-w-4xl text-left">
+        {/* Hero Content */}
+        <div className="relative z-10 h-full flex items-center">
+          <div className="px-6 md:px-20 max-w-5xl">
 
-          <p className="text-xs uppercase tracking-[0.35em] text-white/60 mb-5">
-            Ochiga
-          </p>
+            <p className="text-xs uppercase tracking-[0.35em] text-white/60 mb-6">
+              Ochiga
+            </p>
 
-          <h1 className="text-4xl md:text-7xl font-semibold leading-tight mb-6">
-            Infrastructure
-            <br />
-            Operating System
-          </h1>
+            <h1 className="text-4xl md:text-7xl font-semibold leading-tight mb-6">
+              Infrastructure
+              <br />
+              Operating System
+            </h1>
 
-          <p className="max-w-2xl text-lg md:text-2xl text-white/80 mb-10">
-            Operate digital infrastructure across estates and buildings.
-          </p>
+            <p className="max-w-2xl text-lg md:text-2xl text-white/80 mb-10">
+              Operate digital infrastructure across estates and buildings.
+            </p>
 
-          <div className="flex flex-wrap gap-4">
-            <Link
-              href="/oyi"
-              className="px-8 py-3 rounded-full bg-white text-black text-sm font-medium hover:bg-white/90 transition"
-            >
-              Explore Oyi
-            </Link>
+            <div className="flex flex-wrap gap-4">
+              <Link
+                href="/oyi"
+                className="px-8 py-3 rounded-full bg-white text-black text-sm font-medium hover:bg-white/90 transition"
+              >
+                Explore Oyi
+              </Link>
 
-            <Link
-              href="/deployments"
-              className="px-8 py-3 rounded-full border border-white/30 text-sm hover:bg-white/10 transition"
-            >
-              Request Deployment
-            </Link>
+              <Link
+                href="/deployments"
+                className="px-8 py-3 rounded-full border border-white/30 text-sm hover:bg-white/10 transition"
+              >
+                Request Deployment
+              </Link>
+            </div>
+
           </div>
-
         </div>
       </section>
 
@@ -75,14 +77,10 @@ export default function HomePage() {
         </p>
       </section>
 
-    </main>
-  );
-}
-
       {/* =====================================================
          SECTION 3 — PRODUCT: OYI
       ====================================================== */}
-      <section className="py-28 px-6 md:px-20 border-t border-white/10">
+      <section className="min-h-screen flex flex-col justify-center px-6 md:px-20 border-t border-white/10">
         <h2 className="text-3xl md:text-6xl font-medium mb-6">
           Oyi
         </h2>
@@ -100,7 +98,7 @@ export default function HomePage() {
 
         <Link
           href="/oyi"
-          className="inline-block px-8 py-3 rounded-full border border-white/40 hover:bg-white/10 transition"
+          className="inline-block px-8 py-3 rounded-full border border-white/30 hover:bg-white/10 transition"
         >
           View Oyi
         </Link>
@@ -109,7 +107,7 @@ export default function HomePage() {
       {/* =====================================================
          SECTION 4 — DIGITAL TWIN
       ====================================================== */}
-      <section className="py-28 px-6 md:px-20 border-t border-white/10">
+      <section className="min-h-screen flex flex-col justify-center px-6 md:px-20 border-t border-white/10">
         <p className="uppercase text-xs tracking-widest text-white/50 mb-4">
           Digital Twin Infrastructure
         </p>
@@ -125,7 +123,7 @@ export default function HomePage() {
 
         <Link
           href="/digital-twin"
-          className="inline-block px-8 py-3 rounded-full border border-white/40 hover:bg-white/10 transition"
+          className="inline-block px-8 py-3 rounded-full border border-white/30 hover:bg-white/10 transition"
         >
           View Read-Only Demo
         </Link>
@@ -134,7 +132,7 @@ export default function HomePage() {
       {/* =====================================================
          SECTION 5 — DEPLOYMENT CTA
       ====================================================== */}
-      <section className="py-28 px-6 md:px-20 border-t border-white/10">
+      <section className="min-h-screen flex flex-col justify-center px-6 md:px-20 border-t border-white/10">
         <h2 className="text-3xl md:text-6xl font-medium mb-6">
           Deploy Ochiga
         </h2>
@@ -155,7 +153,7 @@ export default function HomePage() {
 
           <Link
             href="/papers"
-            className="px-8 py-3 rounded-full border border-white/40 text-sm hover:bg-white/10 transition"
+            className="px-8 py-3 rounded-full border border-white/30 text-sm hover:bg-white/10 transition"
           >
             Read Infrastructure Papers
           </Link>
