@@ -1,103 +1,160 @@
 // app/page.tsx
+"use client";
+
+import React, { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 
+const images = [
+  "/media/infrastructure.png",
+  // add more images if you want a carousel:
+  // "/media/hero-2.jpg",
+  // "/media/hero-3.jpg",
+];
+
 export default function HomePage() {
+  const [idx, setIdx] = useState(0);
+  const [playing, setPlaying] = useState(true);
+  const timerRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    if (!playing) return;
+    timerRef.current = window.setInterval(() => {
+      setIdx((s) => (s + 1) % images.length);
+    }, 4500);
+    return () => {
+      if (timerRef.current) window.clearInterval(timerRef.current);
+    };
+  }, [playing]);
+
   return (
-    <div className="w-full bg-black text-white">
+    <main className="bg-black text-white antialiased">
+      {/* ===============================
+         HERO (framed canvas — Tesla style)
+         - framed card with rounded corners & shadow
+         - background is set via inline style to permit dynamic images
+      =============================== */}
+      <section className="w-full px-6 md:px-12 py-8">
+        <div
+          className="mx-auto max-w-6xl rounded-2xl overflow-hidden border border-white/6 shadow-2xl relative"
+          style={{ minHeight: "64vh" }}
+          onMouseEnter={() => setPlaying(false)}
+          onMouseLeave={() => setPlaying(true)}
+        >
+          {/* Background */}
+          <div
+            className="absolute inset-0 transition-opacity duration-700"
+            style={{
+              backgroundImage: `url(${images[idx]})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+            aria-hidden
+          />
 
-      {/* =================================================
-          HERO — TESLA-STYLE BACKGROUND SECTION
-      ================================================= */}
-      <section
-        className="
-          relative
-          h-[80vh]
-          w-full
-          flex
-          items-center
-          justify-center
-          px-6
-          md:px-20
-          text-center
-        "
-        style={{
-          backgroundImage: "url('/media/infrastructure.png')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-black/60" />
+          {/* Cinematic overlay for better contrast */}
+          <div className="absolute inset-0 bg-black/50" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
 
-        {/* Content */}
-        <div className="relative z-10 max-w-3xl">
-          <h1 className="text-4xl md:text-6xl font-semibold leading-tight mb-4">
-            Infrastructure
-            <br />
-            Operating System
-          </h1>
+          {/* Content container */}
+          <div className="relative z-10 flex min-h-[64vh] flex-col md:flex-row items-end md:items-center">
+            {/* Left content (desktop) / centered content (mobile) */}
+            <div className="w-full md:w-1/2 lg:w-2/5 p-8 md:p-12">
+              <p className="text-xs uppercase tracking-widest text-white/60 mb-3">
+                Ochiga
+              </p>
 
-          <p className="text-lg md:text-xl text-white/80 mb-10">
-            Operate digital infrastructure across estates and buildings.
-          </p>
+              <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">
+                Infrastructure
+                <br />
+                Operating System
+              </h1>
 
-          <div className="flex flex-col md:flex-row items-center justify-center gap-4">
-            <Link
-              href="/oyi"
-              className="
-                px-7 py-3
-                rounded-xl
-                bg-white
-                text-black
-                font-medium
-                hover:bg-gray-200
-                transition
-              "
+              <p className="text-sm md:text-lg text-white/80 mb-6 max-w-lg">
+                Operate digital infrastructure across estates and buildings —
+                access, assets, utilities, payments, and live digital twins.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Link
+                  href="/oyi"
+                  className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-[#ff8b2d] text-black font-medium shadow hover:brightness-95 transition"
+                >
+                  Explore Oyi
+                </Link>
+
+                <Link
+                  href="/deployments"
+                  className="inline-flex items-center justify-center px-6 py-3 rounded-full border border-white/20 bg-white/5 text-white hover:bg-white/10 transition"
+                >
+                  Request Deployment
+                </Link>
+              </div>
+            </div>
+
+            {/* Right side filler — leave space for design balance on large screens */}
+            <div className="hidden md:block md:flex-1" />
+          </div>
+
+          {/* Slider dots (bottom center) */}
+          <div className="absolute bottom-6 left-0 right-0 flex items-center justify-center gap-3 z-20">
+            {images.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setIdx(i)}
+                className={`h-2 w-8 rounded-full transition-all duration-200 ${
+                  i === idx ? "bg-white scale-110" : "bg-white/30"
+                }`}
+                aria-label={`Go to slide ${i + 1}`}
+              />
+            ))}
+          </div>
+
+          {/* optional left/right arrows (desktop-only) */}
+          <div className="hidden md:flex absolute inset-y-0 left-4 items-center z-20">
+            <button
+              onClick={() => setIdx((s) => (s - 1 + images.length) % images.length)}
+              className="p-2 rounded-full bg-black/40 border border-white/10 hover:bg-black/60 transition"
+              aria-label="Previous slide"
             >
-              Explore Oyi
-            </Link>
-
-            <Link
-              href="/deployments"
-              className="
-                px-7 py-3
-                rounded-xl
-                border
-                border-white/30
-                bg-white/10
-                backdrop-blur
-                hover:bg-white/20
-                transition
-              "
+              ‹
+            </button>
+          </div>
+          <div className="hidden md:flex absolute inset-y-0 right-4 items-center z-20">
+            <button
+              onClick={() => setIdx((s) => (s + 1) % images.length)}
+              className="p-2 rounded-full bg-black/40 border border-white/10 hover:bg-black/60 transition"
+              aria-label="Next slide"
             >
-              Request Deployment
-            </Link>
+              ›
+            </button>
           </div>
         </div>
       </section>
 
-      {/* =================================================
-          SECTION 2 — WHAT OCHIGA DOES
-      ================================================= */}
-      <section className="px-6 md:px-20 py-28 text-center">
-        <h2 className="text-3xl md:text-5xl font-bold mb-8">
-          One system for real-world infrastructure.
-        </h2>
+      {/* ===============================
+         SECTION 2 — WHAT OCHIGA DOES
+      =============================== */}
+      <section className="px-6 md:px-12 py-16">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+            One system for real-world infrastructure.
+          </h2>
 
-        <p className="max-w-3xl mx-auto text-lg text-white/70">
-          Ochiga designs and operates the digital backbone that governs access,
-          assets, utilities, payments, and live systems across physical
-          environments.
-        </p>
+          <p className="text-lg text-white/80 max-w-3xl">
+            Ochiga designs and operates the digital backbone that governs access,
+            assets, utilities, payments, and live systems across physical
+            environments. We deliver integrated, operator-focused systems that
+            scale from single buildings to estates and portfolios.
+          </p>
+        </div>
       </section>
 
-      {/* =================================================
-          FOOTER PLACEHOLDER
-      ================================================= */}
-      <footer className="text-center py-12 text-sm opacity-50">
-        OCHIGA © 2026
+      {/* Footer */}
+      <footer className="px-6 md:px-12 py-12">
+        <div className="max-w-6xl mx-auto text-sm text-white/60">
+          © OCHIGA — Built for operators. All rights reserved.
+        </div>
       </footer>
-
-    </div>
+    </main>
   );
 }
