@@ -4,52 +4,62 @@ export default function HomePage() {
   return (
     <main className="bg-black text-white">
 
-      {/* =====================================================
-         SECTION 1 — TESLA-STYLE HERO (IMAGE AS CANVAS)
-      ====================================================== */}
+      {/* ===============================
+         SECTION 1 — TESLA-STYLE HERO
+      =============================== */}
       <section
         className="
           relative
-          h-[85vh]
+          h-[82vh]
           min-h-[520px]
           w-full
           overflow-hidden
-          flex
-          items-center
         "
       >
         {/* Background image */}
         <img
           src="/media/infrastructure.png"
-          alt="Smart estate infrastructure"
-          className="absolute inset-0 w-full h-full object-cover"
+          alt="Infrastructure overview"
+          className="
+            absolute
+            inset-0
+            w-full
+            h-full
+            object-cover
+          "
         />
 
-        {/* Dark cinematic overlay */}
-        <div className="absolute inset-0 bg-black/55" />
+        {/* Dark overlay for readability */}
+        <div className="absolute inset-0 bg-black/50" />
 
-        {/* Subtle depth gradient */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-
-        {/* Hero content */}
-        <div className="relative z-10 w-full px-6 md:px-20">
-          <div className="max-w-2xl">
+        {/* Content wrapper */}
+        <div
+          className="
+            relative
+            z-10
+            h-full
+            flex
+            items-center
+            px-6
+            md:px-20
+          "
+        >
+          <div className="max-w-xl">
             <p className="text-xs uppercase tracking-[0.35em] text-white/60 mb-4">
               Ochiga
             </p>
 
             <h1 className="text-4xl md:text-6xl font-semibold leading-tight mb-5">
-              Transform estates into
+              Infrastructure
               <br />
-              smart ecosystems
+              Operating System
             </h1>
 
             <p className="text-base md:text-lg text-white/75 mb-8">
-              Elevate your property with Ochiga’s infrastructure
-              operating system for estates and buildings.
+              Operate digital infrastructure across estates and buildings.
             </p>
 
-            <div className="flex flex-wrap gap-4">
+            <div className="flex gap-4">
               <Link
                 href="/oyi"
                 className="
@@ -88,106 +98,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* =====================================================
-         SECTION 2 — WHAT OCHIGA DOES
-      ====================================================== */}
-      <section className="py-24 px-6 md:px-20 border-t border-white/10">
-        <h2 className="text-3xl md:text-6xl font-medium mb-10 max-w-4xl">
-          One system to govern access, assets, utilities, and payments.
-        </h2>
-
-        <p className="max-w-3xl text-lg md:text-xl text-white/70">
-          Ochiga designs, deploys, and operates the digital backbone
-          that runs modern estates, buildings, and physical environments.
-          <br /><br />
-          We replace fragmented tools and manual processes with a unified
-          infrastructure operating layer.
-        </p>
-      </section>
-
-      {/* =====================================================
-         SECTION 3 — PRODUCT: OYI
-      ====================================================== */}
-      <section className="py-24 px-6 md:px-20 border-t border-white/10">
-        <h2 className="text-3xl md:text-6xl font-medium mb-6">
-          Oyi
-        </h2>
-
-        <p className="text-lg md:text-2xl text-white/80 mb-10 max-w-3xl">
-          Smart Building & Estate Infrastructure Operating System
-        </p>
-
-        <ul className="space-y-4 text-white/70 text-lg mb-12">
-          <li>• Identity-driven access control and governance</li>
-          <li>• Building systems and shared infrastructure operations</li>
-          <li>• Utilities, metering, billing, and payments</li>
-          <li>• Estate-wide operations, events, and audit trails</li>
-        </ul>
-
-        <Link
-          href="/oyi"
-          className="inline-block px-8 py-3 rounded-full border border-white/30 hover:bg-white/10 transition"
-        >
-          View Oyi
-        </Link>
-      </section>
-
-      {/* =====================================================
-         SECTION 4 — DIGITAL TWIN
-      ====================================================== */}
-      <section className="py-24 px-6 md:px-20 border-t border-white/10">
-        <p className="uppercase text-xs tracking-widest text-white/50 mb-4">
-          Digital Twin Infrastructure
-        </p>
-
-        <h2 className="text-3xl md:text-6xl font-medium mb-8 max-w-4xl">
-          Live digital twins for real-world infrastructure.
-        </h2>
-
-        <p className="max-w-3xl text-lg md:text-xl text-white/70 mb-12">
-          Ochiga builds digital twins as operational infrastructure —
-          not visual simulations.
-        </p>
-
-        <Link
-          href="/digital-twin"
-          className="inline-block px-8 py-3 rounded-full border border-white/30 hover:bg-white/10 transition"
-        >
-          View Read-Only Demo
-        </Link>
-      </section>
-
-      {/* =====================================================
-         SECTION 5 — DEPLOYMENT CTA
-      ====================================================== */}
-      <section className="py-24 px-6 md:px-20 border-t border-white/10">
-        <h2 className="text-3xl md:text-6xl font-medium mb-6">
-          Deploy Ochiga
-        </h2>
-
-        <p className="max-w-3xl text-lg md:text-xl text-white/70 mb-12">
-          Ochiga is deployed as core infrastructure —
-          tailored to the physical, operational,
-          and regulatory realities of its environment.
-        </p>
-
-        <div className="flex flex-wrap gap-4">
-          <Link
-            href="/deployments"
-            className="px-8 py-3 rounded-full bg-white text-black text-sm font-medium hover:bg-white/90 transition"
-          >
-            Request Deployment
-          </Link>
-
-          <Link
-            href="/papers"
-            className="px-8 py-3 rounded-full border border-white/30 text-sm hover:bg-white/10 transition"
-          >
-            Read Infrastructure Papers
-          </Link>
-        </div>
-      </section>
-
+      {/* STOP HERE.
+          DO NOT TOUCH OTHER SECTIONS YET.
+          WE FIX SECTION 1 FIRST. */}
     </main>
   );
 }
