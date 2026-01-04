@@ -5,9 +5,9 @@ export default function HomePage() {
     <main className="bg-black text-white">
 
       {/* =====================================================
-         SECTION 1 — CINEMATIC IMAGE HERO (INFRASTRUCTURE)
+         SECTION 1 — HERO (INFRASTRUCTURE / CINEMATIC)
       ====================================================== */}
-      <section className="relative min-h-screen flex items-end px-6 md:px-20 pb-24 md:pb-32 overflow-hidden">
+      <section className="relative min-h-screen flex items-center px-6 md:px-20 overflow-hidden">
 
         {/* Background image */}
         <img
@@ -17,36 +17,37 @@ export default function HomePage() {
         />
 
         {/* Cinematic overlays */}
-        <div className="absolute inset-0 bg-black/55" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+        <div className="absolute inset-0 bg-black/45" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
 
         {/* Hero content */}
-        <div className="relative z-10 max-w-2xl">
-          <p className="text-xs uppercase tracking-[0.35em] text-white/60 mb-4">
+        <div className="relative z-10 w-full max-w-4xl">
+
+          <p className="text-xs uppercase tracking-[0.35em] text-white/60 mb-6">
             Ochiga
           </p>
 
-          <h1 className="text-4xl md:text-6xl font-semibold leading-tight mb-5">
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-semibold leading-[1.05] mb-6">
             Infrastructure
             <br />
             Operating System
           </h1>
 
-          <p className="text-lg md:text-xl text-white/70 mb-10 max-w-xl">
+          <p className="text-base sm:text-lg md:text-xl text-white/75 mb-12 max-w-2xl">
             Operate digital infrastructure across estates and buildings.
           </p>
 
-          <div className="flex flex-wrap gap-4">
+          <div className="flex flex-col sm:flex-row gap-4">
             <Link
               href="/oyi"
-              className="px-7 py-3 rounded-full bg-white text-black text-sm font-medium hover:bg-white/90 transition"
+              className="inline-flex justify-center px-8 py-3 rounded-full bg-white text-black text-sm font-medium hover:bg-white/90 transition"
             >
               Explore Oyi
             </Link>
 
             <Link
               href="/deployments"
-              className="px-7 py-3 rounded-full border border-white/30 text-sm hover:bg-white/10 transition"
+              className="inline-flex justify-center px-8 py-3 rounded-full border border-white/30 text-sm text-white hover:bg-white/10 transition"
             >
               Request Deployment
             </Link>
@@ -137,7 +138,7 @@ export default function HomePage() {
           and regulatory realities of its environment.
         </p>
 
-        <div className="flex flex-wrap gap-4">
+        <div className="flex flex-col sm:flex-row gap-4">
           <Link
             href="/deployments"
             className="px-8 py-3 rounded-full bg-white text-black text-sm font-medium hover:bg-white/90 transition"
