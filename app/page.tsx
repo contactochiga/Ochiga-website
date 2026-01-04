@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const slides = [
   {
@@ -38,7 +38,7 @@ const slides = [
       </>
     ),
     description:
-      "Operational digital twins representing real buildings, assets, and systems — in real time.",
+      "Operational digital twins representing real buildings, assets, and systems in real time.",
     image: "/media/infrastructure.png",
   },
 ];
@@ -49,27 +49,26 @@ export default function HomePage() {
 
   // Auto slide
   useEffect(() => {
-    const interval = setInterval(() => {
+    const timer = setInterval(() => {
       setActive((prev) => (prev + 1) % slides.length);
-    }, 7000);
-    return () => clearInterval(interval);
+    }, 8000);
+    return () => clearInterval(timer);
   }, []);
 
-  // Swipe handlers
+  // Swipe
   const onTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
   };
 
   const onTouchEnd = (e: React.TouchEvent) => {
     if (touchStartX.current === null) return;
-    const deltaX = e.changedTouches[0].clientX - touchStartX.current;
+    const diff = e.changedTouches[0].clientX - touchStartX.current;
 
-    if (deltaX > 60) {
+    if (diff > 60) {
       setActive((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
-    } else if (deltaX < -60) {
+    } else if (diff < -60) {
       setActive((prev) => (prev + 1) % slides.length);
     }
-
     touchStartX.current = null;
   };
 
@@ -77,7 +76,7 @@ export default function HomePage() {
     <main className="bg-black text-white">
 
       {/* =================================================
-          SECTION 1 — ENTERPRISE HERO SLIDER
+          SECTION 1 — ENTERPRISE HERO (LOCKED)
       ================================================== */}
       <section className="px-4 md:px-8 pt-24 md:pt-28">
         <div
@@ -88,8 +87,8 @@ export default function HomePage() {
           {/* Background */}
           <img
             src={slides[active].image}
-            alt="Infrastructure background"
-            className="hero-bg transition-opacity duration-700"
+            alt="Infrastructure"
+            className="hero-bg"
           />
 
           {/* Overlays */}
@@ -98,34 +97,33 @@ export default function HomePage() {
 
           {/* Content */}
           <div className="hero-content animate-fade-up">
-
-            <h1 className="text-4xl md:text-[56px] font-semibold mb-5 leading-tight">
+            <h1 className="text-4xl md:text-[52px] font-semibold leading-tight mb-4">
               {slides[active].title}
             </h1>
 
-            <p className="text-base md:text-lg text-white/75 max-w-xl mb-7">
+            <p className="text-[15px] md:text-[17px] text-white/75 max-w-xl mb-6">
               {slides[active].description}
             </p>
 
-            {/* CTA — tighter, smaller, bonded */}
-            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
+            {/* CTA GROUP — MICRO-TUNED */}
+            <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 mt-2">
               <Link
                 href="/oyi"
-                className="btn-primary text-center px-5 py-2.5 text-[13px]"
+                className="btn-primary text-center text-[13px] px-4 py-[9px]"
               >
                 Explore Oyi
               </Link>
 
               <Link
                 href="/deployments"
-                className="btn-secondary text-center px-5 py-2.5 text-[13px]"
+                className="btn-secondary text-center text-[13px] px-4 py-[9px]"
               >
                 Request Deployment
               </Link>
             </div>
           </div>
 
-          {/* Slider dots — manual scrub */}
+          {/* Slider dots — manual control */}
           <div className="absolute bottom-6 left-0 right-0 flex justify-center gap-2 z-10">
             {slides.map((_, i) => (
               <button
@@ -151,10 +149,6 @@ export default function HomePage() {
           Ochiga designs and operates the digital backbone that governs access,
           assets, utilities, payments, and live systems across physical
           environments.
-          <br />
-          <br />
-          We deliver integrated, operator-focused infrastructure — not apps,
-          not dashboards, but systems that run cities, estates, and buildings.
         </p>
       </section>
 
