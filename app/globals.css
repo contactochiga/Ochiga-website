@@ -1,4 +1,57 @@
 /* ===============================
+   GLOBAL RESET & BASE
+================================ */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #000;
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI",
+    Helvetica, Arial, sans-serif;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Prevent scroll when overlays are open */
+body.sidebar-open {
+  overflow: hidden;
+}
+
+/* ===============================
+   SECTION BEHAVIOR
+================================ */
+
+section {
+  position: relative;
+  width: 100%;
+}
+
+/* ===============================
+   ANIMATION
+================================ */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.9s ease-out forwards;
+}
+
+/* ===============================
    ENTERPRISE HERO FRAME
 ================================ */
 
@@ -28,6 +81,7 @@
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.45);
+  z-index: 1;
 }
 
 /* Gradient for text readability */
@@ -40,6 +94,7 @@
     rgba(0, 0, 0, 0.55) 45%,
     rgba(0, 0, 0, 0.85) 100%
   );
+  z-index: 2;
 }
 
 /* Content wrapper */
