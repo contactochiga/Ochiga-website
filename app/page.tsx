@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 const slides = [
   {
@@ -45,14 +45,33 @@ const slides = [
 
 export default function HomePage() {
   const [active, setActive] = useState(0);
+  const touchStartX = useRef<number | null>(null);
 
   // Auto slide
   useEffect(() => {
     const interval = setInterval(() => {
       setActive((prev) => (prev + 1) % slides.length);
-    }, 6000);
+    }, 7000);
     return () => clearInterval(interval);
   }, []);
+
+  // Swipe handlers
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const deltaX = e.changedTouches[0].clientX - touchStartX.current;
+
+    if (deltaX > 60) {
+      setActive((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
+    } else if (deltaX < -60) {
+      setActive((prev) => (prev + 1) % slides.length);
+    }
+
+    touchStartX.current = null;
+  };
 
   return (
     <main className="bg-black text-white">
@@ -61,8 +80,11 @@ export default function HomePage() {
           SECTION 1 — ENTERPRISE HERO SLIDER
       ================================================== */}
       <section className="px-4 md:px-8 pt-24 md:pt-28">
-        <div className="hero-frame">
-
+        <div
+          className="hero-frame"
+          onTouchStart={onTouchStart}
+          onTouchEnd={onTouchEnd}
+        >
           {/* Background */}
           <img
             src={slides[active].image}
@@ -77,29 +99,34 @@ export default function HomePage() {
           {/* Content */}
           <div className="hero-content animate-fade-up">
 
-            {/* REMOVE EXTRA LABEL — CLEAN */}
-            <h1 className="text-4xl md:text-[56px] font-semibold mb-6 leading-tight">
+            <h1 className="text-4xl md:text-[56px] font-semibold mb-5 leading-tight">
               {slides[active].title}
             </h1>
 
-            <p className="text-base md:text-lg text-white/75 max-w-xl mb-10">
+            <p className="text-base md:text-lg text-white/75 max-w-xl mb-7">
               {slides[active].description}
             </p>
 
-            {/* Buttons — balanced spacing */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/oyi" className="btn-primary text-center">
+            {/* CTA — tighter, smaller, bonded */}
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
+              <Link
+                href="/oyi"
+                className="btn-primary text-center px-5 py-2.5 text-[13px]"
+              >
                 Explore Oyi
               </Link>
 
-              <Link href="/deployments" className="btn-secondary text-center">
+              <Link
+                href="/deployments"
+                className="btn-secondary text-center px-5 py-2.5 text-[13px]"
+              >
                 Request Deployment
               </Link>
             </div>
           </div>
 
-          {/* Slider dots */}
-          <div className="absolute bottom-6 left-0 right-0 flex justify-center gap-3 z-10">
+          {/* Slider dots — manual scrub */}
+          <div className="absolute bottom-6 left-0 right-0 flex justify-center gap-2 z-10">
             {slides.map((_, i) => (
               <button
                 key={i}
@@ -131,37 +158,9 @@ export default function HomePage() {
         </p>
       </section>
 
-      {/* =================================================
-          SECTION 3 — OYI
-      ================================================== */}
-      <section className="px-6 md:px-20 py-28 md:py-36 border-t border-white/10">
-        <h2 className="text-3xl md:text-6xl font-medium mb-6">
-          Oyi
-        </h2>
-
-        <p className="text-lg md:text-2xl text-white/80 mb-10 max-w-3xl">
-          Smart Building & Estate Infrastructure Operating System
-        </p>
-
-        <ul className="space-y-4 text-white/70 text-lg max-w-3xl mb-12">
-          <li>• Identity-driven access control and governance</li>
-          <li>• Building systems and shared infrastructure operations</li>
-          <li>• Utilities, metering, billing, and payments</li>
-          <li>• Estate-wide operations, events, and audit trails</li>
-        </ul>
-
-        <Link href="/oyi" className="btn-secondary inline-block">
-          View Oyi
-        </Link>
-      </section>
-
-      {/* =================================================
-          FOOTER
-      ================================================== */}
       <footer className="py-12 text-center text-white/40 text-sm">
         OCHIGA © {new Date().getFullYear()}
       </footer>
-
     </main>
   );
 }
