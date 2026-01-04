@@ -5,21 +5,21 @@ export default function HomePage() {
     <main className="bg-black text-white">
 
       {/* ===============================
-         SECTION 1 — TESLA-STYLE HERO
+          SECTION 1 — HERO (TESLA STYLE)
       =============================== */}
       <section
         className="
           relative
-          h-[82vh]
-          min-h-[520px]
           w-full
+          h-[78vh]
+          min-h-[520px]
           overflow-hidden
         "
       >
         {/* Background image */}
         <img
           src="/media/infrastructure.png"
-          alt="Infrastructure overview"
+          alt="Smart estate infrastructure"
           className="
             absolute
             inset-0
@@ -29,10 +29,10 @@ export default function HomePage() {
           "
         />
 
-        {/* Dark overlay for readability */}
-        <div className="absolute inset-0 bg-black/50" />
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-black/45" />
 
-        {/* Content wrapper */}
+        {/* Hero content */}
         <div
           className="
             relative
@@ -40,26 +40,22 @@ export default function HomePage() {
             h-full
             flex
             items-center
+            justify-center
             px-6
-            md:px-20
           "
         >
-          <div className="max-w-xl">
-            <p className="text-xs uppercase tracking-[0.35em] text-white/60 mb-4">
-              Ochiga
-            </p>
-
-            <h1 className="text-4xl md:text-6xl font-semibold leading-tight mb-5">
+          <div className="text-center max-w-xl">
+            <h1 className="text-3xl md:text-5xl font-semibold mb-4">
               Infrastructure
               <br />
               Operating System
             </h1>
 
-            <p className="text-base md:text-lg text-white/75 mb-8">
+            <p className="text-base md:text-lg text-white/80 mb-8">
               Operate digital infrastructure across estates and buildings.
             </p>
 
-            <div className="flex gap-4">
+            <div className="flex justify-center gap-4">
               <Link
                 href="/oyi"
                 className="
@@ -70,8 +66,6 @@ export default function HomePage() {
                   text-black
                   text-sm
                   font-medium
-                  hover:bg-[#fbbf24]
-                  transition
                 "
               >
                 Explore Oyi
@@ -87,8 +81,6 @@ export default function HomePage() {
                   border
                   border-white/30
                   text-sm
-                  hover:bg-white/20
-                  transition
                 "
               >
                 Request deployment
@@ -96,11 +88,17 @@ export default function HomePage() {
             </div>
           </div>
         </div>
+
+        {/* Slider dots (visual only for now) */}
+        <div className="absolute bottom-6 w-full flex justify-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-white/80" />
+          <span className="w-2 h-2 rounded-full bg-white/30" />
+          <span className="w-2 h-2 rounded-full bg-white/30" />
+        </div>
       </section>
 
-      {/* STOP HERE.
-          DO NOT TOUCH OTHER SECTIONS YET.
-          WE FIX SECTION 1 FIRST. */}
+      {/* STOP HERE. DO NOT DESIGN OTHER SECTIONS YET */}
+
     </main>
   );
 }
