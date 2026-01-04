@@ -6,7 +6,6 @@ export default function HomePage() {
 
       {/* =====================================================
          HERO — INFRASTRUCTURE OPERATING SYSTEM
-         (IMAGE AS BACKGROUND, TEXT ON TOP)
       ====================================================== */}
       <section
         className="relative min-h-screen w-full flex items-center"
@@ -16,41 +15,45 @@ export default function HomePage() {
           backgroundPosition: "center",
         }}
       >
-        {/* Dark cinematic overlay */}
-        <div className="absolute inset-0 bg-black/60" />
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-black/55" />
 
-        {/* Gradient for depth */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+        {/* Gradient depth */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
 
         {/* HERO CONTENT */}
         <div className="relative z-10 w-full px-6 md:px-20">
           <div className="max-w-4xl">
 
+            {/* Brand cue */}
             <p className="text-xs uppercase tracking-[0.35em] text-white/60 mb-6">
               Ochiga
             </p>
 
+            {/* Headline */}
             <h1 className="text-4xl sm:text-5xl md:text-7xl font-semibold leading-[1.05] mb-6">
               Infrastructure
               <br />
               Operating System
             </h1>
 
-            <p className="text-base sm:text-lg md:text-xl text-white/75 mb-12 max-w-2xl">
+            {/* Subtext */}
+            <p className="text-base sm:text-lg md:text-xl text-white/75 mb-10 max-w-2xl">
               Operate digital infrastructure across estates and buildings.
             </p>
 
+            {/* CTA */}
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
                 href="/oyi"
-                className="inline-flex justify-center px-8 py-3 rounded-full bg-white text-black text-sm font-medium hover:bg-white/90 transition"
+                className="inline-flex justify-center items-center px-8 py-3 rounded-full bg-white text-black text-sm font-medium hover:bg-white/90 transition"
               >
                 Explore Oyi
               </Link>
 
               <Link
                 href="/deployments"
-                className="inline-flex justify-center px-8 py-3 rounded-full border border-white/30 text-sm text-white hover:bg-white/10 transition"
+                className="inline-flex justify-center items-center px-8 py-3 rounded-full border border-white/30 text-sm text-white hover:bg-white/10 transition"
               >
                 Request Deployment
               </Link>
@@ -128,9 +131,6 @@ export default function HomePage() {
           <p className="max-w-3xl text-lg md:text-xl text-white/70 mb-12">
             Ochiga builds digital twins as operational infrastructure —
             not visual simulations.
-            <br /><br />
-            Each deployment represents real buildings, assets, systems,
-            and operational state in real time.
           </p>
 
           <Link
@@ -143,7 +143,7 @@ export default function HomePage() {
       </section>
 
       {/* =====================================================
-         SECTION — DEPLOYMENT CTA
+         SECTION — DEPLOYMENT
       ====================================================== */}
       <section className="min-h-screen flex items-center px-6 md:px-20 border-t border-white/10">
         <div className="max-w-5xl">
