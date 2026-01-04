@@ -6,154 +6,83 @@ export default function HomePage() {
     <main className="bg-black text-white">
 
       {/* =================================================
-          SECTION 1 — ENTERPRISE HERO (TESLA-STYLE FRAME)
-      ================================================== */}
-      <section className="px-4 md:px-8 pt-24 md:pt-28">
-        <div className="hero-frame">
+          SECTION 1 — HERO (TESLA / ENTERPRISE STYLE)
+      ================================================= */}
+      <section className="relative h-screen w-full overflow-hidden">
 
-          {/* Background image */}
-          <img
-            src="/media/infrastructure.png"
-            alt="Smart estate infrastructure"
-            className="hero-bg"
-          />
+        {/* Background Image */}
+        <img
+          src="/media/infrastructure.png"
+          alt="Smart estate infrastructure"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
 
-          {/* Overlays */}
-          <div className="hero-overlay" />
-          <div className="hero-gradient" />
+        {/* Dark overlay for readability */}
+        <div className="absolute inset-0 bg-black/55" />
 
-          {/* Content */}
-          <div className="hero-content animate-fade-up">
-            <p className="text-xs uppercase tracking-[0.3em] text-white/60 mb-4">
-              Ochiga
-            </p>
+        {/* Subtle bottom fade */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
 
-            <h1 className="text-4xl md:text-[56px] font-semibold mb-6">
-              Infrastructure
-              <br />
-              Operating System
-            </h1>
+        {/* HERO CONTENT */}
+        <div className="relative z-10 flex h-full flex-col justify-center px-6 md:px-20 max-w-3xl">
 
-            <p className="text-base md:text-lg text-white/75 max-w-xl mb-10">
-              Operate digital infrastructure across estates and buildings —
-              access, assets, utilities, payments, and live digital twins.
-            </p>
+          {/* Eyebrow */}
+          <p className="mb-4 text-xs uppercase tracking-[0.35em] text-white/60">
+            Ochiga
+          </p>
 
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/oyi" className="btn-primary text-center">
-                Explore Oyi
-              </Link>
+          {/* Title */}
+          <h1 className="text-4xl md:text-6xl font-semibold leading-tight">
+            Infrastructure <br className="hidden md:block" />
+            Operating System
+          </h1>
 
-              <Link href="/deployments" className="btn-secondary text-center">
-                Request Deployment
-              </Link>
-            </div>
+          {/* Subtitle */}
+          <p className="mt-6 text-base md:text-xl text-white/80 max-w-xl">
+            Operate digital infrastructure across estates and buildings —
+            access, assets, utilities, payments, and live digital twins.
+          </p>
+
+          {/* CTA BUTTONS */}
+          <div className="mt-10 flex flex-col sm:flex-row gap-4">
+            <Link
+              href="/oyi"
+              className="inline-flex items-center justify-center rounded-full bg-[#ff9f2d] px-8 py-3 text-sm font-medium text-black transition hover:bg-[#ffb04d]"
+            >
+              Explore Oyi
+            </Link>
+
+            <Link
+              href="/deployments"
+              className="inline-flex items-center justify-center rounded-full border border-white/30 px-8 py-3 text-sm font-medium text-white backdrop-blur hover:bg-white/10 transition"
+            >
+              Request Deployment
+            </Link>
           </div>
+        </div>
 
-          {/* Slider dots */}
-          <div className="absolute bottom-6 left-0 right-0 flex justify-center gap-3">
-            <div className="slider-dot active" />
-            <div className="slider-dot" />
-            <div className="slider-dot" />
-          </div>
+        {/* SLIDER DOTS */}
+        <div className="absolute bottom-8 left-1/2 z-20 flex -translate-x-1/2 gap-3">
+          <span className="h-2 w-2 rounded-full bg-white"></span>
+          <span className="h-2 w-2 rounded-full bg-white/40"></span>
+          <span className="h-2 w-2 rounded-full bg-white/40"></span>
         </div>
       </section>
 
       {/* =================================================
-          SECTION 2 — CORE STATEMENT
-      ================================================== */}
-      <section className="px-6 md:px-20 py-28 md:py-36">
-        <h2 className="text-3xl md:text-6xl font-medium max-w-5xl mb-10">
+          SECTION 2 — SIMPLE CONTINUATION (STABLE)
+      ================================================= */}
+      <section className="px-6 md:px-20 py-24">
+        <h2 className="text-3xl md:text-5xl font-semibold mb-6">
           One system for real-world infrastructure.
         </h2>
 
-        <p className="text-lg md:text-xl text-white/70 max-w-3xl">
+        <p className="max-w-3xl text-white/70 text-lg">
           Ochiga designs and operates the digital backbone that governs access,
           assets, utilities, payments, and live systems across physical
           environments.
-          <br />
-          <br />
-          We deliver integrated, operator-focused infrastructure — not apps,
-          not dashboards, but systems that run cities, estates, and buildings.
         </p>
       </section>
-
-      {/* =================================================
-          SECTION 3 — OYI
-      ================================================== */}
-      <section className="px-6 md:px-20 py-28 md:py-36 border-t border-white/10">
-        <h2 className="text-3xl md:text-6xl font-medium mb-6">
-          Oyi
-        </h2>
-
-        <p className="text-lg md:text-2xl text-white/80 mb-10 max-w-3xl">
-          Smart Building & Estate Infrastructure Operating System
-        </p>
-
-        <ul className="space-y-4 text-white/70 text-lg max-w-3xl mb-12">
-          <li>• Identity-driven access control and governance</li>
-          <li>• Building systems and shared infrastructure operations</li>
-          <li>• Utilities, metering, billing, and payments</li>
-          <li>• Estate-wide operations, events, and audit trails</li>
-        </ul>
-
-        <Link href="/oyi" className="btn-secondary inline-block">
-          View Oyi
-        </Link>
-      </section>
-
-      {/* =================================================
-          SECTION 4 — DIGITAL TWIN
-      ================================================== */}
-      <section className="px-6 md:px-20 py-28 md:py-36 border-t border-white/10">
-        <p className="uppercase text-xs tracking-widest text-white/50 mb-4">
-          Digital Twin Infrastructure
-        </p>
-
-        <h2 className="text-3xl md:text-6xl font-medium mb-8 max-w-4xl">
-          Live digital twins for real-world infrastructure.
-        </h2>
-
-        <p className="text-lg md:text-xl text-white/70 max-w-3xl mb-12">
-          Ochiga builds digital twins as operational infrastructure —
-          not visual simulations.
-        </p>
-
-        <Link href="/digital-twin" className="btn-secondary">
-          View Read-Only Demo
-        </Link>
-      </section>
-
-      {/* =================================================
-          SECTION 5 — DEPLOYMENT CTA
-      ================================================== */}
-      <section className="px-6 md:px-20 py-32 md:py-40 border-t border-white/10">
-        <h2 className="text-3xl md:text-6xl font-medium mb-6">
-          Deploy Ochiga
-        </h2>
-
-        <p className="text-lg md:text-xl text-white/70 max-w-3xl mb-12">
-          Ochiga is deployed as core infrastructure — tailored to the physical,
-          operational, and regulatory realities of its environment.
-        </p>
-
-        <div className="flex flex-col sm:flex-row gap-4">
-          <Link href="/deployments" className="btn-primary text-center">
-            Request Deployment
-          </Link>
-
-          <Link href="/papers" className="btn-secondary text-center">
-            Read Infrastructure Papers
-          </Link>
-        </div>
-      </section>
-
-      {/* =================================================
-          FOOTER
-      ================================================== */}
-      <footer className="py-12 text-center text-white/40 text-sm">
-        OCHIGA © {new Date().getFullYear()}
-      </footer>
 
     </main>
   );
