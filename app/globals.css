@@ -1,5 +1,5 @@
 /* ===============================
-   GLOBAL RESET & BASE
+   GLOBAL RESET
 ================================ */
 
 * {
@@ -14,45 +14,11 @@ body {
   color: #fff;
   font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI",
     Helvetica, Arial, sans-serif;
-  scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Prevent scroll when overlays are open */
-body.sidebar-open {
-  overflow: hidden;
-}
-
 /* ===============================
-   SECTION BEHAVIOR
-================================ */
-
-section {
-  position: relative;
-  width: 100%;
-}
-
-/* ===============================
-   ANIMATION
-================================ */
-
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-fade-up {
-  animation: fadeUp 0.9s ease-out forwards;
-}
-
-/* ===============================
-   ENTERPRISE HERO FRAME
+   HERO FRAME
 ================================ */
 
 .hero-frame {
@@ -81,10 +47,9 @@ section {
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.45);
-  z-index: 1;
 }
 
-/* Gradient for text readability */
+/* Gradient */
 .hero-gradient {
   position: absolute;
   inset: 0;
@@ -94,10 +59,12 @@ section {
     rgba(0, 0, 0, 0.55) 45%,
     rgba(0, 0, 0, 0.85) 100%
   );
-  z-index: 2;
 }
 
-/* Content wrapper */
+/* ===============================
+   HERO CONTENT
+================================ */
+
 .hero-content {
   position: relative;
   z-index: 5;
@@ -109,26 +76,40 @@ section {
   justify-content: center;
 }
 
-/* Typography polish */
-.hero-content h1 {
+.hero-title {
+  font-size: 52px;
+  font-weight: 600;
+  line-height: 1.08;
   letter-spacing: -0.02em;
+  margin-bottom: 16px;
 }
 
-.hero-content p {
+.hero-description {
+  font-size: 17px;
   line-height: 1.6;
+  color: rgba(255, 255, 255, 0.75);
+  max-width: 520px;
+  margin-bottom: 18px;
 }
 
 /* ===============================
-   ENTERPRISE BUTTONS
+   CTA GROUP
 ================================ */
 
+.hero-cta {
+  display: flex;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+/* Buttons */
 .btn-primary {
-  padding: 14px 28px;
-  border-radius: 999px;
+  padding: 9px 18px;
+  border-radius: 12px;
   background: #ff8c2a;
   color: #000;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 13px;
   transition: all 0.25s ease;
 }
 
@@ -138,12 +119,12 @@ section {
 }
 
 .btn-secondary {
-  padding: 14px 28px;
-  border-radius: 999px;
+  padding: 9px 18px;
+  border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.35);
   color: #fff;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 13px;
   backdrop-filter: blur(6px);
   transition: all 0.25s ease;
 }
@@ -156,11 +137,23 @@ section {
    SLIDER DOTS
 ================================ */
 
+.hero-dots {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  z-index: 10;
+}
+
 .slider-dot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.4);
+  border: none;
 }
 
 .slider-dot.active {
@@ -181,11 +174,35 @@ section {
     padding: 56px 24px;
   }
 
-  .hero-content h1 {
+  .hero-title {
     font-size: 34px;
   }
 
-  .hero-content p {
-    font-size: 16px;
+  .hero-description {
+    font-size: 15px;
   }
+
+  .hero-cta {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+/* ===============================
+   ANIMATION
+================================ */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.8s ease-out forwards;
 }
