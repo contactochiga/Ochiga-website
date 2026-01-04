@@ -1,136 +1,104 @@
-"use client";
-
 import Link from "next/link";
-import { useState } from "react";
 
 export default function HomePage() {
-  const [active, setActive] = useState(0);
-
-  const slides = [
-    {
-      title: "Transform Estates Into Smart Ecosystems",
-      subtitle:
-        "Elevate your property with Ochiga’s operating system for smart estates.",
-      image: "/media/infrastructure.png",
-      primaryCta: {
-        label: "Explore Oyi",
-        href: "/oyi",
-      },
-      secondaryCta: {
-        label: "Request Deployment",
-        href: "/deployments",
-      },
-    },
-    {
-      title: "The Operating System for Smart Infrastructure",
-      subtitle:
-        "Digital twin–powered platforms for estates, buildings, and communities.",
-      image: "/media/infrastructure.png",
-      primaryCta: {
-        label: "View Platform",
-        href: "/oyi",
-      },
-      secondaryCta: {
-        label: "Talk to Us",
-        href: "/deployments",
-      },
-    },
-    {
-      title: "Design. Deploy. Operate at Scale.",
-      subtitle:
-        "From pre-construction planning to long-term infrastructure operations.",
-      image: "/media/infrastructure.png",
-      primaryCta: {
-        label: "See Use Cases",
-        href: "/digital-twin",
-      },
-      secondaryCta: {
-        label: "Read Papers",
-        href: "/papers",
-      },
-    },
-  ];
-
   return (
-    <main className="bg-black text-white overflow-x-hidden">
+    <main className="bg-black text-white">
 
       {/* =====================================================
-          SECTION 1 — TESLA-STYLE HERO (FIXED PROPERLY)
+         SECTION 1 — TESLA-STYLE HERO (IMAGE AS CANVAS)
       ====================================================== */}
-      <section className="relative min-h-screen w-full overflow-hidden">
-
-        {/* Background Image */}
+      <section
+        className="
+          relative
+          h-[85vh]
+          min-h-[520px]
+          w-full
+          overflow-hidden
+          flex
+          items-center
+        "
+      >
+        {/* Background image */}
         <img
-          src={slides[active].image}
-          alt="Ochiga smart infrastructure"
+          src="/media/infrastructure.png"
+          alt="Smart estate infrastructure"
           className="absolute inset-0 w-full h-full object-cover"
         />
 
-        {/* Overlays */}
+        {/* Dark cinematic overlay */}
         <div className="absolute inset-0 bg-black/55" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
 
-        {/* Hero Content */}
-        <div className="relative z-10 min-h-screen flex items-center justify-center">
-          <div className="text-center px-6 md:px-20 max-w-4xl">
+        {/* Subtle depth gradient */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
 
-            <p className="text-xs uppercase tracking-[0.35em] text-white/60 mb-6">
-              OCHIGA
+        {/* Hero content */}
+        <div className="relative z-10 w-full px-6 md:px-20">
+          <div className="max-w-2xl">
+            <p className="text-xs uppercase tracking-[0.35em] text-white/60 mb-4">
+              Ochiga
             </p>
 
-            <h1 className="text-4xl md:text-7xl font-semibold leading-tight mb-6">
-              {slides[active].title}
+            <h1 className="text-4xl md:text-6xl font-semibold leading-tight mb-5">
+              Transform estates into
+              <br />
+              smart ecosystems
             </h1>
 
-            <p className="text-base md:text-2xl text-white/80 mb-10">
-              {slides[active].subtitle}
+            <p className="text-base md:text-lg text-white/75 mb-8">
+              Elevate your property with Ochiga’s infrastructure
+              operating system for estates and buildings.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-wrap gap-4">
               <Link
-                href={slides[active].primaryCta.href}
-                className="px-8 py-3 rounded-full bg-white text-black text-sm font-medium hover:bg-white/90 transition"
+                href="/oyi"
+                className="
+                  px-6
+                  py-3
+                  rounded-full
+                  bg-[#f59e0b]
+                  text-black
+                  text-sm
+                  font-medium
+                  hover:bg-[#fbbf24]
+                  transition
+                "
               >
-                {slides[active].primaryCta.label}
+                Explore Oyi
               </Link>
 
               <Link
-                href={slides[active].secondaryCta.href}
-                className="px-8 py-3 rounded-full border border-white/40 text-sm hover:bg-white/10 transition"
+                href="/deployments"
+                className="
+                  px-6
+                  py-3
+                  rounded-full
+                  bg-white/10
+                  border
+                  border-white/30
+                  text-sm
+                  hover:bg-white/20
+                  transition
+                "
               >
-                {slides[active].secondaryCta.label}
+                Request deployment
               </Link>
             </div>
           </div>
         </div>
-
-        {/* Slide Dots */}
-        <div className="absolute bottom-8 left-0 right-0 flex justify-center gap-3 z-20">
-          {slides.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setActive(index)}
-              className={`w-2.5 h-2.5 rounded-full transition ${
-                active === index
-                  ? "bg-white"
-                  : "bg-white/40 hover:bg-white/70"
-              }`}
-            />
-          ))}
-        </div>
       </section>
 
       {/* =====================================================
-          SECTION 2 — WHAT OCHIGA DOES
+         SECTION 2 — WHAT OCHIGA DOES
       ====================================================== */}
-      <section className="min-h-screen flex flex-col justify-center px-6 md:px-20 border-t border-white/10">
+      <section className="py-24 px-6 md:px-20 border-t border-white/10">
         <h2 className="text-3xl md:text-6xl font-medium mb-10 max-w-4xl">
           One system to govern access, assets, utilities, and payments.
         </h2>
 
         <p className="max-w-3xl text-lg md:text-xl text-white/70">
-          Ochiga designs, deploys, and operates the digital backbone that runs
-          modern estates, buildings, and physical environments.
+          Ochiga designs, deploys, and operates the digital backbone
+          that runs modern estates, buildings, and physical environments.
           <br /><br />
           We replace fragmented tools and manual processes with a unified
           infrastructure operating layer.
@@ -138,9 +106,9 @@ export default function HomePage() {
       </section>
 
       {/* =====================================================
-          SECTION 3 — PRODUCT: OYI
+         SECTION 3 — PRODUCT: OYI
       ====================================================== */}
-      <section className="min-h-screen flex flex-col justify-center px-6 md:px-20 border-t border-white/10">
+      <section className="py-24 px-6 md:px-20 border-t border-white/10">
         <h2 className="text-3xl md:text-6xl font-medium mb-6">
           Oyi
         </h2>
@@ -165,9 +133,9 @@ export default function HomePage() {
       </section>
 
       {/* =====================================================
-          SECTION 4 — DIGITAL TWIN
+         SECTION 4 — DIGITAL TWIN
       ====================================================== */}
-      <section className="min-h-screen flex flex-col justify-center px-6 md:px-20 border-t border-white/10">
+      <section className="py-24 px-6 md:px-20 border-t border-white/10">
         <p className="uppercase text-xs tracking-widest text-white/50 mb-4">
           Digital Twin Infrastructure
         </p>
@@ -190,9 +158,9 @@ export default function HomePage() {
       </section>
 
       {/* =====================================================
-          SECTION 5 — DEPLOYMENT CTA
+         SECTION 5 — DEPLOYMENT CTA
       ====================================================== */}
-      <section className="min-h-screen flex flex-col justify-center px-6 md:px-20 border-t border-white/10">
+      <section className="py-24 px-6 md:px-20 border-t border-white/10">
         <h2 className="text-3xl md:text-6xl font-medium mb-6">
           Deploy Ochiga
         </h2>
