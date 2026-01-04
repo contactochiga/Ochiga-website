@@ -2,7 +2,9 @@
    GLOBAL RESET & BASE
 ================================ */
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -24,12 +26,143 @@ body.sidebar-open {
 }
 
 /* ===============================
+   ROOT LAYOUT SAFETY
+================================ */
+
+main {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* ===============================
    SECTION BEHAVIOR
 ================================ */
 
 section {
   position: relative;
   width: 100%;
+  isolation: isolate; /* CRITICAL: keeps hero layers contained */
+}
+
+/* ===============================
+   HERO / CINEMATIC FRAME
+================================ */
+
+/* Used by Section 1 */
+.hero-frame {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 70vh;
+  border-radius: 22px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.75),
+    0 10px 25px rgba(0, 0, 0, 0.6);
+  background: #000;
+}
+
+/* Background image/video inside hero */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+/* Dark overlay for contrast */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 1;
+}
+
+/* Gradient fade at bottom (Tesla-style) */
+.hero-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.15) 0%,
+    rgba(0, 0, 0, 0.6) 55%,
+    rgba(0, 0, 0, 0.95) 100%
+  );
+  z-index: 2;
+}
+
+/* Hero content wrapper */
+.hero-content {
+  position: relative;
+  z-index: 3;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 3rem;
+}
+
+/* Desktop alignment */
+@media (min-width: 768px) {
+  .hero-content {
+    justify-content: center;
+    padding: 4rem;
+    max-width: 560px;
+  }
+}
+
+/* ===============================
+   BUTTON SYSTEM (TESLA-ISH)
+================================ */
+
+.btn-primary {
+  background: #ff8b2d;
+  color: #000;
+  border-radius: 9999px;
+  padding: 14px 28px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  filter: brightness(0.95);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 9999px;
+  padding: 14px 28px;
+  font-size: 14px;
+  font-weight: 500;
+  backdrop-filter: blur(8px);
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+/* ===============================
+   SLIDER DOTS
+================================ */
+
+.slider-dot {
+  width: 28px;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.35);
+  transition: all 0.2s ease;
+}
+
+.slider-dot.active {
+  background: #fff;
 }
 
 /* ===============================
