@@ -1,21 +1,73 @@
 // app/page.tsx
+"use client";
+
 import Link from "next/link";
+import { useEffect, useState } from "react";
+
+const slides = [
+  {
+    title: (
+      <>
+        Infrastructure
+        <br />
+        Operating System
+      </>
+    ),
+    description:
+      "Operate digital infrastructure across estates and buildings — access, assets, utilities, payments, and live digital twins.",
+    image: "/media/infrastructure.png",
+  },
+  {
+    title: (
+      <>
+        Smart Estate
+        <br />
+        Operations
+      </>
+    ),
+    description:
+      "Unified control for access management, utilities, billing, and shared infrastructure across modern estates.",
+    image: "/media/infrastructure.png",
+  },
+  {
+    title: (
+      <>
+        Live Digital
+        <br />
+        Twins
+      </>
+    ),
+    description:
+      "Operational digital twins representing real buildings, assets, and systems — in real time.",
+    image: "/media/infrastructure.png",
+  },
+];
 
 export default function HomePage() {
+  const [active, setActive] = useState(0);
+
+  // Auto slide
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActive((prev) => (prev + 1) % slides.length);
+    }, 6000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <main className="bg-black text-white">
 
       {/* =================================================
-          SECTION 1 — ENTERPRISE HERO (TESLA-STYLE FRAME)
+          SECTION 1 — ENTERPRISE HERO SLIDER
       ================================================== */}
       <section className="px-4 md:px-8 pt-24 md:pt-28">
         <div className="hero-frame">
 
-          {/* Background image */}
+          {/* Background */}
           <img
-            src="/media/infrastructure.png"
-            alt="Smart estate infrastructure"
-            className="hero-bg"
+            src={slides[active].image}
+            alt="Infrastructure background"
+            className="hero-bg transition-opacity duration-700"
           />
 
           {/* Overlays */}
@@ -24,21 +76,17 @@ export default function HomePage() {
 
           {/* Content */}
           <div className="hero-content animate-fade-up">
-            <p className="text-xs uppercase tracking-[0.3em] text-white/60 mb-4">
-              Ochiga
-            </p>
 
-            <h1 className="text-4xl md:text-[56px] font-semibold mb-6">
-              Infrastructure
-              <br />
-              Operating System
+            {/* REMOVE EXTRA LABEL — CLEAN */}
+            <h1 className="text-4xl md:text-[56px] font-semibold mb-6 leading-tight">
+              {slides[active].title}
             </h1>
 
             <p className="text-base md:text-lg text-white/75 max-w-xl mb-10">
-              Operate digital infrastructure across estates and buildings —
-              access, assets, utilities, payments, and live digital twins.
+              {slides[active].description}
             </p>
 
+            {/* Buttons — balanced spacing */}
             <div className="flex flex-col sm:flex-row gap-4">
               <Link href="/oyi" className="btn-primary text-center">
                 Explore Oyi
@@ -51,10 +99,15 @@ export default function HomePage() {
           </div>
 
           {/* Slider dots */}
-          <div className="absolute bottom-6 left-0 right-0 flex justify-center gap-3">
-            <div className="slider-dot active" />
-            <div className="slider-dot" />
-            <div className="slider-dot" />
+          <div className="absolute bottom-6 left-0 right-0 flex justify-center gap-3 z-10">
+            {slides.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setActive(i)}
+                className={`slider-dot ${active === i ? "active" : ""}`}
+                aria-label={`Slide ${i + 1}`}
+              />
+            ))}
           </div>
         </div>
       </section>
@@ -100,52 +153,6 @@ export default function HomePage() {
         <Link href="/oyi" className="btn-secondary inline-block">
           View Oyi
         </Link>
-      </section>
-
-      {/* =================================================
-          SECTION 4 — DIGITAL TWIN
-      ================================================== */}
-      <section className="px-6 md:px-20 py-28 md:py-36 border-t border-white/10">
-        <p className="uppercase text-xs tracking-widest text-white/50 mb-4">
-          Digital Twin Infrastructure
-        </p>
-
-        <h2 className="text-3xl md:text-6xl font-medium mb-8 max-w-4xl">
-          Live digital twins for real-world infrastructure.
-        </h2>
-
-        <p className="text-lg md:text-xl text-white/70 max-w-3xl mb-12">
-          Ochiga builds digital twins as operational infrastructure —
-          not visual simulations.
-        </p>
-
-        <Link href="/digital-twin" className="btn-secondary">
-          View Read-Only Demo
-        </Link>
-      </section>
-
-      {/* =================================================
-          SECTION 5 — DEPLOYMENT CTA
-      ================================================== */}
-      <section className="px-6 md:px-20 py-32 md:py-40 border-t border-white/10">
-        <h2 className="text-3xl md:text-6xl font-medium mb-6">
-          Deploy Ochiga
-        </h2>
-
-        <p className="text-lg md:text-xl text-white/70 max-w-3xl mb-12">
-          Ochiga is deployed as core infrastructure — tailored to the physical,
-          operational, and regulatory realities of its environment.
-        </p>
-
-        <div className="flex flex-col sm:flex-row gap-4">
-          <Link href="/deployments" className="btn-primary text-center">
-            Request Deployment
-          </Link>
-
-          <Link href="/papers" className="btn-secondary text-center">
-            Read Infrastructure Papers
-          </Link>
-        </div>
       </section>
 
       {/* =================================================
