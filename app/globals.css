@@ -81,7 +81,7 @@ body {
   font-weight: 600;
   line-height: 1.08;
   letter-spacing: -0.02em;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
 }
 
 .hero-description {
@@ -89,7 +89,7 @@ body {
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.75);
   max-width: 520px;
-  margin-bottom: 18px;
+  margin-bottom: 26px; /* more breathing room before CTAs */
 }
 
 /* ===============================
@@ -98,14 +98,19 @@ body {
 
 .hero-cta {
   display: flex;
-  gap: 10px;
+  gap: 14px;            /* refined spacing */
   margin-top: 6px;
 }
 
 /* Buttons */
+.btn-primary,
+.btn-secondary {
+  text-decoration: none; /* remove underline always */
+}
+
 .btn-primary {
-  padding: 9px 18px;
-  border-radius: 12px;
+  padding: 9px 20px;
+  border-radius: 10px;   /* less boxy, less curvy */
   background: #ff8c2a;
   color: #000;
   font-weight: 600;
@@ -116,11 +121,12 @@ body {
 .btn-primary:hover {
   background: #ff9c47;
   transform: translateY(-1px);
+  text-decoration: none;
 }
 
 .btn-secondary {
-  padding: 9px 18px;
-  border-radius: 12px;
+  padding: 9px 20px;
+  border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.35);
   color: #fff;
   font-weight: 500;
@@ -131,6 +137,7 @@ body {
 
 .btn-secondary:hover {
   background: rgba(255, 255, 255, 0.08);
+  text-decoration: none;
 }
 
 /* ===============================
@@ -184,7 +191,7 @@ body {
 
   .hero-cta {
     flex-direction: column;
-    gap: 8px;
+    gap: 12px; /* small but visible spacing on mobile */
   }
 }
 
