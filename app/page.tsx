@@ -1,12 +1,35 @@
 // app/page.tsx
+"use client";
+
+import { useRef, useState } from "react";
 import Link from "next/link";
 
 export default function HomePage() {
+  const railRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const handleScroll = () => {
+    if (!railRef.current) return;
+    const scrollLeft = railRef.current.scrollLeft;
+    const cardWidth = railRef.current.firstElementChild?.clientWidth || 1;
+    const index = Math.round(scrollLeft / cardWidth);
+    setActiveIndex(index);
+  };
+
+  const scrollToCard = (index: number) => {
+    if (!railRef.current) return;
+    const cardWidth = railRef.current.firstElementChild?.clientWidth || 1;
+    railRef.current.scrollTo({
+      left: cardWidth * index,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <main className="bg-black text-white">
 
       {/* =================================================
-          SECTION 1 — HERO (LOCKED)
+          SECTION 1 — HERO (LOCKED — DO NOT TOUCH)
       ================================================== */}
       <section className="px-4 md:px-8 pt-24 md:pt-28">
         <div className="hero-frame">
@@ -27,8 +50,12 @@ export default function HomePage() {
             </p>
 
             <div className="hero-cta">
-              <Link href="/oyi" className="btn-primary">Explore Oyi</Link>
-              <Link href="/deployments" className="btn-secondary">Request Deployment</Link>
+              <Link href="/oyi" className="btn-primary">
+                Explore Oyi
+              </Link>
+              <Link href="/deployments" className="btn-secondary">
+                Request Deployment
+              </Link>
             </div>
           </div>
 
@@ -41,7 +68,7 @@ export default function HomePage() {
       </section>
 
       {/* =================================================
-          SECTION 1.5 — CORE STATEMENT
+          SECTION 1.5 — CORE STATEMENT (LOCKED)
       ================================================== */}
       <section className="relative py-32 px-6 bg-grid bg-radial-glow">
         <div className="max-w-4xl mx-auto text-center">
@@ -60,7 +87,7 @@ export default function HomePage() {
       </section>
 
       {/* =================================================
-          SECTION 2 — SERVICES (HORIZONTAL)
+          SECTION 2 — SERVICES (HORIZONTAL + DOTS)
       ================================================== */}
       <section className="py-24">
 
@@ -73,9 +100,13 @@ export default function HomePage() {
           </h3>
         </div>
 
-        <div className="service-rail no-scrollbar px-6 md:px-20">
-
-          {/* Pre-Construction */}
+        {/* Horizontal Service Rail */}
+        <div
+          ref={railRef}
+          onScroll={handleScroll}
+          className="service-rail no-scrollbar px-6 md:px-20"
+        >
+          {/* PRE-CONSTRUCTION */}
           <div className="service-card">
             <div
               className="service-bg"
@@ -83,10 +114,12 @@ export default function HomePage() {
             />
             <div className="service-overlay" />
             <div className="service-content">
-              <h4 className="service-title">Pre-Construction Infrastructure</h4>
+              <h4 className="service-title">
+                Pre-Construction Infrastructure
+              </h4>
               <p className="service-text">
                 Digital infrastructure is designed before construction begins —
-                assets, systems, and utilities modelled through a live digital twin.
+                systems, assets, and utilities modelled through a live digital twin.
               </p>
               <Link href="/pre-construction" className="service-cta">
                 Plan Infrastructure →
@@ -94,7 +127,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Construction */}
+          {/* CONSTRUCTION */}
           <div className="service-card">
             <div
               className="service-bg"
@@ -102,10 +135,12 @@ export default function HomePage() {
             />
             <div className="service-overlay" />
             <div className="service-content">
-              <h4 className="service-title">Construction-Phase Deployment</h4>
+              <h4 className="service-title">
+                Construction-Phase Deployment
+              </h4>
               <p className="service-text">
-                Hardware, networks, fiber, and systems are deployed directly into
-                the build — mapped in real time to the digital twin.
+                Hardware, fiber, networks, and systems are deployed directly
+                into the build — mapped in real time to the digital twin.
               </p>
               <Link href="/deployment" className="service-cta">
                 Deploy Infrastructure →
@@ -113,7 +148,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Operations */}
+          {/* OPERATIONS */}
           <div className="service-card">
             <div
               className="service-bg"
@@ -121,20 +156,31 @@ export default function HomePage() {
             />
             <div className="service-overlay" />
             <div className="service-content">
-              <h4 className="service-title">Live Operations & Control</h4>
+              <h4 className="service-title">
+                Live Operations & Control
+              </h4>
               <p className="service-text">
                 Ochiga operates estates as live infrastructure — managing access,
-                utilities, assets, payments, and command systems.
+                assets, utilities, payments, and command systems.
               </p>
               <Link href="/operations" className="service-cta">
                 Operate Infrastructure →
               </Link>
             </div>
           </div>
+        </div>
 
+        {/* Scroll Dots */}
+        <div className="flex justify-center gap-3 mt-6">
+          {[0, 1, 2].map((i) => (
+            <button
+              key={i}
+              onClick={() => scrollToCard(i)}
+              className={`slider-dot ${activeIndex === i ? "active" : ""}`}
+            />
+          ))}
         </div>
       </section>
-
     </main>
   );
 }
