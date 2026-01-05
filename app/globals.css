@@ -52,12 +52,14 @@ a {
   height: 100%;
   object-fit: cover;
   transform: scale(1.02);
+  z-index: 1;
 }
 
 .hero-overlay {
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.45);
+  z-index: 2;
 }
 
 .hero-gradient {
@@ -69,10 +71,11 @@ a {
     rgba(0, 0, 0, 0.55) 45%,
     rgba(0, 0, 0, 0.85) 100%
   );
+  z-index: 3;
 }
 
 /* ===============================
-   HERO CONTENT
+   HERO CONTENT (LOCKED)
 ================================ */
 
 .hero-content {
@@ -143,7 +146,7 @@ a {
 }
 
 /* ===============================
-   HERO + SERVICES DOTS
+   DOTS
 ================================ */
 
 .hero-dots,
@@ -174,7 +177,7 @@ a {
 }
 
 /* ===============================
-   SECTION 1.5 — CORE STATEMENT
+   SECTION CORE BACKGROUNDS
 ================================ */
 
 .bg-grid {
@@ -220,12 +223,13 @@ a {
 .no-scrollbar {
   scrollbar-width: none;
 }
+
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
 
 /* ===============================
-   SERVICE CARDS
+   SERVICE CARDS (LOCKED TEMPLATE)
 ================================ */
 
 .service-card {
@@ -245,15 +249,17 @@ a {
   }
 }
 
+/* Background image */
 .service-bg {
   position: absolute;
   inset: 0;
   background-size: cover;
   background-position: center;
   transform: scale(1.05);
+  z-index: 1;
 }
 
-/* ORIGINAL OVERLAY (services / hero) */
+/* Default overlay */
 .service-overlay {
   position: absolute;
   inset: 0;
@@ -262,9 +268,10 @@ a {
     rgba(0, 0, 0, 0.15),
     rgba(0, 0, 0, 0.85)
   );
+  z-index: 2;
 }
 
-/* ✅ NEW — LIGHTER OVERLAY FOR SOLUTIONS (4.5–5) */
+/* Lighter overlay for Solutions (4.5–5) */
 .solution-overlay {
   position: absolute;
   inset: 0;
@@ -273,6 +280,30 @@ a {
     rgba(0, 0, 0, 0.05),
     rgba(0, 0, 0, 0.45)
   );
+  z-index: 2;
+}
+
+/* 🔒 TEXT LAYER — ALWAYS ON TOP */
+.service-content {
+  position: relative;
+  z-index: 5;
+  height: 100%;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.service-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.service-text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.75);
 }
 
 /* ===============================
