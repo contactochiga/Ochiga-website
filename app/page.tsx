@@ -1,4 +1,3 @@
-// app/page.tsx
 "use client";
 
 import { useRef, useState } from "react";
@@ -28,9 +27,9 @@ export default function HomePage() {
   return (
     <main className="bg-black text-white">
 
-      {/* =================================================
+      {/* ============================
           SECTION 1 — HERO (LOCKED)
-      ================================================== */}
+      ============================ */}
       <section className="px-4 md:px-8 pt-24 md:pt-28">
         <div className="hero-frame">
           <img src="/media/infrastructure.png" className="hero-bg" />
@@ -63,9 +62,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* =================================================
-          SECTION 1.5 — CORE STATEMENT (LOCKED)
-      ================================================== */}
+      {/* ============================
+          SECTION 1.5 — CORE STATEMENT
+      ============================ */}
       <section className="relative py-32 px-6 bg-grid bg-radial-glow section-core">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-5xl font-medium mb-6">
@@ -82,10 +81,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* =================================================
-          SECTION 2 — SERVICES (LOCKED)
-      ================================================== */}
+      {/* ============================
+          SECTION 2 — SERVICES (RESTORED)
+      ============================ */}
       <section className="py-24">
+
         <div className="px-6 md:px-20 mb-12 section-services-intro">
           <p className="uppercase text-xs tracking-widest brand-accent mb-2">
             Infrastructure Lifecycle
@@ -100,9 +100,62 @@ export default function HomePage() {
           onScroll={handleScroll}
           className="service-rail no-scrollbar"
         >
-          {/* Cards unchanged */}
-          {/* PRE / CONSTRUCTION / OPERATIONS */}
-          {/* (Intentionally omitted here for brevity — unchanged) */}
+          {/* PRE-CONSTRUCTION */}
+          <div className="service-card">
+            <div
+              className="service-bg"
+              style={{ backgroundImage: "url(/media/pre-construction.png)" }}
+            />
+            <div className="service-overlay" />
+            <div className="service-content">
+              <h4 className="service-title">Pre-Construction Infrastructure</h4>
+              <p className="service-text">
+                Digital infrastructure is designed before construction begins —
+                systems, assets, and utilities modelled through a live digital twin.
+              </p>
+              <Link href="/pre-construction" className="service-cta">
+                Plan Infrastructure →
+              </Link>
+            </div>
+          </div>
+
+          {/* CONSTRUCTION */}
+          <div className="service-card">
+            <div
+              className="service-bg"
+              style={{ backgroundImage: "url(/media/construction.png)" }}
+            />
+            <div className="service-overlay" />
+            <div className="service-content">
+              <h4 className="service-title">Construction-Phase Deployment</h4>
+              <p className="service-text">
+                Hardware, fiber, networks, and systems are deployed directly
+                into the build — mapped in real time to the digital twin.
+              </p>
+              <Link href="/deployment" className="service-cta">
+                Deploy Infrastructure →
+              </Link>
+            </div>
+          </div>
+
+          {/* OPERATIONS */}
+          <div className="service-card">
+            <div
+              className="service-bg"
+              style={{ backgroundImage: "url(/media/operations.png)" }}
+            />
+            <div className="service-overlay" />
+            <div className="service-content">
+              <h4 className="service-title">Live Operations & Control</h4>
+              <p className="service-text">
+                Ochiga operates estates as live infrastructure — managing access,
+                assets, utilities, payments, and command systems.
+              </p>
+              <Link href="/operations" className="service-cta">
+                Operate Infrastructure →
+              </Link>
+            </div>
+          </div>
         </div>
 
         <div className="services-dots mt-6">
@@ -116,9 +169,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* =================================================
-          SECTION 2.5 — OYI OS INTRO (TEXT ONLY)
-      ================================================== */}
+      {/* ============================
+          SECTION 2.5 — OYI OS INTRO
+      ============================ */}
       <section className="py-28 px-6">
         <div className="max-w-3xl mx-auto text-center">
           <p className="uppercase text-xs tracking-widest brand-accent mb-4">
@@ -129,7 +182,7 @@ export default function HomePage() {
             The control layer for real-world infrastructure.
           </h2>
 
-          <p className="text-lg md:text-xl text-white/70 leading-relaxed">
+          <p className="text-lg md:text-xl text-white/70">
             Oyi OS governs estates and buildings in real time — unifying digital twins,
             access control, utilities, payments, assets, and command systems into a
             single operational core.
@@ -137,23 +190,20 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* =================================================
-          SECTION 3 — OYI OS HERO (STABLE, SAME AS SECTION 1)
-      ================================================== */}
+      {/* ============================
+          SECTION 3 — OYI OS HERO
+      ============================ */}
       <section className="px-4 md:px-8 pb-32">
         <div className="hero-frame">
           <img
             src="/media/oyi-os-command-center.png"
             className="hero-bg"
-            alt="Oyi OS Command Center"
           />
           <div className="hero-overlay" />
           <div className="hero-gradient" />
 
           <div className="hero-content animate-fade-up">
-            <h1 className="hero-title">
-              Oyi OS
-            </h1>
+            <h1 className="hero-title">Oyi OS</h1>
 
             <p className="hero-description">
               Monitor, control, and govern estates through a unified command layer —
