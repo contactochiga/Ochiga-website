@@ -23,6 +23,14 @@ a {
 }
 
 /* ===============================
+   BRAND
+================================ */
+
+.brand-accent {
+  color: #ff8c2a;
+}
+
+/* ===============================
    HERO FRAME (SECTION 1 — LOCKED)
 ================================ */
 
@@ -135,7 +143,7 @@ a {
 }
 
 /* ===============================
-   HERO DOTS
+   HERO + SERVICES DOTS
 ================================ */
 
 .hero-dots,
@@ -158,6 +166,7 @@ a {
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.4);
   border: none;
+  cursor: pointer;
 }
 
 .slider-dot.active {
@@ -165,7 +174,7 @@ a {
 }
 
 /* ===============================
-   SECTION 1.5 BACKGROUND + TYPO
+   SECTION 1.5 — CORE STATEMENT
 ================================ */
 
 .bg-grid {
@@ -192,12 +201,8 @@ a {
 }
 
 /* ===============================
-   SECTION 2 INTRO
+   SECTION 2 — SERVICES INTRO
 ================================ */
-
-.brand-accent {
-  color: #ff8c2a;
-}
 
 .section-services-intro {
   text-align: left;
@@ -296,6 +301,32 @@ a {
 }
 
 /* ===============================
+   SECTION 3 — OYI OS
+================================ */
+
+.oyi-grid {
+  display: grid;
+  gap: 48px;
+}
+
+@media (min-width: 1024px) {
+  .oyi-grid {
+    grid-template-columns: 1fr 1.2fr;
+    align-items: center;
+  }
+}
+
+.oyi-copy {
+  max-width: 560px;
+}
+
+.oyi-visual img {
+  width: 100%;
+  border-radius: 22px;
+  box-shadow: 0 40px 120px rgba(0, 0, 0, 0.6);
+}
+
+/* ===============================
    MOBILE REFINEMENT
 ================================ */
 
@@ -328,6 +359,11 @@ a {
 
   .section-core {
     padding-inline: 8px;
+  }
+
+  .oyi-copy {
+    text-align: center;
+    margin: 0 auto;
   }
 }
 
