@@ -17,8 +17,13 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 /* ===============================
-   HERO FRAME
+   HERO FRAME (SECTION 1)
 ================================ */
 
 .hero-frame {
@@ -32,7 +37,6 @@ body {
   background: #000;
 }
 
-/* Background image */
 .hero-bg {
   position: absolute;
   inset: 0;
@@ -42,14 +46,12 @@ body {
   transform: scale(1.02);
 }
 
-/* Dark overlay */
 .hero-overlay {
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.45);
 }
 
-/* Gradient */
 .hero-gradient {
   position: absolute;
   inset: 0;
@@ -89,7 +91,7 @@ body {
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.75);
   max-width: 520px;
-  margin-bottom: 26px; /* more breathing room before CTAs */
+  margin-bottom: 22px;
 }
 
 /* ===============================
@@ -98,50 +100,43 @@ body {
 
 .hero-cta {
   display: flex;
-  gap: 14px;            /* refined spacing */
-  margin-top: 6px;
+  gap: 14px;
+  margin-top: 4px;
 }
 
-/* Buttons */
 .btn-primary,
 .btn-secondary {
-  text-decoration: none; /* remove underline always */
+  padding: 9px 20px;
+  border-radius: 10px;
+  font-size: 13px;
+  transition: all 0.25s ease;
+  text-decoration: none;
 }
 
 .btn-primary {
-  padding: 9px 20px;
-  border-radius: 10px;   /* less boxy, less curvy */
   background: #ff8c2a;
   color: #000;
   font-weight: 600;
-  font-size: 13px;
-  transition: all 0.25s ease;
 }
 
 .btn-primary:hover {
   background: #ff9c47;
   transform: translateY(-1px);
-  text-decoration: none;
 }
 
 .btn-secondary {
-  padding: 9px 20px;
-  border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.35);
   color: #fff;
   font-weight: 500;
-  font-size: 13px;
   backdrop-filter: blur(6px);
-  transition: all 0.25s ease;
 }
 
 .btn-secondary:hover {
   background: rgba(255, 255, 255, 0.08);
-  text-decoration: none;
 }
 
 /* ===============================
-   SLIDER DOTS
+   HERO SLIDER DOTS
 ================================ */
 
 .hero-dots {
@@ -160,11 +155,105 @@ body {
   height: 6px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.4);
-  border: none;
 }
 
 .slider-dot.active {
   background: #fff;
+}
+
+/* ===============================
+   ACTIVE DARK BACKGROUND
+   (SECTION 1.5)
+================================ */
+
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.bg-radial-glow {
+  background: radial-gradient(
+    circle at top center,
+    rgba(255, 255, 255, 0.06),
+    rgba(0, 0, 0, 0.85) 65%
+  );
+}
+
+/* ===============================
+   SERVICE CARDS (SECTION 2)
+================================ */
+
+.service-card {
+  position: relative;
+  min-width: 320px;
+  max-width: 420px;
+  height: 520px;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #000;
+  flex-shrink: 0;
+}
+
+.service-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.05);
+}
+
+.service-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.15),
+    rgba(0, 0, 0, 0.85)
+  );
+}
+
+.service-content {
+  position: relative;
+  z-index: 5;
+  height: 100%;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.service-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.service-text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.75);
+  margin-bottom: 16px;
+}
+
+.service-cta {
+  font-size: 13px;
+  font-weight: 500;
+  color: #fff;
+  opacity: 0.9;
+}
+
+/* ===============================
+   HORIZONTAL SCROLL CLEANUP
+================================ */
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
 /* ===============================
@@ -191,7 +280,12 @@ body {
 
   .hero-cta {
     flex-direction: column;
-    gap: 12px; /* small but visible spacing on mobile */
+    gap: 12px;
+  }
+
+  .service-card {
+    min-width: 280px;
+    height: 480px;
   }
 }
 
