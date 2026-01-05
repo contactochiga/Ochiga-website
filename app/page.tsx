@@ -71,7 +71,7 @@ export default function HomePage() {
           SECTION 1.5 — CORE STATEMENT (LOCKED)
       ================================================== */}
       <section className="relative py-32 px-6 bg-grid bg-radial-glow">
-        <div className="max-w-4xl mx-auto text-center">
+        <div className="max-w-3xl mx-auto text-center section-core">
           <h2 className="text-3xl md:text-5xl font-medium mb-6">
             One system for real-world infrastructure.
           </h2>
@@ -87,12 +87,12 @@ export default function HomePage() {
       </section>
 
       {/* =================================================
-          SECTION 2 — SERVICES (HORIZONTAL + DOTS)
+          SECTION 2 — SERVICES (LOCKED)
       ================================================== */}
       <section className="py-24">
 
-        <div className="px-6 md:px-20 mb-12">
-          <p className="uppercase text-xs tracking-widest text-white/50 mb-2">
+        <div className="px-6 md:px-20 mb-12 section-services-intro">
+          <p className="uppercase text-xs tracking-widest brand-accent mb-2">
             Infrastructure Lifecycle
           </p>
           <h3 className="text-2xl md:text-4xl font-medium">
@@ -104,7 +104,7 @@ export default function HomePage() {
         <div
           ref={railRef}
           onScroll={handleScroll}
-          className="service-rail no-scrollbar px-6 md:px-20"
+          className="service-rail no-scrollbar"
         >
           {/* PRE-CONSTRUCTION */}
           <div className="service-card">
@@ -171,7 +171,7 @@ export default function HomePage() {
         </div>
 
         {/* Scroll Dots */}
-        <div className="flex justify-center gap-3 mt-6">
+        <div className="services-dots">
           {[0, 1, 2].map((i) => (
             <button
               key={i}
