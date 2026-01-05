@@ -67,7 +67,8 @@ export default function HomePage() {
           <h2 className="text-3xl md:text-5xl font-medium mb-6">
             One system for real-world infrastructure.
           </h2>
-          <p className="text-lg md:text-xl text-white/70">
+
+          <p className="text-lg md:text-xl text-white/70 leading-relaxed">
             Ochiga designs and operates the digital backbone that governs access,
             assets, utilities, payments, and live systems across physical environments.
             <br /><br />
@@ -97,7 +98,10 @@ export default function HomePage() {
         >
           {/* Pre-Construction */}
           <div className="service-card">
-            <div className="service-bg" style={{ backgroundImage: "url(/media/pre-construction.png)" }} />
+            <div
+              className="service-bg"
+              style={{ backgroundImage: "url(/media/pre-construction.png)" }}
+            />
             <div className="service-overlay" />
             <div className="service-content">
               <h4 className="service-title">Pre-Construction Infrastructure</h4>
@@ -113,7 +117,10 @@ export default function HomePage() {
 
           {/* Construction */}
           <div className="service-card">
-            <div className="service-bg" style={{ backgroundImage: "url(/media/construction.png)" }} />
+            <div
+              className="service-bg"
+              style={{ backgroundImage: "url(/media/construction.png)" }}
+            />
             <div className="service-overlay" />
             <div className="service-content">
               <h4 className="service-title">Construction-Phase Deployment</h4>
@@ -129,7 +136,10 @@ export default function HomePage() {
 
           {/* Operations */}
           <div className="service-card">
-            <div className="service-bg" style={{ backgroundImage: "url(/media/operations.png)" }} />
+            <div
+              className="service-bg"
+              style={{ backgroundImage: "url(/media/operations.png)" }}
+            />
             <div className="service-overlay" />
             <div className="service-content">
               <h4 className="service-title">Live Operations & Control</h4>
@@ -162,9 +172,11 @@ export default function HomePage() {
           <p className="uppercase text-xs tracking-widest brand-accent mb-4">
             Oyi OS
           </p>
+
           <h2 className="text-3xl md:text-5xl font-medium mb-6">
             The control layer for real-world infrastructure.
           </h2>
+
           <p className="text-lg md:text-xl text-white/70">
             A unified operational core governing estates and cities in real time.
           </p>
@@ -172,7 +184,7 @@ export default function HomePage() {
       </section>
 
       {/* =================================================
-          SECTION 3 — OYI OS HERO
+          SECTION 3 — OYI OS HERO (LOCKED)
       ================================================= */}
       <section className="px-4 md:px-8 pb-32">
         <div className="hero-frame">
@@ -182,9 +194,11 @@ export default function HomePage() {
 
           <div className="hero-content animate-fade-up">
             <h1 className="hero-title">Oyi OS</h1>
+
             <p className="hero-description">
               Monitor, control, and govern infrastructure through a unified command layer.
             </p>
+
             <div className="hero-cta">
               <Link href="/oyi" className="btn-primary">Enter Oyi OS</Link>
             </div>
@@ -193,7 +207,32 @@ export default function HomePage() {
       </section>
 
       {/* =================================================
-          SECTION 4 — DIGITAL TWIN (LOCKED)
+          SECTION 3.5 — DIGITAL TWIN INTRO (CENTERED)
+      ================================================= */}
+      <section className="py-32 px-6 bg-grid bg-radial-glow section-core">
+        <div className="max-w-4xl mx-auto text-center">
+          <p className="uppercase text-xs tracking-widest brand-accent mb-4">
+            Digital Twin
+          </p>
+
+          <h2 className="text-3xl md:text-5xl font-medium mb-6">
+            See infrastructure as a live system.
+          </h2>
+
+          <p className="text-lg md:text-xl text-white/70 leading-relaxed">
+            Ochiga’s Digital Twin transforms buildings and estates into real-time
+            digital systems — synchronizing assets, utilities, access, and activity
+            with reality.
+            <br /><br />
+            Operators gain instant visibility into infrastructure performance and
+            asset behavior, enabling faster decisions, precise control, and
+            proactive management across the entire environment.
+          </p>
+        </div>
+      </section>
+
+      {/* =================================================
+          SECTION 4 — DIGITAL TWIN HERO (LOCKED)
       ================================================= */}
       <section className="px-4 md:px-8 pb-40">
         <div className="hero-frame">
