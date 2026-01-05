@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function HomePage() {
   return (
-    <main className="bg-black text-white">
+    <main className="bg-black text-white overflow-x-hidden">
 
       {/* =================================================
           SECTION 1 — ENTERPRISE HERO (LOCKED)
@@ -11,35 +11,28 @@ export default function HomePage() {
       <section className="px-4 md:px-8 pt-24 md:pt-28">
         <div className="hero-frame">
 
-          {/* Background image */}
           <img
             src="/media/infrastructure.png"
             alt="Smart estate infrastructure"
             className="hero-bg"
           />
 
-          {/* Overlays */}
           <div className="hero-overlay" />
           <div className="hero-gradient" />
 
-          {/* Hero Content */}
           <div className="hero-content animate-fade-up">
-
-            {/* REMOVED: Ochiga eyebrow */}
-
             <h1 className="hero-title">
               Infrastructure
               <br />
               Operating System
             </h1>
 
-            <p className="hero-subtitle">
+            <p className="hero-description">
               Operate digital infrastructure across estates and buildings —
               access, assets, utilities, payments, and live digital twins.
             </p>
 
-            {/* CTA Buttons */}
-            <div className="hero-cta-group">
+            <div className="hero-cta">
               <Link href="/oyi" className="btn-primary">
                 Explore Oyi
               </Link>
@@ -50,7 +43,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Slider Dots */}
+          {/* Slider dots */}
           <div className="hero-dots">
             <span className="slider-dot active" />
             <span className="slider-dot" />
@@ -60,91 +53,116 @@ export default function HomePage() {
       </section>
 
       {/* =================================================
-          SECTION 2 — CORE STATEMENT
+          SECTION 1.5 — CORE STATEMENT (ACTIVE DARK)
       ================================================== */}
-      <section className="px-6 md:px-20 py-28 md:py-36">
-        <h2 className="text-3xl md:text-6xl font-medium max-w-5xl mb-10">
-          One system for real-world infrastructure.
-        </h2>
+      <section className="relative px-6 md:px-20 py-32 md:py-40">
 
-        <p className="text-lg md:text-xl text-white/70 max-w-3xl">
-          Ochiga designs and operates the digital backbone that governs access,
-          assets, utilities, payments, and live systems across physical
-          environments.
-          <br />
-          <br />
-          We deliver integrated, operator-focused infrastructure — not apps,
-          not dashboards, but systems that run estates, buildings, and cities.
-        </p>
+        {/* Subtle active background */}
+        <div className="absolute inset-0 bg-grid opacity-[0.35]" />
+        <div className="absolute inset-0 bg-radial-glow" />
+
+        <div className="relative z-10">
+          <h2 className="text-3xl md:text-6xl font-medium max-w-5xl mb-10">
+            One system for real-world infrastructure.
+          </h2>
+
+          <p className="text-lg md:text-xl text-white/70 max-w-3xl leading-relaxed">
+            Ochiga designs and operates the digital backbone that governs access,
+            assets, utilities, payments, and live systems across physical
+            environments.
+            <br /><br />
+            We deliver integrated, operator-focused infrastructure — not apps,
+            not dashboards, but systems that run estates, buildings, and cities.
+          </p>
+        </div>
       </section>
 
       {/* =================================================
-          SECTION 3 — PRODUCT: OYI
+          SECTION 2 — INFRASTRUCTURE SERVICES (CANVAS)
       ================================================== */}
-      <section className="px-6 md:px-20 py-28 md:py-36 border-t border-white/10">
-        <h2 className="text-3xl md:text-6xl font-medium mb-6">
-          Oyi
-        </h2>
+      <section className="relative py-28">
 
-        <p className="text-lg md:text-2xl text-white/80 mb-10 max-w-3xl">
-          Smart Building & Estate Infrastructure Operating System
-        </p>
+        <div className="flex gap-6 overflow-x-auto px-6 md:px-20 scroll-smooth no-scrollbar">
 
-        <ul className="space-y-4 text-white/70 text-lg max-w-3xl mb-12">
-          <li>• Identity-driven access control and governance</li>
-          <li>• Building systems and shared infrastructure operations</li>
-          <li>• Utilities, metering, billing, and payments</li>
-          <li>• Estate-wide operations, events, and audit trails</li>
-        </ul>
+          {/* PRE-CONSTRUCTION */}
+          <div className="service-card">
+            <div
+              className="service-bg"
+              style={{ backgroundImage: "url(/media/pre-construction.png)" }}
+            />
 
-        <Link href="/oyi" className="btn-secondary inline-block">
-          View Oyi
-        </Link>
-      </section>
+            <div className="service-overlay" />
 
-      {/* =================================================
-          SECTION 4 — DIGITAL TWIN
-      ================================================== */}
-      <section className="px-6 md:px-20 py-28 md:py-36 border-t border-white/10">
-        <p className="uppercase text-xs tracking-widest text-white/50 mb-4">
-          Digital Twin Infrastructure
-        </p>
+            <div className="service-content">
+              <h3 className="service-title">
+                Pre-Construction Infrastructure
+              </h3>
 
-        <h2 className="text-3xl md:text-6xl font-medium mb-8 max-w-4xl">
-          Live digital twins for real-world infrastructure.
-        </h2>
+              <p className="service-text">
+                We design the digital and operational infrastructure of estates
+                before construction begins. Using a live digital twin, Ochiga
+                models systems, assets, and utilities at scale — ensuring every
+                build decision aligns with long-term operations.
+              </p>
 
-        <p className="text-lg md:text-xl text-white/70 max-w-3xl mb-12">
-          Ochiga builds digital twins as operational infrastructure —
-          not visual simulations.
-        </p>
+              <Link href="/pre-construction" className="service-cta">
+                Plan Infrastructure →
+              </Link>
+            </div>
+          </div>
 
-        <Link href="/digital-twin" className="btn-secondary">
-          View Read-Only Demo
-        </Link>
-      </section>
+          {/* CONSTRUCTION PHASE */}
+          <div className="service-card">
+            <div
+              className="service-bg"
+              style={{ backgroundImage: "url(/media/construction.png)" }}
+            />
 
-      {/* =================================================
-          SECTION 5 — DEPLOYMENT CTA
-      ================================================== */}
-      <section className="px-6 md:px-20 py-32 md:py-40 border-t border-white/10">
-        <h2 className="text-3xl md:text-6xl font-medium mb-6">
-          Deploy Ochiga
-        </h2>
+            <div className="service-overlay" />
 
-        <p className="text-lg md:text-xl text-white/70 max-w-3xl mb-12">
-          Ochiga is deployed as core infrastructure — tailored to the physical,
-          operational, and regulatory realities of its environment.
-        </p>
+            <div className="service-content">
+              <h3 className="service-title">
+                Construction-Phase Deployment
+              </h3>
 
-        <div className="flex flex-col sm:flex-row gap-4">
-          <Link href="/deployments" className="btn-primary">
-            Request Deployment
-          </Link>
+              <p className="service-text">
+                During construction, Ochiga deploys and integrates hardware,
+                networks, fiber, sensors, and systems directly into the build —
+                all mapped in real time to the digital twin.
+              </p>
 
-          <Link href="/papers" className="btn-secondary">
-            Read Infrastructure Papers
-          </Link>
+              <Link href="/deployment" className="service-cta">
+                Deploy Infrastructure →
+              </Link>
+            </div>
+          </div>
+
+          {/* POST-CONSTRUCTION */}
+          <div className="service-card">
+            <div
+              className="service-bg"
+              style={{ backgroundImage: "url(/media/operations.png)" }}
+            />
+
+            <div className="service-overlay" />
+
+            <div className="service-content">
+              <h3 className="service-title">
+                Infrastructure Operations
+              </h3>
+
+              <p className="service-text">
+                After construction, Ochiga operates the estate’s infrastructure
+                through centralized command and control — managing assets,
+                access, utilities, events, and live systems at scale.
+              </p>
+
+              <Link href="/operations" className="service-cta">
+                Operate Infrastructure →
+              </Link>
+            </div>
+          </div>
+
         </div>
       </section>
 
