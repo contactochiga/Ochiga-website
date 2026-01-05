@@ -12,7 +12,8 @@ export default function HomePage() {
     if (!railRef.current) return;
     const scrollLeft = railRef.current.scrollLeft;
     const cardWidth = railRef.current.firstElementChild?.clientWidth || 1;
-    setActiveIndex(Math.round(scrollLeft / cardWidth));
+    const index = Math.round(scrollLeft / cardWidth);
+    setActiveIndex(index);
   };
 
   const scrollToCard = (index: number) => {
@@ -49,8 +50,12 @@ export default function HomePage() {
             </p>
 
             <div className="hero-cta">
-              <Link href="/oyi" className="btn-primary">Explore Oyi</Link>
-              <Link href="/deployments" className="btn-secondary">Request Deployment</Link>
+              <Link href="/oyi" className="btn-primary">
+                Explore Oyi
+              </Link>
+              <Link href="/deployments" className="btn-secondary">
+                Request Deployment
+              </Link>
             </div>
           </div>
 
@@ -63,9 +68,9 @@ export default function HomePage() {
       </section>
 
       {/* =================================================
-          SECTION 1.5 — CORE STATEMENT (LOCKED)
+          SECTION 1.5 — CORE STATEMENT (CENTERED)
       ================================================== */}
-      <section className="relative py-32 px-6 bg-grid bg-radial-glow">
+      <section className="relative py-32 px-6 bg-grid bg-radial-glow section-core">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-5xl font-medium mb-6">
             One system for real-world infrastructure.
@@ -82,12 +87,12 @@ export default function HomePage() {
       </section>
 
       {/* =================================================
-          SECTION 2 — SERVICES (LOCKED)
+          SECTION 2 — SERVICES (HORIZONTAL SCROLL)
       ================================================== */}
       <section className="py-24">
 
-        <div className="px-6 md:px-20 mb-12">
-          <p className="uppercase text-xs tracking-widest text-brand mb-2">
+        <div className="px-6 md:px-20 mb-12 section-services-intro">
+          <p className="uppercase text-xs tracking-widest brand-accent mb-2">
             Infrastructure Lifecycle
           </p>
           <h3 className="text-2xl md:text-4xl font-medium">
@@ -95,12 +100,13 @@ export default function HomePage() {
           </h3>
         </div>
 
+        {/* Service Rail */}
         <div
           ref={railRef}
           onScroll={handleScroll}
           className="service-rail no-scrollbar"
         >
-          {/* Pre */}
+          {/* PRE-CONSTRUCTION */}
           <div className="service-card">
             <div
               className="service-bg"
@@ -108,10 +114,12 @@ export default function HomePage() {
             />
             <div className="service-overlay" />
             <div className="service-content">
-              <h4 className="service-title">Pre-Construction Infrastructure</h4>
+              <h4 className="service-title">
+                Pre-Construction Infrastructure
+              </h4>
               <p className="service-text">
-                Digital infrastructure designed before construction begins —
-                modelled through a live digital twin.
+                Digital infrastructure is designed before construction begins —
+                systems, assets, and utilities modelled through a live digital twin.
               </p>
               <Link href="/pre-construction" className="service-cta">
                 Plan Infrastructure →
@@ -119,7 +127,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Construction */}
+          {/* CONSTRUCTION */}
           <div className="service-card">
             <div
               className="service-bg"
@@ -127,10 +135,12 @@ export default function HomePage() {
             />
             <div className="service-overlay" />
             <div className="service-content">
-              <h4 className="service-title">Construction-Phase Deployment</h4>
+              <h4 className="service-title">
+                Construction-Phase Deployment
+              </h4>
               <p className="service-text">
-                Hardware, fiber, and systems deployed directly into the build —
-                mapped in real time.
+                Hardware, fiber, networks, and systems are deployed directly
+                into the build — mapped in real time to the digital twin.
               </p>
               <Link href="/deployment" className="service-cta">
                 Deploy Infrastructure →
@@ -138,7 +148,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Ops */}
+          {/* OPERATIONS */}
           <div className="service-card">
             <div
               className="service-bg"
@@ -146,9 +156,12 @@ export default function HomePage() {
             />
             <div className="service-overlay" />
             <div className="service-content">
-              <h4 className="service-title">Live Operations & Control</h4>
+              <h4 className="service-title">
+                Live Operations & Control
+              </h4>
               <p className="service-text">
-                Estates operated as live infrastructure through Oyi OS.
+                Ochiga operates estates as live infrastructure — managing access,
+                assets, utilities, payments, and command systems.
               </p>
               <Link href="/operations" className="service-cta">
                 Operate Infrastructure →
@@ -157,7 +170,8 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="services-dots">
+        {/* Service Scroll Dots */}
+        <div className="services-dots mt-6">
           {[0, 1, 2].map((i) => (
             <button
               key={i}
@@ -169,38 +183,58 @@ export default function HomePage() {
       </section>
 
       {/* =================================================
-          SECTION 3 — OYI OS (NEW — LOCKING NOW)
+          SECTION 2.5 — OYI OS INTRO (TEXT ONLY)
       ================================================== */}
-      <section className="py-32 px-6 md:px-20">
-        <div className="oyi-grid">
+      <section className="py-28 px-6">
+        <div className="max-w-3xl mx-auto text-center">
+          <p className="uppercase text-xs tracking-widest brand-accent mb-4">
+            Oyi OS
+          </p>
 
-          {/* TEXT */}
-          <div className="oyi-copy">
-            <p className="uppercase text-xs tracking-widest text-brand mb-4">
-              Oyi OS
-            </p>
+          <h2 className="text-3xl md:text-5xl font-medium mb-6">
+            The control layer for real-world infrastructure.
+          </h2>
 
-            <h3 className="text-3xl md:text-5xl font-medium mb-6">
-              The control layer for real-world infrastructure
-            </h3>
+          <p className="text-lg md:text-xl text-white/70 leading-relaxed">
+            Oyi OS governs estates and buildings in real time — unifying digital twins,
+            access control, utilities, payments, assets, and command systems into a
+            single operational core.
+          </p>
+        </div>
+      </section>
 
-            <p className="text-lg text-white/70 mb-8">
-              Oyi OS is the authority layer that governs estates and buildings in
-              real time — unifying digital twins, access control, utilities,
-              payments, assets, and command systems into a single operational core.
-            </p>
+      {/* =================================================
+          SECTION 3 — OYI OS VISUAL + CTA
+      ================================================== */}
+      <section className="pb-32 px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="relative rounded-3xl overflow-hidden">
 
-            <Link href="/oyi" className="btn-primary">
-              Enter Oyi OS
-            </Link>
-          </div>
-
-          {/* IMAGE */}
-          <div className="oyi-visual">
             <img
               src="/media/oyi-os-command-center.png"
               alt="Oyi OS Command Center"
+              className="w-full h-[520px] md:h-[640px] object-cover"
             />
+
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/10" />
+
+            <div className="absolute inset-0 flex items-end">
+              <div className="p-8 md:p-12 max-w-xl">
+                <h3 className="text-2xl md:text-3xl font-medium mb-4">
+                  Operate infrastructure as a live system.
+                </h3>
+
+                <p className="text-white/75 mb-6 leading-relaxed">
+                  Monitor, control, and govern estates through a unified command layer —
+                  from city dashboards to on-site operations.
+                </p>
+
+                <Link href="/oyi" className="btn-primary">
+                  Enter Oyi OS
+                </Link>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
