@@ -23,7 +23,7 @@ a {
 }
 
 /* ===============================
-   HERO FRAME (SECTION 1)
+   HERO FRAME (SECTION 1 — LOCKED)
 ================================ */
 
 .hero-frame {
@@ -154,6 +154,7 @@ a {
   height: 6px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.4);
+  border: none;
 }
 
 .slider-dot.active {
@@ -161,7 +162,7 @@ a {
 }
 
 /* ===============================
-   ACTIVE DARK BACKGROUND (1.5)
+   SECTION 1.5 BACKGROUND (CENTERED)
 ================================ */
 
 .bg-grid {
@@ -173,23 +174,27 @@ a {
 
 .bg-radial-glow {
   background: radial-gradient(
-    circle at top center,
+    circle at center,
     rgba(255, 255, 255, 0.06),
     rgba(0, 0, 0, 0.85) 65%
   );
 }
 
 /* ===============================
-   SERVICE RAIL (IMPORTANT FIX)
+   SERVICE RAIL (SECTION 2 — FIXED)
 ================================ */
 
 .service-rail {
   display: flex;
-  gap: 20px;
+  gap: 24px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
-  padding-bottom: 6px;
+  padding: 0 max(6vw, 24px);
+}
+
+.service-rail > * {
+  scroll-snap-align: center;
 }
 
 /* Hide scrollbar */
@@ -201,18 +206,17 @@ a {
 }
 
 /* ===============================
-   SERVICE CARDS (SECTION 2)
+   SERVICE CARDS
 ================================ */
 
 .service-card {
   position: relative;
-  flex: 0 0 85%;
-  max-width: 85%;
+  flex: 0 0 88%;
+  max-width: 88%;
   height: 520px;
   border-radius: 22px;
   overflow: hidden;
   background: #000;
-  scroll-snap-align: start;
 }
 
 @media (min-width: 768px) {
@@ -266,7 +270,18 @@ a {
 .service-cta {
   font-size: 13px;
   font-weight: 500;
-  color: #fff;
+  opacity: 0.9;
+}
+
+/* ===============================
+   SERVICE DOTS (MATCH HERO)
+================================ */
+
+.services-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
 }
 
 /* ===============================
