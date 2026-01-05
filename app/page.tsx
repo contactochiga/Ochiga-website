@@ -23,9 +23,9 @@ export default function HomePage() {
   return (
     <main className="bg-black text-white">
 
-      {/* ============================
-          SECTION 1 — HERO (LOCKED)
-      ============================ */}
+      {/* =================================================
+          SECTION 1 — HERO
+      ================================================= */}
       <section className="px-4 md:px-8 pt-24 md:pt-28">
         <div className="hero-frame">
           <img src="/media/infrastructure.png" className="hero-bg" />
@@ -34,8 +34,7 @@ export default function HomePage() {
 
           <div className="hero-content animate-fade-up">
             <h1 className="hero-title">
-              Infrastructure
-              <br />Operating System
+              Infrastructure<br />Operating System
             </h1>
 
             <p className="hero-description">
@@ -51,29 +50,72 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ============================
-          SECTION 1.5 — CORE
-      ============================ */}
+      {/* =================================================
+          SECTION 1.5 — CORE STATEMENT
+      ================================================= */}
       <section className="py-32 px-6 bg-grid bg-radial-glow section-core">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-5xl font-medium mb-6">
             One system for real-world infrastructure.
           </h2>
-          <p className="text-lg md:text-xl text-white/70">
+          <p className="text-lg md:text-xl text-white/70 leading-relaxed">
             Ochiga designs and operates the digital backbone that governs access,
             assets, utilities, payments, and live systems across physical environments.
+            <br /><br />
+            We deliver operator-focused infrastructure — not apps, not dashboards,
+            but systems that run estates, buildings, and cities.
           </p>
         </div>
       </section>
 
-      {/* ============================
-          SECTION 2 — SERVICES (LOCKED)
-      ============================ */}
-      {/* (UNCHANGED — already working) */}
+      {/* =================================================
+          SECTION 2 — INFRASTRUCTURE LIFECYCLE
+      ================================================= */}
+      <section className="py-24">
+        <div className="px-6 md:px-20 mb-12">
+          <p className="uppercase text-xs tracking-widest brand-accent mb-2">
+            Infrastructure Lifecycle
+          </p>
+          <h3 className="text-2xl md:text-4xl font-medium">
+            From planning to live operations
+          </h3>
+        </div>
 
-      {/* ============================
+        <div
+          ref={railRef}
+          onScroll={handleScroll}
+          className="service-rail no-scrollbar"
+        >
+          <div className="service-card">
+            <div className="service-bg" style={{ backgroundImage: "url(/media/pre-construction.png)" }} />
+            <div className="service-overlay" />
+          </div>
+
+          <div className="service-card">
+            <div className="service-bg" style={{ backgroundImage: "url(/media/construction.png)" }} />
+            <div className="service-overlay" />
+          </div>
+
+          <div className="service-card">
+            <div className="service-bg" style={{ backgroundImage: "url(/media/operations.png)" }} />
+            <div className="service-overlay" />
+          </div>
+        </div>
+
+        <div className="services-dots mt-6">
+          {[0, 1, 2].map((i) => (
+            <button
+              key={i}
+              onClick={() => scrollToCard(i)}
+              className={`slider-dot ${activeIndex === i ? "active" : ""}`}
+            />
+          ))}
+        </div>
+      </section>
+
+      {/* =================================================
           SECTION 2.5 — OYI OS INTRO
-      ============================ */}
+      ================================================= */}
       <section className="py-28 px-6">
         <div className="max-w-3xl mx-auto text-center">
           <p className="uppercase text-xs tracking-widest brand-accent mb-4">
@@ -88,9 +130,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ============================
+      {/* =================================================
           SECTION 3 — OYI OS HERO
-      ============================ */}
+      ================================================= */}
       <section className="px-4 md:px-8 pb-32">
         <div className="hero-frame">
           <img src="/media/oyi-os-command-center.png" className="hero-bg" />
@@ -109,9 +151,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ============================
+      {/* =================================================
           SECTION 3.5 — DIGITAL TWIN INTRO
-      ============================ */}
+      ================================================= */}
       <section className="py-32 px-6 bg-grid bg-radial-glow section-core">
         <div className="max-w-4xl mx-auto text-center">
           <p className="uppercase text-xs tracking-widest brand-accent mb-4">
@@ -120,16 +162,16 @@ export default function HomePage() {
           <h2 className="text-3xl md:text-5xl font-medium mb-6">
             See infrastructure as a live system.
           </h2>
-          <p className="text-lg md:text-xl text-white/70">
-            Real-time visibility across assets, utilities, access, and spatial activity —
-            synchronized directly with the physical environment.
+          <p className="text-lg md:text-xl text-white/70 leading-relaxed">
+            A real-time digital representation of estates and buildings —
+            synchronizing assets, utilities, access, and activity with reality.
           </p>
         </div>
       </section>
 
-      {/* ============================
+      {/* =================================================
           SECTION 4 — DIGITAL TWIN HERO
-      ============================ */}
+      ================================================= */}
       <section className="px-4 md:px-8 pb-40">
         <div className="hero-frame">
           <img src="/media/digital-twin-preview.png" className="hero-bg" />
@@ -153,10 +195,9 @@ export default function HomePage() {
       </section>
 
       {/* =================================================
-          SECTION 4.5–5 — SOLUTIONS (NEW, FIXED)
+          SECTION 4.5–5 — SOLUTIONS
       ================================================= */}
       <section className="py-24">
-
         <div className="px-6 md:px-20 mb-12">
           <p className="uppercase text-xs tracking-widest brand-accent mb-2">
             Solutions
@@ -166,12 +207,7 @@ export default function HomePage() {
           </h3>
         </div>
 
-        <div
-          ref={railRef}
-          onScroll={handleScroll}
-          className="service-rail no-scrollbar"
-        >
-
+        <div className="service-rail no-scrollbar">
           {[
             "/media/smartBuilding.png",
             "/media/estate-systems.png",
@@ -180,22 +216,9 @@ export default function HomePage() {
             "/media/infrastructure-deployment.png",
           ].map((img, i) => (
             <div className="service-card" key={i}>
-              <div
-                className="service-bg"
-                style={{ backgroundImage: `url(${img})` }}
-              />
-              <div className="service-overlay" />
+              <div className="service-bg" style={{ backgroundImage: `url(${img})` }} />
+              <div className="solution-overlay" />
             </div>
-          ))}
-        </div>
-
-        <div className="services-dots mt-6">
-          {[0, 1, 2, 3, 4].map((i) => (
-            <button
-              key={i}
-              onClick={() => scrollToCard(i)}
-              className={`slider-dot ${activeIndex === i ? "active" : ""}`}
-            />
           ))}
         </div>
 
@@ -204,7 +227,6 @@ export default function HomePage() {
             Request Infrastructure Deployment
           </Link>
         </div>
-
       </section>
 
     </main>
