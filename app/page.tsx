@@ -1,4 +1,3 @@
-// app/page.tsx
 "use client";
 
 import { useRef, useState } from "react";
@@ -79,7 +78,7 @@ export default function HomePage() {
       </section>
 
       {/* =================================================
-          SECTION 2 — SERVICES
+          SECTION 2 — INFRASTRUCTURE LIFECYCLE
       ================================================= */}
       <section className="py-24">
         <div className="px-6 md:px-20 mb-12 section-services-intro">
@@ -96,12 +95,8 @@ export default function HomePage() {
           onScroll={handleScroll}
           className="service-rail no-scrollbar"
         >
-          {/* Pre-Construction */}
           <div className="service-card">
-            <div
-              className="service-bg"
-              style={{ backgroundImage: "url(/media/pre-construction.png)" }}
-            />
+            <div className="service-bg" style={{ backgroundImage: "url(/media/pre-construction.png)" }} />
             <div className="service-overlay" />
             <div className="service-content">
               <h4 className="service-title">Pre-Construction Infrastructure</h4>
@@ -115,12 +110,8 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Construction */}
           <div className="service-card">
-            <div
-              className="service-bg"
-              style={{ backgroundImage: "url(/media/construction.png)" }}
-            />
+            <div className="service-bg" style={{ backgroundImage: "url(/media/construction.png)" }} />
             <div className="service-overlay" />
             <div className="service-content">
               <h4 className="service-title">Construction-Phase Deployment</h4>
@@ -134,12 +125,8 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Operations */}
           <div className="service-card">
-            <div
-              className="service-bg"
-              style={{ backgroundImage: "url(/media/operations.png)" }}
-            />
+            <div className="service-bg" style={{ backgroundImage: "url(/media/operations.png)" }} />
             <div className="service-overlay" />
             <div className="service-content">
               <h4 className="service-title">Live Operations & Control</h4>
@@ -194,11 +181,9 @@ export default function HomePage() {
 
           <div className="hero-content animate-fade-up">
             <h1 className="hero-title">Oyi OS</h1>
-
             <p className="hero-description">
               Monitor, control, and govern infrastructure through a unified command layer.
             </p>
-
             <div className="hero-cta">
               <Link href="/oyi" className="btn-primary">Enter Oyi OS</Link>
             </div>
@@ -207,7 +192,7 @@ export default function HomePage() {
       </section>
 
       {/* =================================================
-          SECTION 3.5 — DIGITAL TWIN INTRO (CENTERED)
+          SECTION 3.5 — DIGITAL TWIN INTRO
       ================================================= */}
       <section className="py-32 px-6 bg-grid bg-radial-glow section-core">
         <div className="max-w-4xl mx-auto text-center">
@@ -220,13 +205,9 @@ export default function HomePage() {
           </h2>
 
           <p className="text-lg md:text-xl text-white/70 leading-relaxed">
-            Ochiga’s Digital Twin transforms buildings and estates into real-time
+            Ochiga’s Digital Twin converts buildings and estates into real-time
             digital systems — synchronizing assets, utilities, access, and activity
             with reality.
-            <br /><br />
-            Operators gain instant visibility into infrastructure performance and
-            asset behavior, enabling faster decisions, precise control, and
-            proactive management across the entire environment.
           </p>
         </div>
       </section>
@@ -236,11 +217,7 @@ export default function HomePage() {
       ================================================= */}
       <section className="px-4 md:px-8 pb-40">
         <div className="hero-frame">
-          <img
-            src="/media/digital-twin-preview.png"
-            className="hero-bg"
-            alt="Live Digital Twin"
-          />
+          <img src="/media/digital-twin-preview.png" className="hero-bg" />
           <div className="hero-overlay" />
           <div className="hero-gradient" />
 
@@ -261,6 +238,47 @@ export default function HomePage() {
                 View Digital Twin Demo
               </Link>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =================================================
+          SECTION 4.5 / 5 — INFRASTRUCTURE DOMAINS
+      ================================================= */}
+      <section className="py-32">
+        <div className="px-6 md:px-20 mb-12 section-services-intro">
+          <p className="uppercase text-xs tracking-widest brand-accent mb-2">
+            Infrastructure Domains
+          </p>
+          <h3 className="text-2xl md:text-4xl font-medium">
+            Systems we design, deploy, and operate
+          </h3>
+        </div>
+
+        <div className="service-rail no-scrollbar">
+          <div className="service-card">
+            <div className="service-bg" style={{ backgroundImage: "url(/media/smartBuilding.png)" }} />
+            <div className="service-overlay" />
+          </div>
+
+          <div className="service-card">
+            <div className="service-bg" style={{ backgroundImage: "url(/media/estate-systems.png)" }} />
+            <div className="service-overlay" />
+          </div>
+
+          <div className="service-card">
+            <div className="service-bg" style={{ backgroundImage: "url(/media/command-center.png)" }} />
+            <div className="service-overlay" />
+          </div>
+
+          <div className="service-card">
+            <div className="service-bg" style={{ backgroundImage: "url(/media/urban-systems.png)" }} />
+            <div className="service-overlay" />
+          </div>
+
+          <div className="service-card">
+            <div className="service-bg" style={{ backgroundImage: "url(/media/infrastructure-deployment.png)" }} />
+            <div className="service-overlay" />
           </div>
         </div>
       </section>
