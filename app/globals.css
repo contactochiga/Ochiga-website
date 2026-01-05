@@ -135,18 +135,21 @@ a {
 }
 
 /* ===============================
-   HERO SLIDER DOTS
+   HERO DOTS
 ================================ */
+
+.hero-dots,
+.services-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
 
 .hero-dots {
   position: absolute;
   bottom: 20px;
   left: 0;
   right: 0;
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  z-index: 10;
 }
 
 .slider-dot {
@@ -162,7 +165,7 @@ a {
 }
 
 /* ===============================
-   SECTION 1.5 BACKGROUND (CENTERED)
+   SECTION 1.5 BACKGROUND + TYPO
 ================================ */
 
 .bg-grid {
@@ -180,8 +183,28 @@ a {
   );
 }
 
+.section-core h2 {
+  letter-spacing: -0.02em;
+}
+
+.section-core p {
+  line-height: 1.75;
+}
+
 /* ===============================
-   SERVICE RAIL (SECTION 2 — FIXED)
+   SECTION 2 INTRO
+================================ */
+
+.brand-accent {
+  color: #ff8c2a;
+}
+
+.section-services-intro {
+  text-align: left;
+}
+
+/* ===============================
+   SERVICE RAIL
 ================================ */
 
 .service-rail {
@@ -197,7 +220,6 @@ a {
   scroll-snap-align: center;
 }
 
-/* Hide scrollbar */
 .no-scrollbar {
   scrollbar-width: none;
 }
@@ -274,17 +296,6 @@ a {
 }
 
 /* ===============================
-   SERVICE DOTS (MATCH HERO)
-================================ */
-
-.services-dots {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 24px;
-}
-
-/* ===============================
    MOBILE REFINEMENT
 ================================ */
 
@@ -313,6 +324,10 @@ a {
 
   .service-card {
     height: 480px;
+  }
+
+  .section-core {
+    padding-inline: 8px;
   }
 }
 
