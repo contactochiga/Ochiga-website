@@ -110,7 +110,6 @@ a {
   border-radius: 10px;
   font-size: 13px;
   transition: all 0.25s ease;
-  text-decoration: none;
 }
 
 .btn-primary {
@@ -162,8 +161,7 @@ a {
 }
 
 /* ===============================
-   ACTIVE DARK BACKGROUND
-   (SECTION 1.5)
+   ACTIVE DARK BACKGROUND (1.5)
 ================================ */
 
 .bg-grid {
@@ -182,18 +180,46 @@ a {
 }
 
 /* ===============================
+   SERVICE RAIL (IMPORTANT FIX)
+================================ */
+
+.service-rail {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 6px;
+}
+
+/* Hide scrollbar */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ===============================
    SERVICE CARDS (SECTION 2)
 ================================ */
 
 .service-card {
   position: relative;
-  min-width: 320px;
-  max-width: 420px;
+  flex: 0 0 85%;
+  max-width: 85%;
   height: 520px;
   border-radius: 22px;
   overflow: hidden;
   background: #000;
-  flex-shrink: 0;
+  scroll-snap-align: start;
+}
+
+@media (min-width: 768px) {
+  .service-card {
+    flex: 0 0 420px;
+    max-width: 420px;
+  }
 }
 
 .service-bg {
@@ -241,19 +267,6 @@ a {
   font-size: 13px;
   font-weight: 500;
   color: #fff;
-  opacity: 0.9;
-}
-
-/* ===============================
-   HORIZONTAL SCROLL CLEANUP
-================================ */
-
-.no-scrollbar {
-  scrollbar-width: none;
-}
-
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
 }
 
 /* ===============================
@@ -284,7 +297,6 @@ a {
   }
 
   .service-card {
-    min-width: 280px;
     height: 480px;
   }
 }
