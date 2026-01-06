@@ -4,12 +4,10 @@ import { useRef, useState } from "react";
 import Link from "next/link";
 
 export default function HomePage() {
-  // Infrastructure Lifecycle slider
   const lifecycleRef = useRef<HTMLDivElement>(null);
-  const [lifecycleIndex, setLifecycleIndex] = useState(0);
-
-  // Solutions slider
   const solutionsRef = useRef<HTMLDivElement>(null);
+
+  const [lifecycleIndex, setLifecycleIndex] = useState(0);
   const [solutionsIndex, setSolutionsIndex] = useState(0);
 
   const handleScroll = (
@@ -42,7 +40,6 @@ export default function HomePage() {
           <img src="/media/infrastructure.png" className="hero-bg" />
           <div className="hero-overlay" />
           <div className="hero-gradient" />
-
           <div className="hero-content animate-fade-up">
             <h1 className="hero-title">
               Infrastructure<br />Operating System
@@ -62,8 +59,8 @@ export default function HomePage() {
       {/* =================================================
           SECTION 1.5 — CORE STATEMENT
       ================================================= */}
-      <section className="py-32 px-6 bg-grid bg-radial-glow section-core">
-        <div className="max-w-4xl mx-auto text-center">
+      <section className="py-36 px-6 bg-grid bg-radial-glow section-core text-center">
+        <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl md:text-5xl font-medium mb-6">
             One system for real-world infrastructure.
           </h2>
@@ -79,8 +76,8 @@ export default function HomePage() {
       {/* =================================================
           SECTION 2 — INFRASTRUCTURE LIFECYCLE
       ================================================= */}
-      <section className="py-24">
-        <div className="px-6 md:px-20 mb-12">
+      <section className="py-28">
+        <div className="px-6 md:px-20 mb-14">
           <p className="uppercase text-xs tracking-widest brand-accent mb-2">
             Infrastructure Lifecycle
           </p>
@@ -143,12 +140,12 @@ export default function HomePage() {
       {/* =================================================
           SECTION 2.5 — OYI OS INTRO
       ================================================= */}
-      <section className="py-28 px-6 text-center">
+      <section className="py-36 px-6 text-center">
         <p className="uppercase text-xs tracking-widest brand-accent mb-4">Oyi OS</p>
         <h2 className="text-3xl md:text-5xl font-medium mb-6">
           The control layer for real-world infrastructure.
         </h2>
-        <p className="text-lg md:text-xl text-white/70">
+        <p className="text-lg md:text-xl text-white/70 max-w-2xl mx-auto">
           A unified operational core governing estates and cities in real time.
         </p>
       </section>
@@ -156,7 +153,7 @@ export default function HomePage() {
       {/* =================================================
           SECTION 3 — OYI OS HERO
       ================================================= */}
-      <section className="px-4 md:px-8 pb-32">
+      <section className="px-4 md:px-8 pb-36">
         <div className="hero-frame">
           <img src="/media/oyi-os-command-center.png" className="hero-bg" />
           <div className="hero-overlay" />
@@ -174,14 +171,14 @@ export default function HomePage() {
       {/* =================================================
           SECTION 3.5 — DIGITAL TWIN INTRO
       ================================================= */}
-      <section className="py-32 px-6 bg-grid bg-radial-glow section-core text-center">
+      <section className="py-36 px-6 bg-grid bg-radial-glow section-core text-center">
         <p className="uppercase text-xs tracking-widest brand-accent mb-4">
           Digital Twin
         </p>
         <h2 className="text-3xl md:text-5xl font-medium mb-6">
           See infrastructure as a live system.
         </h2>
-        <p className="text-lg md:text-xl text-white/70 leading-relaxed">
+        <p className="text-lg md:text-xl text-white/70 max-w-3xl mx-auto leading-relaxed">
           A real-time digital representation of estates and buildings —
           synchronizing assets, utilities, access, and activity with reality.
         </p>
@@ -210,14 +207,14 @@ export default function HomePage() {
       {/* =================================================
           SECTION 4.5 — SOLUTIONS INTRO
       ================================================= */}
-      <section className="py-32 px-6 bg-grid bg-radial-glow section-core text-center">
+      <section className="py-36 px-6 bg-grid bg-radial-glow section-core text-center">
         <p className="uppercase text-xs tracking-widest brand-accent mb-4">
           Solutions
         </p>
         <h2 className="text-3xl md:text-5xl font-medium mb-6">
           Infrastructure systems, delivered end-to-end.
         </h2>
-        <p className="text-lg md:text-xl text-white/70 leading-relaxed">
+        <p className="text-lg md:text-xl text-white/70 max-w-3xl mx-auto leading-relaxed">
           Ochiga designs, deploys, and operates integrated infrastructure systems
           across buildings, estates, and urban environments.
         </p>
@@ -226,7 +223,7 @@ export default function HomePage() {
       {/* =================================================
           SECTION 5 — SOLUTIONS (WITH DOTS)
       ================================================= */}
-      <section className="py-24">
+      <section className="py-28">
         <div
           ref={solutionsRef}
           onScroll={() => handleScroll(solutionsRef, setSolutionsIndex)}
@@ -265,33 +262,40 @@ export default function HomePage() {
       {/* =================================================
           SECTION 5.5 — ENTERPRISE READINESS
       ================================================= */}
-      <section className="py-32 px-6 bg-grid bg-radial-glow section-core text-center">
+      <section className="py-36 px-6 bg-grid bg-radial-glow section-core text-center">
         <p className="uppercase text-xs tracking-widest brand-accent mb-4">
           Built for Operators
         </p>
         <h2 className="text-3xl md:text-5xl font-medium mb-6">
           Infrastructure designed for scale, governance, and long-term operation.
         </h2>
-        <p className="text-lg md:text-xl text-white/70 leading-relaxed">
+        <p className="text-lg md:text-xl text-white/70 max-w-3xl mx-auto leading-relaxed">
           Ochiga is built for developers, estate operators, facility managers,
           and institutions responsible for real-world infrastructure.
         </p>
       </section>
 
       {/* =================================================
-          SECTION 6 — FINAL CONVERSION
+          SECTION 6 — FINAL CONVERSION (WITH IMAGE)
       ================================================= */}
-      <section className="py-32 px-6 text-center">
-        <h2 className="text-3xl md:text-5xl font-medium mb-6">
-          Deploy infrastructure that operates itself.
-        </h2>
-        <p className="text-lg md:text-xl text-white/70 mb-10">
-          Work directly with our infrastructure team to design, deploy,
-          and operate systems that last decades.
-        </p>
-        <div className="hero-cta justify-center">
-          <Link href="/contact" className="btn-primary">Request Deployment</Link>
-          <Link href="/contact" className="btn-secondary">Talk to Infrastructure Team</Link>
+      <section className="px-4 md:px-8 pb-40">
+        <div className="hero-frame">
+          <img src="/media/infrastructure-operators.png" className="hero-bg" />
+          <div className="hero-overlay" />
+          <div className="hero-gradient" />
+          <div className="hero-content animate-fade-up">
+            <h1 className="hero-title">
+              Deploy infrastructure<br />that operates itself.
+            </h1>
+            <p className="hero-description">
+              Work directly with our infrastructure team to design, deploy,
+              and operate systems that last decades.
+            </p>
+            <div className="hero-cta">
+              <Link href="/contact" className="btn-primary">Request Deployment</Link>
+              <Link href="/contact" className="btn-secondary">Talk to Infrastructure Team</Link>
+            </div>
+          </div>
         </div>
       </section>
 
