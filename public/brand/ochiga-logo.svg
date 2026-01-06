@@ -1,4 +1,11 @@
-<svg width="800" height="400" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+<svg
+  width="800"
+  height="400"
+  viewBox="0 0 800 400"
+  xmlns="http://www.w3.org/2000/svg"
+>
+
+  <!-- Gradient -->
   <defs>
     <radialGradient id="redGradient" cx="30%" cy="30%" r="75%">
       <stop offset="0%" stop-color="#d41e2d"/>
@@ -6,31 +13,37 @@
     </radialGradient>
   </defs>
 
-  <!-- Red circle -->
+  <!-- Red Circle -->
   <circle cx="200" cy="200" r="110" fill="url(#redGradient)" />
 
-  <!-- Correct ORIGINAL-style flow lines -->
+  <!-- ORIGINAL-CORRECT FLOW LINES (DOWNWARD BEND, RISING EXIT) -->
   <g fill="none" stroke="white" stroke-linecap="round">
-    
+
     <!-- Top line -->
     <path
-      d="M125 175
-         C165 185, 225 195, 305 170"
-      stroke-width="11"
+      d="
+        M120 170
+        C150 210, 220 255, 310 190
+      "
+      stroke-width="10"
     />
 
     <!-- Middle line -->
     <path
-      d="M135 205
-         C175 215, 235 225, 315 195"
-      stroke-width="9"
+      d="
+        M130 195
+        C165 235, 235 280, 320 215
+      "
+      stroke-width="8"
     />
 
     <!-- Bottom line -->
     <path
-      d="M150 240
-         C190 255, 245 260, 320 225"
-      stroke-width="7"
+      d="
+        M145 225
+        C185 265, 255 305, 330 245
+      "
+      stroke-width="6"
     />
 
   </g>
@@ -47,4 +60,5 @@
   >
     OCHIGA
   </text>
+
 </svg>
