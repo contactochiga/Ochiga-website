@@ -1,6 +1,6 @@
 <svg width="800" height="400" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <radialGradient id="redGradient" cx="35%" cy="35%" r="70%">
+    <radialGradient id="redGradient" cx="30%" cy="30%" r="75%">
       <stop offset="0%" stop-color="#d41e2d"/>
       <stop offset="100%" stop-color="#8b0000"/>
     </radialGradient>
@@ -9,34 +9,30 @@
   <!-- Red circle -->
   <circle cx="200" cy="200" r="110" fill="url(#redGradient)" />
 
-  <!-- Flow ribbons (FILLED, tapered, original geometry) -->
-  <g fill="white">
-    <!-- Ribbon 1 (top) -->
-    <path d="
-      M150 240
-      C175 190, 235 165, 295 160
-      L305 172
-      C245 175, 190 200, 165 250
-      Z
-    "/>
+  <!-- Correct ORIGINAL-style flow lines -->
+  <g fill="none" stroke="white" stroke-linecap="round">
+    
+    <!-- Top line -->
+    <path
+      d="M125 175
+         C165 185, 225 195, 305 170"
+      stroke-width="11"
+    />
 
-    <!-- Ribbon 2 (middle) -->
-    <path d="
-      M165 265
-      C195 210, 245 190, 305 185
-      L312 198
-      C252 200, 210 225, 180 280
-      Z
-    "/>
+    <!-- Middle line -->
+    <path
+      d="M135 205
+         C175 215, 235 225, 315 195"
+      stroke-width="9"
+    />
 
-    <!-- Ribbon 3 (bottom, thickest) -->
-    <path d="
-      M180 295
-      C215 235, 255 220, 315 215
-      L320 230
-      C260 235, 225 255, 195 315
-      Z
-    "/>
+    <!-- Bottom line -->
+    <path
+      d="M150 240
+         C190 255, 245 260, 320 225"
+      stroke-width="7"
+    />
+
   </g>
 
   <!-- Wordmark -->
