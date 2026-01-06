@@ -87,10 +87,7 @@ export default function HomePage() {
         >
           {/* Pre-Construction */}
           <div className="service-card">
-            <div
-              className="service-bg"
-              style={{ backgroundImage: "url(/media/pre-construction.png)" }}
-            />
+            <div className="service-bg" style={{ backgroundImage: "url(/media/pre-construction.png)" }} />
             <div className="service-overlay" />
             <div className="service-content">
               <h4 className="service-title">Pre-Construction Infrastructure</h4>
@@ -106,10 +103,7 @@ export default function HomePage() {
 
           {/* Construction */}
           <div className="service-card">
-            <div
-              className="service-bg"
-              style={{ backgroundImage: "url(/media/construction.png)" }}
-            />
+            <div className="service-bg" style={{ backgroundImage: "url(/media/construction.png)" }} />
             <div className="service-overlay" />
             <div className="service-content">
               <h4 className="service-title">Construction-Phase Deployment</h4>
@@ -125,10 +119,7 @@ export default function HomePage() {
 
           {/* Operations */}
           <div className="service-card">
-            <div
-              className="service-bg"
-              style={{ backgroundImage: "url(/media/operations.png)" }}
-            />
+            <div className="service-bg" style={{ backgroundImage: "url(/media/operations.png)" }} />
             <div className="service-overlay" />
             <div className="service-content">
               <h4 className="service-title">Live Operations & Control</h4>
@@ -291,10 +282,7 @@ export default function HomePage() {
             },
           ].map((item, i) => (
             <div className="service-card" key={i}>
-              <div
-                className="service-bg"
-                style={{ backgroundImage: `url(${item.img})` }}
-              />
+              <div className="service-bg" style={{ backgroundImage: `url(${item.img})` }} />
               <div className="solution-overlay" />
               <div className="service-content">
                 <h4 className="service-title">{item.title}</h4>
@@ -311,6 +299,53 @@ export default function HomePage() {
           <Link href="/contact" className="btn-primary">
             Request Infrastructure Deployment
           </Link>
+        </div>
+      </section>
+
+      {/* =================================================
+          SECTION 5.5 — ENTERPRISE READINESS
+      ================================================= */}
+      <section className="py-32 px-6 bg-grid bg-radial-glow section-core">
+        <div className="max-w-4xl mx-auto text-center">
+          <p className="uppercase text-xs tracking-widest brand-accent mb-4">
+            Built for Operators
+          </p>
+          <h2 className="text-3xl md:text-5xl font-medium mb-6">
+            Infrastructure designed for scale, governance, and long-term operation.
+          </h2>
+          <p className="text-lg md:text-xl text-white/70 leading-relaxed">
+            Ochiga is built for developers, estate operators, facility managers,
+            and institutions responsible for real-world infrastructure.
+            <br /><br />
+            Our systems are deployed as long-term operational infrastructure —
+            designed to integrate with physical assets, scale across environments,
+            and remain governable over decades.
+          </p>
+        </div>
+      </section>
+
+      {/* =================================================
+          SECTION 6 — FINAL CONVERSION
+      ================================================= */}
+      <section className="py-32 px-6">
+        <div className="max-w-3xl mx-auto text-center">
+          <h2 className="text-3xl md:text-5xl font-medium mb-6">
+            Deploy infrastructure that operates itself.
+          </h2>
+          <p className="text-lg md:text-xl text-white/70 mb-10">
+            Whether you’re planning a new development, upgrading an existing estate,
+            or exploring live digital twins — our team works directly with operators
+            to design, deploy, and run infrastructure systems.
+          </p>
+
+          <div className="hero-cta justify-center">
+            <Link href="/contact" className="btn-primary">
+              Request Deployment
+            </Link>
+            <Link href="/contact" className="btn-secondary">
+              Talk to Infrastructure Team
+            </Link>
+          </div>
         </div>
       </section>
 
