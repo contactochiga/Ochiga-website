@@ -1,20 +1,75 @@
-<svg width="800" height="400" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+<<svg width="800" height="400" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+  <!-- background for preview (remove if needed) -->
   <rect width="800" height="400" fill="black" />
-  
+
   <defs>
-    <radialGradient id="redGradient" cx="50%" cy="50%" r="50%" fx="60%" fy="40%">
-      <stop offset="0%" style="stop-color:#d41e2d;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#8b0000;stop-opacity:1" />
+    <!-- Correct disc gradient (matches PNG lighting) -->
+    <radialGradient id="redGradient" cx="62%" cy="32%" r="70%">
+      <stop offset="0%" stop-color="#d41e2d"/>
+      <stop offset="55%" stop-color="#b31624"/>
+      <stop offset="100%" stop-color="#6f0007"/>
     </radialGradient>
+
+    <!-- fade mask so ribbons dissolve before edge -->
+    <linearGradient id="ribbonFade" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="white" stop-opacity="1"/>
+      <stop offset="78%" stop-color="white" stop-opacity="1"/>
+      <stop offset="100%" stop-color="white" stop-opacity="0"/>
+    </linearGradient>
+
+    <mask id="fadeMask">
+      <rect width="800" height="400" fill="url(#ribbonFade)" />
+    </mask>
+
+    <!-- clip everything strictly to the circle -->
+    <clipPath id="circleClip">
+      <circle cx="200" cy="200" r="110"/>
+    </clipPath>
   </defs>
 
+  <!-- red disc -->
   <circle cx="200" cy="200" r="110" fill="url(#redGradient)" />
-  
-  <g fill="white">
-    <path d="M137.5 245.3 C 148.9 200.2 183.6 167.9 225.2 153.2 C 254.9 142.6 287.3 143.8 316.2 156.6 C 295.1 153.6 273.7 154.8 253.1 160.4 C 204.1 173.6 164.8 208.8 149.9 256.8 Z" />
-    <path d="M155.4 267.2 C 166.3 220.7 200.1 187.6 240.6 173.7 C 268.2 164.3 298.1 166.5 324.3 179.9 C 302.9 175.4 281.2 175.5 260.6 180.6 C 213.3 192.4 176.4 226.3 165.7 276.3 Z" />
-    <path d="M174.3 285.6 C 184.6 239.6 216.9 207.5 255.7 194.7 C 280.3 186.5 306.5 188.7 329.6 201.1 C 307.3 196.7 285.3 197.2 264.4 203.2 C 220.6 215.7 188.5 248.3 183.2 292.8 Z" />
+
+  <!-- ribbons -->
+  <g fill="white" clip-path="url(#circleClip)" mask="url(#fadeMask)">
+    <!-- TOP ribbon -->
+    <path d="
+      M140 215
+      C165 180 205 155 250 150
+      C280 147 305 155 325 170
+      C300 165 275 165 250 172
+      C205 186 170 215 150 255
+      Z" />
+
+    <!-- MIDDLE ribbon -->
+    <path d="
+      M155 240
+      C180 200 220 170 265 165
+      C295 162 320 170 340 185
+      C315 180 290 180 265 187
+      C220 200 185 230 165 275
+      Z" />
+
+    <!-- BOTTOM ribbon -->
+    <path d="
+      M175 265
+      C200 225 240 195 285 190
+      C315 187 340 195 360 210
+      C335 205 310 205 285 212
+      C240 225 205 255 190 295
+      Z" />
   </g>
 
-  <text x="340" y="225" font-family="Arial, Helvetica, sans-serif" font-size="95" font-weight="500" fill="white" letter-spacing="2">OCHIGA</text>
+  <!-- wordmark -->
+  <text
+    x="340"
+    y="225"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="95"
+    font-weight="500"
+    fill="white"
+    letter-spacing="2"
+  >
+    OCHIGA
+  </text>
 </svg>
