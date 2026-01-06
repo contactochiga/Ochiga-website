@@ -6,7 +6,7 @@
 >
   <!-- Gradient -->
   <defs>
-    <radialGradient id="redGradient" cx="32%" cy="32%" r="75%">
+    <radialGradient id="redGradient" cx="34%" cy="34%" r="72%">
       <stop offset="0%" stop-color="#d41e2d"/>
       <stop offset="100%" stop-color="#8b0000"/>
     </radialGradient>
@@ -15,38 +15,37 @@
   <!-- Red circle -->
   <circle cx="200" cy="200" r="110" fill="url(#redGradient)" />
 
-  <!-- TRUE ORIGINAL FLOW LINES -->
-  <!-- Downward dip → smooth rise → fade before edge -->
+  <!-- ORIGINAL FLOW (downward bend, flat exit, fade before edge) -->
   <g
     fill="none"
     stroke="white"
     stroke-linecap="round"
   >
-    <!-- Top line -->
+    <!-- Line 1 -->
     <path
       d="
-        M120 170
-        C155 215, 215 255, 290 205
+        M118 168
+        C150 215, 210 245, 270 225
       "
-      stroke-width="9"
+      stroke-width="8.5"
     />
 
-    <!-- Middle line -->
+    <!-- Line 2 -->
     <path
       d="
-        M130 195
-        C165 240, 225 280, 295 230
+        M128 192
+        C160 235, 220 265, 275 248
       "
-      stroke-width="7.5"
+      stroke-width="7"
     />
 
-    <!-- Bottom line -->
+    <!-- Line 3 -->
     <path
       d="
-        M145 225
-        C180 265, 240 305, 300 260
+        M140 222
+        C175 265, 235 295, 278 275
       "
-      stroke-width="6"
+      stroke-width="5.5"
     />
   </g>
 
