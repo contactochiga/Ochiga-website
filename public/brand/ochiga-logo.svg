@@ -4,48 +4,50 @@
   viewBox="0 0 800 400"
   xmlns="http://www.w3.org/2000/svg"
 >
-
   <!-- Gradient -->
   <defs>
-    <radialGradient id="redGradient" cx="30%" cy="30%" r="75%">
+    <radialGradient id="redGradient" cx="32%" cy="32%" r="75%">
       <stop offset="0%" stop-color="#d41e2d"/>
       <stop offset="100%" stop-color="#8b0000"/>
     </radialGradient>
   </defs>
 
-  <!-- Red Circle -->
+  <!-- Red circle -->
   <circle cx="200" cy="200" r="110" fill="url(#redGradient)" />
 
-  <!-- ORIGINAL-CORRECT FLOW LINES (DOWNWARD BEND, RISING EXIT) -->
-  <g fill="none" stroke="white" stroke-linecap="round">
-
+  <!-- TRUE ORIGINAL FLOW LINES -->
+  <!-- Downward dip → smooth rise → fade before edge -->
+  <g
+    fill="none"
+    stroke="white"
+    stroke-linecap="round"
+  >
     <!-- Top line -->
     <path
       d="
         M120 170
-        C150 210, 220 255, 310 190
+        C155 215, 215 255, 290 205
       "
-      stroke-width="10"
+      stroke-width="9"
     />
 
     <!-- Middle line -->
     <path
       d="
         M130 195
-        C165 235, 235 280, 320 215
+        C165 240, 225 280, 295 230
       "
-      stroke-width="8"
+      stroke-width="7.5"
     />
 
     <!-- Bottom line -->
     <path
       d="
         M145 225
-        C185 265, 255 305, 330 245
+        C180 265, 240 305, 300 260
       "
       stroke-width="6"
     />
-
   </g>
 
   <!-- Wordmark -->
@@ -60,5 +62,4 @@
   >
     OCHIGA
   </text>
-
 </svg>
