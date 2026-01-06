@@ -9,27 +9,33 @@
   <!-- Red circle -->
   <circle cx="200" cy="200" r="110" fill="url(#redGradient)" />
 
-  <!-- Corrected flow lines -->
-  <g fill="none" stroke="white" stroke-linecap="round">
-    <!-- Line 1 -->
+  <!-- FLOW LINES — corrected to match original logo -->
+  <g fill="white">
+    <!-- Top flow -->
     <path
-      d="M145 255
-         C165 195, 215 170, 285 165"
-      stroke-width="12"
+      d="M148 255
+         C158 215, 205 180, 285 168
+         L280 182
+         C212 192, 175 225, 160 268
+         Z"
     />
 
-    <!-- Line 2 -->
+    <!-- Middle flow -->
     <path
-      d="M160 275
-         C185 210, 235 190, 295 185"
-      stroke-width="10"
+      d="M162 275
+         C175 225, 225 195, 295 185
+         L292 198
+         C232 205, 195 235, 178 288
+         Z"
     />
 
-    <!-- Line 3 -->
+    <!-- Bottom flow -->
     <path
-      d="M175 295
-         C205 235, 250 220, 305 215"
-      stroke-width="8"
+      d="M178 295
+         C198 245, 248 225, 305 218
+         L302 228
+         C255 235, 220 260, 198 305
+         Z"
     />
   </g>
 
