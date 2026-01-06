@@ -1,111 +1,106 @@
-<!-- Save as public/brand/ochiga-logo.svg -->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" preserveAspectRatio="xMidYMid meet">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid meet">
   <defs>
-    <!-- main disc gradient -->
-    <radialGradient id="discGrad" cx="33%" cy="33%" r="70%">
-      <stop offset="0%" stop-color="#d93034"/>
-      <stop offset="60%" stop-color="#c01e2a"/>
-      <stop offset="100%" stop-color="#7a0008"/>
+    <!-- red radial gradient for the disc -->
+    <radialGradient id="redGrad" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#d41e2d"/>
+      <stop offset="60%" stop-color="#c2192a"/>
+      <stop offset="100%" stop-color="#7d0008"/>
     </radialGradient>
 
-    <!-- subtle lower-left inner shadow for the disc -->
-    <radialGradient id="discInner" cx="22%" cy="65%" r="75%">
-      <stop offset="0%" stop-color="rgba(0,0,0,0)" />
-      <stop offset="55%" stop-color="rgba(0,0,0,0.06)" />
-      <stop offset="100%" stop-color="rgba(0,0,0,0.36)" />
+    <!-- subtle inner-dark vignette -->
+    <radialGradient id="innerShadow" cx="25%" cy="65%" r="75%">
+      <stop offset="0%" stop-color="rgba(0,0,0,0)"/>
+      <stop offset="55%" stop-color="rgba(0,0,0,0.06)"/>
+      <stop offset="100%" stop-color="rgba(0,0,0,0.35)"/>
     </radialGradient>
 
-    <!-- slight overall vignette to match PNG tone -->
-    <radialGradient id="vignette" cx="50%" cy="40%" r="80%">
-      <stop offset="70%" stop-color="rgba(0,0,0,0)"/>
-      <stop offset="100%" stop-color="rgba(0,0,0,0.25)"/>
-    </radialGradient>
+    <!-- soft shadow for ribbons -->
+    <filter id="ribbonShadow" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="-18" dy="28" stdDeviation="22" flood-color="#000" flood-opacity="0.45"/>
+    </filter>
 
-    <!-- mask gradient used to fade ribbon tips before the circle edge -->
-    <linearGradient id="fadeGrad" x1="0" x2="1" y1="0.35" y2="0.35">
+    <!-- mask to subtly fade the ribbon tips near the right edge so they appear to fade rather than touch -->
+    <linearGradient id="fadeMask" x1="0" x2="1" y1="0.35" y2="0.35">
       <stop offset="0%" stop-color="#fff" stop-opacity="1"/>
       <stop offset="78%" stop-color="#fff" stop-opacity="1"/>
       <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
     </linearGradient>
     <mask id="ribbonFadeMask">
-      <rect x="0" y="0" width="800" height="600" fill="url(#fadeGrad)" />
+      <rect x="0" y="0" width="1200" height="600" fill="url(#fadeMask)"/>
     </mask>
 
-    <!-- clip to the disc so ribbons never render outside the circle -->
-    <clipPath id="discClip">
-      <circle cx="320" cy="300" r="220" />
+    <!-- clip to the circle so ribbons never render outside the disc -->
+    <clipPath id="circleClip">
+      <circle cx="320" cy="300" r="220"/>
     </clipPath>
-
-    <!-- soft drop shadow used for ribbons (subtle) -->
-    <filter id="dropShadow" x="-50%" y="-50%" width="200%" height="200%">
-      <feDropShadow dx="-10" dy="18" stdDeviation="14" flood-color="#000" flood-opacity="0.38"/>
-    </filter>
   </defs>
 
-  <!-- transparent overall background (none) -->
+  <!-- background (for preview; remove or make transparent if you want) -->
+  <rect width="1200" height="600" fill="#000" />
 
-  <!-- DISC: gradient + inner shadow -->
+  <!-- red disc -->
   <g>
-    <circle cx="320" cy="300" r="220" fill="url(#discGrad)" />
-    <circle cx="320" cy="300" r="220" fill="url(#discInner)" />
+    <circle cx="320" cy="300" r="220" fill="url(#redGrad)"/>
+    <!-- inner shadow / subtle shape to match original PNG's darker lower-left -->
+    <circle cx="320" cy="300" r="220" fill="url(#innerShadow)"/>
   </g>
 
-  <!-- Ribbons: clipped to circle and masked so tips fade (do not touch edge) -->
-  <g clip-path="url(#discClip)" mask="url(#ribbonFadeMask)">
-    <!-- bottom ribbon (widest) -->
+  <!-- ribbons group: clipped to circle, with fade mask applied -->
+  <g clip-path="url(#circleClip)" mask="url(#ribbonFadeMask)">
+
+    <!-- bottom ribbon (wider at base, tapered at tip) -->
     <path
-      d="M165 360
-         C210 342 260 320 330 300
-         C405 278 470 258 540 234
-         C595 216 640 214 700 200
-         L697 191
-         C640 203 590 206 538 227
-         C468 252 410 274 330 295
-         C285 310 220 333 165 360 Z"
+      d="M160 360
+         C180 345 210 320 260 300
+         C310 280 360 260 460 230
+         C520 215 580 212 650 200
+         L645 188
+         C575 200 515 205 460 225
+         C380 255 320 280 260 310
+         C220 330 190 350 160 360 Z"
       fill="#ffffff"
-      filter="url(#dropShadow)"
+      filter="url(#ribbonShadow)"
     />
 
     <!-- middle ribbon -->
     <path
-      d="M150 328
-         C196 314 245 300 320 282
-         C392 264 455 246 530 225
-         C586 209 633 204 692 195
-         L690 186
-         C636 196 588 200 532 214
-         C460 235 395 254 320 275
-         C270 289 200 310 150 328 Z"
+      d="M150 330
+         C178 320 220 305 270 290
+         C330 272 380 255 460 230
+         C515 214 572 210 640 200
+         L635 188
+         C570 200 515 204 460 220
+         C385 245 330 262 270 285
+         C220 305 185 320 150 330 Z"
       fill="#ffffff"
-      filter="url(#dropShadow)"
+      filter="url(#ribbonShadow)"
+      opacity="1"
     />
 
     <!-- top ribbon (thinnest) -->
     <path
-      d="M138 300
-         C184 292 232 282 300 268
-         C370 254 430 241 510 222
-         C565 208 612 204 668 198
-         L664 189
-         C610 198 556 203 506 212
-         C426 230 370 244 300 258
-         C250 269 190 286 138 300 Z"
+      d="M140 300
+         C172 295 215 285 270 270
+         C320 256 370 245 455 225
+         C520 210 580 208 640 200
+         L635 188
+         C580 200 522 204 455 218
+         C370 235 320 247 270 262
+         C215 278 178 292 140 300 Z"
       fill="#ffffff"
-      filter="url(#dropShadow)"
+      filter="url(#ribbonShadow)"
     />
 
-    <!-- subtle left dark notch so the ribbon looks like it's exiting the disc -->
-    <path d="M120 302 L145 280 L155 288 L132 312 Z" fill="rgba(0,0,0,0.08)" />
+    <!-- left-side small inner cut shape for the appearance of the ribbon leaving the circle (mimic original rounded cut) -->
+    <path d="M130 300 L152 278 L160 285 L140 308 Z" fill="rgba(0,0,0,0.08)"/>
+
   </g>
 
-  <!-- subtle outer vignette to harmonize with PNG feel -->
-  <rect x="0" y="0" width="800" height="600" fill="url(#vignette)" opacity="0.06" />
+  <!-- slight vignette overlay to match darker PNG feel (optional, subtle) -->
+  <rect x="0" y="0" width="1200" height="600" fill="rgba(0,0,0,0.03)"/>
 
-  <!-- optional: tiny crisp white rim near ribbon tips for slight highlight (comment out if too sharp) -->
-  <!--
-  <g clip-path="url(#discClip)" mask="url(#ribbonFadeMask)">
-    <path d="M630 200 C630 200 660 196 690 190" stroke="#fff" stroke-width="2.2" stroke-linecap="round" fill="none" opacity="0.85"/>
-  </g>
-  -->
-
+  <!-- wordmark -->
+  <text x="540" y="340" font-family="Inter, Arial, Helvetica, sans-serif" font-size="120" font-weight="600" fill="#ffffff" letter-spacing="8">
+    OCHIGA
+  </text>
 </svg>
