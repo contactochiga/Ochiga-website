@@ -145,7 +145,156 @@ export default function HomePage() {
       </section>
 
       {/* =================================================
-          SECTION 6 — FINAL CONVERSION (WITH IMAGE)
+          SECTION 2.5 — OYI OS INTRO
+      ================================================= */}
+      <section className="py-36 px-6 text-center">
+        <p className="uppercase text-xs tracking-widest brand-accent mb-4">
+          Oyi OS
+        </p>
+        <h2 className="text-3xl md:text-5xl font-medium mb-6">
+          The control layer for real-world infrastructure.
+        </h2>
+        <p className="text-lg md:text-xl text-white/70 max-w-2xl mx-auto">
+          A unified operational core governing estates and cities in real time.
+        </p>
+      </section>
+
+      {/* =================================================
+          SECTION 3 — OYI OS HERO
+      ================================================= */}
+      <section className="px-4 md:px-8 pb-36">
+        <div className="hero-frame">
+          <img src="/media/oyi-os-command-center.png" className="hero-bg" />
+          <div className="hero-overlay" />
+          <div className="hero-gradient" />
+          <div className="hero-content animate-fade-up">
+            <h1 className="hero-title">Oyi OS</h1>
+            <p className="hero-description">
+              Monitor, control, and govern infrastructure through a unified command layer.
+            </p>
+            <Link href="/oyi" className="btn-primary">
+              Enter Oyi OS
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* =================================================
+          SECTION 3.5 — DIGITAL TWIN INTRO
+      ================================================= */}
+      <section className="py-36 px-6 bg-grid bg-radial-glow section-core text-center">
+        <p className="uppercase text-xs tracking-widest brand-accent mb-4">
+          Digital Twin
+        </p>
+        <h2 className="text-3xl md:text-5xl font-medium mb-6">
+          See infrastructure as a live system.
+        </h2>
+        <p className="text-lg md:text-xl text-white/70 max-w-3xl mx-auto leading-relaxed">
+          A real-time digital representation of estates and buildings —
+          synchronizing assets, utilities, access, and activity with reality.
+        </p>
+      </section>
+
+      {/* =================================================
+          SECTION 4 — DIGITAL TWIN HERO
+      ================================================= */}
+      <section className="px-4 md:px-8 pb-40">
+        <div className="hero-frame">
+          <img src="/media/digital-twin-preview.png" className="hero-bg" />
+          <div className="hero-overlay" />
+          <div className="hero-gradient" />
+          <div className="hero-content animate-fade-up">
+            <h1 className="hero-title">
+              Live<br />Digital Twin
+            </h1>
+            <p className="hero-description">
+              Assets, utilities, access, and activity rendered as a living digital environment.
+            </p>
+            <Link href="/digital-twin-demo" className="btn-primary">
+              View Digital Twin Demo
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* =================================================
+          SECTION 4.5 — SOLUTIONS INTRO
+      ================================================= */}
+      <section className="py-36 px-6 bg-grid bg-radial-glow section-core text-center">
+        <p className="uppercase text-xs tracking-widest brand-accent mb-4">
+          Solutions
+        </p>
+        <h2 className="text-3xl md:text-5xl font-medium mb-6">
+          Infrastructure systems, delivered end-to-end.
+        </h2>
+        <p className="text-lg md:text-xl text-white/70 max-w-3xl mx-auto leading-relaxed">
+          Ochiga designs, deploys, and operates integrated infrastructure systems
+          across buildings, estates, and urban environments.
+        </p>
+      </section>
+
+      {/* =================================================
+          SECTION 5 — SOLUTIONS
+      ================================================= */}
+      <section className="py-28">
+        <div
+          ref={solutionsRef}
+          onScroll={() => handleScroll(solutionsRef, setSolutionsIndex)}
+          className="service-rail no-scrollbar"
+        >
+          {[
+            { img: "/media/smartBuilding.png", title: "Smart Buildings", text: "Digitally managed buildings with live access, utilities, and asset intelligence.", cta: "/solutions/smart-buildings" },
+            { img: "/media/estate-systems.png", title: "Estate Systems", text: "Centralized infrastructure operating residential and mixed-use estates.", cta: "/solutions/estate-systems" },
+            { img: "/media/command-center.png", title: "Command Centers", text: "Unified control rooms for monitoring, coordination, and response.", cta: "/solutions/command-centers" },
+            { img: "/media/urban-systems.png", title: "Urban Systems", text: "Connected gated communities operated as integrated digital environments.", cta: "/solutions/urban-systems" },
+            { img: "/media/infrastructure-deployment.png", title: "Infrastructure Deployment", text: "End-to-end deployment of digital systems into physical environments.", cta: "/deployments" },
+          ].map((item, i) => (
+            <div className="service-card" key={i}>
+              <div
+                className="service-bg"
+                style={{ backgroundImage: `url(${item.img})` }}
+              />
+              <div className="solution-overlay" />
+              <div className="service-content">
+                <h4 className="service-title">{item.title}</h4>
+                <p className="service-text">{item.text}</p>
+                <Link href={item.cta} className="service-cta">
+                  View Solution →
+                </Link>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="services-dots mt-6">
+          {[0, 1, 2, 3, 4].map((i) => (
+            <button
+              key={i}
+              onClick={() => scrollToCard(solutionsRef, i)}
+              className={`slider-dot ${solutionsIndex === i ? "active" : ""}`}
+            />
+          ))}
+        </div>
+      </section>
+
+      {/* =================================================
+          SECTION 5.5 — ENTERPRISE READINESS
+      ================================================= */}
+      <section className="py-36 px-6 bg-grid bg-radial-glow section-core text-center">
+        <p className="uppercase text-xs tracking-widest brand-accent mb-4">
+          Built for Operators
+        </p>
+        <h2 className="text-3xl md:text-5xl font-medium mb-6">
+          Infrastructure designed for scale, governance, and long-term operation.
+        </h2>
+        <p className="text-lg md:text-xl text-white/70 max-w-3xl mx-auto leading-relaxed">
+          Ochiga is built for developers, estate operators, facility managers,
+          and institutions responsible for real-world infrastructure.
+        </p>
+      </section>
+
+      {/* =================================================
+          SECTION 6 — FINAL CONVERSION
       ================================================= */}
       <section className="px-4 md:px-8 pb-40">
         <div className="hero-frame">
