@@ -7,13 +7,14 @@ export default function OyiPage() {
     <main className="bg-black text-white">
 
       {/* =================================================
-          SECTION 1 — OYI HERO
+          SECTION 1 — OYI OS HERO
       ================================================= */}
-      <section className="px-4 md:px-8 pt-28 pb-36">
+      <section className="px-4 md:px-8 pt-24 md:pt-28">
         <div className="hero-frame">
           <img
             src="/media/oyi-os-command-center.png"
             className="hero-bg"
+            alt="Oyi OS Command Layer"
           />
           <div className="hero-overlay" />
           <div className="hero-gradient" />
@@ -22,15 +23,21 @@ export default function OyiPage() {
             <h1 className="hero-title">
               Oyi OS
             </h1>
+
             <p className="hero-description">
-              The operating system for real-world infrastructure —
-              governing access, utilities, assets, and operations
-              across estates and built environments.
+              Infrastructure Operating System
+              <br />
+              <span className="text-white/70">
+                The digital control layer for real-world environments.
+              </span>
             </p>
 
             <div className="hero-cta">
               <Link href="/deployments" className="btn-primary">
                 Request Deployment
+              </Link>
+              <Link href="/" className="btn-secondary">
+                Back to Overview
               </Link>
             </div>
           </div>
@@ -38,166 +45,190 @@ export default function OyiPage() {
       </section>
 
       {/* =================================================
-          SECTION 1.5 — WHAT OYI IS
+          SECTION 1.5 — SYSTEM DEFINITION
       ================================================= */}
       <section className="py-36 px-6 bg-grid bg-radial-glow section-core text-center">
         <div className="max-w-3xl mx-auto">
-          <p className="uppercase text-xs tracking-widest brand-accent mb-4">
-            What is Oyi
-          </p>
           <h2 className="text-3xl md:text-5xl font-medium mb-6">
-            Infrastructure-first. Estate-native.
+            One system for operating physical environments.
           </h2>
           <p className="text-lg md:text-xl text-white/70 leading-relaxed">
-            Oyi is not a dashboard or a collection of tools.
+            Oyi OS is not a dashboard and not a single application.
             <br /><br />
-            It is an infrastructure operating system — designed to
-            govern how physical environments function, scale, and
-            remain operable over time.
+            It is a unified operating system that governs access, utilities,
+            assets, payments, and activity across real-world infrastructure —
+            from individual residences to large estates and facilities.
           </p>
         </div>
       </section>
 
       {/* =================================================
-          SECTION 2 — WHAT OYI CONTROLS
-      ================================================= */}
-      <section className="py-32 px-6 text-center">
-        <div className="max-w-4xl mx-auto">
-          <h3 className="text-2xl md:text-4xl font-medium mb-10">
-            What Oyi governs
-          </h3>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 text-left">
-            {[
-              {
-                title: "Access & Identity",
-                text: "Gates, doors, permissions, and resident access governed centrally."
-              },
-              {
-                title: "Utilities & Consumption",
-                text: "Power, water, and shared resources monitored and managed as infrastructure."
-              },
-              {
-                title: "Assets & Equipment",
-                text: "Physical assets tracked, maintained, and linked to their digital state."
-              },
-              {
-                title: "Payments & Operations",
-                text: "Infrastructure-linked payments, service charges, and operational workflows."
-              },
-            ].map((item, i) => (
-              <div key={i}>
-                <h4 className="text-lg font-medium mb-2">{item.title}</h4>
-                <p className="text-white/65 leading-relaxed">{item.text}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* =================================================
-          SECTION 2.5 — DIGITAL TWIN FOUNDATION
-      ================================================= */}
-      <section className="py-36 px-6 bg-grid bg-radial-glow section-core text-center">
-        <div className="max-w-3xl mx-auto">
-          <p className="uppercase text-xs tracking-widest brand-accent mb-4">
-            Digital Twin Driven
-          </p>
-          <h2 className="text-3xl md:text-5xl font-medium mb-6">
-            Infrastructure seen as a live system.
-          </h2>
-          <p className="text-lg md:text-xl text-white/70 leading-relaxed">
-            Every estate or building operated by Oyi exists as a
-            real-time digital twin — synchronizing physical reality
-            with system state.
-            <br /><br />
-            Decisions are made on live infrastructure, not assumptions.
-          </p>
-        </div>
-      </section>
-
-      {/* =================================================
-          SECTION 3 — HOW OYI IS DEPLOYED
-      ================================================= */}
-      <section className="py-32 px-6 text-center">
-        <div className="max-w-4xl mx-auto">
-          <h3 className="text-2xl md:text-4xl font-medium mb-10">
-            Designed for phased deployment
-          </h3>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 text-left">
-            {[
-              {
-                title: "Single Property",
-                text: "Deploy Oyi to govern access, utilities, and automation for one building or residence."
-              },
-              {
-                title: "Estate-Wide",
-                text: "Operate residential or mixed-use estates as unified infrastructure systems."
-              },
-              {
-                title: "Urban Systems",
-                text: "Scale governance across gated communities and urban developments."
-              },
-            ].map((item, i) => (
-              <div key={i}>
-                <h4 className="text-lg font-medium mb-2">{item.title}</h4>
-                <p className="text-white/65 leading-relaxed">{item.text}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* =================================================
-          SECTION 3.5 — WHO IT'S FOR
-      ================================================= */}
-      <section className="py-36 px-6 bg-grid bg-radial-glow section-core text-center">
-        <div className="max-w-3xl mx-auto">
-          <p className="uppercase text-xs tracking-widest brand-accent mb-4">
-            Built for operators
-          </p>
-          <p className="text-lg md:text-xl text-white/70 leading-relaxed">
-            Developers, estate operators, facility managers, and
-            institutions responsible for long-term infrastructure.
-          </p>
-        </div>
-      </section>
-
-      {/* =================================================
-          SECTION 4 — SYSTEM PRINCIPLES
-      ================================================= */}
-      <section className="py-32 px-6 text-center">
-        <div className="max-w-3xl mx-auto">
-          <h3 className="text-2xl md:text-4xl font-medium mb-8">
-            System principles
-          </h3>
-
-          <ul className="space-y-4 text-white/70">
-            <li>• Infrastructure-first, not app-first</li>
-            <li>• Modular, not monolithic</li>
-            <li>• Built for long-term operation</li>
-            <li>• Governable, auditable, and extensible</li>
-          </ul>
-        </div>
-      </section>
-
-      {/* =================================================
-          SECTION 5 — CTA
+          SECTION 2 — INFRASTRUCTURE-FIRST
       ================================================= */}
       <section className="py-36 px-6 text-center">
-        <h2 className="text-3xl md:text-5xl font-medium mb-6">
-          Deploy Oyi OS.
-        </h2>
-        <p className="text-lg md:text-xl text-white/70 mb-10">
-          Work directly with our infrastructure team to deploy
-          Oyi for your environment.
-        </p>
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-3xl md:text-5xl font-medium mb-6">
+            Infrastructure-first by design.
+          </h2>
+          <p className="text-lg md:text-xl text-white/70 leading-relaxed">
+            Most systems start with devices.
+            <br /><br />
+            Oyi OS starts with infrastructure.
+            <br /><br />
+            Devices, automation, and software are treated as assets within
+            a larger operational system — not standalone features.
+          </p>
 
-        <div className="hero-cta justify-center">
-          <Link href="/deployments" className="btn-primary">
-            Request Deployment
-          </Link>
+          <div className="mt-10 flex flex-wrap justify-center gap-4 text-sm text-white/70">
+            <span>Estate-native system</span>
+            <span>•</span>
+            <span>Digital twin driven</span>
+            <span>•</span>
+            <span>Modular, not monolithic</span>
+            <span>•</span>
+            <span>Built for long-term operation</span>
+          </div>
+        </div>
+      </section>
+
+      {/* =================================================
+          SECTION 2.5 — MULTIPLE INTERFACES
+      ================================================= */}
+      <section className="py-36 px-6 bg-grid bg-radial-glow section-core">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl md:text-5xl font-medium mb-8">
+            One infrastructure system.<br />Multiple operational surfaces.
+          </h2>
+
+          <div className="space-y-12 text-left max-w-3xl mx-auto text-white/70">
+
+            <div>
+              <h3 className="text-white font-medium mb-2">
+                Resident Interface (Mobile)
+              </h3>
+              <p>
+                Mobile-first access layer for residents and occupants.
+                Personal, task-focused, and AI-assisted.
+                Available on App Store, Play Store, and mobile web.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-white font-medium mb-2">
+                Operations Interface (Web / Tablet)
+              </h3>
+              <p>
+                Built for estate operators and facility managers.
+                System oversight, access control, utilities, incidents,
+                and digital twin-aware operations.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-white font-medium mb-2">
+                Command Interface (Large Screens)
+              </h3>
+              <p>
+                Control room environments for multi-site and estate-wide visibility.
+                Real-time monitoring, coordination, and operational governance.
+              </p>
+            </div>
+
+          </div>
+
+          <p className="mt-12 text-white/60">
+            Different interfaces. Same operating system.
+          </p>
+        </div>
+      </section>
+
+      {/* =================================================
+          SECTION 3 — DIGITAL TWIN CORE
+      ================================================= */}
+      <section className="py-36 px-6 text-center">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-3xl md:text-5xl font-medium mb-6">
+            Digital twins as operational reality.
+          </h2>
+          <p className="text-lg md:text-xl text-white/70 leading-relaxed">
+            Every deployment of Oyi OS is backed by a live digital twin —
+            a real-time representation of physical infrastructure.
+            <br /><br />
+            Assets, access, utilities, activity, and system state are
+            synchronized continuously with reality.
+          </p>
+        </div>
+      </section>
+
+      {/* =================================================
+          SECTION 4 — USE CASES
+      ================================================= */}
+      <section className="py-36 px-6 bg-grid bg-radial-glow section-core text-center">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-3xl md:text-5xl font-medium mb-6">
+            Designed for real environments.
+          </h2>
+          <p className="text-lg md:text-xl text-white/70 leading-relaxed">
+            Oyi OS operates across:
+            <br /><br />
+            Residential developments, gated estates, commercial buildings,
+            mixed-use facilities, and infrastructure-heavy properties.
+            <br /><br />
+            The same system can run a single property or scale across
+            entire estates without changing architecture.
+          </p>
+        </div>
+      </section>
+
+      {/* =================================================
+          SECTION 5 — OPERATOR FOCUS
+      ================================================= */}
+      <section className="py-36 px-6 text-center">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-3xl md:text-5xl font-medium mb-6">
+            Built for operators, not demos.
+          </h2>
+          <p className="text-lg md:text-xl text-white/70 leading-relaxed">
+            Oyi OS is designed for developers, estate operators,
+            facility managers, and institutions responsible for
+            real-world infrastructure.
+            <br /><br />
+            It is deployed as long-term operational infrastructure —
+            not a temporary software tool.
+          </p>
+        </div>
+      </section>
+
+      {/* =================================================
+          SECTION 6 — FINAL CTA
+      ================================================= */}
+      <section className="px-4 md:px-8 pb-40">
+        <div className="hero-frame">
+          <img
+            src="/media/infrastructure-operators.png"
+            className="hero-bg"
+            alt="Infrastructure Operators"
+          />
+          <div className="hero-overlay" />
+          <div className="hero-gradient" />
+
+          <div className="hero-content animate-fade-up">
+            <h1 className="hero-title">
+              Deploy infrastructure<br />that operates as a system.
+            </h1>
+            <p className="hero-description">
+              Work directly with our infrastructure team to design,
+              deploy, and operate systems built to last.
+            </p>
+            <div className="hero-cta">
+              <Link href="/deployments" className="btn-primary">
+                Request Deployment
+              </Link>
+              <Link href="/contact" className="btn-secondary">
+                Talk to Infrastructure Team
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
 
