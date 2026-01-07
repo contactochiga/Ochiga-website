@@ -66,6 +66,7 @@ export default function Footer() {
               <span style={eyebrow}>System</span>
               <Link href="/architecture">Architecture</Link>
               <Link href="/infrastructure">Infrastructure</Link>
+              <Link href="/command-center">Command Center</Link>
               <Link href="/governance">Governance</Link>
             </div>
 
