@@ -102,21 +102,21 @@ export default function HomePage() {
                 img: "/media/pre-construction.png",
                 title: "Pre-Construction Infrastructure",
                 text: "Digital infrastructure designed before construction begins — systems, assets, and utilities modeled through a live digital twin.",
-                cta: "/pre-construction",
+                cta: "/solutions#pre-construction",
                 label: "Plan Infrastructure →",
               },
               {
                 img: "/media/construction.png",
                 title: "Construction-Phase Deployment",
                 text: "Hardware, fiber, and networks deployed directly into the build — synchronized in real time with the digital model.",
-                cta: "/deployments",
+                cta: "/solutions#construction",
                 label: "Deploy Infrastructure →",
               },
               {
                 img: "/media/operations.png",
                 title: "Live Operations & Control",
                 text: "Estates operated as live infrastructure with centralized monitoring, access control, and system intelligence.",
-                cta: "/operations",
+                cta: "/solutions#operations",
                 label: "Operate Infrastructure →",
               },
             ].map((item, i) => (
@@ -247,11 +247,36 @@ export default function HomePage() {
             className="service-rail no-scrollbar"
           >
             {[
-              { img: "/media/smartBuilding.png", title: "Smart Buildings", text: "Digitally managed buildings with live access, utilities, and asset intelligence.", cta: "/solutions/smart-buildings" },
-              { img: "/media/estate-systems.png", title: "Estate Systems", text: "Centralized infrastructure operating residential and mixed-use estates.", cta: "/solutions/estate-systems" },
-              { img: "/media/command-center.png", title: "Command Centers", text: "Unified control rooms for monitoring, coordination, and response.", cta: "/command-center" },
-              { img: "/media/urban-systems.png", title: "Urban Systems", text: "Connected gated communities operated as integrated digital environments.", cta: "/solutions/urban-systems" },
-              { img: "/media/infrastructure-deployment.png", title: "Infrastructure Deployment", text: "End-to-end deployment of digital systems into physical environments.", cta: "/deployments" },
+              {
+                img: "/media/smartBuilding.png",
+                title: "Smart Buildings",
+                text: "Digitally managed buildings with live access, utilities, and asset intelligence.",
+                cta: "/solutions#smart-buildings",
+              },
+              {
+                img: "/media/estate-systems.png",
+                title: "Estate Systems",
+                text: "Centralized infrastructure operating residential and mixed-use estates.",
+                cta: "/solutions#estate-systems",
+              },
+              {
+                img: "/media/command-center.png",
+                title: "Command Centers",
+                text: "Unified control rooms for monitoring, coordination, and response.",
+                cta: "/solutions#command-centers",
+              },
+              {
+                img: "/media/urban-systems.png",
+                title: "Urban Systems",
+                text: "Connected gated communities operated as integrated digital environments.",
+                cta: "/solutions#urban-systems",
+              },
+              {
+                img: "/media/infrastructure-deployment.png",
+                title: "Infrastructure Deployment",
+                text: "End-to-end deployment of digital systems into physical environments.",
+                cta: "/solutions#deployment",
+              },
             ].map((item, i) => (
               <div className="service-card" key={i}>
                 <div
