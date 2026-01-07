@@ -5,18 +5,18 @@ export default function Footer() {
     <footer
       style={{
         marginTop: 120,
-        borderTop: "1px solid rgba(255,255,255,0.06)",
         background: "#000",
+        borderTop: "1px solid rgba(255,255,255,0.06)",
       }}
     >
       <div
         style={{
           maxWidth: 1200,
           margin: "0 auto",
-          padding: "48px 20px 40px",
+          padding: "56px 20px 44px",
           display: "flex",
           flexDirection: "column",
-          gap: 28,
+          gap: 40,
         }}
       >
         {/* ===============================
@@ -28,43 +28,67 @@ export default function Footer() {
             justifyContent: "space-between",
             alignItems: "flex-start",
             flexWrap: "wrap",
-            gap: 24,
+            gap: 36,
           }}
         >
           {/* Brand */}
-          <div style={{ maxWidth: 360 }}>
+          <div style={{ maxWidth: 380 }}>
             <img
               src="/brand/ochiga-logo.svg"
               alt="Ochiga"
-              style={{ height: 26, marginBottom: 14 }}
+              style={{ height: 26, marginBottom: 16 }}
             />
             <p
               style={{
                 fontSize: 13,
-                lineHeight: 1.6,
+                lineHeight: 1.65,
                 color: "rgba(255,255,255,0.5)",
               }}
             >
-              Ochiga designs and operates the digital backbone for real-world
-              infrastructure — estates, buildings, and urban systems.
+              Ochiga is an infrastructure operating system — governing access,
+              assets, utilities, and digital twins across estates, buildings,
+              and urban systems.
             </p>
           </div>
 
-          {/* Navigation */}
+          {/* Footer Navigation */}
           <nav
             style={{
-              display: "flex",
-              gap: 28,
+              display: "grid",
+              gridTemplateColumns: "repeat(2, minmax(160px, auto))",
+              gap: "14px 40px",
               fontSize: 13,
               color: "rgba(255,255,255,0.65)",
             }}
           >
-            <Link href="/oyi">Oyi OS</Link>
-            <Link href="/technology">Technology</Link>
-            <Link href="/papers">Papers</Link>
-            <Link href="/deployments">Deploy</Link>
+            {/* SYSTEM */}
+            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              <span style={eyebrow}>System</span>
+              <Link href="/architecture">Architecture</Link>
+              <Link href="/infrastructure">Infrastructure</Link>
+              <Link href="/governance">Governance</Link>
+            </div>
+
+            {/* ENGAGE */}
+            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              <span style={eyebrow}>Engage</span>
+              <Link href="/engage">Engage</Link>
+              <Link href="/deployments">Request Deployment</Link>
+              <Link href="/papers">Papers</Link>
+            </div>
           </nav>
         </div>
+
+        {/* ===============================
+            DIVIDER
+        =============================== */}
+        <div
+          style={{
+            height: 1,
+            background:
+              "linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.12), rgba(255,255,255,0))",
+          }}
+        />
 
         {/* ===============================
             BOTTOM ROW
@@ -76,8 +100,6 @@ export default function Footer() {
             alignItems: "center",
             flexWrap: "wrap",
             gap: 16,
-            borderTop: "1px solid rgba(255,255,255,0.06)",
-            paddingTop: 20,
             fontSize: 12,
             color: "rgba(255,255,255,0.4)",
           }}
@@ -89,3 +111,14 @@ export default function Footer() {
     </footer>
   );
 }
+
+/* ===============================
+   SMALL HELPERS
+================================ */
+
+const eyebrow = {
+  fontSize: 11,
+  letterSpacing: "0.08em",
+  textTransform: "uppercase" as const,
+  color: "rgba(255,255,255,0.35)",
+};
