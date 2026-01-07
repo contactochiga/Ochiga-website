@@ -308,28 +308,28 @@ body {
 }
 
 /* ===============================
-   PREMIUM CARD GRID (CRITICAL FIX)
-   Mobile: 2 columns
-   Desktop: 4 columns
-   Safari-safe
+   COMMAND CENTER CARDS
+   (WRAPPED RAIL — FINAL FIX)
 ================================ */
 
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+.cc-card-wrap {
+  display: flex;
+  flex-wrap: wrap;
   gap: 16px;
 }
 
-@media (min-width: 768px) {
-  .card-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 24px;
-  }
+/* Mobile: 2 cards per row */
+.cc-card {
+  flex: 0 0 calc(50% - 8px);
+  max-width: calc(50% - 8px);
 }
 
-/* Safari grid overflow fix */
-.card-grid > * {
-  min-width: 0;
+/* Desktop: 4 cards per row */
+@media (min-width: 768px) {
+  .cc-card {
+    flex: 0 0 calc(25% - 18px);
+    max-width: calc(25% - 18px);
+  }
 }
 
 /* ===============================
@@ -368,22 +368,6 @@ body {
   background: rgba(255, 255, 255, 0.07);
 }
 
-textarea.form-input {
-  line-height: 1.5;
-}
-
-select.form-input {
-  appearance: none;
-  background-image:
-    linear-gradient(45deg, transparent 50%, #fff 50%),
-    linear-gradient(135deg, #fff 50%, transparent 50%);
-  background-position:
-    calc(100% - 18px) calc(1em + 3px),
-    calc(100% - 12px) calc(1em + 3px);
-  background-size: 6px 6px;
-  background-repeat: no-repeat;
-}
-
 /* ===============================
    MOBILE REFINEMENT
 ================================ */
@@ -417,13 +401,6 @@ select.form-input {
 
   .section-core {
     padding-inline: 8px;
-  }
-}
-
-@media (max-width: 480px) {
-  .form-input {
-    padding: 11px 12px;
-    font-size: 13.5px;
   }
 }
 
