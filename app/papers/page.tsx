@@ -24,7 +24,7 @@ export default function PapersPage() {
       <div className="mx-auto max-w-4xl">
 
         {/* =============================
-            INTRO / CONTEXT
+            INTRO
         ============================== */}
         <div className="max-w-3xl mb-20">
           <p className="text-white/65 text-base md:text-lg leading-relaxed">
@@ -34,51 +34,67 @@ export default function PapersPage() {
           </p>
         </div>
 
-        {/* --- subtle divider --- */}
-        <div className="h-px w-full bg-white/10 mb-20" />
+        {/* Divider */}
+        <div className="divider-hairline mb-20" />
 
         {/* =============================
-            PAPERS
+            DOCUMENTS EYEBROW
+        ============================== */}
+        <div className="mb-10">
+          <p className="uppercase text-xs tracking-widest text-white/40">
+            Documents
+          </p>
+        </div>
+
+        {/* =============================
+            PAPERS (CARDS)
         ============================== */}
         <div className="space-y-16">
 
           {papers.map((paper) => (
-            <Link
+            <article
               key={paper.slug}
-              href={`/papers/${paper.slug}`}
-              className="block"
+              className="
+                rounded-[28px]
+                border border-white/10
+                bg-white/[0.015]
+                px-8 py-10 md:px-12 md:py-14
+                transition-all duration-300
+                hover:border-white/20
+                hover:bg-white/[0.03]
+              "
             >
-              <article
-                className="
-                  group
-                  rounded-[28px]
-                  border border-white/10
-                  bg-white/[0.015]
-                  px-8 py-10 md:px-12 md:py-14
-                  transition-all duration-300
-                  hover:border-white/20
-                  hover:bg-white/[0.03]
-                "
-              >
-                <h2 className="text-2xl md:text-3xl font-medium leading-snug mb-5">
-                  {paper.title}
-                </h2>
+              <h2 className="text-2xl md:text-3xl font-medium leading-snug mb-5">
+                {paper.title}
+              </h2>
 
-                <p className="text-white/60 leading-relaxed max-w-2xl mb-10">
-                  {paper.description}
-                </p>
+              <p className="text-white/60 leading-relaxed max-w-2xl mb-10">
+                {paper.description}
+              </p>
 
-                <div className="text-sm text-white/50 group-hover:text-white transition">
+              <div className="flex items-center gap-6 text-sm">
+
+                {/* Read */}
+                <Link
+                  href={`/papers/${paper.slug}`}
+                  className="text-white/80 hover:text-white transition"
+                >
                   Read document →
-                </div>
-              </article>
-            </Link>
+                </Link>
+
+                {/* PDF (placeholder) */}
+                <span className="text-white/35 cursor-not-allowed">
+                  Download PDF
+                </span>
+
+              </div>
+            </article>
           ))}
 
         </div>
 
-        {/* --- subtle divider --- */}
-        <div className="h-px w-full bg-white/10 mt-24 mb-16" />
+        {/* Divider */}
+        <div className="divider-hairline mt-24 mb-16" />
 
         {/* =============================
             FOOTNOTE
