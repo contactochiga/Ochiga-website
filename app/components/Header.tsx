@@ -124,6 +124,7 @@ export default function Header() {
           <NavItem href="/oyi" label="Oyi OS" close={() => setOpen(false)} />
           <NavItem href="/technology" label="Technology" close={() => setOpen(false)} />
           <NavItem href="/papers" label="Papers" close={() => setOpen(false)} />
+          <NavItem href="/twin" label="Live Digital Twin" close={() => setOpen(false)} />
           <NavItem
             href="/deployments"
             label="Request Deployment"
