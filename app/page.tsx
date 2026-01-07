@@ -249,7 +249,7 @@ export default function HomePage() {
             {[
               { img: "/media/smartBuilding.png", title: "Smart Buildings", text: "Digitally managed buildings with live access, utilities, and asset intelligence.", cta: "/solutions/smart-buildings" },
               { img: "/media/estate-systems.png", title: "Estate Systems", text: "Centralized infrastructure operating residential and mixed-use estates.", cta: "/solutions/estate-systems" },
-              { img: "/media/command-center.png", title: "Command Centers", text: "Unified control rooms for monitoring, coordination, and response.", cta: "/solutions/command-centers" },
+              { img: "/media/command-center.png", title: "Command Centers", text: "Unified control rooms for monitoring, coordination, and response.", cta: "/command-center" },
               { img: "/media/urban-systems.png", title: "Urban Systems", text: "Connected gated communities operated as integrated digital environments.", cta: "/solutions/urban-systems" },
               { img: "/media/infrastructure-deployment.png", title: "Infrastructure Deployment", text: "End-to-end deployment of digital systems into physical environments.", cta: "/deployments" },
             ].map((item, i) => (
@@ -327,9 +327,6 @@ export default function HomePage() {
 
       </main>
 
-      {/* ===============================
-          FOOTER
-      =============================== */}
       <Footer />
     </>
   );
