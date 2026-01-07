@@ -22,6 +22,11 @@ a {
   color: inherit;
 }
 
+/* Prevent horizontal overflow on mobile */
+body {
+  overflow-x: hidden;
+}
+
 /* ===============================
    BRAND
 ================================ */
@@ -31,7 +36,7 @@ a {
 }
 
 /* ===============================
-   HERO FRAME (SECTION 1 — LOCKED)
+   HERO FRAME (LOCKED)
 ================================ */
 
 .hero-frame {
@@ -106,7 +111,7 @@ a {
 }
 
 /* ===============================
-   CTA GROUP
+   CTA GROUP (SYSTEM)
 ================================ */
 
 .hero-cta {
@@ -117,8 +122,8 @@ a {
 
 .btn-primary,
 .btn-secondary {
-  padding: 9px 20px;
-  border-radius: 10px;
+  padding: 10px 22px;
+  border-radius: 12px;
   font-size: 13px;
   transition: all 0.25s ease;
 }
@@ -229,7 +234,7 @@ a {
 }
 
 /* ===============================
-   SERVICE CARDS (LOCKED TEMPLATE)
+   SERVICE CARDS
 ================================ */
 
 .service-card {
@@ -303,24 +308,28 @@ a {
 }
 
 /* ===============================
-   DEPLOYMENT FORM (NEW)
+   DEPLOYMENT FORM SYSTEM
 ================================ */
 
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
 .form-label {
-  display: block;
   font-size: 13px;
   color: rgba(255, 255, 255, 0.7);
-  margin-bottom: 6px;
 }
 
 .form-input {
   width: 100%;
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 14px;
-  padding: 14px 16px;
+  padding: 12px 14px;
   color: #fff;
-  font-size: 15px;
+  font-size: 14px;
   outline: none;
   transition: all 0.25s ease;
 }
@@ -330,8 +339,8 @@ a {
 }
 
 .form-input:focus {
-  border-color: rgba(255, 140, 42, 0.7);
-  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 140, 42, 0.9);
+  background: rgba(255, 255, 255, 0.07);
 }
 
 textarea.form-input {
@@ -344,8 +353,8 @@ select.form-input {
     linear-gradient(45deg, transparent 50%, #fff 50%),
     linear-gradient(135deg, #fff 50%, transparent 50%);
   background-position:
-    calc(100% - 18px) calc(1em + 4px),
-    calc(100% - 12px) calc(1em + 4px);
+    calc(100% - 18px) calc(1em + 3px),
+    calc(100% - 12px) calc(1em + 3px);
   background-size: 6px 6px;
   background-repeat: no-repeat;
 }
@@ -383,6 +392,13 @@ select.form-input {
 
   .section-core {
     padding-inline: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-input {
+    padding: 11px 12px;
+    font-size: 13.5px;
   }
 }
 
