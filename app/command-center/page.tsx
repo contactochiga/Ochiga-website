@@ -7,7 +7,7 @@ export default function CommandCenterPage() {
     <main className="bg-black text-white">
 
       {/* =================================================
-          HERO — DASHBOARD CONTEXT
+          HERO
       ================================================= */}
       <section className="pt-28 pb-32 px-6 md:px-8">
         <div className="max-w-6xl mx-auto">
@@ -27,16 +27,16 @@ export default function CommandCenterPage() {
           </header>
 
           {/* =================================================
-              WHAT IT IS — PREMIUM GRID
-              ✅ Mobile: 2 columns
-              ✅ Large screens: 4 columns
+              CARDS — THIS NOW WORKS
+              Mobile: 2 columns
+              Desktop: 4 columns
           ================================================= */}
           <section className="mb-36">
             <h2 className="text-2xl font-medium mb-14">
               What the Command Center Is
             </h2>
 
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6">
 
               <Card
                 icon={<TopologyIcon />}
@@ -78,56 +78,15 @@ export default function CommandCenterPage() {
                 title="Estate Operations"
                 text="Central monitoring of access points, visitor movement, utilities, and alerts across residential estates."
               />
-
               <Usage
                 title="Facility Management"
                 text="Asset tracking, maintenance visibility, energy oversight, and escalation control across facilities."
               />
-
               <Usage
                 title="Incident Response"
                 text="Coordinated response to infrastructure failures and security events from a unified operational view."
               />
             </div>
-          </section>
-
-          {/* =================================================
-              SCALE
-          ================================================= */}
-          <section className="mb-36">
-            <h2 className="text-2xl font-medium mb-10">
-              Built for Scale
-            </h2>
-
-            <div className="grid md:grid-cols-3 gap-10 text-white/70">
-              <Scale title="Single Estate">
-                Control rooms operating one estate or facility cluster.
-              </Scale>
-
-              <Scale title="Multi-Estate Hub">
-                Central operations overseeing multiple estates or developments.
-              </Scale>
-
-              <Scale title="City / District">
-                Large-screen coordination centers for urban infrastructure.
-              </Scale>
-            </div>
-          </section>
-
-          {/* =================================================
-              POWERED BY
-          ================================================= */}
-          <section className="mb-36 max-w-4xl">
-            <h2 className="text-2xl font-medium mb-6">
-              Powered by Oyi OS & Digital Twin
-            </h2>
-            <p className="text-white/70 leading-relaxed">
-              The Command Center runs on Oyi OS and remains synchronized
-              with live digital twins.
-              <br /><br />
-              Every control action reflects the real infrastructure state —
-              not delayed reports or static dashboards.
-            </p>
           </section>
 
           {/* =================================================
@@ -160,18 +119,17 @@ function Card({
 }) {
   return (
     <div
+      className="w-full min-w-0"
       style={{
         background: "rgba(255,255,255,0.035)",
         border: "1px solid rgba(255,255,255,0.08)",
         borderRadius: 18,
-        padding: "26px 26px 28px",
+        padding: "26px",
       }}
     >
       <div style={{ marginBottom: 16 }}>{icon}</div>
       <h3 className="font-medium mb-3">{title}</h3>
-      <p className="text-white/70 text-sm leading-relaxed">
-        {text}
-      </p>
+      <p className="text-white/70 text-sm leading-relaxed">{text}</p>
     </div>
   );
 }
@@ -185,17 +143,8 @@ function Usage({ title, text }: { title: string; text: string }) {
   );
 }
 
-function Scale({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <div>
-      <h3 className="font-medium mb-2">{title}</h3>
-      <p className="text-sm leading-relaxed">{children}</p>
-    </div>
-  );
-}
-
 /* =================================================
-   ICONS — RESTRAINED & PREMIUM
+   ICONS
 ================================================= */
 
 function TopologyIcon() {
@@ -212,12 +161,7 @@ function TopologyIcon() {
 function PulseIcon() {
   return (
     <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-      <path
-        d="M3 12h4l2-5 4 10 2-5h4"
-        stroke="white"
-        strokeOpacity="0.7"
-        strokeWidth="1.5"
-      />
+      <path d="M3 12h4l2-5 4 10 2-5h4" stroke="white" strokeOpacity="0.7" strokeWidth="1.5"/>
     </svg>
   );
 }
@@ -225,12 +169,7 @@ function PulseIcon() {
 function IncidentIcon() {
   return (
     <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-      <path
-        d="M12 3l9 18H3L12 3z"
-        stroke="white"
-        strokeOpacity="0.7"
-        strokeWidth="1.5"
-      />
+      <path d="M12 3l9 18H3L12 3z" stroke="white" strokeOpacity="0.7" strokeWidth="1.5"/>
       <circle cx="12" cy="16" r="1" fill="white" />
     </svg>
   );
