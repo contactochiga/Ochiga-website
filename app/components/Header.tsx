@@ -12,34 +12,15 @@ export default function Header() {
           FIXED HEADER
       =============================== */}
       <header
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          right: 0,
-          zIndex: 50,
-          backdropFilter: "blur(16px)",
-          WebkitBackdropFilter: "blur(16px)",
-          background: "rgba(5, 6, 10, 0.6)",
-          borderBottom: "1px solid rgba(255, 255, 255, 0.06)",
-        }}
+        className="app-header"
       >
-        <nav
-          style={{
-            maxWidth: 1200,
-            margin: "0 auto",
-            padding: "16px 20px",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
+        <nav className="header-nav">
           {/* Logo */}
-          <Link href="/" style={{ display: "flex", alignItems: "center" }}>
+          <Link href="/" className="header-logo">
             <img
               src="/brand/ochiga-logo.svg"
               alt="Ochiga"
-              style={{ height: 28 }}
+              className="ochiga-logo"
             />
           </Link>
 
@@ -47,37 +28,22 @@ export default function Header() {
           <button
             onClick={() => setOpen(true)}
             aria-label="Open menu"
-            style={{
-              width: 36,
-              height: 36,
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              gap: 6,
-              background: "transparent",
-              border: "none",
-              cursor: "pointer",
-            }}
+            className="hamburger"
           >
-            <span style={lineStyle} />
-            <span style={lineStyle} />
-            <span style={lineStyle} />
+            <span className="hamburger-line" />
+            <span className="hamburger-line" />
+            <span className="hamburger-line" />
           </button>
         </nav>
       </header>
 
       {/* ===============================
-          OVERLAY (TAP OUTSIDE TO CLOSE)
+          OVERLAY
       =============================== */}
       {open && (
         <div
           onClick={() => setOpen(false)}
-          style={{
-            position: "fixed",
-            inset: 0,
-            background: "rgba(0,0,0,0.45)",
-            zIndex: 60,
-          }}
+          className="menu-overlay"
         />
       )}
 
@@ -85,63 +51,26 @@ export default function Header() {
           SLIDE MENU
       =============================== */}
       <aside
-        style={{
-          position: "fixed",
-          top: 0,
-          right: 0,
-          height: "100vh",
-          width: "min(360px, 85vw)",
-          background: "#000",
-          zIndex: 70,
-          transform: open ? "translateX(0)" : "translateX(100%)",
-          transition: "transform 0.35s ease",
-          borderLeft: "1px solid rgba(255,255,255,0.08)",
-          padding: "32px 28px",
-          display: "flex",
-          flexDirection: "column",
-        }}
+        className={`slide-menu ${open ? "open" : ""}`}
       >
-        {/* Close */}
         <button
           onClick={() => setOpen(false)}
           aria-label="Close menu"
-          style={{
-            alignSelf: "flex-end",
-            background: "transparent",
-            border: "none",
-            color: "rgba(255,255,255,0.7)",
-            fontSize: 14,
-            cursor: "pointer",
-            marginBottom: 32,
-          }}
+          className="menu-close"
         >
           Close ✕
         </button>
 
-        {/* Navigation */}
-        <nav style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+        <nav className="menu-nav">
           <NavItem href="/" label="Home" close={() => setOpen(false)} />
           <NavItem href="/oyi" label="Oyi OS" close={() => setOpen(false)} />
           <NavItem href="/technology" label="Technology" close={() => setOpen(false)} />
           <NavItem href="/papers" label="Papers" close={() => setOpen(false)} />
           <NavItem href="/twin" label="Live Digital Twin" close={() => setOpen(false)} />
-          <NavItem
-            href="/deployments"
-            label="Request Deployment"
-            close={() => setOpen(false)}
-          />
+          <NavItem href="/deployments" label="Request Deployment" close={() => setOpen(false)} />
         </nav>
 
-        {/* Footer */}
-        <div
-          style={{
-            marginTop: "auto",
-            paddingTop: 24,
-            borderTop: "1px solid rgba(255,255,255,0.08)",
-            fontSize: 12,
-            color: "rgba(255,255,255,0.4)",
-          }}
-        >
+        <div className="menu-footer">
           Infrastructure Operating System
         </div>
       </aside>
@@ -150,15 +79,8 @@ export default function Header() {
 }
 
 /* ===============================
-   SMALL HELPERS
+   HELPERS
 ================================ */
-
-const lineStyle = {
-  height: 2,
-  width: 22,
-  background: "rgba(255,255,255,0.85)",
-  borderRadius: 2,
-};
 
 function NavItem({
   href,
@@ -170,16 +92,7 @@ function NavItem({
   close: () => void;
 }) {
   return (
-    <Link
-      href={href}
-      onClick={close}
-      style={{
-        fontSize: 18,
-        fontWeight: 500,
-        color: "rgba(255,255,255,0.85)",
-        textDecoration: "none",
-      }}
-    >
+    <Link href={href} onClick={close} className="menu-link">
       {label}
     </Link>
   );
