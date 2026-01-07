@@ -21,34 +21,48 @@ const papers = [
 export default function PapersPage() {
   return (
     <Section title="Infrastructure Papers">
-      <div className="max-w-3xl space-y-14">
+      <div className="max-w-3xl space-y-16">
 
-        <p className="text-white/70 text-lg leading-relaxed">
+        {/* Intro */}
+        <p className="text-white/70 text-base md:text-lg leading-relaxed">
           These papers outline Ochiga’s foundational thinking on infrastructure
           systems — focusing on governance, operational authority, and long-term
           infrastructure continuity.
         </p>
 
-        <div className="space-y-10">
-          {papers.map((paper) => (
+        {/* Papers */}
+        <div className="space-y-12">
+          {papers.map((paper, index) => (
             <Link
               key={paper.slug}
               href={`/papers/${paper.slug}`}
               className="block group"
             >
-              <div className="border border-white/10 rounded-2xl p-6 md:p-7 transition-all group-hover:border-white/20 group-hover:bg-white/5">
-                <h3 className="text-xl md:text-2xl font-medium mb-3">
+              <article className="relative rounded-2xl border border-white/10 p-6 md:p-8 transition-all duration-300 hover:border-white/20 hover:bg-white/[0.03]">
+
+                {/* Index marker (subtle, enterprise feel) */}
+                <div className="absolute -top-3 left-6 text-xs tracking-widest text-white/30">
+                  PAPER {index + 1}
+                </div>
+
+                <h3 className="text-xl md:text-2xl font-medium mb-4 leading-snug">
                   {paper.title}
                 </h3>
-                <p className="text-white/60 leading-relaxed">
+
+                <p className="text-white/60 leading-relaxed mb-6">
                   {paper.description}
                 </p>
-              </div>
+
+                <div className="text-sm text-white/50 group-hover:text-white/80 transition">
+                  Read paper →
+                </div>
+              </article>
             </Link>
           ))}
         </div>
 
-        <p className="text-white/40 text-sm leading-relaxed pt-8">
+        {/* Footer note */}
+        <p className="text-white/40 text-sm leading-relaxed pt-6">
           These documents are positioning papers — not academic publications.
           They reflect active system design, operational experience, and
           real-world infrastructure constraints.
