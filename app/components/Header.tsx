@@ -9,7 +9,7 @@ export default function Header() {
   return (
     <>
       {/* ===============================
-          FIXED HEADER
+          FIXED HEADER — BIG GOAL
       =============================== */}
       <header
         style={{
@@ -18,38 +18,37 @@ export default function Header() {
           left: 0,
           right: 0,
           zIndex: 50,
-          backdropFilter: "blur(18px)",
-          WebkitBackdropFilter: "blur(18px)",
-          background: "rgba(5, 6, 10, 0.65)",
+          backdropFilter: "blur(20px)",
+          WebkitBackdropFilter: "blur(20px)",
+          background: "rgba(5, 6, 10, 0.7)",
           borderBottom: "1px solid rgba(255,255,255,0.06)",
         }}
       >
         <nav
           style={{
-            maxWidth: 1280,
+            maxWidth: 1320,
             margin: "0 auto",
-            padding: "20px 24px", // ⬅️ MORE VERTICAL BREATHING ROOM
+            padding: "24px 24px", // ⬅️ TALLER HEADER
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
           }}
         >
           {/* ===============================
-              LOGO (BIG-GOAL FIX)
+              LOGO — FINAL SCALE
           =============================== */}
           <Link
             href="/"
             style={{
               display: "flex",
               alignItems: "center",
-              gap: 10,
             }}
           >
             <img
               src="/brand/ochiga-logo.svg"
               alt="Ochiga"
               style={{
-                height: 42,           // ⬅️ THIS IS THE KEY
+                height: 56,          // ⬅️ THIS IS THE MONEY
                 width: "auto",
                 display: "block",
               }}
@@ -57,18 +56,18 @@ export default function Header() {
           </Link>
 
           {/* ===============================
-              HAMBURGER
+              MENU
           =============================== */}
           <button
             onClick={() => setOpen(true)}
             aria-label="Open menu"
             style={{
-              width: 42,
-              height: 42,
+              width: 44,
+              height: 44,
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
-              gap: 6,
+              gap: 7,
               background: "transparent",
               border: "none",
               cursor: "pointer",
@@ -162,8 +161,8 @@ export default function Header() {
 
 const lineStyle = {
   height: 2,
-  width: 22,
-  background: "rgba(255,255,255,0.85)",
+  width: 24,
+  background: "rgba(255,255,255,0.9)",
   borderRadius: 2,
 };
 
