@@ -28,39 +28,37 @@ export default function CommandCenterPage() {
 
           {/* =================================================
               WHAT THE COMMAND CENTER IS
-              ✔ Mobile: 2 columns
-              ✔ Desktop: 4 columns
+              (RAIL-STYLE, WRAPPED)
           ================================================= */}
           <section className="mb-36">
             <h2 className="text-2xl font-medium mb-14">
               What the Command Center Is
             </h2>
 
-            {/* iOS-safe grid */}
-            <div className="-mx-2 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 px-2 md:px-0">
+            <div className="cc-card-wrap">
 
-              <Card
+              <CCCard
                 icon={<TopologyIcon />}
                 title="Live Infrastructure Topology"
                 text="A real-time spatial view of estates, buildings, utilities, and assets rendered directly from the digital twin."
               />
 
-              <Card
+              <CCCard
                 icon={<PulseIcon />}
                 title="System Health & Alerts"
-                text="Continuous visibility into access systems, power, network health, and operational alerts as they happen."
+                text="Continuous visibility into access systems, power, network health, and operational alerts."
               />
 
-              <Card
+              <CCCard
                 icon={<IncidentIcon />}
                 title="Incident Monitoring & Response"
-                text="Security, power, fire, and system incidents monitored, escalated, and coordinated from one command layer."
+                text="Security, power, fire, and system incidents monitored and coordinated from one command layer."
               />
 
-              <Card
+              <CCCard
                 icon={<ShieldIcon />}
                 title="Operator Authority & Control"
-                text="Role-based access and authority enforcement built for infrastructure operators and facility managers."
+                text="Role-based access and authority enforcement for operators and facility managers."
               />
 
             </div>
@@ -77,15 +75,15 @@ export default function CommandCenterPage() {
             <div className="space-y-16 text-white/70">
               <Usage
                 title="Estate Operations"
-                text="Central monitoring of access points, visitor movement, utilities, and alerts across residential estates."
+                text="Central monitoring of access points, visitor movement, utilities, and alerts across estates."
               />
               <Usage
                 title="Facility Management"
-                text="Asset tracking, maintenance visibility, energy oversight, and escalation control across facilities."
+                text="Asset tracking, maintenance visibility, energy oversight, and escalation control."
               />
               <Usage
                 title="Incident Response"
-                text="Coordinated response to infrastructure failures and security events from a unified operational view."
+                text="Coordinated response to infrastructure failures and security events."
               />
             </div>
           </section>
@@ -109,7 +107,7 @@ export default function CommandCenterPage() {
    COMPONENTS
 ================================================= */
 
-function Card({
+function CCCard({
   icon,
   title,
   text,
@@ -120,12 +118,12 @@ function Card({
 }) {
   return (
     <div
-      className="w-full min-w-0"
+      className="cc-card"
       style={{
         background: "rgba(255,255,255,0.035)",
         border: "1px solid rgba(255,255,255,0.08)",
         borderRadius: 16,
-        padding: 18, // critical for mobile 2-column
+        padding: 18,
       }}
     >
       <div className="mb-3">{icon}</div>
@@ -149,7 +147,7 @@ function Usage({ title, text }: { title: string; text: string }) {
 }
 
 /* =================================================
-   ICONS — CLEAN & PREMIUM
+   ICONS
 ================================================= */
 
 function TopologyIcon() {
@@ -165,12 +163,7 @@ function TopologyIcon() {
 function PulseIcon() {
   return (
     <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-      <path
-        d="M3 12h4l2-5 4 10 2-5h4"
-        stroke="white"
-        strokeOpacity="0.7"
-        strokeWidth="1.5"
-      />
+      <path d="M3 12h4l2-5 4 10 2-5h4" stroke="white" strokeOpacity="0.7" strokeWidth="1.5" />
     </svg>
   );
 }
@@ -178,12 +171,7 @@ function PulseIcon() {
 function IncidentIcon() {
   return (
     <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-      <path
-        d="M12 3l9 18H3L12 3z"
-        stroke="white"
-        strokeOpacity="0.7"
-        strokeWidth="1.5"
-      />
+      <path d="M12 3l9 18H3L12 3z" stroke="white" strokeOpacity="0.7" strokeWidth="1.5" />
       <circle cx="12" cy="16" r="1" fill="white" />
     </svg>
   );
