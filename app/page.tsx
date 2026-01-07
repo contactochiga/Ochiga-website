@@ -214,8 +214,8 @@ export default function HomePage() {
               <p className="hero-description">
                 Assets, utilities, access, and activity rendered as a living digital environment.
               </p>
-              <Link href="/digital-twin-demo" className="btn-primary">
-                View Digital Twin Demo
+              <Link href="/twin" className="btn-primary">
+                View Live Digital Twin
               </Link>
             </div>
           </div>
