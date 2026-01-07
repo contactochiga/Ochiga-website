@@ -36,6 +36,130 @@ body {
 }
 
 /* ===============================
+   HEADER (FINAL)
+================================ */
+
+.app-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background: rgba(5, 6, 10, 0.6);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.header-nav {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Logo sizing — THIS FIXES THE TINY LOGO ISSUE */
+.header-logo {
+  display: flex;
+  align-items: center;
+}
+
+.ochiga-logo {
+  height: 36px; /* mobile */
+  width: auto;
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .ochiga-logo {
+    height: 44px;
+  }
+}
+
+/* Hamburger */
+.hamburger {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.hamburger-line {
+  height: 2px;
+  width: 22px;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 2px;
+}
+
+/* ===============================
+   SLIDE MENU
+================================ */
+
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 60;
+}
+
+.slide-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: min(360px, 85vw);
+  background: #000;
+  z-index: 70;
+  transform: translateX(100%);
+  transition: transform 0.35s ease;
+  border-left: 1px solid rgba(255,255,255,0.08);
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+}
+
+.slide-menu.open {
+  transform: translateX(0);
+}
+
+.menu-close {
+  align-self: flex-end;
+  background: transparent;
+  border: none;
+  color: rgba(255,255,255,0.7);
+  font-size: 14px;
+  cursor: pointer;
+  margin-bottom: 32px;
+}
+
+.menu-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.menu-link {
+  font-size: 18px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.85);
+}
+
+.menu-footer {
+  margin-top: auto;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+}
+
+/* ===============================
    HERO FRAME (LOCKED)
 ================================ */
 
@@ -80,7 +204,7 @@ body {
 }
 
 /* ===============================
-   HERO CONTENT (LOCKED)
+   HERO CONTENT
 ================================ */
 
 .hero-content {
@@ -151,64 +275,6 @@ body {
 }
 
 /* ===============================
-   DOTS
-================================ */
-
-.hero-dots,
-.services-dots {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-}
-
-.hero-dots {
-  position: absolute;
-  bottom: 20px;
-  left: 0;
-  right: 0;
-}
-
-.slider-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.4);
-  border: none;
-  cursor: pointer;
-}
-
-.slider-dot.active {
-  background: #fff;
-}
-
-/* ===============================
-   SECTION CORE BACKGROUNDS
-================================ */
-
-.bg-grid {
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-  background-size: 48px 48px;
-}
-
-.bg-radial-glow {
-  background: radial-gradient(
-    circle at center,
-    rgba(255, 255, 255, 0.06),
-    rgba(0, 0, 0, 0.85) 65%
-  );
-}
-
-.section-core h2 {
-  letter-spacing: -0.02em;
-}
-
-.section-core p {
-  line-height: 1.75;
-}
-
-/* ===============================
    SERVICE RAIL
 ================================ */
 
@@ -263,26 +329,27 @@ body {
   z-index: 1;
 }
 
-.service-overlay {
+.service-overlay,
+.solution-overlay {
   position: absolute;
   inset: 0;
+  z-index: 2;
+}
+
+.service-overlay {
   background: linear-gradient(
     to bottom,
     rgba(0, 0, 0, 0.15),
     rgba(0, 0, 0, 0.85)
   );
-  z-index: 2;
 }
 
 .solution-overlay {
-  position: absolute;
-  inset: 0;
   background: linear-gradient(
     to bottom,
     rgba(0, 0, 0, 0.05),
     rgba(0, 0, 0, 0.45)
   );
-  z-index: 2;
 }
 
 .service-content {
@@ -309,7 +376,6 @@ body {
 
 /* ===============================
    COMMAND CENTER CARDS
-   (WRAPPED RAIL — FINAL FIX)
 ================================ */
 
 .cc-card-wrap {
@@ -318,54 +384,16 @@ body {
   gap: 16px;
 }
 
-/* Mobile: 2 cards per row */
 .cc-card {
   flex: 0 0 calc(50% - 8px);
   max-width: calc(50% - 8px);
 }
 
-/* Desktop: 4 cards per row */
 @media (min-width: 768px) {
   .cc-card {
     flex: 0 0 calc(25% - 18px);
     max-width: calc(25% - 18px);
   }
-}
-
-/* ===============================
-   DEPLOYMENT FORM SYSTEM
-================================ */
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.form-label {
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.form-input {
-  width: 100%;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 14px;
-  padding: 12px 14px;
-  color: #fff;
-  font-size: 14px;
-  outline: none;
-  transition: all 0.25s ease;
-}
-
-.form-input::placeholder {
-  color: rgba(255, 255, 255, 0.35);
-}
-
-.form-input:focus {
-  border-color: rgba(255, 140, 42, 0.9);
-  background: rgba(255, 255, 255, 0.07);
 }
 
 /* ===============================
@@ -397,10 +425,6 @@ body {
 
   .service-card {
     height: 480px;
-  }
-
-  .section-core {
-    padding-inline: 8px;
   }
 }
 
