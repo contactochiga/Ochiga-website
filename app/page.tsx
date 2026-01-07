@@ -49,7 +49,9 @@ export default function HomePage() {
               access, assets, utilities, payments, and live digital twins.
             </p>
             <div className="hero-cta">
-              <Link href="/oyi" className="btn-primary">Explore Oyi</Link>
+              <Link href="/oyi" className="btn-primary">
+                Explore Oyi
+              </Link>
               <Link href="/deployments" className="btn-secondary">
                 Request Deployment
               </Link>
@@ -298,10 +300,7 @@ export default function HomePage() {
       ================================================= */}
       <section className="px-4 md:px-8 pb-40">
         <div className="hero-frame">
-          <img
-            src="/media/infrastructure-operators.png"
-            className="hero-bg"
-          />
+          <img src="/media/infrastructure-operators.png" className="hero-bg" />
           <div className="hero-overlay" />
           <div className="hero-gradient" />
           <div className="hero-content animate-fade-up">
