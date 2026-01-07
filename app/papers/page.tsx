@@ -24,18 +24,21 @@ export default function PapersPage() {
       <div className="mx-auto max-w-4xl">
 
         {/* =============================
-            CONTEXT (QUIET, NOT A HERO)
+            INTRO / CONTEXT
         ============================== */}
-        <div className="mb-24">
-          <p className="text-white/65 text-base md:text-lg leading-relaxed max-w-3xl">
+        <div className="max-w-3xl mb-20">
+          <p className="text-white/65 text-base md:text-lg leading-relaxed">
             These papers outline Ochiga’s foundational thinking on infrastructure
             systems — focusing on governance, operational authority, and
             long-term infrastructure continuity.
           </p>
         </div>
 
+        {/* --- subtle divider --- */}
+        <div className="h-px w-full bg-white/10 mb-20" />
+
         {/* =============================
-            PAPER CARDS
+            PAPERS
         ============================== */}
         <div className="space-y-16">
 
@@ -57,17 +60,14 @@ export default function PapersPage() {
                   hover:bg-white/[0.03]
                 "
               >
-                {/* Title */}
                 <h2 className="text-2xl md:text-3xl font-medium leading-snug mb-5">
                   {paper.title}
                 </h2>
 
-                {/* Description */}
                 <p className="text-white/60 leading-relaxed max-w-2xl mb-10">
                   {paper.description}
                 </p>
 
-                {/* Read indicator */}
                 <div className="text-sm text-white/50 group-hover:text-white transition">
                   Read document →
                 </div>
@@ -77,10 +77,13 @@ export default function PapersPage() {
 
         </div>
 
+        {/* --- subtle divider --- */}
+        <div className="h-px w-full bg-white/10 mt-24 mb-16" />
+
         {/* =============================
             FOOTNOTE
         ============================== */}
-        <div className="mt-24 max-w-3xl">
+        <div className="max-w-3xl">
           <p className="text-white/40 text-sm leading-relaxed">
             These documents are positioning papers — not academic publications.
             They reflect active system design, operational experience, and
