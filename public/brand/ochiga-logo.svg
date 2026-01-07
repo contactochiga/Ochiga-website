@@ -1,16 +1,19 @@
-<<svg width="800" height="400" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
-  <!-- background for preview (remove if needed) -->
-  <rect width="800" height="400" fill="black" />
+<svg
+  width="800"
+  height="400"
+  viewBox="0 0 800 400"
+  xmlns="http://www.w3.org/2000/svg"
+>
 
   <defs>
-    <!-- Correct disc gradient (matches PNG lighting) -->
+    <!-- Disc gradient -->
     <radialGradient id="redGradient" cx="62%" cy="32%" r="70%">
       <stop offset="0%" stop-color="#d41e2d"/>
       <stop offset="55%" stop-color="#b31624"/>
       <stop offset="100%" stop-color="#6f0007"/>
     </radialGradient>
 
-    <!-- fade mask so ribbons dissolve before edge -->
+    <!-- Ribbon fade -->
     <linearGradient id="ribbonFade" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0%" stop-color="white" stop-opacity="1"/>
       <stop offset="78%" stop-color="white" stop-opacity="1"/>
@@ -21,18 +24,16 @@
       <rect width="800" height="400" fill="url(#ribbonFade)" />
     </mask>
 
-    <!-- clip everything strictly to the circle -->
     <clipPath id="circleClip">
       <circle cx="200" cy="200" r="110"/>
     </clipPath>
   </defs>
 
-  <!-- red disc -->
+  <!-- Red disc -->
   <circle cx="200" cy="200" r="110" fill="url(#redGradient)" />
 
-  <!-- ribbons -->
+  <!-- Ribbons -->
   <g fill="white" clip-path="url(#circleClip)" mask="url(#fadeMask)">
-    <!-- TOP ribbon -->
     <path d="
       M140 215
       C165 180 205 155 250 150
@@ -41,7 +42,6 @@
       C205 186 170 215 150 255
       Z" />
 
-    <!-- MIDDLE ribbon -->
     <path d="
       M155 240
       C180 200 220 170 265 165
@@ -50,7 +50,6 @@
       C220 200 185 230 165 275
       Z" />
 
-    <!-- BOTTOM ribbon -->
     <path d="
       M175 265
       C200 225 240 195 285 190
@@ -60,11 +59,11 @@
       Z" />
   </g>
 
-  <!-- wordmark -->
+  <!-- Wordmark -->
   <text
     x="340"
     y="225"
-    font-family="Arial, Helvetica, sans-serif"
+    font-family="Inter, Arial, Helvetica, sans-serif"
     font-size="95"
     font-weight="500"
     fill="white"
