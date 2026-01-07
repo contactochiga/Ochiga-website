@@ -27,16 +27,17 @@ export default function CommandCenterPage() {
           </header>
 
           {/* =================================================
-              CARDS — THIS NOW WORKS
-              Mobile: 2 columns
-              Desktop: 4 columns
+              WHAT THE COMMAND CENTER IS
+              ✔ Mobile: 2 columns
+              ✔ Desktop: 4 columns
           ================================================= */}
           <section className="mb-36">
             <h2 className="text-2xl font-medium mb-14">
               What the Command Center Is
             </h2>
 
-            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6">
+            {/* iOS-safe grid */}
+            <div className="-mx-2 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 px-2 md:px-0">
 
               <Card
                 icon={<TopologyIcon />}
@@ -123,13 +124,17 @@ function Card({
       style={{
         background: "rgba(255,255,255,0.035)",
         border: "1px solid rgba(255,255,255,0.08)",
-        borderRadius: 18,
-        padding: "26px",
+        borderRadius: 16,
+        padding: 18, // critical for mobile 2-column
       }}
     >
-      <div style={{ marginBottom: 16 }}>{icon}</div>
-      <h3 className="font-medium mb-3">{title}</h3>
-      <p className="text-white/70 text-sm leading-relaxed">{text}</p>
+      <div className="mb-3">{icon}</div>
+      <h3 className="font-medium mb-2 text-sm md:text-base">
+        {title}
+      </h3>
+      <p className="text-white/70 text-xs md:text-sm leading-relaxed">
+        {text}
+      </p>
     </div>
   );
 }
@@ -144,32 +149,41 @@ function Usage({ title, text }: { title: string; text: string }) {
 }
 
 /* =================================================
-   ICONS
+   ICONS — CLEAN & PREMIUM
 ================================================= */
 
 function TopologyIcon() {
   return (
-    <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
       <rect x="3" y="3" width="7" height="7" stroke="white" strokeOpacity="0.7" />
       <rect x="14" y="3" width="7" height="7" stroke="white" strokeOpacity="0.7" />
       <rect x="8.5" y="14" width="7" height="7" stroke="white" strokeOpacity="0.7" />
-      <path d="M10 6h4M12 10v4" stroke="white" strokeOpacity="0.4" />
     </svg>
   );
 }
 
 function PulseIcon() {
   return (
-    <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-      <path d="M3 12h4l2-5 4 10 2-5h4" stroke="white" strokeOpacity="0.7" strokeWidth="1.5"/>
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+      <path
+        d="M3 12h4l2-5 4 10 2-5h4"
+        stroke="white"
+        strokeOpacity="0.7"
+        strokeWidth="1.5"
+      />
     </svg>
   );
 }
 
 function IncidentIcon() {
   return (
-    <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-      <path d="M12 3l9 18H3L12 3z" stroke="white" strokeOpacity="0.7" strokeWidth="1.5"/>
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+      <path
+        d="M12 3l9 18H3L12 3z"
+        stroke="white"
+        strokeOpacity="0.7"
+        strokeWidth="1.5"
+      />
       <circle cx="12" cy="16" r="1" fill="white" />
     </svg>
   );
@@ -177,7 +191,7 @@ function IncidentIcon() {
 
 function ShieldIcon() {
   return (
-    <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
       <path
         d="M12 3l7 4v6c0 4-3 7-7 8-4-1-7-4-7-8V7l7-4z"
         stroke="white"
