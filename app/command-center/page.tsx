@@ -28,7 +28,6 @@ export default function CommandCenterPage() {
 
           {/* =================================================
               WHAT THE COMMAND CENTER IS
-              (RAIL-STYLE, WRAPPED)
           ================================================= */}
           <section className="mb-36">
             <h2 className="text-2xl font-medium mb-14">
@@ -122,17 +121,30 @@ function CCCard({
       style={{
         background: "rgba(255,255,255,0.035)",
         border: "1px solid rgba(255,255,255,0.08)",
-        borderRadius: 16,
-        padding: 18,
+        borderRadius: 18,
+        padding: 20,
+        minHeight: 240,
+        display: "flex",
+        flexDirection: "column",
       }}
     >
-      <div className="mb-3">{icon}</div>
-      <h3 className="font-medium mb-2 text-sm md:text-base">
-        {title}
-      </h3>
-      <p className="text-white/70 text-xs md:text-sm leading-relaxed">
-        {text}
-      </p>
+      {/* Icon */}
+      <div className="text-white/80 mb-6">
+        {icon}
+      </div>
+
+      {/* Push content to bottom */}
+      <div style={{ flexGrow: 1 }} />
+
+      {/* Footer content */}
+      <div>
+        <h3 className="font-medium mb-2 text-sm md:text-base leading-snug">
+          {title}
+        </h3>
+        <p className="text-white/65 text-xs md:text-sm leading-relaxed">
+          {text}
+        </p>
+      </div>
     </div>
   );
 }
@@ -147,15 +159,16 @@ function Usage({ title, text }: { title: string; text: string }) {
 }
 
 /* =================================================
-   ICONS
+   ICONS — CLEAN, MODERN, SYSTEM-GRADE
 ================================================= */
 
 function TopologyIcon() {
   return (
     <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-      <rect x="3" y="3" width="7" height="7" stroke="white" strokeOpacity="0.7" />
-      <rect x="14" y="3" width="7" height="7" stroke="white" strokeOpacity="0.7" />
-      <rect x="8.5" y="14" width="7" height="7" stroke="white" strokeOpacity="0.7" />
+      <rect x="3" y="3" width="6" height="6" rx="1" stroke="white" strokeOpacity="0.7" />
+      <rect x="15" y="3" width="6" height="6" rx="1" stroke="white" strokeOpacity="0.7" />
+      <rect x="9" y="15" width="6" height="6" rx="1" stroke="white" strokeOpacity="0.7" />
+      <path d="M6 9v3m12-3v3M9 12h6" stroke="white" strokeOpacity="0.4" />
     </svg>
   );
 }
@@ -163,7 +176,14 @@ function TopologyIcon() {
 function PulseIcon() {
   return (
     <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-      <path d="M3 12h4l2-5 4 10 2-5h4" stroke="white" strokeOpacity="0.7" strokeWidth="1.5" />
+      <path
+        d="M3 12h4l2-4 4 8 2-4h4"
+        stroke="white"
+        strokeOpacity="0.7"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
@@ -171,7 +191,13 @@ function PulseIcon() {
 function IncidentIcon() {
   return (
     <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-      <path d="M12 3l9 18H3L12 3z" stroke="white" strokeOpacity="0.7" strokeWidth="1.5" />
+      <path
+        d="M12 4l8 16H4L12 4z"
+        stroke="white"
+        strokeOpacity="0.7"
+        strokeWidth="1.4"
+      />
+      <path d="M12 9v4" stroke="white" strokeOpacity="0.6" strokeWidth="1.4" />
       <circle cx="12" cy="16" r="1" fill="white" />
     </svg>
   );
@@ -181,10 +207,11 @@ function ShieldIcon() {
   return (
     <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
       <path
-        d="M12 3l7 4v6c0 4-3 7-7 8-4-1-7-4-7-8V7l7-4z"
+        d="M12 3l7 4v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V7l7-4z"
         stroke="white"
         strokeOpacity="0.7"
-        strokeWidth="1.5"
+        strokeWidth="1.4"
+        strokeLinejoin="round"
       />
     </svg>
   );
