@@ -67,7 +67,7 @@ export default function Header() {
       </header>
 
       {/* ===============================
-          OVERLAY
+          OVERLAY (TAP OUTSIDE TO CLOSE)
       =============================== */}
       {open && (
         <div
@@ -120,11 +120,15 @@ export default function Header() {
 
         {/* Navigation */}
         <nav style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-          <NavItem href="/" label="Home" />
-          <NavItem href="/oyi" label="Oyi OS" />
-          <NavItem href="/technology" label="Technology" />
-          <NavItem href="/papers" label="Papers" />
-          <NavItem href="/deployments" label="Request Deployment" />
+          <NavItem href="/" label="Home" close={() => setOpen(false)} />
+          <NavItem href="/oyi" label="Oyi OS" close={() => setOpen(false)} />
+          <NavItem href="/technology" label="Technology" close={() => setOpen(false)} />
+          <NavItem href="/papers" label="Papers" close={() => setOpen(false)} />
+          <NavItem
+            href="/deployments"
+            label="Request Deployment"
+            close={() => setOpen(false)}
+          />
         </nav>
 
         {/* Footer */}
@@ -155,10 +159,19 @@ const lineStyle = {
   borderRadius: 2,
 };
 
-function NavItem({ href, label }: { href: string; label: string }) {
+function NavItem({
+  href,
+  label,
+  close,
+}: {
+  href: string;
+  label: string;
+  close: () => void;
+}) {
   return (
     <Link
       href={href}
+      onClick={close}
       style={{
         fontSize: 18,
         fontWeight: 500,
