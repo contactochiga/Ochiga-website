@@ -1,4 +1,4 @@
-"use client";
+""use client";
 
 import Link from "next/link";
 
@@ -149,4 +149,67 @@ function Card({
   return (
     <div className="relative rounded-2xl border border-white/10 bg-white/[0.03] p-5 md:p-6">
       {/* Icon */}
-      <div className="flex justify-end mb-3 text-white/
+      <div className="flex justify-end mb-3 text-white/70">
+        {icon}
+      </div>
+
+      {/* Divider */}
+      <div className="h-px w-full bg-white/10 mb-4" />
+
+      <h3 className="text-sm md:text-base font-medium mb-2">
+        {title}
+      </h3>
+
+      <p className="text-xs md:text-sm text-white/70 leading-relaxed">
+        {text}
+      </p>
+    </div>
+  );
+}
+
+/* ===============================
+   SVG ICONS
+================================ */
+
+function TopologyIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+      <rect x="3" y="3" width="7" height="7" stroke="currentColor" />
+      <rect x="14" y="3" width="7" height="7" stroke="currentColor" />
+      <rect x="8.5" y="14" width="7" height="7" stroke="currentColor" />
+    </svg>
+  );
+}
+
+function HealthIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+      <path
+        d="M3 12h4l2-5 4 10 2-5h4"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      />
+    </svg>
+  );
+}
+
+function IncidentIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="12" r="9" stroke="currentColor" />
+      <path d="M12 7v6" stroke="currentColor" />
+      <circle cx="12" cy="16" r="1" fill="currentColor" />
+    </svg>
+  );
+}
+
+function AuthorityIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+      <path
+        d="M12 3l7 4v5c0 4.5-3 8.5-7 9-4-0.5-7-4.5-7-9V7l7-4z"
+        stroke="currentColor"
+      />
+    </svg>
+  );
+}
