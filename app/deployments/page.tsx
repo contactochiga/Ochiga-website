@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-export default function RequestDeploymentPage() {
+export default function DeploymentRequestPage() {
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -20,153 +20,142 @@ export default function RequestDeploymentPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // wiring later
+    // email / backend wiring comes next
     console.log(form);
   };
 
   return (
-    <main className="bg-black text-white min-h-screen pt-32 pb-40 px-6">
-      <div className="max-w-3xl mx-auto">
+    <main className="min-h-screen bg-black text-white px-6 pt-28 pb-32">
+      <div className="max-w-xl mx-auto">
 
-        {/* ============================
+        {/* =============================
             HEADER
-        ============================ */}
-        <div className="text-center mb-20">
-          <p className="uppercase text-xs tracking-widest brand-accent mb-4">
-            Request Deployment
-          </p>
-          <h1 className="text-3xl md:text-5xl font-medium mb-6">
+        ============================== */}
+        <header className="mb-14">
+          <h1 className="text-3xl md:text-4xl font-medium mb-5">
             Let’s talk about your infrastructure.
           </h1>
-          <p className="text-lg md:text-xl text-white/70 leading-relaxed">
+          <p className="text-white/70 leading-relaxed">
             Whether you’re planning a new development, upgrading an existing estate,
-            or deploying a serious smart system for a single property —
-            our team works directly with operators to design and deploy
-            infrastructure that lasts.
+            or deploying a serious smart system for a single property — our team works
+            directly with operators to design and deploy infrastructure that lasts.
           </p>
-        </div>
+        </header>
 
-        {/* ============================
+        {/* =============================
             FORM
-        ============================ */}
-        <form
-          onSubmit={handleSubmit}
-          className="space-y-10"
-        >
-          {/* Name */}
-          <div>
-            <label className="block text-sm mb-2 text-white/80">
-              Full Name
-            </label>
-            <input
-              type="text"
-              name="name"
-              required
-              value={form.name}
-              onChange={handleChange}
-              className="w-full bg-transparent border border-white/20 rounded-xl px-4 py-3 focus:outline-none focus:border-white/50"
-              placeholder="Your name"
-            />
-          </div>
+        ============================== */}
+        <form onSubmit={handleSubmit} className="space-y-10">
 
-          {/* Email */}
-          <div>
-            <label className="block text-sm mb-2 text-white/80">
-              Email Address
-            </label>
-            <input
-              type="email"
-              name="email"
-              required
-              value={form.email}
-              onChange={handleChange}
-              className="w-full bg-transparent border border-white/20 rounded-xl px-4 py-3 focus:outline-none focus:border-white/50"
-              placeholder="you@company.com"
-            />
-          </div>
+          {/* ---- Identity ---- */}
+          <section className="space-y-6">
+            <div>
+              <label className="form-label">Full Name</label>
+              <input
+                name="name"
+                value={form.name}
+                onChange={handleChange}
+                placeholder="Your name"
+                className="form-input"
+                required
+              />
+            </div>
 
-          {/* Organization */}
-          <div>
-            <label className="block text-sm mb-2 text-white/80">
-              Organization / Estate / Company
-            </label>
-            <input
-              type="text"
-              name="organization"
-              value={form.organization}
-              onChange={handleChange}
-              className="w-full bg-transparent border border-white/20 rounded-xl px-4 py-3 focus:outline-none focus:border-white/50"
-              placeholder="Optional"
-            />
-          </div>
+            <div>
+              <label className="form-label">Email Address</label>
+              <input
+                type="email"
+                name="email"
+                value={form.email}
+                onChange={handleChange}
+                placeholder="you@company.com"
+                className="form-input"
+                required
+              />
+            </div>
 
-          {/* Project Type */}
-          <div>
-            <label className="block text-sm mb-2 text-white/80">
-              Project Type
-            </label>
-            <select
-              name="projectType"
-              required
-              value={form.projectType}
-              onChange={handleChange}
-              className="w-full bg-black border border-white/20 rounded-xl px-4 py-3 focus:outline-none focus:border-white/50"
-            >
-              <option value="">Select one</option>
-              <option value="estate">Residential / Mixed-Use Estate</option>
-              <option value="building">Commercial or Institutional Building</option>
-              <option value="urban">Urban or District-Scale Infrastructure</option>
-              <option value="single-property">Single Property (Advanced Deployment)</option>
-              <option value="unsure">Not sure yet</option>
-            </select>
-          </div>
+            <div>
+              <label className="form-label">
+                Organization / Estate / Company
+                <span className="text-white/40 ml-1">(optional)</span>
+              </label>
+              <input
+                name="organization"
+                value={form.organization}
+                onChange={handleChange}
+                placeholder="Company or estate name"
+                className="form-input"
+              />
+            </div>
+          </section>
 
-          {/* Location */}
-          <div>
-            <label className="block text-sm mb-2 text-white/80">
-              Project Location
-            </label>
-            <input
-              type="text"
-              name="location"
-              value={form.location}
-              onChange={handleChange}
-              className="w-full bg-transparent border border-white/20 rounded-xl px-4 py-3 focus:outline-none focus:border-white/50"
-              placeholder="City, State, Country"
-            />
-          </div>
+          {/* ---- Project Context ---- */}
+          <section className="space-y-6">
+            <div>
+              <label className="form-label">Project Type</label>
+              <select
+                name="projectType"
+                value={form.projectType}
+                onChange={handleChange}
+                className="form-input"
+                required
+              >
+                <option value="">Select one</option>
+                <option>New development</option>
+                <option>Existing estate upgrade</option>
+                <option>Single property deployment</option>
+                <option>Infrastructure audit / planning</option>
+                <option>Not sure yet</option>
+              </select>
+            </div>
 
-          {/* Description */}
-          <div>
-            <label className="block text-sm mb-2 text-white/80">
-              Brief Project Description
-            </label>
+            <div>
+              <label className="form-label">Project Location</label>
+              <input
+                name="location"
+                value={form.location}
+                onChange={handleChange}
+                placeholder="City, State, Country"
+                className="form-input"
+                required
+              />
+            </div>
+          </section>
+
+          {/* ---- Description ---- */}
+          <section>
+            <label className="form-label">Brief Project Description</label>
             <textarea
               name="description"
-              required
               value={form.description}
               onChange={handleChange}
               rows={5}
-              className="w-full bg-transparent border border-white/20 rounded-xl px-4 py-3 focus:outline-none focus:border-white/50 resize-none"
               placeholder="What are you building? What problems are you trying to solve?"
+              className="form-input resize-none"
+              required
             />
-          </div>
+          </section>
 
-          {/* Submit */}
-          <div className="pt-6 text-center">
+          {/* ---- Submit ---- */}
+          <section className="pt-4">
             <button
               type="submit"
-              className="btn-primary"
+              className="w-full rounded-xl bg-orange-500 hover:bg-orange-600 transition py-4 text-black font-medium text-lg"
             >
               Submit Request
             </button>
+          </section>
 
-            <p className="text-xs text-white/50 mt-6">
-              We review every request manually. If your project is a good fit,
-              our infrastructure team will reach out directly.
-            </p>
-          </div>
         </form>
+
+        {/* =============================
+            FOOTNOTE
+        ============================== */}
+        <p className="text-white/50 text-sm mt-10 leading-relaxed">
+          We review every request manually. If your project is a good fit,
+          our infrastructure team will reach out directly.
+        </p>
+
       </div>
     </main>
   );
