@@ -1,15 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
 
+  // Prevent background scroll when menu is open
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
   return (
     <>
       {/* ===============================
-          FIXED HEADER — BIG GOAL
+          FIXED HEADER — BIG GOAL (LOCKED)
       =============================== */}
       <header
         style={{
@@ -20,7 +28,7 @@ export default function Header() {
           zIndex: 50,
           backdropFilter: "blur(20px)",
           WebkitBackdropFilter: "blur(20px)",
-          background: "rgba(5, 6, 10, 0.7)",
+          background: "rgba(5, 6, 10, 0.72)",
           borderBottom: "1px solid rgba(255,255,255,0.06)",
         }}
       >
@@ -28,14 +36,14 @@ export default function Header() {
           style={{
             maxWidth: 1320,
             margin: "0 auto",
-            padding: "24px 24px", // ⬅️ TALLER HEADER
+            padding: "26px 24px", // ⬅️ OPTICAL BALANCE
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
           }}
         >
           {/* ===============================
-              LOGO — FINAL SCALE
+              LOGO — FINAL, AUTHORITATIVE SCALE
           =============================== */}
           <Link
             href="/"
@@ -48,7 +56,7 @@ export default function Header() {
               src="/brand/ochiga-logo.svg"
               alt="Ochiga"
               style={{
-                height: 56,          // ⬅️ THIS IS THE MONEY
+                height: 56, // ✅ BIG GOAL CONFIRMED
                 width: "auto",
                 display: "block",
               }}
@@ -56,7 +64,7 @@ export default function Header() {
           </Link>
 
           {/* ===============================
-              MENU
+              MENU BUTTON
           =============================== */}
           <button
             onClick={() => setOpen(true)}
@@ -67,6 +75,7 @@ export default function Header() {
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
+              alignItems: "center",
               gap: 7,
               background: "transparent",
               border: "none",
@@ -89,7 +98,7 @@ export default function Header() {
           style={{
             position: "fixed",
             inset: 0,
-            background: "rgba(0,0,0,0.45)",
+            background: "rgba(0,0,0,0.5)",
             zIndex: 60,
           }}
         />
@@ -115,8 +124,10 @@ export default function Header() {
           flexDirection: "column",
         }}
       >
+        {/* Close */}
         <button
           onClick={() => setOpen(false)}
+          aria-label="Close menu"
           style={{
             alignSelf: "flex-end",
             background: "transparent",
@@ -130,6 +141,7 @@ export default function Header() {
           Close ✕
         </button>
 
+        {/* Navigation */}
         <nav style={{ display: "flex", flexDirection: "column", gap: 20 }}>
           <NavItem href="/" label="Home" close={() => setOpen(false)} />
           <NavItem href="/oyi" label="Oyi OS" close={() => setOpen(false)} />
@@ -139,6 +151,7 @@ export default function Header() {
           <NavItem href="/deployments" label="Request Deployment" close={() => setOpen(false)} />
         </nav>
 
+        {/* Footer */}
         <div
           style={{
             marginTop: "auto",
