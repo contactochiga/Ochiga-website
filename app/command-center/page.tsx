@@ -7,15 +7,14 @@ export default function CommandCenterPage() {
     <main className="bg-black text-white">
 
       {/* =================================================
-          HERO — COMMAND CENTER CONTEXT
+          HERO — COMMAND CENTER VISUAL
       ================================================= */}
-      <section className="px-4 md:px-8 pt-28">
+      <section className="px-4 md:px-8 pt-32 pb-48">
         <div className="hero-frame">
-          {/* TEMP: reuse command center image from homepage */}
           <img
             src="/media/oyi-os-command-center.png"
-            className="hero-bg"
             alt="Ochiga Command Center"
+            className="hero-bg"
           />
           <div className="hero-overlay" />
           <div className="hero-gradient" />
@@ -25,27 +24,30 @@ export default function CommandCenterPage() {
               Command Center
             </p>
             <h1 className="hero-title">
-              Centralized control<br />for live infrastructure.
+              Centralized control for
+              <br />
+              live infrastructure
             </h1>
             <p className="hero-description">
-              A large-screen operational environment designed for real-time
-              oversight of estates, facilities, and urban infrastructure.
+              A large-screen operational environment for monitoring,
+              coordinating, and governing estates, facilities, and districts
+              in real time.
             </p>
           </div>
         </div>
       </section>
 
       {/* =================================================
-          PAGE CONTENT
+          PAGE BODY
       ================================================= */}
-      <section className="pt-40 pb-32 px-6 md:px-8">
+      <section className="px-6 md:px-8 pb-40">
         <div className="max-w-6xl mx-auto">
 
           {/* =================================================
               WHAT THE COMMAND CENTER IS
           ================================================= */}
-          <section className="mb-44">
-            <h2 className="text-2xl font-medium mb-16">
+          <section className="mb-56">
+            <h2 className="text-2xl font-medium mb-20">
               What the Command Center Is
             </h2>
 
@@ -58,7 +60,7 @@ export default function CommandCenterPage() {
               <CCCard
                 icon={<PulseIcon />}
                 title="System Health & Alerts"
-                text="Continuous visibility into access systems, power, network health, and operational alerts."
+                text="Continuous visibility into access systems, power, network health, and operational alerts as they happen."
               />
               <CCCard
                 icon={<IncidentIcon />}
@@ -68,58 +70,96 @@ export default function CommandCenterPage() {
               <CCCard
                 icon={<ShieldIcon />}
                 title="Operator Authority & Control"
-                text="Role-based access and authority enforcement for operators and facility managers."
+                text="Role-based access and authority enforcement for infrastructure operators and facility managers."
               />
             </div>
           </section>
 
           {/* =================================================
-              HOW IT’S USED — OPERATIONAL LAYER
+              HOW IT’S USED
           ================================================= */}
           <section
-            className="mb-48"
+            className="mb-64"
             style={{
               background: "rgba(255,255,255,0.02)",
               border: "1px solid rgba(255,255,255,0.06)",
-              borderRadius: 28,
-              padding: "64px 56px",
+              borderRadius: 32,
+              padding: "88px 72px",
             }}
           >
-            <div className="max-w-4xl">
-              <h2 className="text-2xl font-medium mb-6">
-                How It’s Used
-              </h2>
+            <h2 className="text-2xl font-medium mb-10">
+              How It’s Used
+            </h2>
 
-              <p className="text-white/65 mb-20 max-w-2xl">
-                The Command Center operates as a unified control environment,
-                adapting to different operational contexts while maintaining
-                real-time authority, visibility, and escalation control.
-              </p>
+            <p className="text-white/65 mb-24 max-w-2xl">
+              The Command Center is operated by estate managers,
+              facility teams, and infrastructure operators responsible
+              for live environments.
+            </p>
 
-              <div className="space-y-20">
-                <UsageRow
-                  icon={<EstateIcon />}
-                  title="Estate Operations"
-                  text="Central monitoring of access points, visitor movement, utilities, security events, and estate-wide alerts from a single operational view."
-                />
-                <UsageRow
-                  icon={<FacilityIcon />}
-                  title="Facility Management"
-                  text="Asset performance tracking, maintenance visibility, energy oversight, and escalation workflows across buildings and facilities."
-                />
-                <UsageRow
-                  icon={<ResponseIcon />}
-                  title="Incident Response"
-                  text="Coordinated response to infrastructure failures, security breaches, and system incidents with live situational awareness."
-                />
-              </div>
+            <div className="space-y-28">
+              <UsageRow
+                icon={<EstateIcon />}
+                title="Estate Operations"
+                text="Central monitoring of access points, visitor movement, utilities, and alerts across residential estates."
+              />
+              <UsageRow
+                icon={<FacilityIcon />}
+                title="Facility Management"
+                text="Asset tracking, maintenance visibility, energy oversight, and escalation control across facilities."
+              />
+              <UsageRow
+                icon={<ResponseIcon />}
+                title="Incident Response"
+                text="Coordinated response to infrastructure failures and security events from a unified operational view."
+              />
             </div>
           </section>
 
           {/* =================================================
-              CTA — DECISION POINT
+              BUILT FOR SCALE
           ================================================= */}
-          <section className="pt-24">
+          <section className="mb-64">
+            <h2 className="text-2xl font-medium mb-20">
+              Built for Scale
+            </h2>
+
+            <div className="grid md:grid-cols-3 gap-20 text-white/70">
+              <Scale
+                title="Single Estate"
+                text="Dedicated control rooms operating one estate or facility cluster."
+              />
+              <Scale
+                title="Multi-Estate Hubs"
+                text="Centralized operations overseeing multiple estates or developments."
+              />
+              <Scale
+                title="City & District Operations"
+                text="Large-screen coordination centers for urban infrastructure and services."
+              />
+            </div>
+          </section>
+
+          {/* =================================================
+              POWERED BY OYI OS
+          ================================================= */}
+          <section className="mb-64 max-w-3xl">
+            <h2 className="text-2xl font-medium mb-8">
+              Powered by Oyi OS
+            </h2>
+            <p className="text-white/70 leading-relaxed">
+              The Command Center runs on Oyi OS and remains synchronized
+              with live digital twins.
+              <br /><br />
+              Every control action reflects real infrastructure state —
+              not delayed reports, dashboards, or manual updates.
+            </p>
+          </section>
+
+          {/* =================================================
+              FINAL CTA
+          ================================================= */}
+          <section className="pt-32 pb-16 text-center">
             <Link href="/deployments" className="btn-primary">
               Request Command Center Deployment
             </Link>
@@ -143,87 +183,83 @@ function CCCard({ icon, title, text }: any) {
         background: "rgba(255,255,255,0.035)",
         border: "1px solid rgba(255,255,255,0.08)",
         borderRadius: 18,
-        padding: 22,
+        padding: 24,
         minHeight: 260,
         display: "flex",
         flexDirection: "column",
       }}
     >
-      <div className="text-white/80 mb-8">{icon}</div>
+      <div className="mb-8">{icon}</div>
       <div style={{ flexGrow: 1 }} />
-      <div>
-        <h3 className="font-medium mb-2 text-sm md:text-base">
-          {title}
-        </h3>
-        <p className="text-white/65 text-xs md:text-sm leading-relaxed">
-          {text}
-        </p>
-      </div>
+      <h3 className="font-medium mb-3">{title}</h3>
+      <p className="text-white/65 text-sm leading-relaxed">{text}</p>
     </div>
   );
 }
 
 function UsageRow({ icon, title, text }: any) {
   return (
-    <div style={{ display: "flex", gap: 28, alignItems: "flex-start" }}>
+    <div style={{ display: "flex", gap: 36 }}>
       <div
         style={{
           width: 56,
           height: 56,
           borderRadius: "50%",
-          background: "rgba(255,255,255,0.06)",
           border: "1px solid rgba(255,255,255,0.12)",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          flexShrink: 0,
         }}
       >
         {icon}
       </div>
-
       <div>
-        <h3 className="font-medium mb-3">{title}</h3>
-        <p className="text-white/65 leading-relaxed max-w-xl">
-          {text}
-        </p>
+        <h3 className="font-medium mb-4">{title}</h3>
+        <p className="text-white/70 max-w-xl">{text}</p>
       </div>
     </div>
   );
 }
 
+function Scale({ title, text }: any) {
+  return (
+    <div>
+      <h3 className="font-medium mb-3">{title}</h3>
+      <p className="text-sm leading-relaxed">{text}</p>
+    </div>
+  );
+}
+
 /* =================================================
-   ICONS — USAGE CONTEXT
+   ICONS
 ================================================= */
 
-function EstateIcon() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-      <path d="M3 10l9-6 9 6v9H3v-9z" stroke="white" strokeOpacity="0.7" strokeWidth="1.5"/>
-    </svg>
-  );
-}
+const TopologyIcon = () => (
+  <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+    <rect x="3" y="3" width="6" height="6" stroke="white" strokeOpacity="0.7" />
+    <rect x="15" y="3" width="6" height="6" stroke="white" strokeOpacity="0.7" />
+    <rect x="9" y="15" width="6" height="6" stroke="white" strokeOpacity="0.7" />
+  </svg>
+);
 
-function FacilityIcon() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-      <rect x="4" y="3" width="16" height="18" rx="2" stroke="white" strokeOpacity="0.7" strokeWidth="1.5"/>
-      <path d="M9 21V3M15 21V3" stroke="white" strokeOpacity="0.4"/>
-    </svg>
-  );
-}
+const PulseIcon = () => (
+  <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+    <path d="M3 12h4l2-4 4 8 2-4h4" stroke="white" strokeOpacity="0.7" strokeWidth="1.4" />
+  </svg>
+);
 
-function ResponseIcon() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-      <circle cx="12" cy="12" r="9" stroke="white" strokeOpacity="0.7" strokeWidth="1.5"/>
-      <path d="M12 7v6l4 2" stroke="white" strokeOpacity="0.5" strokeWidth="1.5"/>
-    </svg>
-  );
-}
+const IncidentIcon = () => (
+  <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+    <path d="M12 4l8 16H4L12 4z" stroke="white" strokeOpacity="0.7" strokeWidth="1.4" />
+  </svg>
+);
 
-/* Existing icons (unchanged) */
-function TopologyIcon() { return null }
-function PulseIcon() { return null }
-function IncidentIcon() { return null }
-function ShieldIcon() { return null }
+const ShieldIcon = () => (
+  <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+    <path d="M12 3l7 4v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V7l7-4z" stroke="white" strokeOpacity="0.7" strokeWidth="1.4" />
+  </svg>
+);
+
+const EstateIcon = ShieldIcon;
+const FacilityIcon = TopologyIcon;
+const ResponseIcon = IncidentIcon;
