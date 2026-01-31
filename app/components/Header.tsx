@@ -53,7 +53,7 @@ export default function Header() {
             }}
           >
             <img
-              src="/brand/ochiga-logo.svg"
+              src="/brand/ochiga-logo.PNG"
               alt="Ochiga"
               style={{
                 height: 56, // ✅ BIG GOAL CONFIRMED
