@@ -446,3 +446,245 @@ body {
 .animate-fade-up {
   animation: fadeUp 0.8s ease-out forwards;
 }
+
+/* ===============================
+   OCHIGA SCROLLYTELLING HOMEPAGE
+================================ */
+.ochiga-story {
+  position: relative;
+  min-height: 720vh;
+  background:
+    radial-gradient(circle at 50% 14%, rgba(10, 88, 80, 0.34), transparent 34%),
+    radial-gradient(circle at 80% 66%, rgba(17, 49, 91, 0.22), transparent 32%),
+    #020504;
+  color: #f6fbfb;
+  overflow: clip;
+}
+.story-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  min-height: 760px;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+}
+.story-canvas {
+  position: absolute !important;
+  inset: 0;
+  z-index: 1;
+}
+.story-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 47%, transparent 0 28%, rgba(0, 0, 0, 0.1) 42%, rgba(0, 0, 0, 0.76) 100%),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.72), transparent 36%, transparent 63%, rgba(0, 0, 0, 0.66));
+}
+.story-grid {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0.72;
+  background-image:
+    linear-gradient(rgba(119, 240, 220, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(119, 240, 220, 0.05) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(circle at 50% 48%, #000, transparent 76%);
+}
+.story-copy {
+  position: absolute;
+  left: clamp(22px, 5vw, 88px);
+  top: 50%;
+  z-index: 5;
+  width: min(560px, calc(100vw - 44px));
+  transform: translateY(-42%);
+}
+.story-copy p {
+  margin: 0 0 18px;
+  color: #63f0b1;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+}
+.story-copy h1 {
+  margin: 0;
+  max-width: 12ch;
+  font-size: clamp(44px, 7vw, 96px);
+  line-height: 0.92;
+  letter-spacing: -0.075em;
+  font-weight: 650;
+}
+.story-copy span {
+  display: block;
+  max-width: 510px;
+  margin-top: 22px;
+  color: rgba(235, 244, 243, 0.72);
+  font-size: clamp(16px, 1.6vw, 21px);
+  line-height: 1.58;
+}
+.story-panel,
+.story-products,
+.story-cta {
+  position: absolute;
+  z-index: 5;
+  border: 1px solid rgba(120, 220, 214, 0.15);
+  background:
+    linear-gradient(145deg, rgba(8, 18, 24, 0.78), rgba(4, 9, 12, 0.62));
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.38);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+.story-panel {
+  right: clamp(18px, 4vw, 72px);
+  top: 138px;
+  width: min(330px, calc(100vw - 36px));
+  padding: 16px;
+  border-radius: 22px;
+}
+.story-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+  color: #f7fbff;
+}
+.story-panel-head strong {
+  font-size: 13px;
+  letter-spacing: 0.02em;
+}
+.story-panel-head span {
+  color: #63f0b1;
+  font-size: 12px;
+}
+.story-signal {
+  display: grid;
+  gap: 9px;
+}
+.story-signal div {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 32px;
+  color: rgba(238, 247, 247, 0.72);
+  font-size: 12px;
+}
+.story-signal i {
+  width: 9px;
+  height: 9px;
+  border-radius: 99px;
+  box-shadow: 0 0 18px currentColor;
+}
+.story-products {
+  right: clamp(18px, 4vw, 72px);
+  bottom: 116px;
+  width: min(420px, calc(100vw - 36px));
+  padding: 10px;
+  border-radius: 24px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.story-products div {
+  min-height: 76px;
+  padding: 13px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.035);
+}
+.story-products strong,
+.story-products span {
+  display: block;
+}
+.story-products strong {
+  font-size: 13px;
+}
+.story-products span {
+  margin-top: 8px;
+  color: rgba(235, 244, 243, 0.58);
+  font-size: 11px;
+}
+.story-cta {
+  left: clamp(22px, 5vw, 88px);
+  bottom: 54px;
+  width: min(560px, calc(100vw - 44px));
+  padding: 13px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.story-cta a {
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 18px;
+  border-radius: 999px;
+  color: #02120c;
+  background: linear-gradient(135deg, #f8c15b, #5bf1a4);
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.story-cta span {
+  color: rgba(235, 244, 243, 0.62);
+  font-size: 12px;
+  line-height: 1.4;
+}
+.story-scroll-space {
+  position: relative;
+  z-index: 4;
+  pointer-events: none;
+}
+.story-scroll-space section {
+  height: 120vh;
+}
+@media (max-width: 980px) {
+  .story-sticky {
+    min-height: 720px;
+  }
+  .story-copy {
+    top: 43%;
+  }
+  .story-panel {
+    top: auto;
+    bottom: 170px;
+    left: 18px;
+    right: 18px;
+    width: auto;
+  }
+  .story-products {
+    display: none;
+  }
+  .story-cta {
+    left: 18px;
+    right: 18px;
+    width: auto;
+    border-radius: 22px;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+@media (max-width: 640px) {
+  .story-sticky {
+    min-height: 690px;
+  }
+  .story-copy {
+    top: 36%;
+  }
+  .story-copy h1 {
+    font-size: clamp(40px, 15vw, 64px);
+  }
+  .story-copy span {
+    font-size: 15px;
+  }
+  .story-panel {
+    bottom: 156px;
+  }
+}
