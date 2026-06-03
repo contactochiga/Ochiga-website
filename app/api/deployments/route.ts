@@ -20,6 +20,7 @@ type DeploymentRequest = {
 };
 
 const rateState = new Map<string, { count: number; resetAt: number }>();
+const maxBodyBytes = Number(process.env.OCHIGA_DEPLOYMENT_MAX_BODY_BYTES || 12_000);
 
 const requiredFields: Array<keyof DeploymentRequest> = [
   "name",
@@ -265,7 +266,14 @@ export async function POST(request: NextRequest) {
 
   let raw: Partial<DeploymentRequest>;
   try {
-    raw = await request.json();
+    const text = await request.text();
+    if (Buffer.byteLength(text, "utf8") > maxBodyBytes) {
+      return NextResponse.json(
+        { ok: false, error: "Request is too large.", requestId },
+        { status: 413 }
+      );
+    }
+    raw = JSON.parse(text || "{}");
   } catch {
     return NextResponse.json(
       { ok: false, error: "Invalid request body.", requestId },

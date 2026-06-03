@@ -9,11 +9,31 @@ export const metadata = {
     "Operate digital infrastructure across estates and buildings. Access, assets, utilities, payments, and live digital twins.",
 };
 
+function resolveWidgetConfig() {
+  const widgetUrl = process.env.NEXT_PUBLIC_OCHIGA_WIDGET_URL || "";
+  if (!widgetUrl) {
+    return null;
+  }
+
+  let apiBase = process.env.NEXT_PUBLIC_OCHIGA_WIDGET_API_BASE || "";
+  if (!apiBase) {
+    try {
+      apiBase = new URL(widgetUrl).origin;
+    } catch {
+      apiBase = "";
+    }
+  }
+
+  return apiBase ? { widgetUrl, apiBase } : null;
+}
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const widget = resolveWidgetConfig();
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="bg-black text-white antialiased">
@@ -22,16 +42,18 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
-        <Script
-          id="oma-widget"
-          src="https://ochiga-lead-agents.onrender.com/widget.js"
-          data-oma-widget="true"
-          data-api-base="https://ochiga-lead-agents.onrender.com"
-          data-title="Talk to Oma"
-          data-subtitle="Ochiga Marketing Agent for infrastructure, estates, and connected communities"
-          data-greeting="Hi, I'm Oma. Tell me about your estate, building, or project, and I'll guide you."
-          strategy="afterInteractive"
-        />
+        {widget ? (
+          <Script
+            id="oma-widget"
+            src={widget.widgetUrl}
+            data-oma-widget="true"
+            data-api-base={widget.apiBase}
+            data-title="Talk to Oma"
+            data-subtitle="Ochiga Marketing Agent for infrastructure, estates, and connected communities"
+            data-greeting="Hi, I'm Oma. Tell me about your estate, building, or project, and I'll guide you."
+            strategy="afterInteractive"
+          />
+        ) : null}
       </body>
     </html>
   );
