@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
 import CorporatePage from "@/app/components/CorporatePage";
 import { companyInfo } from "@/lib/company";
+import { buildMetadata, seoPages } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Terms — Ochiga",
-  description: "Ochiga website terms for public information, deployment enquiries, and infrastructure conversations.",
-};
+export const metadata: Metadata = buildMetadata(seoPages.terms);
 
 export default function TermsPage() {
   return (

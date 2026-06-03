@@ -1,7 +1,11 @@
 // app/papers/page.tsx
 
+import type { Metadata } from "next";
 import Link from "next/link";
 import Section from "@/app/components/Section";
+import { buildMetadata, seoPages } from "@/lib/seo";
+
+export const metadata: Metadata = buildMetadata(seoPages.papers);
 
 const papers = [
   {

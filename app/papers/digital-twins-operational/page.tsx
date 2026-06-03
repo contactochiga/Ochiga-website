@@ -1,9 +1,16 @@
 // app/papers/digital-twins-operational/page.tsx
 
+import type { Metadata } from "next";
 import Section from "@/app/components/Section";
+import JsonLd from "@/app/components/JsonLd";
+import { articleJsonLd, buildMetadata, seoPages } from "@/lib/seo";
+
+export const metadata: Metadata = buildMetadata(seoPages.digitalTwinPaper);
 
 export default function DigitalTwinsOperationalPaper() {
   return (
+    <>
+      <JsonLd data={articleJsonLd(seoPages.digitalTwinPaper)} />
     <Section title="Digital Twins as Operational Infrastructure">
       <p className="text-white/70 mb-8">
         <strong>Abstract</strong><br />
@@ -104,5 +111,6 @@ export default function DigitalTwinsOperationalPaper() {
         operational infrastructure.
       </p>
     </Section>
+    </>
   );
 }

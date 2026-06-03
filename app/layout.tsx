@@ -1,12 +1,26 @@
+import type { Metadata } from "next";
 import Script from "next/script";
 import "./globals.css";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
+import JsonLd from "@/app/components/JsonLd";
+import {
+  buildMetadata,
+  organizationJsonLd,
+  seoConfig,
+  seoPages,
+  websiteJsonLd,
+} from "@/lib/seo";
 
-export const metadata = {
-  title: "Ochiga — Infrastructure Operating System",
-  description:
-    "Operate digital infrastructure across estates and buildings. Access, assets, utilities, payments, and live digital twins.",
+export const metadata: Metadata = {
+  ...buildMetadata(seoPages.home),
+  metadataBase: new URL(seoConfig.baseUrl),
+  applicationName: seoConfig.siteName,
+  icons: {
+    icon: "/icon",
+    apple: "/apple-icon",
+  },
+  manifest: "/manifest.webmanifest",
 };
 
 function resolveWidgetConfig() {
@@ -37,6 +51,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="bg-black text-white antialiased">
+        <JsonLd data={[organizationJsonLd(), websiteJsonLd()]} />
         <Header />
         <main className="relative overflow-x-hidden">
           {children}

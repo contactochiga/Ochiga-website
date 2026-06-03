@@ -1,7 +1,21 @@
+import type { Metadata } from "next";
 import Section from "@/app/components/Section";
+import JsonLd from "@/app/components/JsonLd";
+import { articleJsonLd, buildMetadata, seoPages } from "@/lib/seo";
+
+const paperBySlug = {
+  "identity-as-infrastructure": seoPages.identityPaper,
+  "digital-twins-operational": seoPages.digitalTwinPaper,
+} as const;
+
+export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
+  return buildMetadata(paperBySlug[params.slug as keyof typeof paperBySlug] ?? seoPages.papers);
+}
 
 export default function Paper() {
   return (
+    <>
+      <JsonLd data={articleJsonLd(seoPages.identityPaper)} />
     <Section title="The Infrastructure Operating System">
       <article className="max-w-3xl mx-auto space-y-10 text-white/85 leading-relaxed">
 
@@ -129,5 +143,6 @@ export default function Paper() {
 
       </article>
     </Section>
+    </>
   );
 }

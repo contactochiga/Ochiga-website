@@ -1,4 +1,8 @@
+import type { Metadata } from "next";
 import Section from "@/app/components/Section";
+import { buildMetadata, seoPages } from "@/lib/seo";
+
+export const metadata: Metadata = buildMetadata(seoPages.architecture);
 
 export default function ArchitecturePage() {
   return (

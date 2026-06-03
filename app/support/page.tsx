@@ -2,11 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import CorporatePage from "@/app/components/CorporatePage";
 import { companyInfo } from "@/lib/company";
+import { buildMetadata, seoPages } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Support — Ochiga",
-  description: "Support information for Ochiga website visitors, deployment prospects, operators, and partners.",
-};
+export const metadata: Metadata = buildMetadata(seoPages.support);
 
 export default function SupportPage() {
   return (

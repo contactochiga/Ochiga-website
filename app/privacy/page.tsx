@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
 import CorporatePage from "@/app/components/CorporatePage";
 import { companyInfo } from "@/lib/company";
+import { buildMetadata, seoPages } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Privacy — Ochiga",
-  description: "Ochiga privacy information for website visitors, deployment enquiries, and enterprise infrastructure conversations.",
-};
+export const metadata: Metadata = buildMetadata(seoPages.privacy);
 
 export default function PrivacyPage() {
   return (
