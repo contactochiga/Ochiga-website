@@ -1,10 +1,10 @@
 import Link from "next/link";
+import { companyInfo, footerNavigation } from "@/lib/company";
 
 export default function Footer() {
   return (
     <footer
       style={{
-        marginTop: 120,
         background: "#000",
         borderTop: "1px solid rgba(255,255,255,0.06)",
       }}
@@ -19,9 +19,6 @@ export default function Footer() {
           gap: 48,
         }}
       >
-        {/* ===============================
-            TOP ROW
-        =============================== */}
         <div
           style={{
             display: "flex",
@@ -31,16 +28,18 @@ export default function Footer() {
             gap: 40,
           }}
         >
-          {/* Brand */}
           <div style={{ maxWidth: 420 }}>
-            <img
-              src="/brand/ochiga-logo.svg"
-              alt="Ochiga"
-              style={{
-                height: 40, // 🔥 MATCHES HEADER SCALE
-                marginBottom: 18,
-              }}
-            />
+            <Link href="/" aria-label="Ochiga home">
+              <img
+                src="/brand/ochiga-logo.PNG"
+                alt="Ochiga"
+                style={{
+                  height: 44,
+                  width: "auto",
+                  marginBottom: 18,
+                }}
+              />
+            </Link>
 
             <p
               style={{
@@ -53,40 +52,30 @@ export default function Footer() {
               assets, utilities, and digital twins across estates, buildings,
               and urban systems.
             </p>
+
+            <div style={{ marginTop: 22, fontSize: 13, lineHeight: 1.8, color: "rgba(255,255,255,0.48)" }}>
+              <a href={`mailto:${companyInfo.contactEmail}`}>{companyInfo.contactEmail}</a>
+              <br />
+              <span>{companyInfo.location}</span>
+            </div>
           </div>
 
-          {/* Footer Navigation */}
           <nav
+            aria-label="Footer navigation"
             style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(2, minmax(160px, auto))",
-              gap: "16px 48px",
+              display: "flex",
+              flexWrap: "wrap",
+              gap: "28px 42px",
               fontSize: 14,
               color: "rgba(255,255,255,0.65)",
             }}
           >
-            {/* SYSTEM */}
-            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-              <span style={eyebrow}>System</span>
-              <Link href="/architecture">Architecture</Link>
-              <Link href="/infrastructure">Infrastructure</Link>
-              <Link href="/command-center">Command Center</Link>
-              <Link href="/governance">Governance</Link>
-            </div>
-
-            {/* ENGAGE */}
-            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-              <span style={eyebrow}>Engage</span>
-              <Link href="/engage">Engage</Link>
-              <Link href="/deployments">Request Deployment</Link>
-              <Link href="/papers">Papers</Link>
-            </div>
+            <FooterGroup title="System" links={footerNavigation.system} />
+            <FooterGroup title="Engage" links={footerNavigation.engage} />
+            <FooterGroup title="Trust" links={footerNavigation.trust} />
           </nav>
         </div>
 
-        {/* ===============================
-            DIVIDER
-        =============================== */}
         <div
           style={{
             height: 1,
@@ -95,9 +84,6 @@ export default function Footer() {
           }}
         />
 
-        {/* ===============================
-            BOTTOM ROW
-        =============================== */}
         <div
           style={{
             display: "flex",
@@ -109,7 +95,7 @@ export default function Footer() {
             color: "rgba(255,255,255,0.4)",
           }}
         >
-          <span>© {new Date().getFullYear()} Ochiga Systems</span>
+          <span>© {new Date().getFullYear()} {companyInfo.legalName}</span>
           <span>Infrastructure Operating System</span>
         </div>
       </div>
@@ -117,9 +103,18 @@ export default function Footer() {
   );
 }
 
-/* ===============================
-   SMALL HELPERS
-================================ */
+function FooterGroup({ title, links }: { title: string; links: Array<{ href: string; label: string }> }) {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+      <span style={eyebrow}>{title}</span>
+      {links.map((link) => (
+        <Link key={link.href} href={link.href}>
+          {link.label}
+        </Link>
+      ))}
+    </div>
+  );
+}
 
 const eyebrow = {
   fontSize: 11,

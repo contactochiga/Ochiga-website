@@ -2,11 +2,11 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { primaryNavigation } from "@/lib/company";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
 
-  // Prevent background scroll when menu is open
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => {
@@ -14,11 +14,18 @@ export default function Header() {
     };
   }, [open]);
 
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setOpen(false);
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, []);
+
   return (
     <>
-      {/* ===============================
-          FIXED HEADER — BIG GOAL (LOCKED)
-      =============================== */}
       <header
         style={{
           position: "fixed",
@@ -33,42 +40,29 @@ export default function Header() {
         }}
       >
         <nav
+          aria-label="Primary navigation"
           style={{
             maxWidth: 1320,
             margin: "0 auto",
-            padding: "26px 24px", // ⬅️ OPTICAL BALANCE
+            padding: "26px 24px",
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
           }}
         >
-          {/* ===============================
-              LOGO — FINAL, AUTHORITATIVE SCALE
-          =============================== */}
-          <Link
-            href="/"
-            style={{
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
+          <Link href="/" style={{ display: "flex", alignItems: "center" }} aria-label="Ochiga home">
             <img
               src="/brand/ochiga-logo.PNG"
               alt="Ochiga"
-              style={{
-                height: 56, // ✅ BIG GOAL CONFIRMED
-                width: "auto",
-                display: "block",
-              }}
+              style={{ height: 56, width: "auto", display: "block" }}
             />
           </Link>
 
-          {/* ===============================
-              MENU BUTTON
-          =============================== */}
           <button
             onClick={() => setOpen(true)}
             aria-label="Open menu"
+            aria-expanded={open}
+            aria-controls="ochiga-site-menu"
             style={{
               width: 44,
               height: 44,
@@ -89,31 +83,31 @@ export default function Header() {
         </nav>
       </header>
 
-      {/* ===============================
-          OVERLAY
-      =============================== */}
       {open && (
-        <div
+        <button
+          aria-label="Close menu overlay"
           onClick={() => setOpen(false)}
           style={{
             position: "fixed",
             inset: 0,
             background: "rgba(0,0,0,0.5)",
             zIndex: 60,
+            border: 0,
+            padding: 0,
+            cursor: "default",
           }}
         />
       )}
 
-      {/* ===============================
-          SLIDE MENU
-      =============================== */}
       <aside
+        id="ochiga-site-menu"
+        aria-hidden={!open}
         style={{
           position: "fixed",
           top: 0,
           right: 0,
           height: "100vh",
-          width: "min(360px, 85vw)",
+          width: "min(390px, 88vw)",
           background: "#000",
           zIndex: 70,
           transform: open ? "translateX(0)" : "translateX(100%)",
@@ -124,7 +118,6 @@ export default function Header() {
           flexDirection: "column",
         }}
       >
-        {/* Close */}
         <button
           onClick={() => setOpen(false)}
           aria-label="Close menu"
@@ -138,20 +131,17 @@ export default function Header() {
             marginBottom: 32,
           }}
         >
-          Close ✕
+          Close x
         </button>
 
-        {/* Navigation */}
-        <nav style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+        <nav aria-label="Site menu" style={{ display: "flex", flexDirection: "column", gap: 18 }}>
           <NavItem href="/" label="Home" close={() => setOpen(false)} />
           <NavItem href="/oyi" label="Oyi OS" close={() => setOpen(false)} />
-          <NavItem href="/technology" label="Technology" close={() => setOpen(false)} />
-          <NavItem href="/papers" label="Papers" close={() => setOpen(false)} />
-          <NavItem href="/twin" label="Live Digital Twin" close={() => setOpen(false)} />
-          <NavItem href="/deployments" label="Request Deployment" close={() => setOpen(false)} />
+          {primaryNavigation.map((item) => (
+            <NavItem key={item.href} href={item.href} label={item.label} close={() => setOpen(false)} />
+          ))}
         </nav>
 
-        {/* Footer */}
         <div
           style={{
             marginTop: "auto",
@@ -168,10 +158,6 @@ export default function Header() {
   );
 }
 
-/* ===============================
-   HELPERS
-================================ */
-
 const lineStyle = {
   height: 2,
   width: 24,
@@ -179,15 +165,7 @@ const lineStyle = {
   borderRadius: 2,
 };
 
-function NavItem({
-  href,
-  label,
-  close,
-}: {
-  href: string;
-  label: string;
-  close: () => void;
-}) {
+function NavItem({ href, label, close }: { href: string; label: string; close: () => void }) {
   return (
     <Link
       href={href}

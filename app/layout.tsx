@@ -1,6 +1,7 @@
 import Script from "next/script";
 import "./globals.css";
 import Header from "@/app/components/Header";
+import Footer from "@/app/components/Footer";
 
 export const metadata = {
   title: "Ochiga — Infrastructure Operating System",
@@ -20,6 +21,7 @@ export default function RootLayout({
         <main className="relative overflow-x-hidden">
           {children}
         </main>
+        <Footer />
         <Script
           id="oma-widget"
           src="https://ochiga-lead-agents.onrender.com/widget.js"

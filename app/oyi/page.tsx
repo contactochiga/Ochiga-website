@@ -225,7 +225,7 @@ export default function OyiPage() {
                 Request Deployment
               </Link>
               <Link href="/contact" className="btn-secondary">
-                Talk to Infrastructure Team
+                Contact Ochiga
               </Link>
             </div>
           </div>
