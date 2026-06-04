@@ -3,50 +3,84 @@
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Environment, PerspectiveCamera } from "@react-three/drei";
 import Link from "next/link";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 
 const scenes = [
   {
-    label: "Physical Layer",
-    title: "Ochiga — Technology Meets Infrastructure.",
-    copy: "Building Africa's infrastructure operating layer for estates, buildings, and connected operational environments.",
+    label: "Technology Meets Architecture",
+    title: "Ochiga designs intelligent physical environments.",
+    copy: "We connect architecture, infrastructure, real estate, digital twins, AI, and operational systems so buildings and estates can be planned, operated, and improved as living environments.",
   },
   {
-    label: "Operational Layer",
-    title: "One Operational Platform.",
-    copy: "Security, utilities, maintenance, devices, access control, and infrastructure operations coordinated from one operational environment.",
+    label: "Intelligent Buildings",
+    title: "Buildings are becoming infrastructure systems.",
+    copy: "Access, utilities, devices, cameras, maintenance, services, and resident workflows belong inside one architecture-aware operating layer.",
   },
   {
-    label: "Live Infrastructure View",
-    title: "Infrastructure becomes visible.",
-    copy: "Explore estate portfolio, security, utilities, community operations, environmental sensors, and infrastructure intelligence inside one living view.",
+    label: "Intelligent Estates",
+    title: "Estates need more than connected devices.",
+    copy: "Ochiga models homes, rooms, residents, visitors, operators, assets, edge nodes, and service workflows as part of the same built-environment intelligence.",
   },
   {
     label: "Infrastructure Intelligence",
-    title: "Operational awareness, not just automation.",
-    copy: "Live maps, heat layers, telemetry, diagnostics, and AI-assisted signals turn buildings into continuously supervised systems.",
+    title: "Operational awareness for the built world.",
+    copy: "Source quality, telemetry, incidents, maintenance, device health, utility posture, and spatial context become visible without pretending missing sources are live.",
   },
   {
-    label: "Lifecycle Onboarding",
-    title: "Enterprise-grade infrastructure onboarding.",
-    copy: "Facility operators provision resident access through Oyi Facility. Residents enter Oyi Home with permission-aware operational visibility.",
+    label: "Oyi Platform Ecosystem",
+    title: "Oyi powers the operating layer.",
+    copy: "Oyi Home, Facility, Watch, Edge, AI, and Twin are product surfaces under Ochiga, built to connect residents, operators, infrastructure, and intelligence.",
   },
   {
-    label: "Ecosystem",
-    title: "Building Africa's Infrastructure Operating Layer.",
-    copy: "Oyi Facility, Oyi Home, Oyi AI, and Oyi Edge operate as one connected infrastructure ecosystem.",
+    label: "Future Communities",
+    title: "The long view is intelligent real estate.",
+    copy: "Ochiga is building toward smart communities where architecture, construction, infrastructure, and digital intelligence are designed together from the beginning.",
   },
 ];
 
 const zones = [
-  ["Estate Portfolio", "#38bdf8", [-2.8, 2.2, 0.1]],
-  ["Security & Access", "#22c55e", [2.7, 1.55, 0.1]],
+  ["Architecture", "#38bdf8", [-2.8, 2.2, 0.1]],
+  ["Estate Systems", "#22c55e", [2.7, 1.55, 0.1]],
   ["Utilities", "#f59e0b", [-2.4, 0.4, 0.1]],
-  ["Environment", "#14b8a6", [2.25, -0.1, 0.1]],
-  ["Community Ops", "#a78bfa", [-1.2, -1.7, 0.1]],
+  ["Digital Twin", "#14b8a6", [2.25, -0.1, 0.1]],
+  ["Resident Life", "#a78bfa", [-1.2, -1.7, 0.1]],
   ["Intelligence", "#60a5fa", [1.35, -1.9, 0.1]],
 ] as const;
+
+const ecosystem = [
+  { title: "Intelligent Buildings", label: "Architecture-aware" },
+  { title: "Intelligent Estates", label: "Operationally governed" },
+  { title: "Digital Infrastructure", label: "Connected systems" },
+  { title: "Oyi Platform", label: "Product ecosystem" },
+];
+
+const whatWeBuild = [
+  {
+    title: "Intelligent Buildings",
+    body: "Buildings with digital structure, device awareness, access rules, utility context, and operational memory.",
+  },
+  {
+    title: "Intelligent Estates",
+    body: "Residential and mixed-use estates where residents, operators, visitors, services, and shared infrastructure work through one governed system.",
+  },
+  {
+    title: "Digital Infrastructure",
+    body: "The connective layer across identity, rooms, devices, cameras, utilities, payments, incidents, maintenance, and audit trails.",
+  },
+  {
+    title: "Command Centers",
+    body: "Large-screen operational environments for estate health, infrastructure posture, security, incidents, and staff response.",
+  },
+  {
+    title: "Digital Twins",
+    body: "Spatial and operational records that preserve how buildings, homes, rooms, assets, and events relate to one another.",
+  },
+  {
+    title: "Smart Communities",
+    body: "Future developments where architecture, construction, infrastructure, resident experience, and intelligence are planned together.",
+  },
+];
 
 function Building({ progress }: { progress: number }) {
   const group = useRef<THREE.Group>(null);
@@ -141,8 +175,6 @@ export default function OchigaScrollytelling() {
   const active = scenes[activeIndex];
   const pct = Math.round(progress * 100);
 
-  const products = useMemo(() => ["Oyi Facility", "Oyi Home", "Oyi AI", "Oyi Edge"], []);
-
   return (
     <main className="ochiga-story" ref={rootRef}>
       <section className="story-sticky">
@@ -156,7 +188,7 @@ export default function OchigaScrollytelling() {
         </div>
         <aside className="story-panel">
           <div className="story-panel-head">
-            <strong>Live Infrastructure View</strong>
+            <strong>Built Environment Intelligence</strong>
             <span>{pct}%</span>
           </div>
           <div className="story-signal">
@@ -169,16 +201,16 @@ export default function OchigaScrollytelling() {
           </div>
         </aside>
         <div className="story-products">
-          {products.map((product) => (
-            <div key={product}>
-              <strong>{product}</strong>
-              <span>{product === "Oyi Facility" ? "Estate runtime" : product === "Oyi Home" ? "Resident OS" : product === "Oyi AI" ? "Command layer" : "Hardware bridge"}</span>
+          {ecosystem.map((item) => (
+            <div key={item.title}>
+              <strong>{item.title}</strong>
+              <span>{item.label}</span>
             </div>
           ))}
         </div>
         <div className="story-cta">
-          <Link href="/deployments">Request Enterprise Demo</Link>
-          <span>Operational deployments for estates, buildings, and infrastructure environments.</span>
+          <Link href="/deployments">Request Deployment</Link>
+          <span>Digital infrastructure for intelligent buildings, estates, and future smart communities.</span>
         </div>
       </section>
       <div className="story-scroll-space" aria-hidden="true">
@@ -186,6 +218,50 @@ export default function OchigaScrollytelling() {
           <section key={scene.label} />
         ))}
       </div>
+      <section className="relative z-10 bg-[#020504] px-6 py-28 md:px-10">
+        <div className="mx-auto max-w-6xl">
+          <p className="mb-5 text-xs uppercase tracking-[0.24em] text-white/38">Technology Meets Architecture</p>
+          <div className="grid gap-10 md:grid-cols-[0.95fr_1.05fr] md:items-end">
+            <h2 className="text-4xl md:text-6xl font-medium tracking-[-0.05em] leading-tight">
+              We build the intelligence layer for physical environments.
+            </h2>
+            <p className="text-lg leading-8 text-white/62">
+              Ochiga sits between architecture, construction, infrastructure, and technology. We help buildings and estates become legible systems: designed physically, mapped digitally, operated continuously, and improved over time.
+            </p>
+          </div>
+        </div>
+      </section>
+      <section className="relative z-10 bg-black px-6 py-28 md:px-10">
+        <div className="mx-auto max-w-6xl">
+          <p className="mb-8 text-xs uppercase tracking-[0.24em] text-white/38">What We Build</p>
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {whatWeBuild.map((item) => (
+              <article key={item.title} className="rounded-[28px] border border-white/10 bg-white/[0.025] p-7">
+                <h3 className="text-2xl font-medium">{item.title}</h3>
+                <p className="mt-4 text-white/58 leading-7">{item.body}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+      <section className="relative z-10 bg-[#020504] px-6 py-28 md:px-10">
+        <div className="mx-auto grid max-w-6xl gap-8 md:grid-cols-2">
+          <div>
+            <p className="mb-5 text-xs uppercase tracking-[0.24em] text-white/38">Infrastructure Intelligence</p>
+            <h2 className="text-4xl md:text-6xl font-medium tracking-[-0.05em] leading-tight">
+              The building understands its own state.
+            </h2>
+          </div>
+          <div className="space-y-6 text-white/64 leading-8">
+            <p>Infrastructure Intelligence is the ability for a built environment to preserve context: what exists, where it belongs, who owns it, whether it is healthy, and what action should happen next.</p>
+            <p>Oyi is the platform ecosystem that powers this operating layer today. Spartan is the future intelligence layer for deeper reasoning, planning, simulation, and autonomous coordination.</p>
+            <div className="flex flex-wrap gap-4 pt-2">
+              <Link href="/oyi" className="btn-secondary">Explore Oyi</Link>
+              <Link href="/papers/infrastructure-intelligence" className="btn-primary">Read Intelligence Paper</Link>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }

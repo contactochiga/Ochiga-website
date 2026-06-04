@@ -5,9 +5,9 @@ import type { Paper } from "@/lib/papers";
 export const seoConfig = {
   siteName: "Ochiga",
   companyName: companyInfo.legalName,
-  defaultTitle: "Ochiga — Infrastructure Operating System",
+  defaultTitle: "Ochiga — Technology Meets Architecture",
   defaultDescription:
-    "Ochiga builds infrastructure operating systems for estates, buildings, access, utilities, command centers, and digital twins.",
+    "Ochiga creates digital infrastructure for intelligent buildings, intelligent estates, command centers, digital twins, and future smart communities.",
   get baseUrl() {
     return (process.env.NEXT_PUBLIC_SITE_URL || companyInfo.website).replace(/\/$/, "");
   },
@@ -26,31 +26,31 @@ export type PageSeo = {
 export const seoPages = {
   home: {
     path: "/",
-    title: "Ochiga — Infrastructure Operating System",
+    title: "Ochiga — Technology Meets Architecture",
     description:
-      "Ochiga builds Africa's infrastructure operating layer for estates, buildings, facility operations, digital twins, and connected environments.",
+      "Ochiga combines architecture, infrastructure, real estate technology, digital twins, AI, and operational systems for intelligent buildings and estates.",
   },
   oyi: {
     path: "/oyi",
-    title: "Oyi OS — Infrastructure Operating System by Ochiga",
+    title: "Oyi Platform — Powered by Ochiga",
     description:
-      "Oyi OS is the digital control layer for real-world environments, connecting residents, facilities, devices, utilities, access, and infrastructure operations.",
+      "Oyi is the product ecosystem under Ochiga, connecting residents, facility teams, devices, utilities, access, edge infrastructure, AI, and digital twins.",
   },
   technology: {
     path: "/technology",
     title: "Technology — Ochiga Infrastructure Systems",
     description:
-      "Explore Ochiga's infrastructure-grade technology model for digital twins, operational control, access, utilities, assets, and long-term system governance.",
+      "Explore Ochiga's technology model for intelligent buildings: realtime operations, AI, device integration, security, edge infrastructure, and digital twins.",
   },
   infrastructure: {
     path: "/infrastructure",
     title: "Infrastructure — Ochiga",
     description:
-      "Ochiga operates infrastructure as connected systems across power, water, access, communications, payments, facilities, and maintenance.",
+      "Ochiga helps estates and buildings operate as connected infrastructure across power, water, access, communications, payments, facilities, and maintenance.",
   },
   architecture: {
     path: "/architecture",
-    title: "Architecture — Ochiga Infrastructure Operating System",
+    title: "Architecture — Ochiga Built Environment Technology",
     description:
       "Understand the architecture behind Ochiga: interface layers, operational systems, digital twins, identity, access, and governance.",
   },
@@ -82,13 +82,13 @@ export const seoPages = {
     path: "/deployments",
     title: "Request Deployment — Ochiga",
     description:
-      "Submit a deployment request for Ochiga infrastructure systems, Oyi OS, command centers, digital twins, or estate operating environments.",
+      "Submit a deployment request for Ochiga intelligent building systems, Oyi platform deployments, command centers, digital twins, or smart estate environments.",
   },
   contact: {
     path: "/contact",
     title: "Contact Ochiga",
     description:
-      "Contact Ochiga for infrastructure deployments, Oyi OS, digital twins, command centers, and estate operating system enquiries.",
+      "Contact Ochiga for intelligent building deployments, Oyi platform deployments, digital twins, command centers, and smart estate enquiries.",
   },
   privacy: {
     path: "/privacy",
@@ -208,7 +208,7 @@ export function buildMetadata(page: PageSeo): Metadata {
           url: image,
           width: 1200,
           height: 630,
-          alt: "Ochiga Infrastructure Operating System",
+          alt: "Ochiga Technology Meets Architecture",
         },
       ],
     },
@@ -260,7 +260,7 @@ export function softwareApplicationJsonLd() {
     applicationCategory: "BusinessApplication",
     operatingSystem: "Web, iOS, Android, watchOS",
     description:
-      "Oyi OS is Ochiga's operating system for estates, facilities, residents, devices, access, utilities, and infrastructure operations.",
+      "Oyi is Ochiga's platform ecosystem for estates, facilities, residents, devices, access, utilities, edge infrastructure, AI, and digital twins.",
     publisher: {
       "@type": "Organization",
       name: seoConfig.companyName,

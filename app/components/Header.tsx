@@ -136,7 +136,7 @@ export default function Header() {
 
         <nav aria-label="Site menu" style={{ display: "flex", flexDirection: "column", gap: 18 }}>
           <NavItem href="/" label="Home" close={() => setOpen(false)} />
-          <NavItem href="/oyi" label="Oyi OS" close={() => setOpen(false)} />
+          <NavItem href="/oyi" label="Oyi Platform" close={() => setOpen(false)} />
           {primaryNavigation.map((item) => (
             <NavItem key={item.href} href={item.href} label={item.label} close={() => setOpen(false)} />
           ))}
@@ -151,7 +151,7 @@ export default function Header() {
             color: "rgba(255,255,255,0.4)",
           }}
         >
-          Infrastructure Operating System
+          Technology Meets Architecture
         </div>
       </aside>
     </>

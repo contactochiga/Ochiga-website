@@ -39,7 +39,7 @@ export default function CorporatePage({
               <div className="mt-5 space-y-4 text-sm leading-6 text-white/62">
                 <p>
                   <strong className="block text-white">{companyInfo.legalName}</strong>
-                  Infrastructure operating systems for estates, buildings, and operational environments.
+                  Digital infrastructure for intelligent buildings, estates, and operational environments.
                 </p>
                 <p>
                   <span className="block text-white/38">Email</span>

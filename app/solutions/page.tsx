@@ -68,7 +68,7 @@ export default function SolutionsPage() {
                   Once live, infrastructure is operated as a real-time system.
                   <br /><br />
                   Estates and facilities are monitored, governed, and controlled
-                  through Oyi OS, digital twins, and command-center environments.
+                  through the Oyi platform, digital twins, and command-center environments.
                 </p>
               </div>
 

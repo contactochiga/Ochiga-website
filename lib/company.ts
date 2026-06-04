@@ -1,7 +1,7 @@
 export const companyInfo = {
   legalName: "Ochiga Systems",
   brandName: "Ochiga",
-  productName: "Oyi OS",
+  productName: "Oyi Platform",
   website: "https://ochiga.com",
   contactEmail: "contactochiga@gmail.com",
   supportEmail: "contactochiga@gmail.com",

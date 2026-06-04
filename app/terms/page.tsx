@@ -10,7 +10,7 @@ export default function TermsPage() {
     <CorporatePage
       eyebrow="Terms"
       title="Terms for using the Ochiga website."
-      description="This website provides public information about Ochiga, Oyi OS, infrastructure deployments, digital twins, command centers, and related services."
+      description="This website provides public information about Ochiga, Oyi platform deployments, infrastructure deployments, digital twins, command centers, and related services."
     >
       <div className="space-y-8 text-white/68">
         <Section title="Website information" text="The content on this website is provided for general business and technical information. It does not create a deployment agreement, service contract, warranty, or binding implementation commitment." />

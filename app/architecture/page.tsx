@@ -12,7 +12,7 @@ export default function ArchitecturePage() {
       =============================== */}
       <div className="max-w-3xl">
         <p className="text-lg text-white/75 leading-relaxed">
-          Ochiga is architected as an <strong>Infrastructure Operating System</strong> —
+          Ochiga is architected as a <strong>built-environment technology system</strong> —
           not an application, not a dashboard, and not a collection of tools.
         </p>
 

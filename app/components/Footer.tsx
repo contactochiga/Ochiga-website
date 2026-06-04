@@ -48,9 +48,8 @@ export default function Footer() {
                 color: "rgba(255,255,255,0.5)",
               }}
             >
-              Ochiga is an infrastructure operating system — governing access,
-              assets, utilities, and digital twins across estates, buildings,
-              and urban systems.
+              Ochiga creates digital infrastructure for intelligent buildings,
+              estates, command centers, and future smart communities.
             </p>
 
             <div style={{ marginTop: 22, fontSize: 13, lineHeight: 1.8, color: "rgba(255,255,255,0.48)" }}>
@@ -96,7 +95,7 @@ export default function Footer() {
           }}
         >
           <span>© {new Date().getFullYear()} {companyInfo.legalName}</span>
-          <span>Infrastructure Operating System</span>
+          <span>Technology Meets Architecture</span>
         </div>
       </div>
     </footer>

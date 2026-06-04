@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import { seoConfig } from "@/lib/seo";
 
 export const runtime = "edge";
-export const alt = "Ochiga Infrastructure Operating System";
+export const alt = "Ochiga Technology Meets Architecture";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -56,10 +56,10 @@ export default function Image() {
         </div>
         <div style={{ zIndex: 1, maxWidth: 920 }}>
           <div style={{ fontSize: 76, lineHeight: 1.02, fontWeight: 800, letterSpacing: -3 }}>
-            Infrastructure operating systems for real environments.
+            Technology meets architecture for real environments.
           </div>
           <div style={{ marginTop: 28, fontSize: 30, lineHeight: 1.35, color: "rgba(255,255,255,0.72)" }}>
-            Estates. Facilities. Access. Utilities. Digital twins. Command centers.
+            Intelligent buildings. Intelligent estates. Digital infrastructure. Command centers.
           </div>
         </div>
       </div>

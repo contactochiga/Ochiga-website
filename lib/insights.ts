@@ -40,7 +40,7 @@ export const insights: Insight[] = [
     ],
     relatedLinks: [
       { href: "/papers/digital-identity-for-physical-spaces", label: "Read Digital Identity for Physical Spaces" },
-      { href: "/oyi", label: "Explore Oyi OS" },
+      { href: "/oyi", label: "Explore Oyi Platform" },
     ],
   },
   {

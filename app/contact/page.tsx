@@ -35,7 +35,7 @@ export default function ContactPage() {
         <section>
           <h2 className="text-xl font-medium text-white">Deployment enquiries</h2>
           <p className="mt-3 leading-7">
-            If you are planning a new estate, upgrading an existing property, or evaluating Oyi OS for facility operations, start with a deployment request.
+            If you are planning a new estate, upgrading an existing property, or evaluating the Oyi platform for facility operations, start with a deployment request.
           </p>
           <Link href="/deployments" className="btn-primary mt-6 inline-block">
             Request Deployment

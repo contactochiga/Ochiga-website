@@ -15,11 +15,11 @@ export default function OyiPage() {
     <main className="bg-black text-white">
       <section className="px-4 md:px-8 pt-24 md:pt-28">
         <div className="hero-frame">
-          <img src="/media/oyi-os-command-center.png" className="hero-bg" alt="Oyi OS command layer" />
+          <img src="/media/oyi-os-command-center.png" className="hero-bg" alt="Oyi platform command layer" />
           <div className="hero-overlay" />
           <div className="hero-gradient" />
           <div className="hero-content animate-fade-up">
-            <h1 className="hero-title">Oyi OS</h1>
+            <h1 className="hero-title">Oyi Platform</h1>
             <p className="hero-description">
               The operating system for managed estates, residents, facility teams, devices, access, and infrastructure intelligence.
             </p>

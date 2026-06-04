@@ -139,7 +139,7 @@ export default function CommandCenterPage() {
           <p className="text-white/70 leading-relaxed mb-20">
             The Ochiga Command Center is deployed as part of a complete
             infrastructure operating system — designed, integrated, and governed
-            through Oyi OS.
+            through the Oyi platform.
           </p>
 
           <Link href="/deployments" className="btn-primary">
