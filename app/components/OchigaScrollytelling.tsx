@@ -23,6 +23,45 @@ const buildCards = [
 const oyiSurfaces = ["Oyi Home", "Oyi Facility", "Oyi Watch", "Oyi Edge", "Oyi Intelligence"];
 const journey = ["Discover", "Design", "Connect", "Operate", "Evolve"];
 
+const estateEnvironments = [
+  {
+    title: "Intelligent Residential Estates",
+    body: "Homes, access, visitors, maintenance, utilities, devices, and resident life planned as one operational environment.",
+  },
+  {
+    title: "Mixed-Use Infrastructure",
+    body: "Residential, commercial, shared amenities, service corridors, and operator workflows connected without losing physical context.",
+  },
+  {
+    title: "Smart Building Operations",
+    body: "Architecture-aware systems for occupancy, rooms, cameras, devices, service requests, and infrastructure readiness.",
+  },
+  {
+    title: "Future Communities",
+    body: "Ochiga is building toward connected communities where architecture, infrastructure, and technology are planned together from day one.",
+  },
+  {
+    title: "Command Centers for Built Environments",
+    body: "Operational rooms for estate teams to understand attention, security, infrastructure, resident issues, and field response.",
+  },
+  {
+    title: "From Construction to Operation",
+    body: "Deployment planning that carries site structure, units, assets, vendors, and source readiness into the operating life of the estate.",
+  },
+];
+
+const proofBlocks = [
+  "Estate structure",
+  "Residents",
+  "Access",
+  "Utilities",
+  "Maintenance",
+  "Devices",
+  "Cameras",
+  "Command centers",
+  "Digital twins",
+];
+
 export default function OchigaScrollytelling() {
   return (
     <main className="arch-site va-site">
@@ -101,6 +140,52 @@ export default function OchigaScrollytelling() {
               <span>{card.kicker}</span>
               <h3>{card.title}</h3>
               <p>{card.body}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="arch-section va-estate-section">
+        <div className="arch-section-head">
+          <p>Real Estate Credibility</p>
+          <h2>Built for developments that must actually operate.</h2>
+          <span>Ochiga treats the built environment as the primary system: plots, buildings, homes, rooms, gates, service zones, utilities, devices, cameras, residents, and operators.</span>
+        </div>
+        <div className="va-site-plan">
+          <div className="va-plan-visual" aria-hidden="true">
+            <i className="va-plan-road" />
+            <i className="va-plan-water" />
+            <i className="va-plan-core" />
+            <i className="va-plan-block block-a" />
+            <i className="va-plan-block block-b" />
+            <i className="va-plan-block block-c" />
+            <i className="va-plan-block block-d" />
+            <span className="va-plan-label label-a">Residences</span>
+            <span className="va-plan-label label-b">Utilities</span>
+            <span className="va-plan-label label-c">Command</span>
+          </div>
+          <div className="va-estate-cards">
+            {estateEnvironments.map((environment) => (
+              <article key={environment.title}>
+                <h3>{environment.title}</h3>
+                <p>{environment.body}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="arch-section va-proof-section">
+        <div className="va-proof-copy">
+          <p>Visual Proof Layer</p>
+          <h2>Physical infrastructure becomes a digital infrastructure layer.</h2>
+          <span>Ochiga connects the estate record to the operating record, so the people, places, assets, events, and responsibilities inside a development remain traceable.</span>
+        </div>
+        <div className="va-proof-grid">
+          {proofBlocks.map((block, index) => (
+            <article key={block} style={{ "--proof": index } as React.CSSProperties}>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <h3>{block}</h3>
             </article>
           ))}
         </div>
