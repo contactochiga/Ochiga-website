@@ -144,7 +144,7 @@ export default function DeploymentRequestPage() {
           <p>Deployment Intake</p>
           <h1>Plan intelligent infrastructure with Ochiga.</h1>
           <span>
-            This is a structured intake for buildings, estates, command centers, digital twins, edge infrastructure, and Oyi platform deployments.
+            This is a structured intake for buildings, estates, command centers, digital twins, edge infrastructure, and operational platform deployments.
           </span>
         </div>
       </section>
@@ -160,7 +160,7 @@ export default function DeploymentRequestPage() {
             {requestId ? <strong>Reference: {requestId}</strong> : null}
             <div>
               <Link href="/" className="btn-secondary">Back to Home</Link>
-              <Link href="/oyi" className="btn-primary">Explore Oyi</Link>
+              <a href="https://getoyi.com" className="btn-primary">Explore Oyi</a>
             </div>
           </div>
         ) : (

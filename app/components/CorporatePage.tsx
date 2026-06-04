@@ -48,14 +48,24 @@ export default function CorporatePage({
                   </a>
                 </p>
                 <p>
-                  <span className="block text-white/38">Support</span>
-                  <a className="text-white/82 hover:text-white" href={`mailto:${companyInfo.supportEmail}`}>
-                    {companyInfo.supportEmail}
+                  <span className="block text-white/38">Phone / WhatsApp</span>
+                  <a className="text-white/82 hover:text-white" href={`tel:${companyInfo.phone.replace(/[^\d+]/g, "")}`}>
+                    {companyInfo.phone}
                   </a>
                 </p>
                 <p>
                   <span className="block text-white/38">Location</span>
                   {companyInfo.location}
+                </p>
+                <p>
+                  <span className="block text-white/38">Social</span>
+                  <a className="text-white/82 hover:text-white" href={companyInfo.social.instagram} target="_blank" rel="noreferrer">
+                    Instagram — {companyInfo.socialLabels.instagram}
+                  </a>
+                  <br />
+                  <a className="text-white/82 hover:text-white" href={companyInfo.social.facebook} target="_blank" rel="noreferrer">
+                    Facebook — {companyInfo.socialLabels.facebook}
+                  </a>
                 </p>
               </div>
               <Link href="/deployments" className="btn-primary mt-8 inline-block">

@@ -89,7 +89,7 @@ export default function OchigaScrollytelling() {
           <span>Ochiga creates digital infrastructure for intelligent buildings, estates, and future smart communities.</span>
           <div className="arch-hero-actions">
             <Link href="/deployments" className="btn-primary">Request Deployment</Link>
-            <Link href="/oyi" className="btn-secondary">Explore Oyi</Link>
+            <a href="https://getoyi.com" className="btn-secondary">Explore Oyi</a>
           </div>
         </div>
 
@@ -194,8 +194,8 @@ export default function OchigaScrollytelling() {
       <section className="arch-section arch-oyi-section va-oyi-section">
         <div className="arch-section-head">
           <p>Oyi Ecosystem</p>
-          <h2>The platform flows through the building.</h2>
-          <span>Oyi powers the operating layer beneath Ochiga's architectural vision. It connects residents, operators, edge infrastructure, digital twins, and intelligence without becoming the whole company story.</span>
+          <h2>Ochiga's platform ecosystem flows through the building.</h2>
+          <span>Oyi is the operational platform ecosystem under Ochiga. It connects residents, operators, edge infrastructure, digital twins, and intelligence while the corporate story remains focused on buildings and infrastructure.</span>
         </div>
         <div className="va-oyi-flow">
           <div className="va-flow-building" aria-hidden="true"><MassingWindows count={36} /></div>
@@ -206,7 +206,7 @@ export default function OchigaScrollytelling() {
           </div>
         </div>
         <div className="arch-oyi-actions">
-          <Link href="/oyi" className="btn-secondary">Explore Oyi Platform</Link>
+          <a href="https://getoyi.com" className="btn-secondary">Explore Oyi</a>
           <Link href="/papers/infrastructure-intelligence" className="btn-primary">Read Intelligence Paper</Link>
         </div>
       </section>

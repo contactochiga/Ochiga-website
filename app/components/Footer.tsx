@@ -55,7 +55,17 @@ export default function Footer() {
             <div style={{ marginTop: 22, fontSize: 13, lineHeight: 1.8, color: "rgba(255,255,255,0.48)" }}>
               <a href={`mailto:${companyInfo.contactEmail}`}>{companyInfo.contactEmail}</a>
               <br />
+              <a href={`tel:${companyInfo.phone.replace(/[^\d+]/g, "")}`}>{companyInfo.phone}</a>
+              <br />
               <span>{companyInfo.location}</span>
+              <div style={{ display: "flex", gap: 14, marginTop: 14, flexWrap: "wrap" }}>
+                <a href={companyInfo.social.instagram} target="_blank" rel="noreferrer">
+                  Instagram
+                </a>
+                <a href={companyInfo.social.facebook} target="_blank" rel="noreferrer">
+                  Facebook
+                </a>
+              </div>
             </div>
           </div>
 
@@ -69,9 +79,8 @@ export default function Footer() {
               color: "rgba(255,255,255,0.65)",
             }}
           >
-            <FooterGroup title="System" links={footerNavigation.system} />
-            <FooterGroup title="Engage" links={footerNavigation.engage} />
-            <FooterGroup title="Trust" links={footerNavigation.trust} />
+            <FooterGroup title="Primary" links={footerNavigation.primary} />
+            <FooterGroup title="Secondary" links={footerNavigation.secondary} />
           </nav>
         </div>
 

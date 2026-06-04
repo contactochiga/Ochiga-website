@@ -135,8 +135,6 @@ export default function Header() {
         </button>
 
         <nav aria-label="Site menu" style={{ display: "flex", flexDirection: "column", gap: 18 }}>
-          <NavItem href="/" label="Home" close={() => setOpen(false)} />
-          <NavItem href="/oyi" label="Oyi Platform" close={() => setOpen(false)} />
           {primaryNavigation.map((item) => (
             <NavItem key={item.href} href={item.href} label={item.label} close={() => setOpen(false)} />
           ))}

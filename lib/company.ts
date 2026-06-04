@@ -1,16 +1,21 @@
 export const companyInfo = {
-  legalName: "Ochiga Systems",
+  legalName: "Ochiga",
   brandName: "Ochiga",
-  productName: "Oyi Platform",
-  website: "https://ochiga.com",
-  contactEmail: "contactochiga@gmail.com",
-  supportEmail: "contactochiga@gmail.com",
-  deploymentsEmail: "contactochiga@gmail.com",
-  phone: "Available through deployment request",
+  productName: "Oyi",
+  website: "https://ochiga.com.ng",
+  contactEmail: "info@ochiga.com.ng",
+  supportEmail: "info@ochiga.com.ng",
+  deploymentsEmail: "info@ochiga.com.ng",
+  phone: "+234 916 473 8454",
+  whatsapp: "+234 916 473 8454",
   location: "Lagos, Nigeria",
   social: {
-    linkedin: "https://www.linkedin.com/company/ochiga",
-    x: "https://x.com/ochiga",
+    instagram: "https://instagram.com/OchigaGlobal",
+    facebook: "https://facebook.com/OchigaGlobal",
+  },
+  socialLabels: {
+    instagram: "@OchigaGlobal",
+    facebook: "Ochiga Global",
   },
 };
 
@@ -23,34 +28,24 @@ export const corporateLinks = {
 };
 
 export const primaryNavigation = [
+  { href: "/", label: "Home" },
   { href: "/technology", label: "Technology" },
   { href: "/infrastructure", label: "Infrastructure" },
-  { href: "/architecture", label: "Architecture" },
-  { href: "/governance", label: "Governance" },
-  { href: "/command-center", label: "Command Center" },
   { href: "/deployments", label: "Deployments" },
   { href: "/papers", label: "Papers" },
-  { href: "/insights", label: "Insights" },
-  { href: "/trust", label: "Trust" },
   { href: "/contact", label: "Contact" },
 ];
 
 export const footerNavigation = {
-  system: [
+  primary: [
+    { href: "/", label: "Home" },
     { href: "/technology", label: "Technology" },
     { href: "/infrastructure", label: "Infrastructure" },
-    { href: "/architecture", label: "Architecture" },
-    { href: "/governance", label: "Governance" },
-    { href: "/command-center", label: "Command Center" },
-  ],
-  engage: [
-    { href: "/deployments", label: "Request Deployment" },
-    { href: "/contact", label: "Contact" },
-    { href: "/support", label: "Support" },
+    { href: "/deployments", label: "Deployments" },
     { href: "/papers", label: "Papers" },
-    { href: "/insights", label: "Insights" },
+    { href: "/contact", label: "Contact" },
   ],
-  trust: [
+  secondary: [
     { href: "/privacy", label: "Privacy" },
     { href: "/terms", label: "Terms" },
     { href: "/trust", label: "Trust" },

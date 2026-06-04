@@ -35,7 +35,7 @@ export default function ContactPage() {
         <section>
           <h2 className="text-xl font-medium text-white">Deployment enquiries</h2>
           <p className="mt-3 leading-7">
-            If you are planning a new estate, upgrading an existing property, or evaluating the Oyi platform for facility operations, start with a deployment request.
+            If you are planning a new estate, upgrading an existing property, or evaluating digital infrastructure for built-environment operations, start with a deployment request.
           </p>
           <Link href="/deployments" className="btn-primary mt-6 inline-block">
             Request Deployment
@@ -46,9 +46,12 @@ export default function ContactPage() {
 
         <section className="grid gap-5 md:grid-cols-2">
           <ContactCard label="General email" value={companyInfo.contactEmail} href={`mailto:${companyInfo.contactEmail}`} />
-          <ContactCard label="Support" value={companyInfo.supportEmail} href={`mailto:${companyInfo.supportEmail}`} />
+          <ContactCard label="Phone" value={companyInfo.phone} href={`tel:${companyInfo.phone.replace(/[^\d+]/g, "")}`} />
+          <ContactCard label="WhatsApp" value={companyInfo.whatsapp} href={`https://wa.me/${companyInfo.whatsapp.replace(/[^\d]/g, "")}`} />
           <ContactCard label="Location" value={companyInfo.location} />
           <ContactCard label="Website" value={companyInfo.website} href={companyInfo.website} />
+          <ContactCard label="Instagram" value={companyInfo.socialLabels.instagram} href={companyInfo.social.instagram} />
+          <ContactCard label="Facebook" value={companyInfo.socialLabels.facebook} href={companyInfo.social.facebook} />
         </section>
 
         <p className="rounded-2xl border border-white/10 bg-white/[0.025] p-5 text-sm leading-6 text-white/52">

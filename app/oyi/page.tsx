@@ -19,9 +19,9 @@ export default function OyiPage() {
           <div className="hero-overlay" />
           <div className="hero-gradient" />
           <div className="hero-content animate-fade-up">
-            <h1 className="hero-title">Oyi Platform</h1>
+            <h1 className="hero-title">Oyi Ecosystem</h1>
             <p className="hero-description">
-              The operating system for managed estates, residents, facility teams, devices, access, and infrastructure intelligence.
+              Ochiga's platform ecosystem for managed estates, residents, facility teams, devices, access, and infrastructure intelligence.
             </p>
             <div className="hero-cta">
               <Link href="/deployments" className="btn-primary">Request Deployment</Link>
@@ -33,7 +33,7 @@ export default function OyiPage() {
 
       <section className="py-32 px-6 bg-grid bg-radial-glow section-core">
         <div className="mx-auto max-w-4xl text-center">
-          <h2 className="text-3xl md:text-5xl font-medium mb-6">A product system, not a single app.</h2>
+          <h2 className="text-3xl md:text-5xl font-medium mb-6">Ochiga's operating ecosystem, not the company story.</h2>
           <p className="text-lg text-white/68 leading-relaxed">
             Oyi connects the resident experience with facility operations and the physical infrastructure beneath both. The goal is simple: make the estate governable, usable, and traceable without splitting daily operations across disconnected tools.
           </p>

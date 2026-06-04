@@ -19,7 +19,7 @@ export default function TechnologyPage() {
           <div className="hero-gradient" />
           <div className="hero-content animate-fade-up">
             <h1 className="hero-title">Technology</h1>
-            <p className="hero-description">The architecture behind the Oyi platform: realtime events, AI, device integration, edge infrastructure, security, and the digital twin foundation.</p>
+            <p className="hero-description">The digital infrastructure layer behind intelligent buildings: realtime operations, AI, device integration, edge readiness, security, and digital twin foundations.</p>
             <div className="hero-cta">
               <Link href="/papers/ai-for-built-environments" className="btn-primary">Read AI paper</Link>
               <Link href="/trust" className="btn-secondary">Trust posture</Link>
