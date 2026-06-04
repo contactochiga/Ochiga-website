@@ -17,43 +17,34 @@ const buildCards = [
   { title: "Digital Infrastructure", kicker: "Connected foundations", body: "Identity, rooms, devices, cameras, utilities, payments, incidents, and audit trails held together as infrastructure." },
   { title: "Command Centers", kicker: "Operational visibility", body: "Cinematic control environments for estate health, security, incidents, utilities, and staff response." },
   { title: "Digital Twins", kicker: "Spatial memory", body: "Authoritative spatial and operational records for buildings, homes, rooms, assets, and events." },
-  { title: "Future Smart Communities", kicker: "Designed together", body: "Developments where architecture, construction, infrastructure, resident experience, and intelligence begin from the same blueprint." },
+  { title: "Future Communities", kicker: "Designed together", body: "Developments where architecture, construction, infrastructure, resident experience, and intelligence begin from the same blueprint." },
 ];
 
-const oyiSurfaces = [
-  "Oyi Home",
-  "Oyi Facility",
-  "Oyi Watch",
-  "Oyi Edge",
-  "Oyi Twin",
-  "Oyi Intelligence",
-];
-
+const oyiSurfaces = ["Oyi Home", "Oyi Facility", "Oyi Watch", "Oyi Edge", "Oyi Intelligence"];
 const journey = ["Discover", "Design", "Connect", "Operate", "Evolve"];
 
 export default function OchigaScrollytelling() {
   return (
-    <main className="arch-site">
-      <section className="arch-hero">
-        <div className="arch-hero-sky" />
-        <div className="arch-estate" aria-hidden="true">
-          <div className="arch-building arch-building-main">
-            {Array.from({ length: 42 }).map((_, index) => <i key={index} />)}
-          </div>
-          <div className="arch-building arch-building-left">
-            {Array.from({ length: 20 }).map((_, index) => <i key={index} />)}
-          </div>
-          <div className="arch-building arch-building-right">
-            {Array.from({ length: 24 }).map((_, index) => <i key={index} />)}
-          </div>
-          <div className="arch-water" />
-          <div className="arch-ground-grid" />
+    <main className="arch-site va-site">
+      <section className="arch-hero va-hero">
+        <div className="va-volumetric-light" />
+        <div className="va-blueprint" aria-hidden="true" />
+        <div className="va-particles" aria-hidden="true">
+          {Array.from({ length: 22 }).map((_, index) => <i key={index} />)}
         </div>
-        <div className="arch-trace arch-trace-one" />
-        <div className="arch-trace arch-trace-two" />
-        <div className="arch-orb" />
 
-        <div className="arch-hero-copy">
+        <div className="va-architectural-scene" aria-hidden="true">
+          <div className="va-ground-plane" />
+          <div className="va-massing va-massing-a"><MassingWindows count={44} /></div>
+          <div className="va-massing va-massing-b"><MassingWindows count={24} /></div>
+          <div className="va-massing va-massing-c"><MassingWindows count={30} /></div>
+          <div className="va-floating-slab va-slab-a" />
+          <div className="va-floating-slab va-slab-b" />
+          <div className="va-twin-outline" />
+          <div className="va-waterfront" />
+        </div>
+
+        <div className="arch-hero-copy va-hero-copy">
           <p>Technology Meets Architecture</p>
           <h1>Technology Meets Architecture.</h1>
           <span>Ochiga creates digital infrastructure for intelligent buildings, estates, and future smart communities.</span>
@@ -63,31 +54,33 @@ export default function OchigaScrollytelling() {
           </div>
         </div>
 
-        <aside className="arch-holo arch-holo-status">
-          <strong>Intelligent Estate Layer</strong>
-          <span>Architecture · Utilities · Access · Twin</span>
+        <aside className="arch-holo va-holo va-holo-structure">
+          <strong>Architectural Twin</strong>
+          <span>Building · Estate · Utility layers</span>
         </aside>
-        <aside className="arch-holo arch-holo-map">
-          <strong>Digital Infrastructure</strong>
-          <span>Spatial context active</span>
+        <aside className="arch-holo va-holo va-holo-source">
+          <strong>Infrastructure Intelligence</strong>
+          <span>Telemetry, context, ownership, action</span>
         </aside>
-        <aside className="arch-holo arch-holo-source">
-          <strong>Source Honesty</strong>
-          <span>Live / pending / unavailable states</span>
+        <aside className="arch-holo va-holo va-holo-community">
+          <strong>Future Community</strong>
+          <span>Architecture first, intelligence second</span>
         </aside>
       </section>
 
-      <section className="arch-section arch-intelligence">
+      <section className="arch-section arch-intelligence va-legible">
         <div className="arch-section-head">
-          <p>Built Environment Intelligence</p>
-          <h2>Physical infrastructure becomes legible.</h2>
-          <span>Technology appears as a quiet intelligence layer over the built environment, not as a dashboard pasted on top of it.</span>
+          <p>Physical Infrastructure Becomes Legible</p>
+          <h2>The building reveals its systems.</h2>
+          <span>Architecture remains visible while digital intelligence appears as a quiet overlay: source states, utilities, access, resident life, and spatial context connected into one environment.</span>
         </div>
-        <div className="arch-layer-stage">
-          <div className="arch-mini-estate" aria-hidden="true" />
-          <div className="arch-layer-grid">
-            {intelligenceLayers.map((layer) => (
-              <article key={layer.title}>
+        <div className="va-layer-stage">
+          <div className="va-layer-building" aria-hidden="true" />
+          <div className="va-layer-lines" aria-hidden="true" />
+          <div className="va-layer-panels">
+            {intelligenceLayers.map((layer, index) => (
+              <article key={layer.title} style={{ "--i": index } as React.CSSProperties}>
+                <span>{String(index + 1).padStart(2, "0")}</span>
                 <h3>{layer.title}</h3>
                 <p>{layer.body}</p>
               </article>
@@ -96,14 +89,15 @@ export default function OchigaScrollytelling() {
         </div>
       </section>
 
-      <section className="arch-section">
+      <section className="arch-section va-build-section">
         <div className="arch-section-head">
           <p>What We Build</p>
           <h2>Architecture-first technology for real environments.</h2>
         </div>
-        <div className="arch-build-grid">
-          {buildCards.map((card) => (
-            <article key={card.title}>
+        <div className="va-build-grid">
+          {buildCards.map((card, index) => (
+            <article key={card.title} style={{ "--card": index } as React.CSSProperties}>
+              <div className="va-card-architecture" aria-hidden="true" />
               <span>{card.kicker}</span>
               <h3>{card.title}</h3>
               <p>{card.body}</p>
@@ -112,15 +106,19 @@ export default function OchigaScrollytelling() {
         </div>
       </section>
 
-      <section className="arch-section arch-oyi-section">
+      <section className="arch-section arch-oyi-section va-oyi-section">
         <div className="arch-section-head">
-          <p>Oyi Platform</p>
-          <h2>The product ecosystem powering the vision.</h2>
-          <span>Oyi is not the company story. It is Ochiga's platform layer for residents, operators, devices, edge infrastructure, spatial context, and intelligence.</span>
+          <p>Oyi Ecosystem</p>
+          <h2>The platform flows through the building.</h2>
+          <span>Oyi powers the operating layer beneath Ochiga's architectural vision. It connects residents, operators, edge infrastructure, digital twins, and intelligence without becoming the whole company story.</span>
         </div>
-        <div className="arch-oyi-orbit">
-          <div className="arch-oyi-core">Oyi</div>
-          {oyiSurfaces.map((surface) => <span key={surface}>{surface}</span>)}
+        <div className="va-oyi-flow">
+          <div className="va-flow-building" aria-hidden="true"><MassingWindows count={36} /></div>
+          <div className="va-flow-twin">Digital Twin</div>
+          <div className="va-flow-spine" aria-hidden="true" />
+          <div className="va-flow-products">
+            {oyiSurfaces.map((surface) => <span key={surface}>{surface}</span>)}
+          </div>
         </div>
         <div className="arch-oyi-actions">
           <Link href="/oyi" className="btn-secondary">Explore Oyi Platform</Link>
@@ -128,22 +126,29 @@ export default function OchigaScrollytelling() {
         </div>
       </section>
 
-      <section className="arch-section arch-spartan">
+      <section className="arch-section arch-spartan va-spartan">
         <div>
           <p>Future Intelligence Layer</p>
           <h2>Spartan is the next intelligence horizon.</h2>
         </div>
-        <p>
-          Spartan is Ochiga's future intelligence layer for spatial reasoning, infrastructure simulation, and autonomous operational insight. It is positioned as a future capability, not a production-deployed claim.
-        </p>
+        <div className="va-spartan-copy">
+          <p>Spartan is Ochiga's future intelligence layer for spatial reasoning, infrastructure simulation, and autonomous operational insight. It is positioned as a future capability, not a production-deployed claim.</p>
+          <div className="va-simulation" aria-hidden="true">
+            <i className="va-sim-building" />
+            <i className="va-sim-trajectory one" />
+            <i className="va-sim-trajectory two" />
+            <i className="va-sim-trajectory three" />
+            <span>Future-state simulation</span>
+          </div>
+        </div>
       </section>
 
-      <section className="arch-section arch-journey">
+      <section className="arch-section arch-journey va-journey">
         <div className="arch-section-head">
           <p>Deployment Journey</p>
-          <h2>Structured like architecture. Operated like infrastructure.</h2>
+          <h2>From architecture to operation.</h2>
         </div>
-        <div className="arch-journey-line">
+        <div className="va-journey-track">
           {journey.map((step, index) => (
             <article key={step}>
               <span>{String(index + 1).padStart(2, "0")}</span>
@@ -155,4 +160,8 @@ export default function OchigaScrollytelling() {
       </section>
     </main>
   );
+}
+
+function MassingWindows({ count }: { count: number }) {
+  return <>{Array.from({ length: count }).map((_, index) => <i key={index} />)}</>;
 }
