@@ -1312,6 +1312,61 @@ button:disabled {
   gap: 44px;
 }
 
+.deployment-progress {
+  display: grid;
+  gap: 18px;
+  padding: 24px;
+  border-radius: 30px;
+  border: 1px solid rgba(105,233,255,0.18);
+  background:
+    radial-gradient(circle at top left, rgba(105,233,255,0.14), transparent 34%),
+    linear-gradient(145deg, rgba(255,255,255,0.045), rgba(255,255,255,0.012));
+}
+.deployment-progress p {
+  margin: 0 0 8px;
+  color: rgba(105,233,255,0.72);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+.deployment-progress h2 {
+  margin: 0;
+  font-size: clamp(24px, 3vw, 36px);
+  letter-spacing: -0.04em;
+}
+.deployment-progress-track {
+  height: 9px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.08);
+}
+.deployment-progress-track span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #1d8bff, rgba(105,233,255,0.95));
+  box-shadow: 0 0 24px rgba(105,233,255,0.35);
+  transition: width 0.25s ease;
+}
+.deployment-progress ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+.deployment-progress li {
+  min-height: 46px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.09);
+  color: rgba(242,247,255,0.58);
+  background: rgba(0,0,0,0.2);
+  font-size: 12px;
+}
+
 .deployment-form-section {
   display: grid;
   gap: 24px;
@@ -1438,6 +1493,33 @@ button:disabled {
     rgba(255,255,255,0.025);
 }
 .deployment-review .btn-primary { min-height: 56px; border: 0; cursor: pointer; }
+.deployment-summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.deployment-summary article {
+  min-height: 82px;
+  padding: 15px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.09);
+  background: rgba(0,0,0,0.2);
+}
+.deployment-summary span {
+  display: block;
+  margin: 0 0 9px;
+  color: rgba(105,233,255,0.62);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+.deployment-summary strong {
+  display: block;
+  color: rgba(242,247,255,0.72);
+  font-size: 14px;
+  line-height: 1.4;
+  font-weight: 560;
+}
 .deployment-error {
   border: 1px solid rgba(248,113,113,0.32);
   border-radius: 18px;
@@ -1519,7 +1601,9 @@ button:disabled {
   .deployment-shell { width: min(100% - 28px, 1240px); margin-top: -36px; }
   .deployment-fields.two,
   .deployment-aside,
-  .project-type-grid { grid-template-columns: 1fr; }
+  .project-type-grid,
+  .deployment-progress ol,
+  .deployment-summary { grid-template-columns: 1fr; }
   .deployment-section-head { grid-template-columns: 1fr; }
   .deployment-form,
   .deployment-success { border-radius: 28px; }

@@ -32,6 +32,33 @@ export default function DeploymentRequestPage() {
     website: "",
   });
 
+  const completion = useMemo(() => {
+    const required = [
+      form.name,
+      form.email,
+      form.phone,
+      form.company,
+      form.projectType,
+      form.projectSize,
+      form.location,
+      form.deploymentInterest,
+      form.notes,
+    ];
+    const completed = required.filter((value) => value.trim().length > 0).length;
+    return Math.round((completed / required.length) * 100);
+  }, [form]);
+
+  const reviewItems = [
+    ["Contact", form.name || "Not provided yet"],
+    ["Email", form.email || "Not provided yet"],
+    ["Phone", form.phone || "Not provided yet"],
+    ["Company / Estate", form.company || "Not provided yet"],
+    ["Environment", form.projectType || "Not selected yet"],
+    ["Project size", form.projectSize || "Not selected yet"],
+    ["Location", form.location || "Not provided yet"],
+    ["Deployment goal", form.deploymentInterest || "Not selected yet"],
+  ];
+
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
@@ -87,7 +114,10 @@ export default function DeploymentRequestPage() {
       const data = await response.json().catch(() => ({}));
 
       if (!response.ok || !data.ok) {
-        throw new Error(data.error || "We could not submit your request right now.");
+        throw new Error(
+          data.error ||
+            "We could not submit the request right now. Please review your details and try again."
+        );
       }
 
       setRequestId(data.requestId || "");
@@ -123,9 +153,9 @@ export default function DeploymentRequestPage() {
         {submitState === "success" ? (
           <div className="deployment-success animate-fade-up">
             <p>Request received</p>
-            <h2>Our infrastructure team will review your context.</h2>
+            <h2>Your deployment request has been received.</h2>
             <span>
-              If your project is aligned, Ochiga will follow up to clarify site structure, operator readiness, source requirements, and deployment scope.
+              Our infrastructure team will review your project context and respond if there is a deployment fit.
             </span>
             {requestId ? <strong>Reference: {requestId}</strong> : null}
             <div>
@@ -146,6 +176,22 @@ export default function DeploymentRequestPage() {
               className="hidden"
             />
 
+            <section className="deployment-progress">
+              <div>
+                <p>Guided Deployment Intake</p>
+                <h2>{completion}% complete</h2>
+              </div>
+              <div className="deployment-progress-track" aria-hidden="true">
+                <span style={{ width: `${completion}%` }} />
+              </div>
+              <ol>
+                <li>Contact</li>
+                <li>Environment</li>
+                <li>Goals</li>
+                <li>Review</li>
+              </ol>
+            </section>
+
             <FormSection step="01" title="Contact" body="Who should Ochiga speak with about this environment?">
               <div className="deployment-fields two">
                 <Field label="Full name">
@@ -163,7 +209,7 @@ export default function DeploymentRequestPage() {
               </div>
             </FormSection>
 
-            <FormSection step="02" title="Project" body="Tell us what kind of built environment or infrastructure system you are planning.">
+            <FormSection step="02" title="Project Environment" body="Tell us what kind of built environment or infrastructure system you are planning.">
               <div className="project-type-grid">
                 {projectTypes.map((type) => (
                   <button
@@ -192,6 +238,14 @@ export default function DeploymentRequestPage() {
                     <option>Not sure yet</option>
                   </select>
                 </Field>
+                <Field label="Project location">
+                  <input name="location" value={form.location} onChange={handleChange} placeholder="City, State, Country" required />
+                </Field>
+              </div>
+            </FormSection>
+
+            <FormSection step="03" title="Deployment Goals" body="Describe the operational problem, architectural ambition, or infrastructure gap.">
+              <div className="deployment-fields">
                 <Field label="Deployment interest">
                   <select name="deploymentInterest" value={form.deploymentInterest} onChange={handleChange} required>
                     <option value="">Select one</option>
@@ -203,14 +257,8 @@ export default function DeploymentRequestPage() {
                     <option>Full digital infrastructure layer</option>
                   </select>
                 </Field>
-                <Field label="Project location">
-                  <input name="location" value={form.location} onChange={handleChange} placeholder="City, State, Country" required />
-                </Field>
               </div>
-            </FormSection>
-
-            <FormSection step="03" title="Challenge" body="Describe the operational problem, architectural ambition, or infrastructure gap.">
-              <Field label="Project context">
+              <Field label="Operational problem or opportunity">
                 <textarea
                   name="notes"
                   value={form.notes}
@@ -224,9 +272,17 @@ export default function DeploymentRequestPage() {
 
             <section className="deployment-review">
               <div>
-                <p>04 · Submit</p>
-                <h2>What happens next</h2>
+                <p>04 · Review & Submit</p>
+                <h2>Review the engagement context</h2>
                 <span>Ochiga reviews every request manually. If aligned, the next step is a discovery conversation around site structure, source readiness, and deployment scope.</span>
+              </div>
+              <div className="deployment-summary">
+                {reviewItems.map(([label, value]) => (
+                  <article key={label}>
+                    <span>{label}</span>
+                    <strong>{value}</strong>
+                  </article>
+                ))}
               </div>
               {submitState === "error" ? <div className="deployment-error">{error}</div> : null}
               <button type="submit" disabled={submitState === "submitting"} className="btn-primary">
