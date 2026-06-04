@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import Section from "@/app/components/Section";
 import JsonLd from "@/app/components/JsonLd";
 import { getPaper, getRelatedPapers, papers } from "@/lib/papers";
 import { articleJsonLd, breadcrumbJsonLd, buildMetadata, paperToSeo } from "@/lib/seo";
@@ -25,6 +24,7 @@ export default function PaperPage({ params }: { params: { slug: string } }) {
   }
 
   const related = getRelatedPapers(paper);
+  const pullQuote = paper.sections[1]?.body[0] || paper.summary;
 
   return (
     <>
@@ -38,57 +38,109 @@ export default function PaperPage({ params }: { params: { slug: string } }) {
           ]),
         ]}
       />
-      <Section title={paper.title}>
-        <article className="mx-auto max-w-3xl text-white/82 leading-relaxed">
-          <p className="mb-5 text-xs uppercase tracking-[0.2em] text-white/38">{paper.category} · {paper.readingTime}</p>
-          <p className="text-xl md:text-2xl leading-relaxed text-white/70">{paper.subtitle}</p>
-
-          <div className="mt-10 rounded-[26px] border border-white/10 bg-white/[0.025] p-6 text-sm text-white/52">
-            <p>Published {formatDate(paper.publishDate)} by {paper.author}</p>
-            <p className="mt-3">{paper.summary}</p>
-            <div className="mt-5">
-              {paper.pdfPath ? (
-                <a href={paper.pdfPath} className="text-white/80 hover:text-white">Download PDF</a>
-              ) : (
-                <span className="text-white/38">PDF edition currently being prepared.</span>
-              )}
+      <main className="publication-page">
+        <section className="publication-hero">
+          <div className="publication-hero-copy animate-fade-up">
+            <Link href="/papers" className="publication-back">Knowledge Center</Link>
+            <span className="publication-badge">{paper.category}</span>
+            <h1>{paper.title}</h1>
+            <p>{paper.subtitle}</p>
+            <div className="publication-meta">
+              <span>{paper.author}</span>
+              <span>{formatDate(paper.publishDate)}</span>
+              <span>{paper.readingTime}</span>
             </div>
           </div>
+          <div className="publication-visual" aria-hidden="true">
+            <i className="pub-sheet pub-sheet-a" />
+            <i className="pub-sheet pub-sheet-b" />
+            <i className="pub-grid" />
+            <span>Architecture</span>
+            <span>Infrastructure</span>
+            <span>Knowledge</span>
+          </div>
+        </section>
 
-          <div className="mt-14 space-y-12">
-            {paper.sections.map((section) => (
-              <section key={section.heading}>
-                <h2 className="mb-4 text-2xl font-medium text-white">{section.heading}</h2>
-                <div className="space-y-4 text-white/70">
-                  {section.body.map((paragraph) => (
-                    <p key={paragraph}>{paragraph}</p>
-                  ))}
+        <section className="publication-shell">
+          <aside className="publication-sidebar">
+            <div className="publication-panel">
+              <p>Contents</p>
+              <nav aria-label="Paper table of contents">
+                {paper.sections.map((section) => (
+                  <a key={section.heading} href={`#${toId(section.heading)}`}>
+                    {section.heading}
+                  </a>
+                ))}
+              </nav>
+            </div>
+
+            <div className="publication-panel pdf-panel">
+              <p>PDF Edition</p>
+              {paper.pdfPath ? (
+                <a href={paper.pdfPath}>Download PDF</a>
+              ) : (
+                <span>PDF edition currently being prepared.</span>
+              )}
+            </div>
+          </aside>
+
+          <article className="publication-article">
+            <section className="publication-abstract">
+              <p>Abstract</p>
+              <h2>{paper.summary}</h2>
+            </section>
+
+            <blockquote>
+              <p>{pullQuote}</p>
+            </blockquote>
+
+            {paper.sections.map((section, index) => (
+              <section key={section.heading} id={toId(section.heading)} className="publication-section">
+                <div className="publication-section-rule">
+                  <span>{String(index + 1).padStart(2, "0")}</span>
                 </div>
+                <h2>{section.heading}</h2>
+                {section.body.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
               </section>
             ))}
-          </div>
-        </article>
+          </article>
+        </section>
 
-        <section className="mx-auto mt-20 max-w-4xl">
-          <div className="divider-hairline mb-10" />
-          <h2 className="mb-6 text-2xl font-medium">Related reading</h2>
-          <div className="grid gap-5 md:grid-cols-3">
+        <section className="publication-related">
+          <div className="publication-related-head">
+            <p>Related reading</p>
+            <h2>Continue the infrastructure thread.</h2>
+          </div>
+          <div className="publication-related-grid">
             {related.map((item) => (
-              <Link key={item.slug} href={`/papers/${item.slug}`} className="rounded-[24px] border border-white/10 bg-white/[0.02] p-5 transition hover:border-white/20 hover:bg-white/[0.04]">
-                <p className="text-xs uppercase tracking-[0.16em] text-white/35">{item.category}</p>
-                <h3 className="mt-3 text-lg font-medium">{item.title}</h3>
-                <p className="mt-3 text-sm leading-6 text-white/52">{item.summary}</p>
+              <Link key={item.slug} href={`/papers/${item.slug}`}>
+                <span>{item.category}</span>
+                <h3>{item.title}</h3>
+                <p>{item.summary}</p>
               </Link>
             ))}
           </div>
-          <div className="mt-10 flex flex-wrap gap-4">
-            <Link href="/papers" className="btn-secondary">Back to Knowledge Center</Link>
+        </section>
+
+        <section className="publication-cta">
+          <div>
+            <p>Apply the thinking</p>
+            <h2>Discuss how this applies to your building, estate, or infrastructure plan.</h2>
+          </div>
+          <div>
             <Link href="/deployments" className="btn-primary">Discuss a deployment</Link>
+            <Link href="/contact" className="btn-secondary">Contact Ochiga</Link>
           </div>
         </section>
-      </Section>
+      </main>
     </>
   );
+}
+
+function toId(value: string) {
+  return value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 }
 
 function formatDate(date: string) {

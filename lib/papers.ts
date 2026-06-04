@@ -42,7 +42,7 @@ export const papers: Paper[] = [
     summary:
       "A practical argument for treating digital twins as authoritative operational records for estates, buildings, assets, access, utilities, and incidents.",
     publishDate: "2026-06-03",
-    author: "Ochiga Systems",
+    author: "Ochiga",
     category: "Digital Twins",
     readingTime: "8 min read",
     relatedPapers: ["infrastructure-operating-systems", "infrastructure-intelligence", "digital-identity-for-physical-spaces"],
@@ -91,7 +91,7 @@ export const papers: Paper[] = [
     summary:
       "Defines the Infrastructure OS category and explains why estates, facilities, and urban systems need persistent operational software, not isolated applications.",
     publishDate: "2026-06-04",
-    author: "Ochiga Systems",
+    author: "Ochiga",
     category: "Infrastructure",
     readingTime: "9 min read",
     relatedPapers: ["digital-twins-operational", "infrastructure-intelligence", "smart-estates-beyond-access-control"],
@@ -140,7 +140,7 @@ export const papers: Paper[] = [
     summary:
       "Explains why modern estates cannot stop at gates and visitor codes, and how access becomes one workflow inside a wider operating environment.",
     publishDate: "2026-06-04",
-    author: "Ochiga Systems",
+    author: "Ochiga",
     category: "Smart Estates",
     readingTime: "7 min read",
     relatedPapers: ["digital-identity-for-physical-spaces", "infrastructure-operating-systems", "ai-for-built-environments"],
@@ -189,7 +189,7 @@ export const papers: Paper[] = [
     summary:
       "Frames AI as an operational interface for estates and facilities, with emphasis on scope, safety, context, and command reliability.",
     publishDate: "2026-06-04",
-    author: "Ochiga Systems",
+    author: "Ochiga",
     category: "AI",
     readingTime: "8 min read",
     relatedPapers: ["infrastructure-operating-systems", "infrastructure-intelligence", "smart-estates-beyond-access-control"],
@@ -238,7 +238,7 @@ export const papers: Paper[] = [
     summary:
       "Explores invite-first onboarding, role assignment, access lifecycle, and why physical infrastructure needs identity models that outlast individual apps.",
     publishDate: "2026-06-04",
-    author: "Ochiga Systems",
+    author: "Ochiga",
     category: "Governance",
     readingTime: "8 min read",
     relatedPapers: ["smart-estates-beyond-access-control", "infrastructure-operating-systems", "digital-twins-operational"],
@@ -287,7 +287,7 @@ export const papers: Paper[] = [
     summary:
       "Defines infrastructure intelligence as the combination of telemetry, context, workflows, audit, and spatial relationships rather than generic analytics.",
     publishDate: "2026-06-04",
-    author: "Ochiga Systems",
+    author: "Ochiga",
     category: "Technology",
     readingTime: "7 min read",
     relatedPapers: ["ai-for-built-environments", "digital-twins-operational", "infrastructure-operating-systems"],

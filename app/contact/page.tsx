@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import type React from "react";
 import Link from "next/link";
+import ContactIcon from "@/app/components/ContactIcon";
 import JsonLd from "@/app/components/JsonLd";
 import { companyInfo } from "@/lib/company";
 import { buildMetadata, faqJsonLd, seoPages } from "@/lib/seo";
@@ -47,13 +49,13 @@ export default function ContactPage() {
         </section>
 
         <section className="inner-section contact-grid">
-          <ContactCard icon="MAIL" label="Email" value={companyInfo.contactEmail} href={`mailto:${companyInfo.contactEmail}`} />
-          <ContactCard icon="TEL" label="Phone" value={companyInfo.phone} href={`tel:${companyInfo.phone.replace(/[^\d+]/g, "")}`} />
-          <ContactCard icon="WA" label="WhatsApp" value={companyInfo.whatsapp} href={`https://wa.me/${companyInfo.whatsapp.replace(/[^\d]/g, "")}`} />
-          <ContactCard icon="LOC" label="Location" value={companyInfo.location} />
-          <ContactCard icon="WEB" label="Website" value={companyInfo.website} href={companyInfo.website} />
-          <ContactCard icon="IG" label="Instagram" value={companyInfo.socialLabels.instagram} href={companyInfo.social.instagram} />
-          <ContactCard icon="f" label="Facebook" value={companyInfo.socialLabels.facebook} href={companyInfo.social.facebook} />
+          <ContactCard icon="email" label="Email" value={companyInfo.contactEmail} href={`mailto:${companyInfo.contactEmail}`} />
+          <ContactCard icon="phone" label="Phone" value={companyInfo.phone} href={`tel:${companyInfo.phone.replace(/[^\d+]/g, "")}`} />
+          <ContactCard icon="whatsapp" label="WhatsApp" value={companyInfo.whatsapp} href={`https://wa.me/${companyInfo.whatsapp.replace(/[^\d]/g, "")}`} />
+          <ContactCard icon="location" label="Location" value={companyInfo.location} />
+          <ContactCard icon="website" label="Website" value={companyInfo.website} href={companyInfo.website} />
+          <ContactCard icon="instagram" label="Instagram" value={companyInfo.socialLabels.instagram} href={companyInfo.social.instagram} />
+          <ContactCard icon="facebook" label="Facebook" value={companyInfo.socialLabels.facebook} href={companyInfo.social.facebook} />
         </section>
 
         <section className="inner-section inner-split contact-lane">
@@ -83,10 +85,12 @@ export default function ContactPage() {
   );
 }
 
-function ContactCard({ icon, label, value, href }: { icon: string; label: string; value: string; href?: string }) {
+function ContactCard({ icon, label, value, href }: { icon: React.ComponentProps<typeof ContactIcon>["name"]; label: string; value: string; href?: string }) {
   return (
     <article className="contact-card">
-      <span>{icon}</span>
+      <span>
+        <ContactIcon name={icon} />
+      </span>
       <p>{label}</p>
       {href ? (
         <a href={href}>

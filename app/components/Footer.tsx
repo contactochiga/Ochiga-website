@@ -1,4 +1,6 @@
 import Link from "next/link";
+import type React from "react";
+import ContactIcon from "@/app/components/ContactIcon";
 import { companyInfo, footerNavigation } from "@/lib/company";
 
 export default function Footer() {
@@ -52,19 +54,14 @@ export default function Footer() {
               estates, command centers, and future smart communities.
             </p>
 
-            <div style={{ marginTop: 22, fontSize: 13, lineHeight: 1.8, color: "rgba(255,255,255,0.48)" }}>
-              <a href={`mailto:${companyInfo.contactEmail}`}>{companyInfo.contactEmail}</a>
-              <br />
-              <a href={`tel:${companyInfo.phone.replace(/[^\d+]/g, "")}`}>{companyInfo.phone}</a>
-              <br />
-              <span>{companyInfo.location}</span>
-              <div style={{ display: "flex", gap: 14, marginTop: 14, flexWrap: "wrap" }}>
-                <a href={companyInfo.social.instagram} target="_blank" rel="noreferrer">
-                  Instagram
-                </a>
-                <a href={companyInfo.social.facebook} target="_blank" rel="noreferrer">
-                  Facebook
-                </a>
+            <div className="footer-contact-strip">
+              <FooterContact href={`mailto:${companyInfo.contactEmail}`} icon="email" label={companyInfo.contactEmail} />
+              <FooterContact href={`tel:${companyInfo.phone.replace(/[^\d+]/g, "")}`} icon="phone" label={companyInfo.phone} />
+              <FooterContact href={`https://wa.me/${companyInfo.whatsapp.replace(/[^\d]/g, "")}`} icon="whatsapp" label="WhatsApp" />
+              <FooterContact icon="location" label={companyInfo.location} />
+              <div className="footer-social-row">
+                <FooterSocial href={companyInfo.social.instagram} icon="instagram" label="Instagram" />
+                <FooterSocial href={companyInfo.social.facebook} icon="facebook" label="Facebook" />
               </div>
             </div>
           </div>
@@ -108,6 +105,30 @@ export default function Footer() {
         </div>
       </div>
     </footer>
+  );
+}
+
+function FooterContact({ href, icon, label }: { href?: string; icon: React.ComponentProps<typeof ContactIcon>["name"]; label: string }) {
+  const content = (
+    <>
+      <ContactIcon name={icon} />
+      <span>{label}</span>
+    </>
+  );
+
+  if (href) {
+    return <a href={href}>{content}</a>;
+  }
+
+  return <span>{content}</span>;
+}
+
+function FooterSocial({ href, icon, label }: { href: string; icon: React.ComponentProps<typeof ContactIcon>["name"]; label: string }) {
+  return (
+    <a href={href} target="_blank" rel="noreferrer" aria-label={label}>
+      <ContactIcon name={icon} />
+      <span>{label}</span>
+    </a>
   );
 }
 

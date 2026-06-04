@@ -24,7 +24,11 @@ export const metadata: Metadata = {
 };
 
 function resolveWidgetConfig() {
-  const widgetUrl = process.env.NEXT_PUBLIC_OCHIGA_WIDGET_URL || "";
+  const widgetUrl =
+    process.env.NEXT_PUBLIC_OCHIGA_WIDGET_URL ||
+    (process.env.NODE_ENV !== "production"
+      ? "https://ochiga-lead-agents.onrender.com/widget.js"
+      : "");
   if (!widgetUrl) {
     return null;
   }
