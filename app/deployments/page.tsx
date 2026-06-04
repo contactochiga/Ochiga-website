@@ -317,6 +317,38 @@ export default function DeploymentRequestPage() {
                 Every request is reviewed manually. If your project aligns
                 with our infrastructure model, our team will reach out directly.
               </p>
+              <section className="mt-14 space-y-8">
+                <div className="rounded-[26px] border border-white/10 bg-white/[0.025] p-6">
+                  <h2 className="text-xl font-medium">What happens after submission</h2>
+                  <ol className="mt-5 space-y-3 text-sm leading-6 text-white/56">
+                    <li>1. Ochiga reviews the project context and deployment fit.</li>
+                    <li>2. The team clarifies estate structure, operator readiness, and current systems.</li>
+                    <li>3. If aligned, a deployment discovery call defines scope and source requirements.</li>
+                    <li>4. A phased rollout plan is prepared around real infrastructure constraints.</li>
+                  </ol>
+                </div>
+
+                <div className="rounded-[26px] border border-white/10 bg-white/[0.025] p-6">
+                  <h2 className="text-xl font-medium">Preparation checklist</h2>
+                  <ul className="mt-5 space-y-3 text-sm leading-6 text-white/56">
+                    <li>• Estate or building name and location</li>
+                    <li>• Approximate number of homes, units, or operational zones</li>
+                    <li>• Current access, visitor, maintenance, utility, or device problems</li>
+                    <li>• Existing smart-home, camera, or facility vendors</li>
+                    <li>• Internal operator or facility team responsible for rollout</li>
+                  </ul>
+                </div>
+
+                <div className="rounded-[26px] border border-white/10 bg-white/[0.025] p-6">
+                  <h2 className="text-xl font-medium">Deployment FAQ</h2>
+                  <div className="mt-5 space-y-4 text-sm leading-6 text-white/56">
+                    <p><span className="text-white/82">Can we start without a full digital twin?</span><br />Yes. The twin can begin as a structured operational record and gain spatial/model layers as sources mature.</p>
+                    <p><span className="text-white/82">Do we need Oyi Edge immediately?</span><br />Not always. Cloud provider sync can start some pilots, but deeper local discovery and offline execution require edge infrastructure.</p>
+                    <p><span className="text-white/82">Will Ochiga invent missing telemetry?</span><br />No. Missing sources are shown honestly as pending, awaiting telemetry, or not configured.</p>
+                  </div>
+                </div>
+              </section>
+
             </>
           )}
         </div>

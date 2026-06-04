@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { companyInfo } from "@/lib/company";
+import type { Paper } from "@/lib/papers";
 
 export const seoConfig = {
   siteName: "Ochiga",
@@ -109,21 +110,57 @@ export const seoPages = {
   },
   papers: {
     path: "/papers",
-    title: "Papers — Ochiga",
+    title: "Knowledge Center — Ochiga Papers and Infrastructure Thinking",
     description:
-      "Read Ochiga positioning papers on infrastructure operating systems, identity, governance, digital twins, and long-term operations.",
+      "Explore Ochiga papers on infrastructure operating systems, digital twins, smart estates, AI for built environments, identity, and infrastructure intelligence.",
+  },
+  insights: {
+    path: "/insights",
+    title: "Insights — Ochiga Infrastructure Notes",
+    description:
+      "Short-form Ochiga observations on deployment, source quality, edge infrastructure, command centers, and built environment operations.",
+  },
+  trust: {
+    path: "/trust",
+    title: "Trust — Ochiga Security, Privacy, and Data Ownership",
+    description:
+      "Ochiga trust principles covering security posture, privacy, data ownership, auditability, deployment standards, and infrastructure governance.",
   },
   identityPaper: {
-    path: "/papers/identity-as-infrastructure",
-    title: "Identity as Infrastructure — Ochiga Paper",
+    path: "/papers/digital-identity-for-physical-spaces",
+    title: "Digital Identity for Physical Spaces — Ochiga Paper",
     description:
-      "A foundational Ochiga paper on why authority, identity, and ownership must precede automation in physical environments.",
+      "Why homes, residents, operators, visitors, and assets need durable authority relationships in physical infrastructure systems.",
   },
   digitalTwinPaper: {
     path: "/papers/digital-twins-operational",
     title: "Digital Twins as Operational Infrastructure — Ochiga Paper",
     description:
       "A foundational Ochiga paper reframing digital twins as operational infrastructure, not just visualization layers.",
+  },
+  infrastructureOperatingSystemsPaper: {
+    path: "/papers/infrastructure-operating-systems",
+    title: "Infrastructure Operating Systems — Ochiga Paper",
+    description:
+      "A framework for governing estates, facilities, and physical environments as living infrastructure systems.",
+  },
+  smartEstatesPaper: {
+    path: "/papers/smart-estates-beyond-access-control",
+    title: "Smart Estates Beyond Access Control — Ochiga Paper",
+    description:
+      "Why smart estates must connect residents, operators, devices, access, and services beyond gate control.",
+  },
+  aiBuiltEnvironmentsPaper: {
+    path: "/papers/ai-for-built-environments",
+    title: "AI for Built Environments — Ochiga Paper",
+    description:
+      "How AI becomes useful when it is grounded in permissions, context, command paths, and operational state.",
+  },
+  infrastructureIntelligencePaper: {
+    path: "/papers/infrastructure-intelligence",
+    title: "Infrastructure Intelligence — Ochiga Paper",
+    description:
+      "From dashboards to systems that understand operational state, source quality, attention, and action.",
   },
   twin: {
     path: "/twin",
@@ -232,7 +269,7 @@ export function softwareApplicationJsonLd() {
   };
 }
 
-export function articleJsonLd(page: PageSeo, datePublished = "2026-06-03") {
+export function articleJsonLd(page: PageSeo, datePublished = "2026-06-03", author = seoConfig.companyName) {
   return {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -240,7 +277,7 @@ export function articleJsonLd(page: PageSeo, datePublished = "2026-06-03") {
     description: page.description,
     author: {
       "@type": "Organization",
-      name: seoConfig.companyName,
+      name: author,
     },
     publisher: {
       "@type": "Organization",
@@ -252,5 +289,56 @@ export function articleJsonLd(page: PageSeo, datePublished = "2026-06-03") {
     },
     datePublished,
     mainEntityOfPage: absoluteUrl(page.path),
+  };
+}
+
+
+export function paperToSeo(paper: Paper): PageSeo {
+  return {
+    path: "/papers/" + paper.slug,
+    title: paper.title + " — Ochiga Paper",
+    description: paper.summary,
+  };
+}
+
+export function collectionPageJsonLd(page: PageSeo) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: page.title,
+    description: page.description,
+    url: absoluteUrl(page.path),
+    publisher: {
+      "@type": "Organization",
+      name: seoConfig.companyName,
+    },
+  };
+}
+
+export function breadcrumbJsonLd(items: Array<{ name: string; path: string }>) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: absoluteUrl(item.path),
+    })),
+  };
+}
+
+export function faqJsonLd(items: Array<{ question: string; answer: string }>) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
   };
 }

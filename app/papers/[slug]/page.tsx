@@ -1,148 +1,96 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
 import Section from "@/app/components/Section";
 import JsonLd from "@/app/components/JsonLd";
-import { articleJsonLd, buildMetadata, seoPages } from "@/lib/seo";
+import { getPaper, getRelatedPapers, papers } from "@/lib/papers";
+import { articleJsonLd, breadcrumbJsonLd, buildMetadata, paperToSeo } from "@/lib/seo";
 
-const paperBySlug = {
-  "identity-as-infrastructure": seoPages.identityPaper,
-  "digital-twins-operational": seoPages.digitalTwinPaper,
-} as const;
-
-export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
-  return buildMetadata(paperBySlug[params.slug as keyof typeof paperBySlug] ?? seoPages.papers);
+export function generateStaticParams() {
+  return papers.map((paper) => ({ slug: paper.slug }));
 }
 
-export default function Paper() {
+export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
+  const paper = getPaper(params.slug);
+  if (!paper) {
+    return buildMetadata({ path: "/papers", title: "Papers — Ochiga", description: "Ochiga infrastructure papers." });
+  }
+  return buildMetadata(paperToSeo(paper));
+}
+
+export default function PaperPage({ params }: { params: { slug: string } }) {
+  const paper = getPaper(params.slug);
+  if (!paper) {
+    notFound();
+  }
+
+  const related = getRelatedPapers(paper);
+
   return (
     <>
-      <JsonLd data={articleJsonLd(seoPages.identityPaper)} />
-    <Section title="The Infrastructure Operating System">
-      <article className="max-w-3xl mx-auto space-y-10 text-white/85 leading-relaxed">
+      <JsonLd
+        data={[
+          articleJsonLd(paperToSeo(paper), paper.publishDate, paper.author),
+          breadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: "Papers", path: "/papers" },
+            { name: paper.title, path: `/papers/${paper.slug}` },
+          ]),
+        ]}
+      />
+      <Section title={paper.title}>
+        <article className="mx-auto max-w-3xl text-white/82 leading-relaxed">
+          <p className="mb-5 text-xs uppercase tracking-[0.2em] text-white/38">{paper.category} · {paper.readingTime}</p>
+          <p className="text-xl md:text-2xl leading-relaxed text-white/70">{paper.subtitle}</p>
 
-        {/* Meta */}
-        <div className="text-sm text-white/50">
-          <p>Published by Ochiga</p>
-          <p>Version 1.0 · Foundational Paper</p>
-        </div>
+          <div className="mt-10 rounded-[26px] border border-white/10 bg-white/[0.025] p-6 text-sm text-white/52">
+            <p>Published {formatDate(paper.publishDate)} by {paper.author}</p>
+            <p className="mt-3">{paper.summary}</p>
+            <div className="mt-5">
+              {paper.pdfPath ? (
+                <a href={paper.pdfPath} className="text-white/80 hover:text-white">Download PDF</a>
+              ) : (
+                <span className="text-white/38">PDF edition currently being prepared.</span>
+              )}
+            </div>
+          </div>
 
-        {/* Abstract */}
-        <section>
-          <h2 className="text-lg font-medium text-white mb-3">
-            Abstract
-          </h2>
-          <p>
-            Physical infrastructure continues to fail not due to a lack of
-            technology, but due to the absence of a unified operating model.
-            While software has transformed nearly every industry, infrastructure
-            remains fragmented, reactive, and manually governed.
-          </p>
-          <p className="mt-4">
-            This paper introduces the concept of an Infrastructure Operating
-            System — a persistent operational layer designed to govern access,
-            assets, utilities, and live systems across estates and physical
-            environments.
-          </p>
+          <div className="mt-14 space-y-12">
+            {paper.sections.map((section) => (
+              <section key={section.heading}>
+                <h2 className="mb-4 text-2xl font-medium text-white">{section.heading}</h2>
+                <div className="space-y-4 text-white/70">
+                  {section.body.map((paragraph) => (
+                    <p key={paragraph}>{paragraph}</p>
+                  ))}
+                </div>
+              </section>
+            ))}
+          </div>
+        </article>
+
+        <section className="mx-auto mt-20 max-w-4xl">
+          <div className="divider-hairline mb-10" />
+          <h2 className="mb-6 text-2xl font-medium">Related reading</h2>
+          <div className="grid gap-5 md:grid-cols-3">
+            {related.map((item) => (
+              <Link key={item.slug} href={`/papers/${item.slug}`} className="rounded-[24px] border border-white/10 bg-white/[0.02] p-5 transition hover:border-white/20 hover:bg-white/[0.04]">
+                <p className="text-xs uppercase tracking-[0.16em] text-white/35">{item.category}</p>
+                <h3 className="mt-3 text-lg font-medium">{item.title}</h3>
+                <p className="mt-3 text-sm leading-6 text-white/52">{item.summary}</p>
+              </Link>
+            ))}
+          </div>
+          <div className="mt-10 flex flex-wrap gap-4">
+            <Link href="/papers" className="btn-secondary">Back to Knowledge Center</Link>
+            <Link href="/deployments" className="btn-primary">Discuss a deployment</Link>
+          </div>
         </section>
-
-        {/* Problem */}
-        <section>
-          <h2 className="text-lg font-medium text-white mb-3">
-            The Problem of Fragmented Infrastructure
-          </h2>
-          <p>
-            Most infrastructure systems are designed around construction and
-            delivery, not long-term operation. Once deployed, systems are handed
-            over as isolated components — access control, power, water, security —
-            each operating independently.
-          </p>
-          <p className="mt-4">
-            This fragmentation results in operational blind spots, security
-            gaps, maintenance inefficiencies, and governance failures over time.
-          </p>
-        </section>
-
-        {/* Why Existing Models Fail */}
-        <section>
-          <h2 className="text-lg font-medium text-white mb-3">
-            Why Existing Models Fail
-          </h2>
-          <p>
-            Current “smart” infrastructure solutions focus on devices and
-            dashboards rather than systems. Applications manage interfaces,
-            but they do not govern infrastructure.
-          </p>
-          <p className="mt-4">
-            Without a unified authority layer, infrastructure decisions remain
-            human-bound, undocumented, and inconsistent across time.
-          </p>
-        </section>
-
-        {/* Infrastructure as a System */}
-        <section>
-          <h2 className="text-lg font-medium text-white mb-3">
-            Infrastructure as a Continuous System
-          </h2>
-          <p>
-            Infrastructure must be treated as a continuous lifecycle —
-            from planning to deployment to long-term operation.
-          </p>
-          <p className="mt-4">
-            Estates, buildings, and campuses represent the true atomic units
-            of infrastructure control. They are the boundaries within which
-            systems must operate coherently.
-          </p>
-        </section>
-
-        {/* Infrastructure OS */}
-        <section>
-          <h2 className="text-lg font-medium text-white mb-3">
-            The Infrastructure Operating System
-          </h2>
-          <p>
-            An Infrastructure Operating System is not an application or a
-            dashboard. It is a persistent operational layer that governs
-            infrastructure state, access, assets, and events over time.
-          </p>
-          <p className="mt-4">
-            This operating layer remains independent of hardware vendors,
-            enabling long-term stability and scalability.
-          </p>
-        </section>
-
-        {/* Digital Twins */}
-        <section>
-          <h2 className="text-lg font-medium text-white mb-3">
-            Digital Twins as an Operational Core
-          </h2>
-          <p>
-            Digital twins within an Infrastructure OS are not visualization
-            tools. They act as live system mirrors — synchronizing assets,
-            utilities, access, and activity in real time.
-          </p>
-          <p className="mt-4">
-            This creates infrastructure memory, operational traceability,
-            and long-term intelligence.
-          </p>
-        </section>
-
-        {/* Conclusion */}
-        <section>
-          <h2 className="text-lg font-medium text-white mb-3">
-            Conclusion
-          </h2>
-          <p>
-            Infrastructure must be designed to operate, not merely exist.
-            The Infrastructure Operating System represents a necessary shift
-            toward governance-driven, systemized physical environments.
-          </p>
-          <p className="mt-4">
-            Ochiga exists to build this operating layer — enabling infrastructure
-            that can be planned, deployed, and operated as a living system.
-          </p>
-        </section>
-
-      </article>
-    </Section>
+      </Section>
     </>
   );
+}
+
+function formatDate(date: string) {
+  return new Intl.DateTimeFormat("en", { month: "long", day: "numeric", year: "numeric" }).format(new Date(date));
 }

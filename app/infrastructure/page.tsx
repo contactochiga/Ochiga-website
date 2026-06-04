@@ -1,228 +1,56 @@
 "use client";
 
-function InfrastructureDiagram() {
-  return (
-    <div className="overflow-x-auto mt-12 mb-16">
-      <svg
-        width="720"
-        height="420"
-        viewBox="0 0 720 420"
-        xmlns="http://www.w3.org/2000/svg"
-        style={{ maxWidth: "100%" }}
-      >
-        {/* Background */}
-        <rect width="720" height="420" fill="none" />
+import Link from "next/link";
 
-        {/* Central Core */}
-        <rect
-          x="210"
-          y="40"
-          width="300"
-          height="56"
-          rx="10"
-          fill="rgba(255,255,255,0.08)"
-          stroke="rgba(255,255,255,0.18)"
-        />
-        <text
-          x="360"
-          y="74"
-          textAnchor="middle"
-          fill="white"
-          fontSize="14"
-          fontFamily="Inter, system-ui"
-        >
-          Ochiga Infrastructure Core
-        </text>
-
-        {/* Infrastructure Blocks */}
-        {[
-          { label: "Power Systems", y: 130 },
-          { label: "Water Systems", y: 180 },
-          { label: "Access & Security", y: 230 },
-          { label: "Communications & Fiber", y: 280 },
-          { label: "Payments & Billing", y: 330 },
-        ].map((item) => (
-          <g key={item.label}>
-            <rect
-              x="160"
-              y={item.y}
-              width="400"
-              height="44"
-              rx="8"
-              fill="rgba(255,255,255,0.05)"
-              stroke="rgba(255,255,255,0.12)"
-            />
-            <text
-              x="360"
-              y={item.y + 28}
-              textAnchor="middle"
-              fill="white"
-              fontSize="13"
-              fontFamily="Inter, system-ui"
-            >
-              {item.label}
-            </text>
-          </g>
-        ))}
-      </svg>
-    </div>
-  );
-}
+const domains = [
+  { title: "Estate operations", body: "Homes, residents, invitations, visitors, community, maintenance, services, and access lifecycle managed as one operating environment." },
+  { title: "Deployment model", body: "Site structure, operator roles, resident onboarding, device providers, edge readiness, and source quality are defined before automation is promised." },
+  { title: "Command systems", body: "Overview, attention queues, camera/security posture, device health, utility states, and staff workflows converge into operational command surfaces." },
+  { title: "Infrastructure lifecycle", body: "Buildings, homes, rooms, devices, cameras, utilities, incidents, and maintenance records remain traceable across years of operation." },
+];
 
 export default function InfrastructurePage() {
   return (
     <main className="bg-black text-white">
       <section className="pt-28 pb-32 px-6 md:px-8">
-        <div className="max-w-3xl mx-auto">
-
-          {/* ===============================
-              PAGE INTRO
-          =============================== */}
-          <header className="mb-20">
-            <h1 className="text-3xl md:text-5xl font-medium mb-6">
-              Infrastructure
-            </h1>
-            <p className="text-white/70 text-lg leading-relaxed">
-              Infrastructure is not software.
-              <br /><br />
-              It is power, water, access, and systems that must work every day.
-              Ochiga is designed to operate real-world infrastructure — not as
-              isolated devices, but as interconnected systems across estates,
-              buildings, and urban environments.
+        <div className="mx-auto max-w-6xl">
+          <header className="mb-16 max-w-3xl">
+            <p className="mb-5 text-xs uppercase tracking-[0.22em] text-white/38">Infrastructure</p>
+            <h1 className="text-4xl md:text-6xl font-medium tracking-[-0.04em] mb-6">Operate the estate as a system.</h1>
+            <p className="text-white/68 text-lg leading-relaxed">
+              Ochiga focuses on the operational lifecycle of real environments: structure, access, utilities, devices, services, incidents, payments, and the teams responsible for them.
             </p>
           </header>
 
-          {/* ===============================
-              DIAGRAM
-          =============================== */}
-          <InfrastructureDiagram />
+          <div className="grid gap-5 md:grid-cols-2">
+            {domains.map((domain) => (
+              <article key={domain.title} className="rounded-[30px] border border-white/10 bg-white/[0.02] p-8">
+                <h2 className="text-2xl font-medium">{domain.title}</h2>
+                <p className="mt-4 text-white/58 leading-7">{domain.body}</p>
+              </article>
+            ))}
+          </div>
 
-          {/* ===============================
-              DOMAINS
-          =============================== */}
-          <section className="space-y-16">
-
-            <div>
-              <h2 className="text-xl font-medium mb-3">Power Infrastructure</h2>
-              <p className="text-white/70 leading-relaxed">
-                Electricity distribution, metering, monitoring, and fault
-                detection across estates and buildings.
-                <br /><br />
-                Ochiga provides real-time power visibility, consumption tracking,
-                outage detection, and coordination between grid, generators,
-                and backup systems.
-              </p>
-            </div>
-
-            <div>
-              <h2 className="text-xl font-medium mb-3">Water Infrastructure</h2>
-              <p className="text-white/70 leading-relaxed">
-                Water distribution, storage, pumping, and monitoring are treated
-                as first-class infrastructure systems.
-                <br /><br />
-                Ochiga enables usage visibility, leakage detection, pump status
-                monitoring, and estate-level water governance.
-              </p>
-            </div>
-
-            <div>
-              <h2 className="text-xl font-medium mb-3">Access & Security</h2>
-              <p className="text-white/70 leading-relaxed">
-                Physical access is governed by identity, role, and authority.
-                <br /><br />
-                Ochiga controls gates, doors, zones, and visitor access while
-                logging security events as part of the operational system —
-                not as disconnected tools.
-              </p>
-            </div>
-
-            <div>
-              <h2 className="text-xl font-medium mb-3">
-                Communications & Fiber
-              </h2>
-              <p className="text-white/70 leading-relaxed">
-                Infrastructure cannot operate without connectivity.
-                <br /><br />
-                Ochiga models fiber routes, junction points, and connectivity
-                health, treating communications as a critical utility rather
-                than background IT.
-              </p>
-            </div>
-
-            <div>
-              <h2 className="text-xl font-medium mb-3">
-                Payments & Billing
-              </h2>
-              <p className="text-white/70 leading-relaxed">
-                Infrastructure usage must be measurable and billable.
-                <br /><br />
-                Ochiga integrates payments directly into operations —
-                utilities, estate fees, service charges — linking financial
-                events to physical assets and units.
-              </p>
-            </div>
-
-            <div>
-              <h2 className="text-xl font-medium mb-3">
-                Facilities & Maintenance
-              </h2>
-              <p className="text-white/70 leading-relaxed">
-                Assets age. Systems degrade.
-                <br /><br />
-                Ochiga tracks facilities, assets, maintenance events, and
-                operational health, enabling proactive maintenance rather
-                than reactive firefighting.
-              </p>
-            </div>
-
-          </section>
-
-          {/* ===============================
-              OPERATIONS
-          =============================== */}
-          <section className="mt-24 space-y-10">
-            <h2 className="text-2xl font-medium">
-              How Ochiga Operates Infrastructure
-            </h2>
-            <p className="text-white/70 leading-relaxed">
-              Ochiga does not replace existing infrastructure.
-              <br /><br />
-              It governs and coordinates it — observing systems in real time,
-              logging events, enforcing access and operational rules, and
-              reflecting reality into a live Digital Twin.
+          <section className="mt-20 rounded-[34px] border border-orange-300/20 bg-[radial-gradient(circle_at_top_left,rgba(255,140,42,0.14),transparent_34%),rgba(255,255,255,0.025)] p-8 md:p-10">
+            <h2 className="text-3xl md:text-5xl font-medium tracking-[-0.04em]">Deployment starts with truth.</h2>
+            <p className="mt-5 max-w-3xl text-white/62 leading-7">
+              A strong deployment identifies what exists, what is connected, what is pending, who owns each workflow, and what residents should experience. Ochiga does not replace missing infrastructure with fake telemetry.
             </p>
+            <div className="mt-8 grid gap-4 md:grid-cols-3 text-sm text-white/58">
+              <span className="rounded-2xl border border-white/10 bg-black/24 p-4">Map the estate structure</span>
+              <span className="rounded-2xl border border-white/10 bg-black/24 p-4">Define roles and access</span>
+              <span className="rounded-2xl border border-white/10 bg-black/24 p-4">Connect real sources</span>
+              <span className="rounded-2xl border border-white/10 bg-black/24 p-4">Import and assign devices</span>
+              <span className="rounded-2xl border border-white/10 bg-black/24 p-4">Establish source states</span>
+              <span className="rounded-2xl border border-white/10 bg-black/24 p-4">Review operational readiness</span>
+            </div>
           </section>
 
-          {/* ===============================
-              SCALE
-          =============================== */}
-          <section className="mt-24 space-y-10">
-            <h2 className="text-2xl font-medium">
-              From Single Buildings to City-Scale
-            </h2>
-            <p className="text-white/70 leading-relaxed">
-              The same core system adapts across different scales:
-              <br /><br />
-              Individual buildings, residential estates, mixed-use developments,
-              multi-estate operators, and urban infrastructure systems — without
-              fragmentation.
-            </p>
+          <section className="mt-20 grid gap-5 md:grid-cols-3">
+            <Link href="/command-center" className="rounded-[26px] border border-white/10 bg-white/[0.02] p-6 hover:border-white/20">Command Center →</Link>
+            <Link href="/papers/infrastructure-operating-systems" className="rounded-[26px] border border-white/10 bg-white/[0.02] p-6 hover:border-white/20">Infrastructure OS paper →</Link>
+            <Link href="/deployments" className="rounded-[26px] border border-white/10 bg-white/[0.02] p-6 hover:border-white/20">Request deployment →</Link>
           </section>
-
-          {/* ===============================
-              CLOSING
-          =============================== */}
-          <section className="mt-28">
-            <p className="text-white/60 leading-relaxed">
-              Infrastructure is measured in decades, not product cycles.
-              <br /><br />
-              Ochiga is built to survive hardware changes, adapt to regulatory
-              shifts, support governance, and maintain operational continuity.
-              <br /><br />
-              This is infrastructure designed to last.
-            </p>
-          </section>
-
         </div>
       </section>
     </main>

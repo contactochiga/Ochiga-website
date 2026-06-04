@@ -30,6 +30,8 @@ export const primaryNavigation = [
   { href: "/command-center", label: "Command Center" },
   { href: "/deployments", label: "Deployments" },
   { href: "/papers", label: "Papers" },
+  { href: "/insights", label: "Insights" },
+  { href: "/trust", label: "Trust" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -46,9 +48,11 @@ export const footerNavigation = {
     { href: "/contact", label: "Contact" },
     { href: "/support", label: "Support" },
     { href: "/papers", label: "Papers" },
+    { href: "/insights", label: "Insights" },
   ],
   trust: [
     { href: "/privacy", label: "Privacy" },
     { href: "/terms", label: "Terms" },
+    { href: "/trust", label: "Trust" },
   ],
 };
