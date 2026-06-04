@@ -28,19 +28,19 @@ export const seoPages = {
     path: "/",
     title: "Ochiga — Technology Meets Architecture",
     description:
-      "Ochiga combines architecture, infrastructure, real estate technology, digital twins, AI, and operational systems for intelligent buildings and estates.",
+      "Ochiga combines architecture, infrastructure, real estate technology, digital twins, intelligence, and operational systems for intelligent buildings and estates.",
   },
   oyi: {
     path: "/oyi",
     title: "Oyi Platform — Powered by Ochiga",
     description:
-      "Oyi is the product ecosystem under Ochiga, connecting residents, facility teams, devices, utilities, access, edge infrastructure, AI, and digital twins.",
+      "Oyi is the product ecosystem under Ochiga, connecting residents, facility teams, devices, utilities, access, edge infrastructure, intelligence, and digital twins.",
   },
   technology: {
     path: "/technology",
     title: "Technology — Ochiga Infrastructure Systems",
     description:
-      "Explore Ochiga's technology model for intelligent buildings: realtime operations, AI, device integration, security, edge infrastructure, and digital twins.",
+      "Explore Ochiga's technology model for intelligent buildings: realtime operations, intelligence, device integration, security, edge infrastructure, and digital twins.",
   },
   infrastructure: {
     path: "/infrastructure",
@@ -112,7 +112,7 @@ export const seoPages = {
     path: "/papers",
     title: "Knowledge Center — Ochiga Papers and Infrastructure Thinking",
     description:
-      "Explore Ochiga papers on infrastructure operating systems, digital twins, smart estates, AI for built environments, identity, and infrastructure intelligence.",
+      "Explore Ochiga papers on infrastructure operating systems, digital twins, smart estates, intelligence for built environments, identity, and infrastructure intelligence.",
   },
   insights: {
     path: "/insights",
@@ -152,9 +152,9 @@ export const seoPages = {
   },
   aiBuiltEnvironmentsPaper: {
     path: "/papers/ai-for-built-environments",
-    title: "AI for Built Environments — Ochiga Paper",
+    title: "Intelligence for Built Environments — Ochiga Paper",
     description:
-      "How AI becomes useful when it is grounded in permissions, context, command paths, and operational state.",
+      "How intelligence becomes useful when it is grounded in permissions, context, command paths, and operational state.",
   },
   infrastructureIntelligencePaper: {
     path: "/papers/infrastructure-intelligence",
@@ -260,7 +260,7 @@ export function softwareApplicationJsonLd() {
     applicationCategory: "BusinessApplication",
     operatingSystem: "Web, iOS, Android, watchOS",
     description:
-      "Oyi is Ochiga's platform ecosystem for estates, facilities, residents, devices, access, utilities, edge infrastructure, AI, and digital twins.",
+      "Oyi is Ochiga's platform ecosystem for estates, facilities, residents, devices, access, utilities, edge infrastructure, intelligence, and digital twins.",
     publisher: {
       "@type": "Organization",
       name: seoConfig.companyName,

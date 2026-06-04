@@ -24,11 +24,10 @@ export const metadata: Metadata = {
 };
 
 function resolveWidgetConfig() {
+  const defaultWidgetUrl = "https://ochiga-lead-agents.onrender.com/widget.js";
   const widgetUrl =
     process.env.NEXT_PUBLIC_OCHIGA_WIDGET_URL ||
-    (process.env.NODE_ENV !== "production"
-      ? "https://ochiga-lead-agents.onrender.com/widget.js"
-      : "");
+    defaultWidgetUrl;
   if (!widgetUrl) {
     return null;
   }
@@ -67,8 +66,9 @@ export default function RootLayout({
             src={widget.widgetUrl}
             data-oma-widget="true"
             data-api-base={widget.apiBase}
+            data-agent-name="Oma"
             data-title="Talk to Oma"
-            data-subtitle="Ochiga Marketing Agent for infrastructure, estates, and connected communities"
+            data-subtitle="Ochiga intelligence guide for infrastructure, estates, and connected communities"
             data-greeting="Hi, I'm Oma. Tell me about your estate, building, or project, and I'll guide you."
             strategy="afterInteractive"
           />

@@ -8,7 +8,7 @@ const intelligenceLayers = [
   { title: "Utilities", body: "Power, water, network, environment, and shared infrastructure gain source-aware visibility." },
   { title: "Digital Twin", body: "The spatial record preserves relationships between buildings, homes, assets, events, and systems." },
   { title: "Resident Life", body: "Daily living surfaces stay simple while the infrastructure underneath remains governed." },
-  { title: "Intelligence", body: "AI and future Spartan reasoning help operators understand state, risk, and next action." },
+  { title: "Intelligence", body: "Future Spartan reasoning helps operators understand state, risk, and next action." },
 ];
 
 const buildCards = [

@@ -2,7 +2,7 @@ export type PaperCategory =
   | "Technology"
   | "Infrastructure"
   | "Governance"
-  | "AI"
+  | "Intelligence"
   | "Digital Twins"
   | "Smart Estates";
 
@@ -29,7 +29,7 @@ export const paperCategories: PaperCategory[] = [
   "Technology",
   "Infrastructure",
   "Governance",
-  "AI",
+  "Intelligence",
   "Digital Twins",
   "Smart Estates",
 ];
@@ -127,7 +127,7 @@ export const papers: Paper[] = [
       {
         heading: "Why This Matters Now",
         body: [
-          "As estates adopt connected devices, cameras, payment systems, resident apps, and AI interfaces, the cost of fragmentation rises. Without an operating layer, automation increases complexity instead of reducing it.",
+          "As estates adopt connected devices, cameras, payment systems, resident apps, and intelligence interfaces, the cost of fragmentation rises. Without an operating layer, automation increases complexity instead of reducing it.",
           "Ochiga's position is that physical infrastructure needs software with memory, authority, and operational depth. That is the Infrastructure Operating System category.",
         ],
       },
@@ -184,49 +184,49 @@ export const papers: Paper[] = [
   },
   {
     slug: "ai-for-built-environments",
-    title: "AI for Built Environments",
-    subtitle: "How AI becomes useful when it is grounded in permissions, context, and operational state.",
+    title: "Intelligence for Built Environments",
+    subtitle: "How intelligence becomes useful when it is grounded in permissions, context, and operational state.",
     summary:
-      "Frames AI as an operational interface for estates and facilities, with emphasis on scope, safety, context, and command reliability.",
+      "Frames intelligence as an operational interface for estates and facilities, with emphasis on scope, safety, context, and command reliability.",
     publishDate: "2026-06-04",
     author: "Ochiga",
-    category: "AI",
+    category: "Intelligence",
     readingTime: "8 min read",
     relatedPapers: ["infrastructure-operating-systems", "infrastructure-intelligence", "smart-estates-beyond-access-control"],
     sections: [
       {
-        heading: "AI Without Context Is Theatre",
+        heading: "Intelligence Without Context Is Theatre",
         body: [
           "Built environments are full of constraints. A resident can control some devices, not all devices. An operator can verify some actions, not every action. A visitor pass may be valid for one home, one estate, and one time window.",
-          "AI becomes useful only when it understands those boundaries. Without context and permissions, it becomes a conversational layer floating above reality.",
+          "Intelligence becomes useful only when it understands those boundaries. Without context and permissions, it becomes a conversational layer floating above reality.",
         ],
       },
       {
         heading: "The Command Router Problem",
         body: [
           "Natural language is flexible, but infrastructure commands must be precise. Turning 'switch off the living room light' into a safe action requires device identity, room assignment, home context, capability mapping, and confirmation behavior.",
-          "The AI layer should not invent a device, skip a permission check, or bypass the command path. It should resolve intent into the same operational route used by the rest of the system.",
+          "The intelligence layer should not invent a device, skip a permission check, or bypass the command path. It should resolve intent into the same operational route used by the rest of the system.",
         ],
       },
       {
-        heading: "Resident AI and Operator AI Are Different",
+        heading: "Resident Intelligence and Operator Intelligence Are Different",
         body: [
           "A resident assistant should help with home actions, visitor questions, maintenance, services, and community context. An operator assistant should prioritize queues, incidents, infrastructure posture, and administrative workflows.",
           "Both can share intelligence, but they should not share scope. Clear product boundaries are security boundaries.",
         ],
       },
       {
-        heading: "AI as a Layer of Accountability",
+        heading: "Intelligence as a Layer of Accountability",
         body: [
-          "AI in infrastructure should explain what it did, what it could not do, and what source it used. Logs, confirmations, and audit trails matter more than novelty.",
-          "If an AI cannot act safely, it should say so. If a source is missing, it should expose the limitation instead of smoothing it over.",
+          "Intelligence in infrastructure should explain what it did, what it could not do, and what source it used. Logs, confirmations, and audit trails matter more than novelty.",
+          "If an intelligence layer cannot act safely, it should say so. If a source is missing, it should expose the limitation instead of smoothing it over.",
         ],
       },
       {
         heading: "The Ochiga View",
         body: [
-          "Ochiga treats AI as an operational interface, not a replacement for governance. The system of record, permission model, audit ledger, and command router remain the foundation.",
-          "The future of AI in built environments is not a chatbot pasted onto a dashboard. It is intelligence grounded in the real state of the place it serves.",
+          "Ochiga treats intelligence as an operational interface, not a replacement for governance. The system of record, permission model, audit ledger, and command router remain the foundation.",
+          "The future of intelligence in built environments is not a chatbot pasted onto a dashboard. It is intelligence grounded in the real state of the place it serves.",
         ],
       },
     ],

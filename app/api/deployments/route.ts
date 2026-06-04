@@ -21,6 +21,11 @@ type DeploymentRequest = {
 
 const rateState = new Map<string, { count: number; resetAt: number }>();
 const maxBodyBytes = Number(process.env.OCHIGA_DEPLOYMENT_MAX_BODY_BYTES || 12_000);
+const hostedAgentBase = (
+  process.env.OCHIGA_DEPLOYMENT_AGENT_BASE ||
+  process.env.NEXT_PUBLIC_OCHIGA_WIDGET_API_BASE ||
+  "https://ochiga-lead-agents.onrender.com"
+).replace(/\/$/, "");
 
 const requiredFields: Array<keyof DeploymentRequest> = [
   "name",
@@ -162,7 +167,10 @@ function buildLeadPayload(body: DeploymentRequest, requestId: string, ip: string
 }
 
 async function persistLocal(record: unknown) {
-  if (process.env.OCHIGA_DEPLOYMENT_LOCAL_FALLBACK === "false") {
+  const explicitlyEnabled = process.env.OCHIGA_DEPLOYMENT_LOCAL_FALLBACK === "true";
+  const explicitlyDisabled = process.env.OCHIGA_DEPLOYMENT_LOCAL_FALLBACK === "false";
+
+  if (explicitlyDisabled || (process.env.NODE_ENV === "production" && !explicitlyEnabled)) {
     return { ok: false, reason: "disabled" };
   }
 
@@ -170,9 +178,13 @@ async function persistLocal(record: unknown) {
     process.env.OCHIGA_DEPLOYMENT_LOCAL_STORE ||
     path.join(process.cwd(), "data", "deployment-requests.jsonl");
 
-  await mkdir(path.dirname(storePath), { recursive: true });
-  await appendFile(storePath, `${JSON.stringify(record)}\n`, "utf8");
-  return { ok: true, path: storePath };
+  try {
+    await mkdir(path.dirname(storePath), { recursive: true });
+    await appendFile(storePath, `${JSON.stringify(record)}\n`, "utf8");
+    return { ok: true, path: storePath };
+  } catch {
+    return { ok: false, reason: "local_persistence_failed" };
+  }
 }
 
 async function forwardToOffice(payload: unknown) {
@@ -245,6 +257,53 @@ async function forwardToWebhook(payload: unknown) {
   return { ok: true, status: response.status };
 }
 
+async function forwardToAgent(payload: ReturnType<typeof buildLeadPayload>, body: DeploymentRequest) {
+  if (process.env.OCHIGA_DEPLOYMENT_AGENT_FALLBACK === "false") {
+    return { ok: false, skipped: true, reason: "disabled" };
+  }
+
+  const endpoint =
+    process.env.OCHIGA_DEPLOYMENT_AGENT_ENDPOINT ||
+    `${hostedAgentBase}/api/lead-agents/public/chat`;
+
+  const response = await fetch(endpoint, {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+      "x-ochiga-surface": "website",
+    },
+    body: JSON.stringify({
+      source: "ochiga_website_deployment_request",
+      message: [
+        "New Ochiga deployment request.",
+        `Name: ${body.name}`,
+        `Company / Estate: ${body.company}`,
+        `Email: ${body.email}`,
+        `Phone: ${body.phone}`,
+        `Location: ${body.location}`,
+        `Project type: ${body.projectType}`,
+        `Project size: ${body.projectSize}`,
+        `Deployment interest: ${body.deploymentInterest}`,
+        `Notes: ${body.notes}`,
+        `Request reference: ${payload.request_id}`,
+      ].join("\n"),
+      profile: {
+        interaction_mode: "deployment_form",
+        widget_context:
+          "Ochiga website deployment request. Route this as an infrastructure deployment lead for human review.",
+        deployment_request: payload,
+      },
+    }),
+  });
+
+  if (!response.ok) {
+    return { ok: false, status: response.status, reason: "agent_endpoint_rejected" };
+  }
+
+  const data = await response.json().catch(() => ({}));
+  return { ok: true, status: response.status, data };
+}
+
 export async function POST(request: NextRequest) {
   const requestId = crypto.randomUUID();
   const ip = getIp(request);
@@ -296,11 +355,12 @@ export async function POST(request: NextRequest) {
   };
 
   try {
-    const local = await persistLocal(auditRecord);
     const office = await forwardToOffice(payload);
     const webhook = office.ok ? { ok: false, skipped: true, reason: "office_succeeded" } : await forwardToWebhook(payload);
+    const agent = office.ok || webhook.ok ? { ok: false, skipped: true, reason: "primary_delivery_succeeded" } : await forwardToAgent(payload, body);
+    const local = office.ok || webhook.ok || agent.ok ? { ok: false, skipped: true, reason: "remote_delivery_succeeded" } : await persistLocal(auditRecord);
 
-    const delivered = office.ok || webhook.ok || local.ok;
+    const delivered = office.ok || webhook.ok || agent.ok || local.ok;
 
     if (!delivered) {
       return NextResponse.json(
@@ -320,10 +380,11 @@ export async function POST(request: NextRequest) {
         delivery: {
           office: office.ok ? "sent" : office.skipped ? "not_configured" : "failed",
           webhook: webhook.ok ? "sent" : webhook.skipped ? "not_configured" : "failed",
+          agent: agent.ok ? "sent" : agent.skipped ? "not_configured" : "failed",
           local: local.ok ? "persisted" : "disabled",
         },
       },
-      { status: office.ok || webhook.ok ? 201 : 202 }
+      { status: office.ok || webhook.ok || agent.ok ? 201 : 202 }
     );
   } catch {
     return NextResponse.json(

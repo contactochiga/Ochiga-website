@@ -7,11 +7,11 @@ const layers = [
   { title: "Data Context", body: "Homes, rooms, devices, residents, visitors, and operators are tied to the physical estate record." },
   { title: "Security", body: "Invite-first activation, scoped access, protected routes, permissions, and audit trails shape every surface." },
   { title: "Devices", body: "Provider sync, registry identity, assignment, capabilities, and edge readiness keep assets governable." },
-  { title: "AI", body: "AI resolves through context, permissions, source state, and safe command paths instead of floating above the system." },
+  { title: "Intelligence", body: "Intelligence resolves through context, permissions, source state, and safe command paths instead of floating above the system." },
   { title: "Digital Twin", body: "Spatial relationships preserve how buildings, homes, rooms, assets, incidents, and utilities connect." },
 ];
 
-const stack = ["Building", "Estate Record", "Oyi Ecosystem", "Realtime Sources", "Edge + Devices", "Twin + AI"];
+const stack = ["Building", "Estate Record", "Oyi Ecosystem", "Realtime Sources", "Edge + Devices", "Twin + Intelligence"];
 
 export default function TechnologyPage() {
   return (
@@ -24,7 +24,7 @@ export default function TechnologyPage() {
             Ochiga creates the digital infrastructure layer that lets buildings and estates understand identity, devices, access, source state, operations, and intelligence.
           </span>
           <div className="inner-hero-actions">
-            <Link href="/papers/ai-for-built-environments" className="btn-primary">Read AI paper</Link>
+            <Link href="/papers/ai-for-built-environments" className="btn-primary">Read intelligence paper</Link>
             <Link href="/trust" className="btn-secondary">Trust posture</Link>
           </div>
         </div>
@@ -64,7 +64,7 @@ export default function TechnologyPage() {
           <span className="diagram-chip chip-one">Identity</span>
           <span className="diagram-chip chip-two">Telemetry</span>
           <span className="diagram-chip chip-three">Permissions</span>
-          <span className="diagram-chip chip-four">AI Context</span>
+          <span className="diagram-chip chip-four">Intelligence Context</span>
         </div>
         <div className="inner-copy-card">
           <p>Technology boundaries</p>
@@ -73,7 +73,7 @@ export default function TechnologyPage() {
             <li>Cloud provider sync imports device registry data where provider access exists.</li>
             <li>Oyi Edge supports deeper local discovery, heartbeat, and future offline execution.</li>
             <li>Digital Twin rendering is separate from placement, entity relationships, and source state.</li>
-            <li>AI actions resolve through the same safe command paths as the rest of the platform.</li>
+            <li>Intelligence actions resolve through the same safe command paths as the rest of the platform.</li>
           </ul>
           </div>
       </section>

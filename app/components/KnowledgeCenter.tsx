@@ -25,7 +25,7 @@ export default function KnowledgeCenter() {
           <p>Knowledge Center</p>
           <h1>Infrastructure thinking for serious operators.</h1>
           <span>
-            Papers, frameworks, and field notes on digital infrastructure, smart estates, digital twins, identity, AI, governance, and built-environment operations.
+            Papers, frameworks, and field notes on digital infrastructure, smart estates, digital twins, identity, intelligence, governance, and built-environment operations.
           </span>
         </div>
         <div className="inner-arch-panel editorial-visual" aria-hidden="true">
@@ -48,7 +48,7 @@ export default function KnowledgeCenter() {
               id="paper-search"
               value={query}
               onChange={(event) => setQuery(event.target.value)}
-              placeholder="Search digital twins, identity, AI, smart estates..."
+              placeholder="Search digital twins, identity, intelligence, smart estates..."
               className="inner-input"
             />
           </div>
@@ -97,7 +97,7 @@ export default function KnowledgeCenter() {
 
           <section className="knowledge-related">
             <RelatedCard href="/insights" title="Insights" body="Short-form observations from deployment, product, and infrastructure work." />
-            <RelatedCard href="/technology" title="Technology" body="How Ochiga structures realtime, AI, device, security, and edge systems." />
+            <RelatedCard href="/technology" title="Technology" body="How Ochiga structures realtime, intelligence, device, security, and edge systems." />
             <RelatedCard href="/trust" title="Trust" body="Security, privacy, ownership, and deployment principles behind Ochiga." />
           </section>
       </section>

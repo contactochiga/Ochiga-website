@@ -3,7 +3,7 @@
 import Link from "next/link";
 
 const surfaces = [
-  { title: "Consumer", body: "Resident-facing Oyi Home for invite-first activation, home context, visitors, community, devices, wallet, services, and AI assistance." },
+  { title: "Consumer", body: "Resident-facing Oyi Home for invite-first activation, home context, visitors, community, devices, wallet, services, and intelligence assistance." },
   { title: "Facility", body: "Operational web console for homes, residents, invitations, devices, cameras, maintenance, incidents, communications, and administration." },
   { title: "Watch", body: "Companion watch experience for glanceable home status, notifications, diagnostics, and durable sync with the iPhone app." },
   { title: "Edge", body: "On-site infrastructure layer for local discovery, heartbeat, device-provider maturity, and future offline execution." },
