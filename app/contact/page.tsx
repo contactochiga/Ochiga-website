@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import CorporatePage from "@/app/components/CorporatePage";
 import JsonLd from "@/app/components/JsonLd";
 import { companyInfo } from "@/lib/company";
 import { buildMetadata, faqJsonLd, seoPages } from "@/lib/seo";
@@ -26,67 +25,76 @@ export default function ContactPage() {
   return (
     <>
       <JsonLd data={faqJsonLd(contactFaq)} />
-      <CorporatePage
-      eyebrow="Contact"
-      title="Talk to Ochiga about serious infrastructure."
-      description="For estates, buildings, command centers, digital twins, and operational infrastructure deployments, reach the Ochiga team through the channels below."
-    >
-      <div className="space-y-10 text-white/68">
-        <section>
-          <h2 className="text-xl font-medium text-white">Deployment enquiries</h2>
-          <p className="mt-3 leading-7">
-            If you are planning a new estate, upgrading an existing property, or evaluating digital infrastructure for built-environment operations, start with a deployment request.
-          </p>
-          <Link href="/deployments" className="btn-primary mt-6 inline-block">
-            Request Deployment
-          </Link>
+      <main className="inner-page">
+        <section className="inner-hero inner-hero-contact">
+          <div className="inner-hero-copy animate-fade-up">
+            <p>Contact</p>
+            <h1>Talk to Ochiga about serious infrastructure.</h1>
+            <span>
+              For intelligent buildings, estates, command centers, digital twins, and operational infrastructure deployments, reach the Ochiga team through the channels below.
+            </span>
+            <div className="inner-hero-actions">
+              <Link href="/deployments" className="btn-primary">Request deployment</Link>
+              <a href={`https://wa.me/${companyInfo.whatsapp.replace(/[^\d]/g, "")}`} className="btn-secondary">WhatsApp</a>
+            </div>
+          </div>
+          <div className="inner-arch-panel contact-visual" aria-hidden="true">
+            <i />
+            <span>Lagos, Nigeria</span>
+            <span>Built Environment</span>
+            <span>Deployment Review</span>
+          </div>
         </section>
 
-        <div className="divider-hairline" />
-
-        <section className="grid gap-5 md:grid-cols-2">
-          <ContactCard label="General email" value={companyInfo.contactEmail} href={`mailto:${companyInfo.contactEmail}`} />
-          <ContactCard label="Phone" value={companyInfo.phone} href={`tel:${companyInfo.phone.replace(/[^\d+]/g, "")}`} />
-          <ContactCard label="WhatsApp" value={companyInfo.whatsapp} href={`https://wa.me/${companyInfo.whatsapp.replace(/[^\d]/g, "")}`} />
-          <ContactCard label="Location" value={companyInfo.location} />
-          <ContactCard label="Website" value={companyInfo.website} href={companyInfo.website} />
-          <ContactCard label="Instagram" value={companyInfo.socialLabels.instagram} href={companyInfo.social.instagram} />
-          <ContactCard label="Facebook" value={companyInfo.socialLabels.facebook} href={companyInfo.social.facebook} />
+        <section className="inner-section contact-grid">
+          <ContactCard icon="MAIL" label="Email" value={companyInfo.contactEmail} href={`mailto:${companyInfo.contactEmail}`} />
+          <ContactCard icon="TEL" label="Phone" value={companyInfo.phone} href={`tel:${companyInfo.phone.replace(/[^\d+]/g, "")}`} />
+          <ContactCard icon="WA" label="WhatsApp" value={companyInfo.whatsapp} href={`https://wa.me/${companyInfo.whatsapp.replace(/[^\d]/g, "")}`} />
+          <ContactCard icon="LOC" label="Location" value={companyInfo.location} />
+          <ContactCard icon="WEB" label="Website" value={companyInfo.website} href={companyInfo.website} />
+          <ContactCard icon="IG" label="Instagram" value={companyInfo.socialLabels.instagram} href={companyInfo.social.instagram} />
+          <ContactCard icon="f" label="Facebook" value={companyInfo.socialLabels.facebook} href={companyInfo.social.facebook} />
         </section>
 
-        <p className="rounded-2xl border border-white/10 bg-white/[0.025] p-5 text-sm leading-6 text-white/52">
-          Ochiga reviews deployment and partnership requests manually. This keeps the process aligned with real infrastructure constraints, operator readiness, and long-term system ownership.
-        </p>
-      <div className="divider-hairline" />
-
-        <section>
-          <h2 className="text-xl font-medium text-white">Contact FAQ</h2>
-          <div className="mt-5 space-y-4">
+        <section className="inner-section inner-split contact-lane">
+          <div className="inner-copy-card">
+            <p>Deployment enquiries</p>
+            <h2>Start with project context, not a sales demo.</h2>
+            <ul>
+              <li>Estate or building location.</li>
+              <li>Approximate unit count and operator structure.</li>
+              <li>Current access, utility, device, facility, or resident workflow issues.</li>
+              <li>Deployment ambition and source readiness.</li>
+            </ul>
+            <Link href="/deployments" className="btn-primary">Request Deployment</Link>
+          </div>
+          <div className="contact-faq-panel">
+            <h2>Contact FAQ</h2>
             {contactFaq.map((item) => (
-              <div key={item.question} className="rounded-2xl border border-white/10 bg-white/[0.025] p-5">
-                <h3 className="text-white/86">{item.question}</h3>
-                <p className="mt-3 text-sm leading-6 text-white/56">{item.answer}</p>
-              </div>
+              <article key={item.question}>
+                <h3>{item.question}</h3>
+                <p>{item.answer}</p>
+              </article>
             ))}
           </div>
         </section>
-      </div>
-    </CorporatePage>
+      </main>
     </>
   );
 }
 
-function ContactCard({ label, value, href }: { label: string; value: string; href?: string }) {
+function ContactCard({ icon, label, value, href }: { icon: string; label: string; value: string; href?: string }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-black/30 p-5">
-      <p className="text-xs uppercase tracking-[0.18em] text-white/35">{label}</p>
+    <article className="contact-card">
+      <span>{icon}</span>
+      <p>{label}</p>
       {href ? (
-        <a className="mt-3 block text-white/82 hover:text-white" href={href}>
+        <a href={href}>
           {value}
         </a>
       ) : (
-        <p className="mt-3 text-white/82">{value}</p>
+        <strong>{value}</strong>
       )}
-    </div>
+    </article>
   );
 }
