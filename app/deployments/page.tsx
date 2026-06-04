@@ -5,6 +5,14 @@ import Link from "next/link";
 
 type SubmitState = "idle" | "submitting" | "success" | "error";
 
+const projectTypes = [
+  "New development",
+  "Existing estate upgrade",
+  "Single property deployment",
+  "Infrastructure audit / planning",
+  "Not sure yet",
+];
+
 export default function DeploymentRequestPage() {
   const formStartedAt = useMemo(() => String(Date.now()), []);
   const [submitState, setSubmitState] = useState<SubmitState>("idle");
@@ -30,6 +38,14 @@ export default function DeploymentRequestPage() {
     >
   ) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+    if (submitState === "error") {
+      setSubmitState("idle");
+      setError("");
+    }
+  };
+
+  const setProjectType = (projectType: string) => {
+    setForm({ ...form, projectType });
     if (submitState === "error") {
       setSubmitState("idle");
       setError("");
@@ -87,272 +103,180 @@ export default function DeploymentRequestPage() {
   };
 
   return (
-    <main className="bg-black text-white">
-      {/* Header-safe offset */}
-      <div className="pt-[104px] pb-28 px-4 sm:px-6">
-        <div className="mx-auto w-full max-w-[520px]">
+    <main className="deployment-page">
+      <section className="deployment-hero">
+        <div className="deployment-visual" aria-hidden="true">
+          <div className="deployment-tower" />
+          <div className="deployment-grid" />
+          <div className="deployment-scan" />
+        </div>
+        <div className="deployment-copy">
+          <p>Deployment Intake</p>
+          <h1>Plan intelligent infrastructure with Ochiga.</h1>
+          <span>
+            This is a structured intake for buildings, estates, command centers, digital twins, edge infrastructure, and Oyi platform deployments.
+          </span>
+        </div>
+      </section>
 
-          {/* =============================
-              SUCCESS STATE
-          ============================== */}
-          {submitState === "success" ? (
-            <div className="animate-fade-up">
-              <h1 className="text-3xl md:text-4xl font-medium mb-6">
-                Request received.
-              </h1>
-
-              <p className="text-white/70 text-base leading-relaxed mb-10">
-                Thanks for reaching out. We review every deployment request
-                manually. If your project is a good fit, our infrastructure
-                team will contact you directly.
-              </p>
-
-              {requestId ? (
-                <p className="mb-10 rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white/45">
-                  Reference: {requestId}
-                </p>
-              ) : null}
-
-              <div className="flex gap-4">
-                <Link href="/" className="btn-secondary">
-                  Back to Home
-                </Link>
-                <Link href="/oyi" className="btn-primary">
-                  Explore Oyi
-                </Link>
-              </div>
+      <section className="deployment-shell">
+        {submitState === "success" ? (
+          <div className="deployment-success animate-fade-up">
+            <p>Request received</p>
+            <h2>Our infrastructure team will review your context.</h2>
+            <span>
+              If your project is aligned, Ochiga will follow up to clarify site structure, operator readiness, source requirements, and deployment scope.
+            </span>
+            {requestId ? <strong>Reference: {requestId}</strong> : null}
+            <div>
+              <Link href="/" className="btn-secondary">Back to Home</Link>
+              <Link href="/oyi" className="btn-primary">Explore Oyi</Link>
             </div>
-          ) : (
-            <>
-              {/* =============================
-                  INTRO
-              ============================== */}
-              <header className="mb-14">
-                <h1 className="text-3xl md:text-4xl font-medium mb-5 leading-tight">
-                  Let’s talk about your infrastructure.
-                </h1>
-                <p className="text-white/65 text-[15px] md:text-[16px] leading-relaxed">
-                  Whether you’re planning a new development, upgrading an
-                  existing estate, or deploying a serious system for a single
-                  property — our team works directly with operators to design
-                  infrastructure built for long-term operation.
-                </p>
-              </header>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="deployment-form">
+            <input
+              type="text"
+              name="website"
+              value={form.website}
+              onChange={handleChange}
+              tabIndex={-1}
+              autoComplete="off"
+              aria-hidden="true"
+              className="hidden"
+            />
 
-              {/* =============================
-                  FORM
-              ============================== */}
-              <form onSubmit={handleSubmit} className="space-y-12">
-                <input
-                  type="text"
-                  name="website"
-                  value={form.website}
-                  onChange={handleChange}
-                  tabIndex={-1}
-                  autoComplete="off"
-                  aria-hidden="true"
-                  className="hidden"
-                />
+            <FormSection step="01" title="Contact" body="Who should Ochiga speak with about this environment?">
+              <div className="deployment-fields two">
+                <Field label="Full name">
+                  <input name="name" value={form.name} onChange={handleChange} placeholder="John Doe" required />
+                </Field>
+                <Field label="Email address">
+                  <input type="email" name="email" value={form.email} onChange={handleChange} placeholder="you@company.com" required />
+                </Field>
+                <Field label="Phone number">
+                  <input type="tel" name="phone" value={form.phone} onChange={handleChange} placeholder="+234 800 000 0000" required />
+                </Field>
+                <Field label="Company / Estate">
+                  <input name="company" value={form.company} onChange={handleChange} placeholder="Company or estate name" required />
+                </Field>
+              </div>
+            </FormSection>
 
-                {/* ---- CONTACT ---- */}
-                <section className="space-y-6">
-                  <div className="form-group">
-                    <label className="form-label">Full name</label>
-                    <input
-                      name="name"
-                      value={form.name}
-                      onChange={handleChange}
-                      placeholder="John Doe"
-                      className="form-input"
-                      required
-                    />
-                  </div>
-
-                  <div className="form-group">
-                    <label className="form-label">Email address</label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={form.email}
-                      onChange={handleChange}
-                      placeholder="you@company.com"
-                      className="form-input"
-                      required
-                    />
-                  </div>
-
-                  <div className="form-group">
-                    <label className="form-label">Phone number</label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      value={form.phone}
-                      onChange={handleChange}
-                      placeholder="+234 800 000 0000"
-                      className="form-input"
-                      required
-                    />
-                  </div>
-
-                  <div className="form-group">
-                    <label className="form-label">Company / Estate</label>
-                    <input
-                      name="company"
-                      value={form.company}
-                      onChange={handleChange}
-                      placeholder="Company or estate name"
-                      className="form-input"
-                      required
-                    />
-                  </div>
-                </section>
-
-                {/* ---- PROJECT ---- */}
-                <section className="space-y-6">
-                  <div className="form-group">
-                    <label className="form-label">Project type</label>
-                    <select
-                      name="projectType"
-                      value={form.projectType}
-                      onChange={handleChange}
-                      className="form-input"
-                      required
-                    >
-                      <option value="">Select one</option>
-                      <option>New development</option>
-                      <option>Existing estate upgrade</option>
-                      <option>Single property deployment</option>
-                      <option>Infrastructure audit / planning</option>
-                      <option>Not sure yet</option>
-                    </select>
-                  </div>
-
-                  <div className="form-group">
-                    <label className="form-label">Project size</label>
-                    <select
-                      name="projectSize"
-                      value={form.projectSize}
-                      onChange={handleChange}
-                      className="form-input"
-                      required
-                    >
-                      <option value="">Select one</option>
-                      <option>Single property</option>
-                      <option>2–20 homes / units</option>
-                      <option>21–100 homes / units</option>
-                      <option>101–500 homes / units</option>
-                      <option>500+ homes / units</option>
-                      <option>Not sure yet</option>
-                    </select>
-                  </div>
-
-                  <div className="form-group">
-                    <label className="form-label">Deployment interest</label>
-                    <select
-                      name="deploymentInterest"
-                      value={form.deploymentInterest}
-                      onChange={handleChange}
-                      className="form-input"
-                      required
-                    >
-                      <option value="">Select one</option>
-                      <option>Oyi Home / resident app</option>
-                      <option>Facility OS</option>
-                      <option>Access control and visitors</option>
-                      <option>Smart devices and Oyi Edge</option>
-                      <option>Digital twin / command center</option>
-                      <option>Full infrastructure operating system</option>
-                    </select>
-                  </div>
-
-                  <div className="form-group">
-                    <label className="form-label">Project location</label>
-                    <input
-                      name="location"
-                      value={form.location}
-                      onChange={handleChange}
-                      placeholder="City, State, Country"
-                      className="form-input"
-                      required
-                    />
-                  </div>
-                </section>
-
-                {/* ---- CONTEXT ---- */}
-                <section className="space-y-3">
-                  <label className="form-label">Project context</label>
-                  <textarea
-                    name="notes"
-                    value={form.notes}
-                    onChange={handleChange}
-                    rows={4}
-                    placeholder="What are you building? What problems are you trying to solve?"
-                    className="form-input resize-none"
-                    required
-                  />
-                </section>
-
-                {/* ---- SUBMIT ---- */}
-                <section className="pt-4">
-                  {submitState === "error" ? (
-                    <div className="mb-5 rounded-2xl border border-red-400/25 bg-red-500/10 px-4 py-3 text-sm text-red-100">
-                      {error}
-                    </div>
-                  ) : null}
-
+            <FormSection step="02" title="Project" body="Tell us what kind of built environment or infrastructure system you are planning.">
+              <div className="project-type-grid">
+                {projectTypes.map((type) => (
                   <button
-                    type="submit"
-                    disabled={submitState === "submitting"}
-                    className="btn-primary w-full py-4 disabled:cursor-not-allowed disabled:opacity-60"
+                    key={type}
+                    type="button"
+                    onClick={() => setProjectType(type)}
+                    className={form.projectType === type ? "selected" : ""}
                   >
-                    {submitState === "submitting" ? "Submitting request…" : submitState === "error" ? "Retry request" : "Submit request"}
+                    {type}
                   </button>
-                </section>
-              </form>
+                ))}
+              </div>
+              <select className="sr-fallback" name="projectType" value={form.projectType} onChange={handleChange} required aria-label="Project type">
+                <option value="">Select one</option>
+                {projectTypes.map((type) => <option key={type}>{type}</option>)}
+              </select>
+              <div className="deployment-fields two">
+                <Field label="Project size">
+                  <select name="projectSize" value={form.projectSize} onChange={handleChange} required>
+                    <option value="">Select one</option>
+                    <option>Single property</option>
+                    <option>2-20 homes / units</option>
+                    <option>21-100 homes / units</option>
+                    <option>101-500 homes / units</option>
+                    <option>500+ homes / units</option>
+                    <option>Not sure yet</option>
+                  </select>
+                </Field>
+                <Field label="Deployment interest">
+                  <select name="deploymentInterest" value={form.deploymentInterest} onChange={handleChange} required>
+                    <option value="">Select one</option>
+                    <option>Oyi Home / resident app</option>
+                    <option>Facility OS</option>
+                    <option>Access control and visitors</option>
+                    <option>Smart devices and Oyi Edge</option>
+                    <option>Digital twin / command center</option>
+                    <option>Full digital infrastructure layer</option>
+                  </select>
+                </Field>
+                <Field label="Project location">
+                  <input name="location" value={form.location} onChange={handleChange} placeholder="City, State, Country" required />
+                </Field>
+              </div>
+            </FormSection>
 
-              {/* =============================
-                  FOOTNOTE
-              ============================== */}
-              <p className="text-white/45 text-sm mt-12 leading-relaxed">
-                Every request is reviewed manually. If your project aligns
-                with our infrastructure model, our team will reach out directly.
-              </p>
-              <section className="mt-14 space-y-8">
-                <div className="rounded-[26px] border border-white/10 bg-white/[0.025] p-6">
-                  <h2 className="text-xl font-medium">What happens after submission</h2>
-                  <ol className="mt-5 space-y-3 text-sm leading-6 text-white/56">
-                    <li>1. Ochiga reviews the project context and deployment fit.</li>
-                    <li>2. The team clarifies estate structure, operator readiness, and current systems.</li>
-                    <li>3. If aligned, a deployment discovery call defines scope and source requirements.</li>
-                    <li>4. A phased rollout plan is prepared around real infrastructure constraints.</li>
-                  </ol>
-                </div>
+            <FormSection step="03" title="Challenge" body="Describe the operational problem, architectural ambition, or infrastructure gap.">
+              <Field label="Project context">
+                <textarea
+                  name="notes"
+                  value={form.notes}
+                  onChange={handleChange}
+                  rows={6}
+                  placeholder="What are you building, upgrading, or trying to solve? Include current access, utility, device, facility, resident, command center, or digital twin needs."
+                  required
+                />
+              </Field>
+            </FormSection>
 
-                <div className="rounded-[26px] border border-white/10 bg-white/[0.025] p-6">
-                  <h2 className="text-xl font-medium">Preparation checklist</h2>
-                  <ul className="mt-5 space-y-3 text-sm leading-6 text-white/56">
-                    <li>• Estate or building name and location</li>
-                    <li>• Approximate number of homes, units, or operational zones</li>
-                    <li>• Current access, visitor, maintenance, utility, or device problems</li>
-                    <li>• Existing smart-home, camera, or facility vendors</li>
-                    <li>• Internal operator or facility team responsible for rollout</li>
-                  </ul>
-                </div>
+            <section className="deployment-review">
+              <div>
+                <p>04 · Submit</p>
+                <h2>What happens next</h2>
+                <span>Ochiga reviews every request manually. If aligned, the next step is a discovery conversation around site structure, source readiness, and deployment scope.</span>
+              </div>
+              {submitState === "error" ? <div className="deployment-error">{error}</div> : null}
+              <button type="submit" disabled={submitState === "submitting"} className="btn-primary">
+                {submitState === "submitting" ? "Submitting request..." : submitState === "error" ? "Retry request" : "Submit Deployment Request"}
+              </button>
+            </section>
+          </form>
+        )}
 
-                <div className="rounded-[26px] border border-white/10 bg-white/[0.025] p-6">
-                  <h2 className="text-xl font-medium">Deployment FAQ</h2>
-                  <div className="mt-5 space-y-4 text-sm leading-6 text-white/56">
-                    <p><span className="text-white/82">Can we start without a full digital twin?</span><br />Yes. The twin can begin as a structured operational record and gain spatial/model layers as sources mature.</p>
-                    <p><span className="text-white/82">Do we need Oyi Edge immediately?</span><br />Not always. Cloud provider sync can start some pilots, but deeper local discovery and offline execution require edge infrastructure.</p>
-                    <p><span className="text-white/82">Will Ochiga invent missing telemetry?</span><br />No. Missing sources are shown honestly as pending, awaiting telemetry, or not configured.</p>
-                  </div>
-                </div>
-              </section>
+        <aside className="deployment-aside">
+          <InfoCard title="Journey" items={["Discover", "Design", "Connect", "Operate", "Evolve"]} />
+          <InfoCard title="Prepare" items={["Estate or building context", "Approximate unit count", "Current operational problems", "Existing vendors or systems", "Operator readiness"]} />
+          <InfoCard title="Honest source states" items={["Live", "Pending integration", "Awaiting telemetry", "No source configured"]} />
+        </aside>
+      </section>
+    </main>
+  );
+}
 
-            </>
-          )}
+function FormSection({ step, title, body, children }: { step: string; title: string; body: string; children: React.ReactNode }) {
+  return (
+    <section className="deployment-form-section">
+      <div className="deployment-section-head">
+        <span>{step}</span>
+        <div>
+          <h2>{title}</h2>
+          <p>{body}</p>
         </div>
       </div>
-    </main>
+      {children}
+    </section>
+  );
+}
+
+function Field({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <label className="deployment-field">
+      <span>{label}</span>
+      {children}
+    </label>
+  );
+}
+
+function InfoCard({ title, items }: { title: string; items: string[] }) {
+  return (
+    <article>
+      <h3>{title}</h3>
+      <ul>
+        {items.map((item) => <li key={item}>{item}</li>)}
+      </ul>
+    </article>
   );
 }

@@ -1,266 +1,157 @@
 "use client";
 
-import { Canvas, useFrame } from "@react-three/fiber";
-import { Environment, PerspectiveCamera } from "@react-three/drei";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
-import * as THREE from "three";
 
-const scenes = [
-  {
-    label: "Technology Meets Architecture",
-    title: "Ochiga designs intelligent physical environments.",
-    copy: "We connect architecture, infrastructure, real estate, digital twins, AI, and operational systems so buildings and estates can be planned, operated, and improved as living environments.",
-  },
-  {
-    label: "Intelligent Buildings",
-    title: "Buildings are becoming infrastructure systems.",
-    copy: "Access, utilities, devices, cameras, maintenance, services, and resident workflows belong inside one architecture-aware operating layer.",
-  },
-  {
-    label: "Intelligent Estates",
-    title: "Estates need more than connected devices.",
-    copy: "Ochiga models homes, rooms, residents, visitors, operators, assets, edge nodes, and service workflows as part of the same built-environment intelligence.",
-  },
-  {
-    label: "Infrastructure Intelligence",
-    title: "Operational awareness for the built world.",
-    copy: "Source quality, telemetry, incidents, maintenance, device health, utility posture, and spatial context become visible without pretending missing sources are live.",
-  },
-  {
-    label: "Oyi Platform Ecosystem",
-    title: "Oyi powers the operating layer.",
-    copy: "Oyi Home, Facility, Watch, Edge, AI, and Twin are product surfaces under Ochiga, built to connect residents, operators, infrastructure, and intelligence.",
-  },
-  {
-    label: "Future Communities",
-    title: "The long view is intelligent real estate.",
-    copy: "Ochiga is building toward smart communities where architecture, construction, infrastructure, and digital intelligence are designed together from the beginning.",
-  },
+const intelligenceLayers = [
+  { title: "Architecture", body: "Built form, rooms, structures, zones, and estate hierarchy become the base layer." },
+  { title: "Estate Systems", body: "Access, visitors, services, residents, maintenance, and operators connect to one place model." },
+  { title: "Utilities", body: "Power, water, network, environment, and shared infrastructure gain source-aware visibility." },
+  { title: "Digital Twin", body: "The spatial record preserves relationships between buildings, homes, assets, events, and systems." },
+  { title: "Resident Life", body: "Daily living surfaces stay simple while the infrastructure underneath remains governed." },
+  { title: "Intelligence", body: "AI and future Spartan reasoning help operators understand state, risk, and next action." },
 ];
 
-const zones = [
-  ["Architecture", "#38bdf8", [-2.8, 2.2, 0.1]],
-  ["Estate Systems", "#22c55e", [2.7, 1.55, 0.1]],
-  ["Utilities", "#f59e0b", [-2.4, 0.4, 0.1]],
-  ["Digital Twin", "#14b8a6", [2.25, -0.1, 0.1]],
-  ["Resident Life", "#a78bfa", [-1.2, -1.7, 0.1]],
-  ["Intelligence", "#60a5fa", [1.35, -1.9, 0.1]],
-] as const;
-
-const ecosystem = [
-  { title: "Intelligent Buildings", label: "Architecture-aware" },
-  { title: "Intelligent Estates", label: "Operationally governed" },
-  { title: "Digital Infrastructure", label: "Connected systems" },
-  { title: "Oyi Platform", label: "Product ecosystem" },
+const buildCards = [
+  { title: "Intelligent Buildings", kicker: "Architecture-aware", body: "Modern buildings with digital structure, access context, utility posture, and operational memory." },
+  { title: "Intelligent Estates", kicker: "Real estate systems", body: "Residential and mixed-use communities where residents, operators, visitors, and shared services work through one governed layer." },
+  { title: "Digital Infrastructure", kicker: "Connected foundations", body: "Identity, rooms, devices, cameras, utilities, payments, incidents, and audit trails held together as infrastructure." },
+  { title: "Command Centers", kicker: "Operational visibility", body: "Cinematic control environments for estate health, security, incidents, utilities, and staff response." },
+  { title: "Digital Twins", kicker: "Spatial memory", body: "Authoritative spatial and operational records for buildings, homes, rooms, assets, and events." },
+  { title: "Future Smart Communities", kicker: "Designed together", body: "Developments where architecture, construction, infrastructure, resident experience, and intelligence begin from the same blueprint." },
 ];
 
-const whatWeBuild = [
-  {
-    title: "Intelligent Buildings",
-    body: "Buildings with digital structure, device awareness, access rules, utility context, and operational memory.",
-  },
-  {
-    title: "Intelligent Estates",
-    body: "Residential and mixed-use estates where residents, operators, visitors, services, and shared infrastructure work through one governed system.",
-  },
-  {
-    title: "Digital Infrastructure",
-    body: "The connective layer across identity, rooms, devices, cameras, utilities, payments, incidents, maintenance, and audit trails.",
-  },
-  {
-    title: "Command Centers",
-    body: "Large-screen operational environments for estate health, infrastructure posture, security, incidents, and staff response.",
-  },
-  {
-    title: "Digital Twins",
-    body: "Spatial and operational records that preserve how buildings, homes, rooms, assets, and events relate to one another.",
-  },
-  {
-    title: "Smart Communities",
-    body: "Future developments where architecture, construction, infrastructure, resident experience, and intelligence are planned together.",
-  },
+const oyiSurfaces = [
+  "Oyi Home",
+  "Oyi Facility",
+  "Oyi Watch",
+  "Oyi Edge",
+  "Oyi Twin",
+  "Oyi Intelligence",
 ];
 
-function Building({ progress }: { progress: number }) {
-  const group = useRef<THREE.Group>(null);
-  const materialOpacity = THREE.MathUtils.clamp(1 - progress * 1.7, 0.16, 1);
-  const wireOpacity = THREE.MathUtils.clamp((progress - 0.12) * 1.8, 0, 0.78);
-
-  useFrame(({ clock }) => {
-    if (!group.current) return;
-    group.current.rotation.y = Math.sin(clock.elapsedTime * 0.18) * 0.08 + progress * 0.38;
-    group.current.position.y = -0.2 + Math.sin(clock.elapsedTime * 0.6) * 0.025;
-  });
-
-  return (
-    <group ref={group}>
-      <mesh position={[0, 0, 0]}>
-        <boxGeometry args={[4.2, 5.8, 1.35]} />
-        <meshStandardMaterial
-          color="#111827"
-          metalness={0.52}
-          roughness={0.32}
-          transparent
-          opacity={materialOpacity}
-        />
-      </mesh>
-      {Array.from({ length: 10 }).map((_, floor) =>
-        Array.from({ length: 5 }).map((__, col) => (
-          <mesh key={`${floor}-${col}`} position={[-1.68 + col * 0.84, -2.45 + floor * 0.5, 0.71]}>
-            <boxGeometry args={[0.42, 0.16, 0.025]} />
-            <meshStandardMaterial color={floor % 3 === 0 ? "#fbbf24" : "#7dd3fc"} emissive={floor % 3 === 0 ? "#5b3300" : "#073b5f"} emissiveIntensity={0.6} />
-          </mesh>
-        ))
-      )}
-      <mesh position={[0, 0, 0]}>
-        <boxGeometry args={[4.26, 5.86, 1.42]} />
-        <meshBasicMaterial color="#38bdf8" wireframe transparent opacity={wireOpacity} />
-      </mesh>
-      <mesh position={[0, 3.12, 0]}>
-        <boxGeometry args={[3.4, 0.18, 1.1]} />
-        <meshStandardMaterial color="#0f172a" metalness={0.7} roughness={0.25} />
-      </mesh>
-      {zones.map(([label, color, pos]) => (
-        <group key={label} position={pos as [number, number, number]}>
-          <mesh>
-            <sphereGeometry args={[0.085, 24, 24]} />
-            <meshStandardMaterial color={color} emissive={color} emissiveIntensity={1.8} />
-          </mesh>
-          <mesh>
-            <ringGeometry args={[0.18, 0.205, 48]} />
-            <meshBasicMaterial color={color} transparent opacity={0.42} side={THREE.DoubleSide} />
-          </mesh>
-        </group>
-      ))}
-    </group>
-  );
-}
-
-function SceneCanvas({ progress }: { progress: number }) {
-  return (
-    <Canvas className="story-canvas" dpr={[1, 1.6]}>
-      <PerspectiveCamera makeDefault position={[0, 0.45 + progress * 0.8, 9 - progress * 3.4]} fov={42} />
-      <ambientLight intensity={0.42} />
-      <directionalLight position={[4, 5, 6]} intensity={2.2} color="#dbeafe" />
-      <pointLight position={[-4, 2, 3]} intensity={1.4} color="#f59e0b" />
-      <fog attach="fog" args={["#020504", 8, 19]} />
-      <Building progress={progress} />
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -3.22, 0]}>
-        <planeGeometry args={[18, 18]} />
-        <meshStandardMaterial color="#030806" metalness={0.2} roughness={0.8} />
-      </mesh>
-      <Environment preset="night" />
-    </Canvas>
-  );
-}
+const journey = ["Discover", "Design", "Connect", "Operate", "Evolve"];
 
 export default function OchigaScrollytelling() {
-  const rootRef = useRef<HTMLDivElement>(null);
-  const [progress, setProgress] = useState(0);
-
-  useEffect(() => {
-    const onScroll = () => {
-      if (!rootRef.current) return;
-      const rect = rootRef.current.getBoundingClientRect();
-      const travel = Math.max(1, rect.height - window.innerHeight);
-      setProgress(THREE.MathUtils.clamp(-rect.top / travel, 0, 1));
-    };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  const activeIndex = Math.min(scenes.length - 1, Math.floor(progress * scenes.length));
-  const active = scenes[activeIndex];
-  const pct = Math.round(progress * 100);
-
   return (
-    <main className="ochiga-story" ref={rootRef}>
-      <section className="story-sticky">
-        <SceneCanvas progress={progress} />
-        <div className="story-vignette" />
-        <div className="story-grid" />
-        <div className="story-copy">
-          <p>{active.label}</p>
-          <h1>{active.title}</h1>
-          <span>{active.copy}</span>
+    <main className="arch-site">
+      <section className="arch-hero">
+        <div className="arch-hero-sky" />
+        <div className="arch-estate" aria-hidden="true">
+          <div className="arch-building arch-building-main">
+            {Array.from({ length: 42 }).map((_, index) => <i key={index} />)}
+          </div>
+          <div className="arch-building arch-building-left">
+            {Array.from({ length: 20 }).map((_, index) => <i key={index} />)}
+          </div>
+          <div className="arch-building arch-building-right">
+            {Array.from({ length: 24 }).map((_, index) => <i key={index} />)}
+          </div>
+          <div className="arch-water" />
+          <div className="arch-ground-grid" />
         </div>
-        <aside className="story-panel">
-          <div className="story-panel-head">
-            <strong>Built Environment Intelligence</strong>
-            <span>{pct}%</span>
+        <div className="arch-trace arch-trace-one" />
+        <div className="arch-trace arch-trace-two" />
+        <div className="arch-orb" />
+
+        <div className="arch-hero-copy">
+          <p>Technology Meets Architecture</p>
+          <h1>Technology Meets Architecture.</h1>
+          <span>Ochiga creates digital infrastructure for intelligent buildings, estates, and future smart communities.</span>
+          <div className="arch-hero-actions">
+            <Link href="/deployments" className="btn-primary">Request Deployment</Link>
+            <Link href="/oyi" className="btn-secondary">Explore Oyi</Link>
           </div>
-          <div className="story-signal">
-            {zones.map(([label, color]) => (
-              <div key={label}>
-                <i style={{ background: color }} />
-                <span>{label}</span>
-              </div>
-            ))}
-          </div>
+        </div>
+
+        <aside className="arch-holo arch-holo-status">
+          <strong>Intelligent Estate Layer</strong>
+          <span>Architecture · Utilities · Access · Twin</span>
         </aside>
-        <div className="story-products">
-          {ecosystem.map((item) => (
-            <div key={item.title}>
-              <strong>{item.title}</strong>
-              <span>{item.label}</span>
-            </div>
-          ))}
-        </div>
-        <div className="story-cta">
-          <Link href="/deployments">Request Deployment</Link>
-          <span>Digital infrastructure for intelligent buildings, estates, and future smart communities.</span>
-        </div>
+        <aside className="arch-holo arch-holo-map">
+          <strong>Digital Infrastructure</strong>
+          <span>Spatial context active</span>
+        </aside>
+        <aside className="arch-holo arch-holo-source">
+          <strong>Source Honesty</strong>
+          <span>Live / pending / unavailable states</span>
+        </aside>
       </section>
-      <div className="story-scroll-space" aria-hidden="true">
-        {scenes.map((scene) => (
-          <section key={scene.label} />
-        ))}
-      </div>
-      <section className="relative z-10 bg-[#020504] px-6 py-28 md:px-10">
-        <div className="mx-auto max-w-6xl">
-          <p className="mb-5 text-xs uppercase tracking-[0.24em] text-white/38">Technology Meets Architecture</p>
-          <div className="grid gap-10 md:grid-cols-[0.95fr_1.05fr] md:items-end">
-            <h2 className="text-4xl md:text-6xl font-medium tracking-[-0.05em] leading-tight">
-              We build the intelligence layer for physical environments.
-            </h2>
-            <p className="text-lg leading-8 text-white/62">
-              Ochiga sits between architecture, construction, infrastructure, and technology. We help buildings and estates become legible systems: designed physically, mapped digitally, operated continuously, and improved over time.
-            </p>
-          </div>
+
+      <section className="arch-section arch-intelligence">
+        <div className="arch-section-head">
+          <p>Built Environment Intelligence</p>
+          <h2>Physical infrastructure becomes legible.</h2>
+          <span>Technology appears as a quiet intelligence layer over the built environment, not as a dashboard pasted on top of it.</span>
         </div>
-      </section>
-      <section className="relative z-10 bg-black px-6 py-28 md:px-10">
-        <div className="mx-auto max-w-6xl">
-          <p className="mb-8 text-xs uppercase tracking-[0.24em] text-white/38">What We Build</p>
-          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {whatWeBuild.map((item) => (
-              <article key={item.title} className="rounded-[28px] border border-white/10 bg-white/[0.025] p-7">
-                <h3 className="text-2xl font-medium">{item.title}</h3>
-                <p className="mt-4 text-white/58 leading-7">{item.body}</p>
+        <div className="arch-layer-stage">
+          <div className="arch-mini-estate" aria-hidden="true" />
+          <div className="arch-layer-grid">
+            {intelligenceLayers.map((layer) => (
+              <article key={layer.title}>
+                <h3>{layer.title}</h3>
+                <p>{layer.body}</p>
               </article>
             ))}
           </div>
         </div>
       </section>
-      <section className="relative z-10 bg-[#020504] px-6 py-28 md:px-10">
-        <div className="mx-auto grid max-w-6xl gap-8 md:grid-cols-2">
-          <div>
-            <p className="mb-5 text-xs uppercase tracking-[0.24em] text-white/38">Infrastructure Intelligence</p>
-            <h2 className="text-4xl md:text-6xl font-medium tracking-[-0.05em] leading-tight">
-              The building understands its own state.
-            </h2>
-          </div>
-          <div className="space-y-6 text-white/64 leading-8">
-            <p>Infrastructure Intelligence is the ability for a built environment to preserve context: what exists, where it belongs, who owns it, whether it is healthy, and what action should happen next.</p>
-            <p>Oyi is the platform ecosystem that powers this operating layer today. Spartan is the future intelligence layer for deeper reasoning, planning, simulation, and autonomous coordination.</p>
-            <div className="flex flex-wrap gap-4 pt-2">
-              <Link href="/oyi" className="btn-secondary">Explore Oyi</Link>
-              <Link href="/papers/infrastructure-intelligence" className="btn-primary">Read Intelligence Paper</Link>
-            </div>
-          </div>
+
+      <section className="arch-section">
+        <div className="arch-section-head">
+          <p>What We Build</p>
+          <h2>Architecture-first technology for real environments.</h2>
         </div>
+        <div className="arch-build-grid">
+          {buildCards.map((card) => (
+            <article key={card.title}>
+              <span>{card.kicker}</span>
+              <h3>{card.title}</h3>
+              <p>{card.body}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="arch-section arch-oyi-section">
+        <div className="arch-section-head">
+          <p>Oyi Platform</p>
+          <h2>The product ecosystem powering the vision.</h2>
+          <span>Oyi is not the company story. It is Ochiga's platform layer for residents, operators, devices, edge infrastructure, spatial context, and intelligence.</span>
+        </div>
+        <div className="arch-oyi-orbit">
+          <div className="arch-oyi-core">Oyi</div>
+          {oyiSurfaces.map((surface) => <span key={surface}>{surface}</span>)}
+        </div>
+        <div className="arch-oyi-actions">
+          <Link href="/oyi" className="btn-secondary">Explore Oyi Platform</Link>
+          <Link href="/papers/infrastructure-intelligence" className="btn-primary">Read Intelligence Paper</Link>
+        </div>
+      </section>
+
+      <section className="arch-section arch-spartan">
+        <div>
+          <p>Future Intelligence Layer</p>
+          <h2>Spartan is the next intelligence horizon.</h2>
+        </div>
+        <p>
+          Spartan is Ochiga's future intelligence layer for spatial reasoning, infrastructure simulation, and autonomous operational insight. It is positioned as a future capability, not a production-deployed claim.
+        </p>
+      </section>
+
+      <section className="arch-section arch-journey">
+        <div className="arch-section-head">
+          <p>Deployment Journey</p>
+          <h2>Structured like architecture. Operated like infrastructure.</h2>
+        </div>
+        <div className="arch-journey-line">
+          {journey.map((step, index) => (
+            <article key={step}>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <h3>{step}</h3>
+            </article>
+          ))}
+        </div>
+        <Link href="/deployments" className="btn-primary arch-final-cta">Start a Deployment Conversation</Link>
       </section>
     </main>
   );
