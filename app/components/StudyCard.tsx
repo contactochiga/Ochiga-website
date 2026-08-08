@@ -7,16 +7,20 @@ function StudyCardBody({
   name,
   summary,
   specs,
+  imageSrc,
+  imageAlt,
 }: {
   index?: string;
   status: string;
   name: string;
   summary: string;
   specs?: string[];
+  imageSrc?: string;
+  imageAlt?: string;
 }) {
   return (
     <>
-      <AbstractSurface tone="charcoal" aspect="aspect-[16/10]" label={index ? `Development Study ${index}` : status} />
+      <AbstractSurface tone="charcoal" aspect="aspect-[16/10]" label={index ? `Development Study ${index}` : status} src={imageSrc} alt={imageAlt} />
       <div className="p-7">
         <span className="inline-block rounded-sm border border-ochiga-red/40 px-2.5 py-1 text-[11px] uppercase tracking-wide text-ochiga-red">
           {status}
@@ -44,6 +48,8 @@ export default function StudyCard({
   summary,
   specs,
   href,
+  imageSrc,
+  imageAlt,
 }: {
   index?: string;
   status?: string;
@@ -51,20 +57,19 @@ export default function StudyCard({
   summary: string;
   specs?: string[];
   href?: string;
+  imageSrc?: string;
+  imageAlt?: string;
 }) {
   const className = "group block overflow-hidden rounded border border-ochiga-white/10 transition-colors duration-base hover:border-ochiga-white/30";
+  const body = <StudyCardBody index={index} status={status} name={name} summary={summary} specs={specs} imageSrc={imageSrc} imageAlt={imageAlt} />;
 
   if (href) {
     return (
       <Link href={href} className={className}>
-        <StudyCardBody index={index} status={status} name={name} summary={summary} specs={specs} />
+        {body}
       </Link>
     );
   }
 
-  return (
-    <div className={className}>
-      <StudyCardBody index={index} status={status} name={name} summary={summary} specs={specs} />
-    </div>
-  );
+  return <div className={className}>{body}</div>;
 }

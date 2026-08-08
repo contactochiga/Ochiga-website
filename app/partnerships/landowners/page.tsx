@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import PageHero from "@/app/components/PageHero";
 import SectionBlock from "@/app/components/SectionBlock";
 import ProcessFlow from "@/app/components/ProcessFlow";
+import SplitSection from "@/app/components/SplitSection";
 import CTAButton from "@/app/components/CTAButton";
 import LandJvForm from "@/app/components/forms/LandJvForm";
 import { TileGrid } from "@/app/components/TileCard";
@@ -38,6 +39,17 @@ export default function LandownersPage() {
           ))}
         </TileGrid>
       </SectionBlock>
+
+      <SplitSection
+        eyebrow="Structured Partnership"
+        title="From first conversation to signed joint venture."
+        description="Ochiga structures each landowner relationship individually — bringing development strategy, capital structuring and professional delivery to the table alongside the land itself."
+        surfaceLabel="Landowner / Ochiga Joint Venture"
+        tone="charcoal"
+        reverse
+        imageSrc="/images/partnerships/partnerships-jv-handshake.webp"
+        imageAlt="Illustrative concept render of a landowner and an Ochiga representative shaking hands over a development model and site plans"
+      />
 
       <SectionBlock id="propose" eyebrow="Propose a Development" title="Tell us about your site." width="content">
         <LandJvForm />

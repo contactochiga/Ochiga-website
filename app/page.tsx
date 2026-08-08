@@ -70,6 +70,8 @@ export default async function HomePage() {
         description="Ochiga originates, structures and delivers intelligent real-estate developments through direct development, joint ventures and strategic partnerships — starting with a disciplined residential focus."
         surfaceLabel="Prime Vertical Living — Development Study"
         tone="charcoal"
+        imageSrc="/images/development/development-skyline-dusk.webp"
+        imageAlt="Illustrative concept render of a premium waterfront residential skyline at dusk"
       >
         <CTAButton href="/development" variant="secondary">Explore Development</CTAButton>
       </SplitSection>
@@ -82,6 +84,8 @@ export default async function HomePage() {
         surfaceLabel="Oyi — Building Operating Technology"
         tone="red"
         reverse
+        imageSrc="/images/oyi/oyi-smart-lobby-dashboard.webp"
+        imageAlt="Illustrative concept render of an Oyi-powered building lobby showing residents, access and utility data"
       >
         <CTAButton href="/oyi" variant="secondary">Discover Oyi</CTAButton>
       </SplitSection>

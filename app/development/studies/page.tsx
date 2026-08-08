@@ -22,6 +22,8 @@ export default function DevelopmentStudiesPage() {
             status="Development Study 01 — Concept"
             name="Prime Vertical Living"
             summary="Approximately 18–21 storeys of high-end residential development for sites where location, planning and land economics support vertical density. Premium apartments, larger family residences, penthouses, wellness, pool, gym, residents' lounge, concierge, smart access, parking, intelligent utilities and Oyi throughout."
+            imageSrc="/images/development/development-skyline-dusk.webp"
+            imageAlt="Illustrative concept render of premium residential towers at dusk"
           />
           <StudyCard
             index="02"

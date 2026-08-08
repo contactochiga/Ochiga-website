@@ -56,6 +56,8 @@ export default function OyiPage() {
         description="Oyi can connect residents, facility teams, access, visitors, utilities, energy, security, devices, maintenance, services and operational intelligence — the full operating layer beneath a building."
         surfaceLabel="Oyi — Operating Layer"
         tone="red"
+        imageSrc="/images/oyi/oyi-smart-lobby-dashboard.webp"
+        imageAlt="Illustrative concept render of an Oyi-powered building lobby showing residents, access and utility data"
       >
         <div className="flex flex-wrap gap-2.5">
           {domains.map((domain) => (

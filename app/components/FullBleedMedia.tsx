@@ -7,6 +7,8 @@ export default function FullBleedMedia({
   description,
   surfaceLabel,
   tone = "charcoal",
+  imageSrc,
+  imageAlt,
   children,
 }: {
   eyebrow?: string;
@@ -14,12 +16,14 @@ export default function FullBleedMedia({
   description?: string;
   surfaceLabel?: string;
   tone?: "black" | "charcoal" | "red";
+  imageSrc?: string;
+  imageAlt?: string;
   children?: ReactNode;
 }) {
   return (
     <section className="relative flex min-h-[70vh] items-end overflow-hidden border-y border-ochiga-white/10">
       <div className="absolute inset-0">
-        <AbstractSurface tone={tone} aspect="h-full w-full" label={surfaceLabel} />
+        <AbstractSurface tone={tone} aspect="h-full w-full" label={surfaceLabel} src={imageSrc} alt={imageAlt} />
       </div>
       <div className="absolute inset-0 bg-gradient-to-t from-ochiga-black via-ochiga-black/40 to-transparent" />
       <div className="relative z-10 mx-auto w-full max-w-wide px-6 pb-16 pt-32 md:px-10">

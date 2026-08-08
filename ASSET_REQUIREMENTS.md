@@ -12,10 +12,17 @@ component) until real assets land.
 public/
   brand/           ochiga-logo.png (only real brand asset currently)
   images/
-    development/   3 images, repurposed from old media, NOT final photography
-    oyi/            10 images — old product-UI screenshots, suitable for
-                    reference/getoyi.com, NOT the new architectural-cinema
-                    visual language. Not used on any Phase 1 page.
+    development/   development-skyline-dusk.webp, development-construction-network.webp,
+                    development-pre-construction.webp, development-urban-systems.webp
+                    (+ development-construction.webp — original Phase 1 asset).
+                    Skyline + construction-network are concept renders supplied 2026-08-08,
+                    in active use (homepage, /development, /development/studies).
+    oyi/            oyi-smart-lobby-dashboard.webp (concept render, supplied 2026-08-08,
+                    in use on homepage + /oyi) plus 10 older product-UI screenshots —
+                    reference/getoyi.com material, NOT the architectural-cinema
+                    visual language, not used on any corporate page.
+    partnerships/  partnerships-jv-handshake.webp (concept render, supplied 2026-08-08,
+                    in use on /partnerships/landowners).
     company/       empty — needs sourcing
     private/       empty — needs sourcing
   video/           empty — hero.mp4 was corrupted and deleted, needs sourcing
@@ -23,6 +30,19 @@ public/
                    placeholders and deleted, needs sourcing
   partners/        empty — partner1-4.png were empty files, deleted
 ```
+
+**On the 4 images supplied 2026-08-08:** these read as AI-generated/rendered
+concept visuals (a Miami-looking skyline and construction site, a generic
+office handshake, a stylized lobby dashboard overlay) — not photography of
+an actual Ochiga site or a confirmed real location. They've been used only
+in places where illustrative/concept imagery is appropriate (Development
+Study cards, ecosystem previews, the JV process section) and captioned with
+neutral `alt` text ("Illustrative concept render of...") rather than
+implying a real, named Ochiga project or location. If any of these are
+meant to represent an actual site or location, let us know so the copy and
+alt text can be corrected — otherwise they should stay labeled as concept
+imagery, consistent with the "Development Study / Concept" language used
+everywhere else on the site.
 
 ## Outstanding, by destination
 

@@ -55,6 +55,8 @@ export default function DevelopmentPage() {
         title="Development originated, structured and delivered — not simply built."
         surfaceLabel="Ochiga Development"
         tone="charcoal"
+        imageSrc="/images/development/development-construction-network.webp"
+        imageAlt="Illustrative concept render of a high-rise under construction overlaid with a connected technology network"
       />
 
       <SectionBlock eyebrow="Development Studies" title="Current development direction.">
