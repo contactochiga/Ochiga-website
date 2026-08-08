@@ -7,6 +7,7 @@ import StudyCard from "@/app/components/StudyCard";
 import ProcessFlow from "@/app/components/ProcessFlow";
 import CTABand from "@/app/components/CTABand";
 import CTAButton from "@/app/components/CTAButton";
+import FullBleedMedia from "@/app/components/FullBleedMedia";
 import { TileGrid } from "@/app/components/TileCard";
 import TileCard from "@/app/components/TileCard";
 import JsonLd from "@/app/components/JsonLd";
@@ -48,6 +49,13 @@ export default function DevelopmentPage() {
           starts.
         </p>
       </SectionBlock>
+
+      <FullBleedMedia
+        eyebrow="Ochiga Development"
+        title="Development originated, structured and delivered — not simply built."
+        surfaceLabel="Ochiga Development"
+        tone="charcoal"
+      />
 
       <SectionBlock eyebrow="Development Studies" title="Current development direction.">
         <div className="grid gap-8 md:grid-cols-2">
