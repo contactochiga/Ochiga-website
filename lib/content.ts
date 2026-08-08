@@ -26,6 +26,7 @@ export type Insight = {
   seoTitle?: string;
   seoDescription?: string;
   readingTime?: string;
+  related: Array<{ href: string; label: string }>;
   source: "sanity" | "fallback";
 };
 
@@ -59,6 +60,10 @@ function fromPapers(): Insight[] {
     featured: false,
     readingTime: paper.readingTime,
     body: paper.sections.flatMap((section) => [section.heading, ...section.body]),
+    related: paper.relatedPapers.map((slug) => ({
+      href: `/insights/${slug}`,
+      label: papers.find((p) => p.slug === slug)?.title || slug,
+    })),
     source: "fallback",
   }));
 }
@@ -74,6 +79,9 @@ function fromLegacyInsights(): Insight[] {
     publishedAt: insight.date,
     featured: false,
     body: insight.body,
+    related: insight.relatedLinks
+      .filter((link) => link.href.startsWith("/insights") || link.href.startsWith("/papers"))
+      .map((link) => ({ ...link, href: link.href.replace("/papers/", "/insights/") })),
     source: "fallback",
   }));
 }
@@ -117,6 +125,9 @@ function normalizeSanityDoc(doc: any): Insight {
     body: flattenPortableText(doc.body),
     seoTitle: doc.seoTitle,
     seoDescription: doc.seoDescription,
+    related: Array.isArray(doc.relatedPosts)
+      ? doc.relatedPosts.map((post: any) => ({ href: `/insights/${post.slug?.current || post.slug}`, label: post.title }))
+      : [],
     source: "sanity",
   };
 }

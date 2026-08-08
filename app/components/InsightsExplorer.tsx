@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import InsightCard from "@/app/components/InsightCard";
 import type { Insight } from "@/lib/content";
 
 export default function InsightsExplorer({ insights, featured }: { insights: Insight[]; featured: Insight | null }) {
@@ -72,18 +73,7 @@ export default function InsightsExplorer({ insights, featured }: { insights: Ins
       {filtered.length ? (
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {filtered.map((item) => (
-            <Link
-              key={item.slug}
-              href={`/insights/${item.slug}`}
-              className="flex flex-col justify-between rounded border border-ochiga-white/10 p-6 transition-colors duration-base hover:border-ochiga-white/30"
-            >
-              <div>
-                <p className="text-xs uppercase tracking-wide text-ochiga-red">{item.category}</p>
-                <h3 className="mt-3 font-display text-lg leading-snug text-ochiga-white">{item.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-ochiga-white/55">{item.summary}</p>
-              </div>
-              <span className="mt-6 text-xs text-ochiga-white/40">{formatDate(item.publishedAt)}</span>
-            </Link>
+            <InsightCard key={item.slug} insight={item} />
           ))}
         </div>
       ) : (
@@ -91,13 +81,4 @@ export default function InsightsExplorer({ insights, featured }: { insights: Ins
       )}
     </div>
   );
-}
-
-function formatDate(date?: string) {
-  if (!date) return "";
-  try {
-    return new Intl.DateTimeFormat("en", { month: "short", day: "numeric", year: "numeric" }).format(new Date(date));
-  } catch {
-    return date;
-  }
 }

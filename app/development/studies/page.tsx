@@ -1,42 +1,40 @@
 import type { Metadata } from "next";
 import PageHero from "@/app/components/PageHero";
 import SectionBlock from "@/app/components/SectionBlock";
+import StudyCard from "@/app/components/StudyCard";
+import TrustDisclaimer from "@/app/components/TrustDisclaimer";
 import { buildMetadata, seoPages } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata(seoPages.developmentStudies);
-
-const studies = [
-  {
-    name: "Prime Vertical Living",
-    status: "Development Study — Concept",
-    body: "Approximately 18–21 storeys of high-end residential development for sites where location, planning and land economics support vertical density. Premium apartments, larger family residences, penthouses, wellness, pool, gym, residents' lounge, concierge, smart access, parking, intelligent utilities and Oyi throughout.",
-  },
-  {
-    name: "Contemporary Residential Community",
-    status: "Development Study — Concept",
-    body: "Approximately 40 premium homes on larger sites, subject to feasibility. Terraces, townhouses, duplexes and low-rise apartments where appropriate, landscaped communal space, a clubhouse, wellness and recreation, smart infrastructure and Oyi integration.",
-  },
-];
 
 export default function DevelopmentStudiesPage() {
   return (
     <main>
       <PageHero
         eyebrow="Development / Studies"
-        title="Coming soon: Ochiga's current development studies."
-        description="These are development studies and concepts — not acquired sites, approved projects, developments under construction, or an existing Ochiga portfolio."
+        title="Ochiga's current development studies."
+        description="Coming soon. These are development studies and concepts — not acquired sites, approved projects, developments under construction, or an existing Ochiga portfolio."
       />
       <SectionBlock>
         <div className="grid gap-8 md:grid-cols-2">
-          {studies.map((study) => (
-            <article key={study.name} className="rounded border border-ochiga-white/10 p-8">
-              <span className="inline-block rounded-sm border border-ochiga-red/40 px-2.5 py-1 text-[11px] uppercase tracking-wide text-ochiga-red">
-                {study.status}
-              </span>
-              <h2 className="mt-5 font-display text-2xl text-ochiga-white">{study.name}</h2>
-              <p className="mt-4 text-sm leading-relaxed text-ochiga-white/60">{study.body}</p>
-            </article>
-          ))}
+          <StudyCard
+            index="01"
+            status="Development Study 01 — Concept"
+            name="Prime Vertical Living"
+            summary="Approximately 18–21 storeys of high-end residential development for sites where location, planning and land economics support vertical density. Premium apartments, larger family residences, penthouses, wellness, pool, gym, residents' lounge, concierge, smart access, parking, intelligent utilities and Oyi throughout."
+          />
+          <StudyCard
+            index="02"
+            status="Development Study 02 — Concept"
+            name="Contemporary Residential Community"
+            summary="Approximately 40 premium homes on larger sites, subject to feasibility. Terraces, townhouses, duplexes and low-rise apartments where appropriate, landscaped communal space, a clubhouse, wellness and recreation, smart infrastructure and Oyi integration."
+          />
+        </div>
+        <div className="mt-10">
+          <TrustDisclaimer>
+            Coming Soon / Future Development Direction. Working names are internal and subject to
+            trademark and domain review before any public launch.
+          </TrustDisclaimer>
         </div>
       </SectionBlock>
     </main>

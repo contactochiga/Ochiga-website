@@ -68,8 +68,8 @@ export default function RootLayout({
             data-api-base={widget.apiBase}
             data-agent-name="Oma"
             data-title="Talk to Oma"
-            data-subtitle="Ochiga intelligence guide for infrastructure, estates, and connected communities"
-            data-greeting="Hi, I'm Oma. Tell me about your estate, building, or project, and I'll guide you."
+            data-subtitle="Ochiga concierge for Development, Oyi, and Ochiga Private"
+            data-greeting="Hi, I'm Oma. I can help you explore Ochiga Development, Oyi, Ochiga Private and partnership opportunities."
             strategy="afterInteractive"
           />
         ) : null}

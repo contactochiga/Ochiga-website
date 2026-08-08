@@ -2,19 +2,21 @@ import type { Metadata } from "next";
 import type React from "react";
 import PageHero from "@/app/components/PageHero";
 import SectionBlock from "@/app/components/SectionBlock";
-import CTAButton from "@/app/components/CTAButton";
+import { TileGrid } from "@/app/components/TileCard";
+import TileCard from "@/app/components/TileCard";
 import ContactIcon from "@/app/components/ContactIcon";
 import JsonLd from "@/app/components/JsonLd";
-import { companyInfo, ctas } from "@/lib/company";
+import { companyInfo } from "@/lib/company";
 import { buildMetadata, seoPages } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata(seoPages.contact);
 
-const contextualCtas = [
-  { label: ctas.exploreDevelopment.label, href: ctas.exploreDevelopment.href, body: "Talk to us about a development study, joint venture, or the Ochiga approach." },
-  { label: ctas.discoverOyi.label, href: ctas.discoverOyi.href, body: "Understand how Oyi powers Ochiga developments, or explore getoyi.com directly." },
-  { label: ctas.requestMembership.label, href: ctas.requestMembership.href, body: "Start an Ochiga Private membership request." },
-  { label: ctas.proposeDevelopment.label, href: ctas.proposeDevelopment.href, body: "Landowners and JV partners — bring us a site." },
+const pathways = [
+  { title: "Propose a Development", body: "Landowners and JV partners — bring us a strategically located site.", href: "/partnerships/landowners", tag: "Landowners / JV" },
+  { title: "Request Membership Requirements", body: "Start an Ochiga Private membership request.", href: "/private/membership", tag: "Ochiga Private" },
+  { title: "Request Oyi Deployment", body: "Considering Oyi for a building or portfolio.", href: "/oyi#deployment", tag: "Oyi" },
+  { title: "Work With Ochiga", body: "Architecture, engineering, construction, sales, finance, legal and technology partners.", href: "/partnerships/professional", tag: "Professional Partners" },
+  { title: "General Enquiry", body: "Anything else — we'll route it to the right team.", href: `mailto:${companyInfo.helloEmail}`, tag: "General" },
 ];
 
 export default function ContactPage() {
@@ -22,19 +24,18 @@ export default function ContactPage() {
     <>
       <JsonLd data={[]} />
       <main>
-        <PageHero eyebrow="Contact" title="Partner with Ochiga." description="Start a conversation about development, Oyi, Ochiga Private, or a professional partnership.">
-          <CTAButton href={`mailto:${companyInfo.helloEmail}`}>Email {companyInfo.helloEmail}</CTAButton>
-        </PageHero>
+        <PageHero
+          eyebrow="Contact"
+          title="Partner with Ochiga."
+          description="Choose the pathway that fits, and we'll route your enquiry to the right team. Phase 3 adds structured forms for each pathway below — for now, every path reaches us directly."
+        />
 
-        <SectionBlock eyebrow="Choose a pathway" title="Contextual ways to reach the right team.">
-          <div className="grid gap-6 md:grid-cols-2">
-            {contextualCtas.map((item) => (
-              <a key={item.href} href={item.href} className="rounded border border-ochiga-white/10 p-6 transition-colors duration-base hover:border-ochiga-white/30">
-                <h3 className="font-display text-lg text-ochiga-white">{item.label}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-ochiga-white/60">{item.body}</p>
-              </a>
+        <SectionBlock eyebrow="Choose a pathway" title="Five ways to start a conversation.">
+          <TileGrid columns={2}>
+            {pathways.map((item) => (
+              <TileCard key={item.href} href={item.href} tag={item.tag} title={item.title} body={item.body} />
             ))}
-          </div>
+          </TileGrid>
         </SectionBlock>
 
         <SectionBlock eyebrow="Direct channels" title="Reach Ochiga directly.">

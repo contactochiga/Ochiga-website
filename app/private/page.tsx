@@ -3,6 +3,10 @@ import PageHero from "@/app/components/PageHero";
 import SectionBlock from "@/app/components/SectionBlock";
 import ProcessFlow from "@/app/components/ProcessFlow";
 import CTAButton from "@/app/components/CTAButton";
+import CTABand from "@/app/components/CTABand";
+import TrustDisclaimer from "@/app/components/TrustDisclaimer";
+import { TileGrid } from "@/app/components/TileCard";
+import TileCard from "@/app/components/TileCard";
 import { buildMetadata, seoPages } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata(seoPages.private);
@@ -30,14 +34,11 @@ export default function PrivatePage() {
       </PageHero>
 
       <SectionBlock eyebrow="Opportunity Types" title="Opportunities across the real-estate value cycle.">
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <TileGrid columns={4}>
           {opportunityTypes.map((item) => (
-            <div key={item.title} className="rounded border border-ochiga-white/10 p-6">
-              <h3 className="font-display text-base text-ochiga-white">{item.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-ochiga-white/55">{item.body}</p>
-            </div>
+            <TileCard key={item.title} title={item.title} body={item.body} />
           ))}
-        </div>
+        </TileGrid>
         <p className="mt-8 text-xs text-ochiga-white/40">
           Future asset sectors may include residential, hospitality, commercial, healthcare and other
           mixed-use built-environment sectors relevant to Ochiga and Oyi.
@@ -45,16 +46,27 @@ export default function PrivatePage() {
       </SectionBlock>
 
       <SectionBlock eyebrow="Approach" title="Discover, underwrite, structure, develop, create value, hold or exit.">
-        <ProcessFlow steps={["Discover", "Underwrite", "Structure", "Develop / Operate", "Create Value", "Hold / Exit"]} />
+        <ProcessFlow numbered steps={["Discover", "Underwrite", "Structure", "Develop / Operate", "Create Value", "Hold / Exit"]} />
+        <div className="mt-8">
+          <CTAButton href="/private/investment-approaches" variant="secondary">See investment approaches</CTAButton>
+        </div>
       </SectionBlock>
 
-      <SectionBlock width="content" tone="light">
-        <p className="text-sm leading-relaxed text-ochiga-black/70">
+      <SectionBlock width="content">
+        <TrustDisclaimer>
           Ochiga Private membership is by application and review. Opportunities and access are not
           guaranteed, availability is not guaranteed, and investments carry risk. Opportunities may
-          involve separate documentation. Independent legal and financial advice should be obtained.
-        </p>
+          involve separate documentation. Ochiga does not provide investment advice — independent legal
+          and financial advice should be obtained before making any investment decision.
+        </TrustDisclaimer>
       </SectionBlock>
+
+      <CTABand
+        eyebrow="Membership"
+        title="Membership by request."
+        description="Tell us a little about yourself and we'll share the appropriate membership information."
+        ctas={[{ label: "Request Membership Requirements", href: "/private/membership" }]}
+      />
     </main>
   );
 }

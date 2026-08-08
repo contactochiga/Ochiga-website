@@ -2,13 +2,15 @@ import type { Metadata } from "next";
 import PageHero from "@/app/components/PageHero";
 import SectionBlock from "@/app/components/SectionBlock";
 import CTAButton from "@/app/components/CTAButton";
+import { TileGrid } from "@/app/components/TileCard";
+import TileCard from "@/app/components/TileCard";
 import { buildMetadata, seoPages } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata(seoPages.partnershipsProfessional);
 
 const partnerTypes = [
   "Architecture", "Structural Engineering", "MEP", "Quantity Surveying", "Construction",
-  "Sales & Marketing", "Finance", "Legal", "Valuation", "Facility Management", "Hardware", "Technology", "Other",
+  "Valuation", "Legal", "Finance", "Sales & Marketing", "Facility Management", "Hardware", "Technology",
 ];
 
 export default function ProfessionalPartnersPage() {
@@ -21,12 +23,12 @@ export default function ProfessionalPartnersPage() {
       >
         <CTAButton href="/contact">Work With Ochiga</CTAButton>
       </PageHero>
-      <SectionBlock eyebrow="Partner Types" title="Disciplines Ochiga engages.">
-        <div className="flex flex-wrap gap-3">
+      <SectionBlock eyebrow="Disciplines" title="Where Ochiga typically engages professional partners.">
+        <TileGrid columns={4}>
           {partnerTypes.map((type) => (
-            <span key={type} className="rounded border border-ochiga-white/15 px-4 py-2 text-sm text-ochiga-white/70">{type}</span>
+            <TileCard key={type} title={type} body="Engaged on a per-project basis as development studies progress." />
           ))}
-        </div>
+        </TileGrid>
       </SectionBlock>
     </main>
   );

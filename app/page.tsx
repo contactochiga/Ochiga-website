@@ -3,6 +3,10 @@ import EngineTriad from "@/app/components/EngineTriad";
 import SectionBlock from "@/app/components/SectionBlock";
 import ProcessFlow from "@/app/components/ProcessFlow";
 import CTAButton from "@/app/components/CTAButton";
+import StatementBlock from "@/app/components/StatementBlock";
+import SplitSection from "@/app/components/SplitSection";
+import CTABand from "@/app/components/CTABand";
+import InsightCard from "@/app/components/InsightCard";
 import PlaceholderNotice from "@/app/components/PlaceholderNotice";
 import { companyInfo, ctas } from "@/lib/company";
 import { getAllInsights } from "@/lib/content";
@@ -12,9 +16,15 @@ export default async function HomePage() {
 
   return (
     <main>
-      {/* A — HERO (static Phase 1 version; cinematic WebGL build is Phase 4) */}
-      <section className="flex min-h-screen flex-col justify-end border-b border-ochiga-white/10 bg-ochiga-black px-6 pb-20 pt-40 md:px-10">
-        <div className="mx-auto w-full max-w-cinematic">
+      {/* HERO — static Phase 2 version. DOM is deliberately simple and
+          section-scoped so Phase 4 can swap in a WebGL/cinematic layer
+          (id="hero-stage") without restructuring the page. */}
+      <section id="hero-stage" className="relative flex min-h-screen flex-col justify-end overflow-hidden border-b border-ochiga-white/10 bg-ochiga-black px-6 pb-20 pt-40 md:px-10">
+        <div aria-hidden className="pointer-events-none absolute inset-0 opacity-[0.12]" style={{
+          backgroundImage: "linear-gradient(rgba(246,243,236,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(246,243,236,0.5) 1px, transparent 1px)",
+          backgroundSize: "56px 56px",
+        }} />
+        <div className="relative z-10 mx-auto w-full max-w-cinematic">
           <p className="mb-6 text-xs font-medium uppercase tracking-eyebrow text-ochiga-red">
             {companyInfo.tagline}
           </p>
@@ -22,53 +32,61 @@ export default async function HomePage() {
             We Build Intelligent Places.
           </h1>
           <p className="mt-8 max-w-xl text-lg leading-relaxed text-ochiga-white/65">
-            {companyInfo.supportingStatement}
+            Ochiga develops real estate and the technology that powers how buildings live, operate and evolve.
           </p>
           <p className="mt-4 text-sm uppercase tracking-wide text-ochiga-white/40">
             Development. Technology. Private Capital.
           </p>
-          <div className="mt-10 flex flex-wrap gap-4">
+          <div className="mt-10 flex flex-wrap items-center gap-4">
             <CTAButton href={ctas.exploreDevelopment.href}>{ctas.exploreDevelopment.label}</CTAButton>
             <CTAButton href={ctas.discoverOyi.href} variant="secondary">{ctas.discoverOyi.label}</CTAButton>
+            <Link href="/private" className="text-sm text-ochiga-white/55 underline decoration-ochiga-red/60 underline-offset-4 hover:text-ochiga-white">
+              Ochiga Private →
+            </Link>
           </div>
         </div>
       </section>
 
-      <PlaceholderNotice note="the cinematic scroll-driven hero (Chapter 01 Develop / 02 Operate / 03 Participate, WebGL + R3F) is Phase 4. This is the static foundation version." />
+      <PlaceholderNotice note="the cinematic scroll-driven hero (Chapter 01 Develop / 02 Operate / 03 Participate, WebGL + R3F) is Phase 4. #hero-stage is scoped so that layer can be added without restructuring this page." />
 
-      {/* B — DEVELOPMENT + OYI + OCHIGA PRIVATE */}
+      {/* THREE ENGINES */}
       <SectionBlock eyebrow="The Ochiga Ecosystem" title="Three engines. One ecosystem.">
         <EngineTriad />
       </SectionBlock>
 
-      {/* C — FROM LAND TO LIVING ASSET */}
+      {/* FROM LAND TO LIVING ASSET */}
       <SectionBlock
         eyebrow="From Land to Living Asset"
         title="Land, capital, expertise, technology and market access, brought together deliberately."
         description="Ochiga brings together land, capital, specialist expertise, technology and market access around carefully selected development opportunities."
       >
-        <ProcessFlow steps={["Land", "Capital", "Development", "Buyers", "Oyi", "Operations", "Long-Term Asset Value"]} />
+        <ProcessFlow numbered steps={["Opportunity", "JV", "Design", "Capital", "Development", "Sales / Offtake", "Oyi Integration", "Operations"]} />
       </SectionBlock>
 
-      {/* D — DEVELOPMENT */}
-      <SectionBlock
+      {/* DEVELOPMENT PREVIEW */}
+      <SplitSection
         eyebrow="Ochiga Development"
         title="Development built for what comes next."
-        description="Ochiga's initial development studies span prime vertical living and contemporary residential communities — concepts and studies, not an existing portfolio."
+        description="Ochiga originates, structures and delivers intelligent real-estate developments through direct development, joint ventures and strategic partnerships — starting with a disciplined residential focus."
+        surfaceLabel="Prime Vertical Living — Development Study"
+        tone="charcoal"
       >
         <CTAButton href="/development" variant="secondary">Explore Development</CTAButton>
-      </SectionBlock>
+      </SplitSection>
 
-      {/* E — OYI */}
-      <SectionBlock
+      {/* OYI PREVIEW */}
+      <SplitSection
         eyebrow="Oyi"
         title="Buildings that continue to evolve."
-        description="Traditional development ends at handover. Ochiga developments continue: design, build, connect, operate, learn, improve."
+        description="Traditional development ends at handover. Ochiga developments continue: design, build, connect, operate, learn, improve — with Oyi as the operating layer."
+        surfaceLabel="Oyi — Building Operating Technology"
+        tone="red"
+        reverse
       >
         <CTAButton href="/oyi" variant="secondary">Discover Oyi</CTAButton>
-      </SectionBlock>
+      </SplitSection>
 
-      {/* F — OCHIGA PRIVATE */}
+      {/* OCHIGA PRIVATE PREVIEW */}
       <SectionBlock
         eyebrow="Ochiga Private"
         title="Private access to real estate opportunities."
@@ -78,40 +96,44 @@ export default async function HomePage() {
         <CTAButton href={ctas.requestMembership.href}>{ctas.requestMembership.label}</CTAButton>
       </SectionBlock>
 
-      {/* G — PARTNER WITH OCHIGA */}
-      <SectionBlock eyebrow="Partner With Ochiga" title="Pathways to work with us.">
-        <div className="flex flex-wrap gap-4">
-          <CTAButton href="/partnerships/landowners" variant="secondary">Landowner</CTAButton>
-          <CTAButton href="/partnerships/capital" variant="secondary">Capital Partner</CTAButton>
-          <CTAButton href="/partnerships/buyers" variant="secondary">Buyer</CTAButton>
-          <CTAButton href="/partnerships/professional" variant="secondary">Professional Partner</CTAButton>
-        </div>
-      </SectionBlock>
+      {/* PARTNER WITH OCHIGA */}
+      <CTABand
+        eyebrow="Partner With Ochiga"
+        title="Pathways to work with us."
+        description="Landowners, capital partners, buyers and professional partners — Ochiga works through a structured ecosystem, not a single generic enquiry form."
+        ctas={[
+          { label: "Landowner", href: "/partnerships/landowners", variant: "secondary" },
+          { label: "Capital Partner", href: "/partnerships/capital", variant: "secondary" },
+          { label: "Buyer", href: "/partnerships/buyers", variant: "secondary" },
+          { label: "Professional Partner", href: "/partnerships/professional", variant: "secondary" },
+        ]}
+      />
 
-      {/* H — JOURNEY / COMPANY */}
+      {/* OUR JOURNEY */}
       <SectionBlock eyebrow="Our Journey" title="Built environment experience, brought into an integrated ecosystem.">
         <p className="max-w-2xl text-ochiga-white/65 leading-relaxed">
-          Ochiga&apos;s journey began in 2013 in the built environment, through specialist construction
-          finishes, flooring and project delivery — expanding through broader construction delivery,
-          building technology, and Oyi, into the integrated development and technology company Ochiga
-          is today.
+          Ochiga&apos;s journey began in the built environment, through specialist construction finishes,
+          flooring and project delivery — expanding through broader construction delivery, building
+          technology, and Oyi, into the integrated development and technology company Ochiga is today.
         </p>
         <CTAButton href="/about" variant="ghost">Read our journey →</CTAButton>
       </SectionBlock>
 
-      {/* I — INSIGHTS */}
+      {/* INSIGHTS */}
       {insights.length ? (
         <SectionBlock eyebrow="Insights" title="Recent Ochiga perspectives.">
           <div className="grid gap-6 md:grid-cols-3">
             {insights.map((insight) => (
-              <Link key={insight.slug} href={`/insights/${insight.slug}`} className="rounded border border-ochiga-white/10 p-6 transition-colors duration-base hover:border-ochiga-white/30">
-                <p className="text-xs uppercase tracking-wide text-ochiga-red">{insight.category}</p>
-                <h3 className="mt-3 font-display text-base text-ochiga-white">{insight.title}</h3>
-              </Link>
+              <InsightCard key={insight.slug} insight={insight} />
             ))}
           </div>
         </SectionBlock>
       ) : null}
+
+      {/* FINAL CTA */}
+      <StatementBlock eyebrow="Ochiga" statement="We Build Intelligent Places.">
+        <CTAButton href={ctas.primary.href}>{ctas.primary.label}</CTAButton>
+      </StatementBlock>
     </main>
   );
 }

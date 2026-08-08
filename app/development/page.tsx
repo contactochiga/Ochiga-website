@@ -1,27 +1,22 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import JsonLd from "@/app/components/JsonLd";
 import PageHero from "@/app/components/PageHero";
 import SectionBlock from "@/app/components/SectionBlock";
+import SplitSection from "@/app/components/SplitSection";
+import StatementBlock from "@/app/components/StatementBlock";
+import StudyCard from "@/app/components/StudyCard";
 import ProcessFlow from "@/app/components/ProcessFlow";
+import CTABand from "@/app/components/CTABand";
 import CTAButton from "@/app/components/CTAButton";
+import { TileGrid } from "@/app/components/TileCard";
+import TileCard from "@/app/components/TileCard";
+import JsonLd from "@/app/components/JsonLd";
 import { buildMetadata, breadcrumbJsonLd, seoPages } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata(seoPages.development);
 
-const studies = [
-  {
-    slug: "prime-vertical-living",
-    name: "Prime Vertical Living",
-    tag: "Development Study",
-    body: "An approximately 18–21 storey high-end residential concept for sites where location, planning and land economics support vertical density.",
-  },
-  {
-    slug: "contemporary-residential-community",
-    name: "Contemporary Residential Community",
-    tag: "Development Study",
-    body: "A concept for approximately 40 premium homes on larger sites, subject to feasibility — terraces, townhouses, duplexes and landscaped communal space.",
-  },
+const capabilities = [
+  "Land", "Development strategy", "Design", "Professional teams",
+  "Capital structuring", "Construction", "Sales / Offtake", "Technology", "Operations",
 ];
 
 export default function DevelopmentPage() {
@@ -31,7 +26,7 @@ export default function DevelopmentPage() {
       <PageHero
         eyebrow="Ochiga Development"
         title="Development built for what comes next."
-        description="Ochiga Development is the physical development engine behind Ochiga — we create the physical asset, conceived from day one as a technology-enabled environment."
+        description="Ochiga originates, structures and delivers intelligent real-estate developments through direct development, joint ventures and strategic partnerships."
       >
         <div className="flex flex-wrap gap-4">
           <CTAButton href="/development/studies">View Development Studies</CTAButton>
@@ -39,43 +34,60 @@ export default function DevelopmentPage() {
         </div>
       </PageHero>
 
-      <SectionBlock
-        eyebrow="Focus"
-        title="A disciplined residential focus, with future optionality."
-        description="Ochiga initially concentrates on residential development while maintaining optionality across mixed-use and other built-environment sectors as opportunities are evaluated."
-      >
-        <div className="grid gap-6 md:grid-cols-2">
-          {studies.map((study) => (
-            <Link
-              key={study.slug}
-              href="/development/studies"
-              className="rounded border border-ochiga-white/10 p-7 transition-colors duration-base hover:border-ochiga-white/30"
-            >
-              <span className="inline-block rounded-sm border border-ochiga-red/40 px-2.5 py-1 text-[11px] uppercase tracking-wide text-ochiga-red">
-                {study.tag}
-              </span>
-              <h3 className="mt-4 font-display text-xl text-ochiga-white">{study.name}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-ochiga-white/60">{study.body}</p>
-            </Link>
+      <SectionBlock eyebrow="What Ochiga Brings Together" title="One team, across the full development chain.">
+        <div className="flex flex-wrap gap-3">
+          {capabilities.map((item) => (
+            <span key={item} className="rounded border border-ochiga-white/15 px-4 py-2 text-sm text-ochiga-white/70">
+              {item}
+            </span>
           ))}
+        </div>
+        <p className="mt-8 max-w-2xl text-sm text-ochiga-white/45">
+          Ochiga does not currently operate a large existing development portfolio. This is a
+          disciplined, deliberately staged build-out — see Development Studies below for where that
+          starts.
+        </p>
+      </SectionBlock>
+
+      <SectionBlock eyebrow="Development Studies" title="Current development direction.">
+        <div className="grid gap-8 md:grid-cols-2">
+          <StudyCard
+            index="01"
+            name="Prime Vertical Living"
+            summary="Approximately 18–21 storeys of high-end residential development, for sites where location, planning and land economics support vertical density."
+            specs={["Premium apartments", "Family residences", "Penthouses", "Oyi throughout"]}
+            href="/development/studies"
+          />
+          <StudyCard
+            index="02"
+            name="Contemporary Residential Community"
+            summary="Approximately 40 premium homes on larger sites, subject to feasibility — terraces, townhouses, duplexes and landscaped communal space."
+            specs={["Clubhouse", "Wellness & recreation", "Smart infrastructure", "Oyi integration"]}
+            href="/development/studies"
+          />
         </div>
       </SectionBlock>
 
-      <SectionBlock
-        eyebrow="From Land to Living Asset"
-        title="Land, capital, expertise, technology and market access, brought together deliberately."
-        description="Ochiga brings together land, capital, specialist expertise, technology and market access around carefully selected development opportunities."
-      >
-        <ProcessFlow steps={["Land", "Capital", "Development", "Buyers", "Oyi", "Operations", "Long-Term Asset Value"]} />
+      <StatementBlock
+        eyebrow="Technology-Enabled by Design"
+        statement="Every Ochiga development is conceived to run on Oyi from day one — not retrofitted after handover."
+      />
+
+      <SectionBlock eyebrow="Explore Development" title="">
+        <TileGrid columns={4}>
+          <TileCard href="/development/residential" tag="Residential" title="Residential Focus" body="Ochiga's current development direction." />
+          <TileCard href="/development/mixed-use" tag="Future Sectors" title="Mixed Use" body="Where the development capability may extend next." />
+          <TileCard href="/development/approach" tag="Approach" title="How We Develop" body="Opportunity through to operations." />
+          <TileCard href="/development/joint-ventures" tag="Joint Ventures" title="Unlock Your Land" body="Structured partnerships with landowners." />
+        </TileGrid>
       </SectionBlock>
 
-      <SectionBlock
-        eyebrow="Technology-Enabled by Design"
-        title="Every Ochiga development is conceived to run on Oyi."
-        description="Traditional development ends at handover. Ochiga developments continue: design, build, connect, operate, learn, improve — with Oyi as the operating layer."
-      >
-        <CTAButton href="/oyi" variant="secondary">Discover Oyi</CTAButton>
-      </SectionBlock>
+      <CTABand
+        eyebrow="Joint Ventures"
+        title="Unlock the potential of your land."
+        description="Ochiga evaluates strategically located real estate for structured development partnerships."
+        ctas={[{ label: "Propose a Development", href: "/partnerships/landowners" }]}
+      />
     </main>
   );
 }

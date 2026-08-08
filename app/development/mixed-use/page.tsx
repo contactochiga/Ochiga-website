@@ -1,9 +1,18 @@
 import type { Metadata } from "next";
 import PageHero from "@/app/components/PageHero";
 import SectionBlock from "@/app/components/SectionBlock";
+import { TileGrid } from "@/app/components/TileCard";
+import TileCard from "@/app/components/TileCard";
 import { buildMetadata, seoPages } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata(seoPages.developmentMixedUse);
+
+const sectors = [
+  { title: "Residential", body: "Ochiga's current focus, and the foundation for how the approach extends elsewhere." },
+  { title: "Hospitality", body: "Future-facing — evaluated where an opportunity genuinely fits Ochiga's model." },
+  { title: "Commercial", body: "Future-facing — evaluated where an opportunity genuinely fits Ochiga's model." },
+  { title: "Healthcare", body: "Future-facing — evaluated where an opportunity genuinely fits Ochiga's model." },
+];
 
 export default function MixedUsePage() {
   return (
@@ -11,14 +20,17 @@ export default function MixedUsePage() {
       <PageHero
         eyebrow="Development / Future Sectors"
         title="Future development direction beyond residential."
-        description="While residential leads Ochiga's initial focus, the development approach is built to extend into mixed-use and other built-environment sectors as opportunities are evaluated."
+        description="While residential leads Ochiga's current focus, the development approach is built to extend across suitable residential, hospitality, commercial, healthcare and mixed-use environments as opportunities are evaluated."
       />
-      <SectionBlock width="content">
-        <p className="text-ochiga-white/65 leading-relaxed">
-          Future asset sectors under evaluation may include hospitality, commercial, healthcare and
-          mixed-use environments — always grounded in the same approach: architecture-led planning,
-          disciplined delivery, and Oyi as the operating layer. Nothing here represents an active or
-          acquired project; this is a statement of future direction, not a current pipeline.
+      <SectionBlock>
+        <TileGrid columns={4}>
+          {sectors.map((sector) => (
+            <TileCard key={sector.title} title={sector.title} body={sector.body} />
+          ))}
+        </TileGrid>
+        <p className="mt-10 max-w-2xl text-sm text-ochiga-white/45">
+          This is a statement of future direction, not a current pipeline. Nothing here represents an
+          active or acquired project.
         </p>
       </SectionBlock>
     </main>
