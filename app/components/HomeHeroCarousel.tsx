@@ -113,6 +113,8 @@ export default function HomeHeroCarousel({ insight }: { insight: Insight | null 
   const [reducedMotion, setReducedMotion] = useState(false);
   const pausedByRef = useRef<"user" | "system" | null>(null);
   const touchStartXRef = useRef<number | null>(null);
+  const elapsedRef = useRef(0);
+  const startedAtRef = useRef<number | null>(null);
 
   useEffect(() => {
     const query = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -138,13 +140,35 @@ export default function HomeHeroCarousel({ insight }: { insight: Insight | null 
   const goNext = useCallback(() => goTo(activeIndex + 1), [goTo, activeIndex]);
   const goPrev = useCallback(() => goTo(activeIndex - 1), [goTo, activeIndex]);
 
-  // Restarts automatically whenever activeIndex changes, whether the
-  // navigation was automatic (previous timeout firing) or manual
-  // (arrow/indicator/swipe) — satisfies "timer resets after manual nav".
+  // A fresh slide always starts its progress at zero — whether it became
+  // active via autoplay advancing or via manual navigation.
   useEffect(() => {
-    if (!isPlaying) return;
-    const timer = setTimeout(goNext, AUTOPLAY_MS);
-    return () => clearTimeout(timer);
+    elapsedRef.current = 0;
+  }, [activeIndex]);
+
+  // Schedules the next advance for whatever time remains out of the full
+  // AUTOPLAY_MS, so pausing and resuming continues the same slide's
+  // countdown instead of restarting it (matches the progress-pill fill,
+  // which — via animation-play-state below — resumes from the same point
+  // for the same reason).
+  useEffect(() => {
+    if (!isPlaying) {
+      if (startedAtRef.current !== null) {
+        elapsedRef.current += Date.now() - startedAtRef.current;
+        startedAtRef.current = null;
+      }
+      return;
+    }
+    startedAtRef.current = Date.now();
+    const remaining = Math.max(AUTOPLAY_MS - elapsedRef.current, 0);
+    const timer = setTimeout(goNext, remaining);
+    return () => {
+      clearTimeout(timer);
+      if (startedAtRef.current !== null) {
+        elapsedRef.current += Date.now() - startedAtRef.current;
+        startedAtRef.current = null;
+      }
+    };
   }, [isPlaying, activeIndex, goNext]);
 
   useEffect(() => {
@@ -195,7 +219,7 @@ export default function HomeHeroCarousel({ insight }: { insight: Insight | null 
     <section
       id="hero-stage"
       aria-label="Ochiga highlights"
-      className="relative flex min-h-screen flex-col justify-end overflow-hidden border-b border-ochiga-white/10 bg-ochiga-black px-6 pb-16 pt-40 md:px-10 md:pb-20"
+      className="relative flex min-h-screen flex-col justify-end overflow-hidden border-b border-ochiga-white/10 bg-ochiga-black px-6 pb-24 pt-40 md:px-10 md:pb-28"
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
     >
@@ -263,72 +287,86 @@ export default function HomeHeroCarousel({ insight }: { insight: Insight | null 
             </Link>
           </div>
         </div>
+      </div>
 
-        {/* Controls */}
-        <div className="mt-12 flex items-center gap-3 md:gap-6">
-          <button
-            type="button"
-            onClick={goPrev}
-            aria-label="Previous slide"
-            className="-m-2 rounded p-2 text-ochiga-white/50 transition-colors duration-base hover:text-ochiga-white"
-          >
-            <ArrowIcon direction="left" />
-          </button>
+      {/* Hero navigation arrows — pinned to the hero's left/right edges,
+          vertically centered, independent of the control capsule below. */}
+      <div className="pointer-events-none absolute inset-y-0 left-0 right-0 z-10 flex items-center justify-between px-2 md:px-4">
+        <button
+          type="button"
+          onClick={goPrev}
+          aria-label="Previous slide"
+          className="pointer-events-auto flex h-10 w-10 items-center justify-center rounded-full border border-ochiga-white/10 bg-ochiga-black/40 text-ochiga-white/70 backdrop-blur-md transition-colors duration-base hover:border-ochiga-white/30 hover:text-ochiga-white md:h-11 md:w-11"
+        >
+          <ArrowIcon direction="left" />
+        </button>
+        <button
+          type="button"
+          onClick={goNext}
+          aria-label="Next slide"
+          className="pointer-events-auto flex h-10 w-10 items-center justify-center rounded-full border border-ochiga-white/10 bg-ochiga-black/40 text-ochiga-white/70 backdrop-blur-md transition-colors duration-base hover:border-ochiga-white/30 hover:text-ochiga-white md:h-11 md:w-11"
+        >
+          <ArrowIcon direction="right" />
+        </button>
+      </div>
 
-          <div role="tablist" aria-label="Hero slides" className="flex flex-1 gap-2">
-            {slides.map((slide, index) => (
-              <button
-                key={slide.key}
-                type="button"
-                role="tab"
-                aria-selected={index === activeIndex}
-                aria-controls="hero-slide-panel"
-                aria-label={`Go to slide ${index + 1}: ${slide.eyebrow}`}
-                onClick={() => goTo(index)}
-                className="relative h-[3px] flex-1 overflow-hidden rounded-full bg-ochiga-white/15"
-              >
-                <span
-                  key={`${slide.key}-${activeIndex}`}
-                  aria-hidden
-                  className="absolute inset-y-0 left-0 block bg-ochiga-red"
-                  style={
-                    index < activeIndex
-                      ? { width: "100%" }
-                      : index > activeIndex
-                        ? { width: "0%" }
-                        : reducedMotion
-                          ? { width: "100%" }
-                          : {
-                              width: "0%",
-                              animationName: "hero-progress",
-                              animationDuration: `${AUTOPLAY_MS}ms`,
-                              animationTimingFunction: "linear",
-                              animationFillMode: "forwards",
-                              animationPlayState: isPlaying ? "running" : "paused",
-                            }
-                  }
-                />
-              </button>
-            ))}
-          </div>
-
+      {/* Floating control capsule — pause/play + one indicator per slide.
+          Inactive slides are dots; the active slide expands into a short
+          pill that fills left-to-right over the slide's autoplay duration. */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-6 z-10 flex justify-center px-6 md:bottom-8">
+        <div
+          role="group"
+          aria-label="Hero autoplay controls"
+          className="pointer-events-auto flex max-w-[calc(100vw-2rem)] items-center gap-3 rounded-full border border-ochiga-white/10 bg-ochiga-black/55 px-3 py-2 backdrop-blur-md md:gap-4 md:px-4 md:py-2.5"
+        >
           <button
             type="button"
             onClick={togglePlay}
             aria-label={isPlaying ? "Pause autoplay" : "Play autoplay"}
-            className="-m-2 rounded p-2 text-ochiga-white/50 transition-colors duration-base hover:text-ochiga-white"
+            className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-ochiga-white/10 text-ochiga-white/80 transition-colors duration-base hover:bg-ochiga-white/20 hover:text-ochiga-white md:h-9 md:w-9"
           >
             {isPlaying ? <PauseIcon /> : <PlayIcon />}
           </button>
 
-          <button
-            type="button"
-            onClick={goNext}
-            aria-label="Next slide"
-            className="-m-2 rounded p-2 text-ochiga-white/50 transition-colors duration-base hover:text-ochiga-white"
-          >
-            <ArrowIcon direction="right" />
-          </button>
+          <div role="tablist" aria-label="Hero slides" className="flex items-center gap-2 md:gap-2.5">
+            {slides.map((slide, index) => {
+              const isActive = index === activeIndex;
+              return (
+                <button
+                  key={slide.key}
+                  type="button"
+                  role="tab"
+                  aria-selected={isActive}
+                  aria-controls="hero-slide-panel"
+                  aria-label={`Go to slide ${index + 1}: ${slide.eyebrow}`}
+                  onClick={() => goTo(index)}
+                  className="group flex h-8 items-center justify-center p-1.5"
+                >
+                  <span
+                    aria-hidden
+                    className={`relative block overflow-hidden rounded-full transition-all duration-base ease-editorial ${
+                      isActive ? "h-2 w-9 bg-ochiga-white/20 md:w-10" : "h-1.5 w-1.5 bg-ochiga-white/40 group-hover:bg-ochiga-white/70"
+                    }`}
+                  >
+                    {isActive && !reducedMotion ? (
+                      <span
+                        key={`fill-${activeIndex}`}
+                        className="absolute inset-y-0 left-0 block rounded-full bg-ochiga-red"
+                        style={{
+                          width: "0%",
+                          animationName: "hero-progress",
+                          animationDuration: `${AUTOPLAY_MS}ms`,
+                          animationTimingFunction: "linear",
+                          animationFillMode: "forwards",
+                          animationPlayState: isPlaying ? "running" : "paused",
+                        }}
+                      />
+                    ) : null}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>
