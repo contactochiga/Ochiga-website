@@ -3,7 +3,7 @@ import PageHero from "@/app/components/PageHero";
 import SectionBlock from "@/app/components/SectionBlock";
 import SplitSection from "@/app/components/SplitSection";
 import StatementBlock from "@/app/components/StatementBlock";
-import CTABand from "@/app/components/CTABand";
+import OyiDeploymentForm from "@/app/components/forms/OyiDeploymentForm";
 import CTAButton from "@/app/components/CTAButton";
 import ProcessFlow from "@/app/components/ProcessFlow";
 import JsonLd from "@/app/components/JsonLd";
@@ -76,17 +76,9 @@ export default function OyiPage() {
         </div>
       </SectionBlock>
 
-      <div id="deployment">
-        <CTABand
-          eyebrow="Deploy Oyi"
-          title="Considering Oyi for a building or portfolio?"
-          description="Oyi deployment enquiries are qualified here and directed to the right team."
-          ctas={[
-            { label: "Request Oyi Deployment", href: "/contact" },
-            { label: "Visit getoyi.com", href: companyInfo.oyiWebsite, variant: "secondary", external: true },
-          ]}
-        />
-      </div>
+      <SectionBlock id="deployment" eyebrow="Deploy Oyi" title="Considering Oyi for a building or portfolio?" description="Oyi deployment enquiries are qualified here and directed to the right team.">
+        <OyiDeploymentForm />
+      </SectionBlock>
     </main>
   );
 }

@@ -54,16 +54,36 @@ The website reads Insights through `lib/content.ts`, which:
 
 To run Sanity Studio locally: `npm run sanity:dev`.
 
-## Forms
+## Forms (lead system)
 
-`app/api/deployments/route.ts` is the one working reference
-implementation: honeypot, form-age bot check, IP rate limiting,
-server-side validation, a structured lead payload, and a layered
-delivery cascade (office endpoint → webhook → local fallback), all
-environment-configured. Phase 3 generalizes this pattern across the
-five lead types (`PRIVATE_MEMBERSHIP`, `LAND_JV`, `OYI_DEPLOYMENT`,
-`STRATEGIC_PARTNER`, `GENERAL_CONTACT`) and wires in `lib/email.ts`.
-Until then, the Private/JV/Partner pages link their CTAs to `/contact`.
+`app/api/leads/route.ts` is the single endpoint behind all five lead
+types: `LAND_JV` (Propose a Development, on `/partnerships/landowners`),
+`OYI_DEPLOYMENT` (Request Deployment, on `/oyi#deployment`),
+`PRIVATE_MEMBERSHIP` (Request Membership Requirements, on
+`/private/membership`), `STRATEGIC_PARTNER` (Work With Ochiga, on
+`/partnerships/professional`), and `GENERAL_CONTACT` (on `/contact#general`).
+
+- Validation: `lib/leads/schemas.ts` (Zod, one schema per lead type on
+  a shared base).
+- Anti-spam/rate limiting: `lib/leads/security.ts` (honeypot, minimum
+  form-age, in-memory IP rate limit — extracted from the original
+  `app/api/deployments/route.ts` pattern).
+- Payload shape: `lib/leads/types.ts` / `lib/leads/build-payload.ts` —
+  every submission is a shared base envelope plus one nested
+  type-specific object, never a flat bag of fields.
+- Delivery: `lib/email.ts` via Resend — one internal notification
+  (routed by lead type, reply-to the submitter) and one acknowledgement
+  email to the submitter. Fails clearly (never silently discards a
+  lead) if `RESEND_API_KEY` is missing in production; falls back to
+  local JSONL storage in development only (see `lib/leads/persist.ts`
+  for why that fallback is not production-safe on serverless hosts).
+- UI: `app/components/forms/` — shared accessible field primitives
+  (`fields.tsx`), the submit lifecycle hook (`useLeadSubmit.ts`), and
+  one form component per lead type.
+
+The original `app/api/deployments/route.ts` + `/deployments` page are
+retained untouched as a legacy, unlinked pipeline predating this
+system — see the Phase 3 report before deciding whether to retire it.
 
 ## Oma (corporate concierge widget)
 

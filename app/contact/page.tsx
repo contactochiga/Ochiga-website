@@ -5,6 +5,7 @@ import SectionBlock from "@/app/components/SectionBlock";
 import { TileGrid } from "@/app/components/TileCard";
 import TileCard from "@/app/components/TileCard";
 import ContactIcon from "@/app/components/ContactIcon";
+import GeneralContactForm from "@/app/components/forms/GeneralContactForm";
 import JsonLd from "@/app/components/JsonLd";
 import { companyInfo } from "@/lib/company";
 import { buildMetadata, seoPages } from "@/lib/seo";
@@ -16,7 +17,7 @@ const pathways = [
   { title: "Request Membership Requirements", body: "Start an Ochiga Private membership request.", href: "/private/membership", tag: "Ochiga Private" },
   { title: "Request Oyi Deployment", body: "Considering Oyi for a building or portfolio.", href: "/oyi#deployment", tag: "Oyi" },
   { title: "Work With Ochiga", body: "Architecture, engineering, construction, sales, finance, legal and technology partners.", href: "/partnerships/professional", tag: "Professional Partners" },
-  { title: "General Enquiry", body: "Anything else — we'll route it to the right team.", href: `mailto:${companyInfo.helloEmail}`, tag: "General" },
+  { title: "General Enquiry", body: "Anything else — we'll route it to the right team.", href: "#general", tag: "General" },
 ];
 
 export default function ContactPage() {
@@ -45,6 +46,10 @@ export default function ContactPage() {
             <ContactCard icon="whatsapp" label="WhatsApp" value={companyInfo.whatsapp} href={`https://wa.me/${companyInfo.whatsapp.replace(/[^\d]/g, "")}`} />
             <ContactCard icon="location" label="Location" value={companyInfo.location} />
           </div>
+        </SectionBlock>
+
+        <SectionBlock id="general" eyebrow="General Enquiry" title="Send us a message." width="content">
+          <GeneralContactForm />
         </SectionBlock>
       </main>
     </>

@@ -25,7 +25,8 @@
     "resend": "^3.4.0",
     "three": "^0.159.0",
     "three-stdlib": "^2.24.0",
-    "valtio": "^1.13.2"
+    "valtio": "^1.13.2",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/node": "^20.11.16",

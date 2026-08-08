@@ -3,7 +3,7 @@ import PageHero from "@/app/components/PageHero";
 import SectionBlock from "@/app/components/SectionBlock";
 import ProcessFlow from "@/app/components/ProcessFlow";
 import CTAButton from "@/app/components/CTAButton";
-import PlaceholderNotice from "@/app/components/PlaceholderNotice";
+import LandJvForm from "@/app/components/forms/LandJvForm";
 import { TileGrid } from "@/app/components/TileCard";
 import TileCard from "@/app/components/TileCard";
 import { buildMetadata, seoPages } from "@/lib/seo";
@@ -24,7 +24,7 @@ export default function LandownersPage() {
         title="Unlock the potential of your land."
         description="Ochiga evaluates strategically located real estate for structured development partnerships with landowners — bringing development strategy, capital structuring, professional delivery and Oyi to sites landowners could not unlock alone."
       >
-        <CTAButton href="/contact">Propose a Development</CTAButton>
+        <CTAButton href="#propose">Propose a Development</CTAButton>
       </PageHero>
 
       <SectionBlock eyebrow="Process" title="From submission to structured joint venture.">
@@ -39,7 +39,9 @@ export default function LandownersPage() {
         </TileGrid>
       </SectionBlock>
 
-      <PlaceholderNotice note="the full multi-step JV proposal form (site details, ownership status, document upload) is Phase 3 conversion work, built on the generalized lead API. The CTA above currently routes to Contact." />
+      <SectionBlock id="propose" eyebrow="Propose a Development" title="Tell us about your site." width="content">
+        <LandJvForm />
+      </SectionBlock>
     </main>
   );
 }

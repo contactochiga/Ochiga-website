@@ -4,3 +4,4 @@ node_modules/
 .env
 data/deployment-requests.jsonl
 tsconfig.tsbuildinfo
+data/
