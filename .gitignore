@@ -5,3 +5,4 @@ node_modules/
 data/deployment-requests.jsonl
 tsconfig.tsbuildinfo
 data/
+.DS_Store

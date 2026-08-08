@@ -1,4 +1,3 @@
-import Link from "next/link";
 import EngineTriad from "@/app/components/EngineTriad";
 import SectionBlock from "@/app/components/SectionBlock";
 import ProcessFlow from "@/app/components/ProcessFlow";
@@ -7,47 +6,21 @@ import StatementBlock from "@/app/components/StatementBlock";
 import SplitSection from "@/app/components/SplitSection";
 import CTABand from "@/app/components/CTABand";
 import InsightCard from "@/app/components/InsightCard";
-import PlaceholderNotice from "@/app/components/PlaceholderNotice";
-import { companyInfo, ctas } from "@/lib/company";
-import { getAllInsights } from "@/lib/content";
+import HomeHeroCarousel from "@/app/components/HomeHeroCarousel";
+import { ctas } from "@/lib/company";
+import { getAllInsights, getFeaturedInsight } from "@/lib/content";
 
 export default async function HomePage() {
-  const insights = (await getAllInsights()).slice(0, 3);
+  const [insights, featuredInsight] = await Promise.all([
+    getAllInsights().then((all) => all.slice(0, 3)),
+    getFeaturedInsight(),
+  ]);
 
   return (
     <main>
-      {/* HERO — static Phase 2 version. DOM is deliberately simple and
-          section-scoped so Phase 4 can swap in a WebGL/cinematic layer
-          (id="hero-stage") without restructuring the page. */}
-      <section id="hero-stage" className="relative flex min-h-screen flex-col justify-end overflow-hidden border-b border-ochiga-white/10 bg-ochiga-black px-6 pb-20 pt-40 md:px-10">
-        <div aria-hidden className="pointer-events-none absolute inset-0 opacity-[0.12]" style={{
-          backgroundImage: "linear-gradient(rgba(246,243,236,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(246,243,236,0.5) 1px, transparent 1px)",
-          backgroundSize: "56px 56px",
-        }} />
-        <div className="relative z-10 mx-auto w-full max-w-cinematic">
-          <p className="mb-6 text-xs font-medium uppercase tracking-eyebrow text-ochiga-red">
-            {companyInfo.tagline}
-          </p>
-          <h1 className="max-w-3xl font-display text-4xl leading-[1.05] tracking-tight text-ochiga-white md:text-7xl">
-            We Build Intelligent Places.
-          </h1>
-          <p className="mt-8 max-w-xl text-lg leading-relaxed text-ochiga-white/65">
-            Ochiga develops real estate and the technology that powers how buildings live, operate and evolve.
-          </p>
-          <p className="mt-4 text-sm uppercase tracking-wide text-ochiga-white/40">
-            Development. Technology. Private Capital.
-          </p>
-          <div className="mt-10 flex flex-wrap items-center gap-4">
-            <CTAButton href={ctas.exploreDevelopment.href}>{ctas.exploreDevelopment.label}</CTAButton>
-            <CTAButton href={ctas.discoverOyi.href} variant="secondary">{ctas.discoverOyi.label}</CTAButton>
-            <Link href="/private" className="text-sm text-ochiga-white/55 underline decoration-ochiga-red/60 underline-offset-4 hover:text-ochiga-white">
-              Ochiga Private →
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <PlaceholderNotice note="the cinematic scroll-driven hero (Chapter 01 Develop / 02 Operate / 03 Participate, WebGL + R3F) is Phase 4. #hero-stage is scoped so that layer can be added without restructuring this page." />
+      {/* HERO — Phase 4A cinematic story carousel (Development / Oyi /
+          Ochiga Private / Insights). See app/components/HomeHeroCarousel.tsx. */}
+      <HomeHeroCarousel insight={featuredInsight} />
 
       {/* THREE ENGINES */}
       <SectionBlock eyebrow="The Ochiga Ecosystem" title="Three engines. One ecosystem.">
