@@ -3,3 +3,4 @@ node_modules/
 .vercel/
 .env
 data/deployment-requests.jsonl
+tsconfig.tsbuildinfo

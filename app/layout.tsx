@@ -53,7 +53,7 @@ export default function RootLayout({
 
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="bg-black text-white antialiased">
+      <body className="bg-ochiga-black text-ochiga-white antialiased">
         <JsonLd data={[organizationJsonLd(), websiteJsonLd()]} />
         <Header />
         <main className="relative overflow-x-hidden">

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type React from "react";
 import ContactIcon from "@/app/components/ContactIcon";
@@ -5,103 +6,49 @@ import { companyInfo, footerNavigation } from "@/lib/company";
 
 export default function Footer() {
   return (
-    <footer
-      style={{
-        background: "#000",
-        borderTop: "1px solid rgba(255,255,255,0.06)",
-      }}
-    >
-      <div
-        style={{
-          maxWidth: 1200,
-          margin: "0 auto",
-          padding: "64px 20px 48px",
-          display: "flex",
-          flexDirection: "column",
-          gap: 48,
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "flex-start",
-            flexWrap: "wrap",
-            gap: 40,
-          }}
-        >
-          <div style={{ maxWidth: 420 }}>
+    <footer className="border-t border-ochiga-white/10 bg-ochiga-black">
+      <div className="mx-auto flex max-w-cinematic flex-col gap-14 px-6 pb-12 pt-16 md:px-10">
+        <div className="flex flex-wrap justify-between gap-12">
+          <div className="max-w-md">
             <Link href="/" aria-label="Ochiga home">
-              <img
-                src="/brand/ochiga-logo.PNG"
+              <Image
+                src="/brand/ochiga-logo.png"
                 alt="Ochiga"
-                style={{
-                  height: 44,
-                  width: "auto",
-                  marginBottom: 18,
-                }}
+                width={140}
+                height={35}
+                className="mb-5 h-9 w-auto"
               />
             </Link>
 
-            <p
-              style={{
-                fontSize: 14,
-                lineHeight: 1.7,
-                color: "rgba(255,255,255,0.5)",
-              }}
-            >
-              Ochiga creates digital infrastructure for intelligent buildings,
-              estates, command centers, and future smart communities.
+            <p className="text-sm leading-relaxed text-ochiga-white/55">
+              {companyInfo.supportingStatement}
             </p>
 
-            <div className="footer-contact-strip">
+            <div className="mt-6 flex flex-col gap-3 text-sm text-ochiga-white/60">
               <FooterContact href={`mailto:${companyInfo.contactEmail}`} icon="email" label={companyInfo.contactEmail} />
               <FooterContact href={`tel:${companyInfo.phone.replace(/[^\d+]/g, "")}`} icon="phone" label={companyInfo.phone} />
               <FooterContact href={`https://wa.me/${companyInfo.whatsapp.replace(/[^\d]/g, "")}`} icon="whatsapp" label="WhatsApp" />
               <FooterContact icon="location" label={companyInfo.location} />
-              <div className="footer-social-row">
+              <div className="mt-2 flex gap-4">
                 <FooterSocial href={companyInfo.social.instagram} icon="instagram" label="Instagram" />
                 <FooterSocial href={companyInfo.social.facebook} icon="facebook" label="Facebook" />
               </div>
             </div>
           </div>
 
-          <nav
-            aria-label="Footer navigation"
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              gap: "28px 42px",
-              fontSize: 14,
-              color: "rgba(255,255,255,0.65)",
-            }}
-          >
-            <FooterGroup title="Primary" links={footerNavigation.primary} />
-            <FooterGroup title="Secondary" links={footerNavigation.secondary} />
+          <nav aria-label="Footer navigation" className="grid grid-cols-2 gap-x-10 gap-y-10 text-sm sm:grid-cols-4">
+            <FooterGroup title="Development" links={footerNavigation.development} />
+            <FooterGroup title="Ecosystem" links={footerNavigation.ecosystem} />
+            <FooterGroup title="Company" links={footerNavigation.company} />
+            <FooterGroup title="Legal" links={footerNavigation.legal} />
           </nav>
         </div>
 
-        <div
-          style={{
-            height: 1,
-            background:
-              "linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.12), rgba(255,255,255,0))",
-          }}
-        />
+        <div className="h-px bg-gradient-to-r from-transparent via-ochiga-white/15 to-transparent" />
 
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexWrap: "wrap",
-            gap: 16,
-            fontSize: 12.5,
-            color: "rgba(255,255,255,0.4)",
-          }}
-        >
+        <div className="flex flex-wrap items-center justify-between gap-4 text-xs text-ochiga-white/40">
           <span>© {new Date().getFullYear()} {companyInfo.legalName}</span>
-          <span>Technology Meets Architecture</span>
+          <span>{companyInfo.tagline}</span>
         </div>
       </div>
     </footer>
@@ -110,44 +57,48 @@ export default function Footer() {
 
 function FooterContact({ href, icon, label }: { href?: string; icon: React.ComponentProps<typeof ContactIcon>["name"]; label: string }) {
   const content = (
-    <>
-      <ContactIcon name={icon} />
+    <span className="flex items-center gap-2.5">
+      <span className="h-4 w-4 shrink-0">
+        <ContactIcon name={icon} />
+      </span>
       <span>{label}</span>
-    </>
+    </span>
   );
 
   if (href) {
-    return <a href={href}>{content}</a>;
+    return (
+      <a href={href} className="transition-colors duration-fast hover:text-ochiga-white">
+        {content}
+      </a>
+    );
   }
 
-  return <span>{content}</span>;
+  return content;
 }
 
 function FooterSocial({ href, icon, label }: { href: string; icon: React.ComponentProps<typeof ContactIcon>["name"]; label: string }) {
   return (
-    <a href={href} target="_blank" rel="noreferrer" aria-label={label}>
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      aria-label={label}
+      className="flex h-4 w-4 items-center text-ochiga-white/55 transition-colors duration-fast hover:text-ochiga-white"
+    >
       <ContactIcon name={icon} />
-      <span>{label}</span>
     </a>
   );
 }
 
 function FooterGroup({ title, links }: { title: string; links: Array<{ href: string; label: string }> }) {
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-      <span style={eyebrow}>{title}</span>
+    <div className="flex flex-col gap-3">
+      <span className="text-xs uppercase tracking-eyebrow text-ochiga-white/35">{title}</span>
       {links.map((link) => (
-        <Link key={link.href} href={link.href}>
+        <Link key={link.href} href={link.href} className="text-ochiga-white/65 transition-colors duration-fast hover:text-ochiga-white">
           {link.label}
         </Link>
       ))}
     </div>
   );
 }
-
-const eyebrow = {
-  fontSize: 11,
-  letterSpacing: "0.08em",
-  textTransform: "uppercase" as const,
-  color: "rgba(255,255,255,0.35)",
-};

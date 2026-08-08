@@ -3,20 +3,20 @@ import { absoluteUrl, seoPages, type PageSeo } from "@/lib/seo";
 
 const routePriority: Record<string, number> = {
   "/": 1,
-  "/oyi": 0.95,
-  "/deployments": 0.9,
-  "/technology": 0.85,
-  "/infrastructure": 0.85,
-  "/architecture": 0.8,
-  "/command-center": 0.8,
+  "/development": 0.95,
+  "/oyi": 0.9,
+  "/private": 0.9,
+  "/partnerships": 0.8,
+  "/partnerships/landowners": 0.85,
   "/contact": 0.8,
-  "/papers": 0.7,
+  "/insights": 0.7,
+  "/about": 0.65,
   "/privacy": 0.4,
   "/terms": 0.4,
 };
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date("2026-06-03");
+  const lastModified = new Date();
 
   return (Object.values(seoPages) as PageSeo[])
     .filter((page) => page.index !== false)
@@ -24,6 +24,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: absoluteUrl(page.path),
       lastModified,
       changeFrequency: "monthly" as const,
-      priority: routePriority[page.path] ?? 0.65,
+      priority: routePriority[page.path] ?? 0.6,
     }));
 }

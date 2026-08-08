@@ -13,7 +13,7 @@ export default function AppleIcon() {
           height: "100%",
           borderRadius: 42,
           background:
-            "radial-gradient(circle at 28% 22%, rgba(255,255,255,0.55), transparent 18%), linear-gradient(135deg, #ff7a18, #070a12 74%)",
+            "radial-gradient(circle at 28% 22%, rgba(246,243,236,0.35), transparent 18%), linear-gradient(135deg, #b3241b, #050505 74%)",
           color: "white",
           display: "flex",
           alignItems: "center",

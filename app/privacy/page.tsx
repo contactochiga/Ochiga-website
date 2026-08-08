@@ -9,8 +9,8 @@ export default function PrivacyPage() {
   return (
     <CorporatePage
       eyebrow="Privacy"
-      title="Privacy for infrastructure conversations."
-      description="Ochiga collects only the information needed to understand enquiries, respond to deployment requests, and operate trusted business conversations."
+      title="Privacy at Ochiga."
+      description="Ochiga collects only the information needed to understand enquiries, respond to development, Oyi, and Ochiga Private requests, and operate trusted business conversations."
     >
       <PolicySections
         sections={[
@@ -18,6 +18,7 @@ export default function PrivacyPage() {
           ["How we use information", "We use submitted information to qualify infrastructure enquiries, respond to requests, route conversations to the right team, maintain audit visibility, and improve Ochiga communications."],
           ["Operational systems", "Website interactions may be routed into Ochiga operational systems, including lead management, support, and internal review workflows. We do not sell deployment enquiry data."],
           ["Retention", "Business enquiry records may be retained for operational continuity, compliance, support history, and future deployment planning unless deletion is required by applicable law."],
+          ["Ochiga Private applications", "If you submit a membership request, we collect the information needed to review your application (name, contact details, investor profile, and stated interests). This information is used only for review and relationship purposes and is not sold."],
           ["Contact", `For privacy questions, contact ${companyInfo.contactEmail}.`],
         ]}
       />
@@ -27,10 +28,10 @@ export default function PrivacyPage() {
 
 function PolicySections({ sections }: { sections: Array<[string, string]> }) {
   return (
-    <div className="space-y-8 text-white/68">
+    <div className="space-y-8 text-ochiga-white/65">
       {sections.map(([title, text]) => (
         <section key={title}>
-          <h2 className="text-lg font-medium text-white">{title}</h2>
+          <h2 className="text-lg font-medium text-ochiga-white">{title}</h2>
           <p className="mt-3 leading-7">{text}</p>
         </section>
       ))}

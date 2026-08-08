@@ -1,17 +1,17 @@
 import type { Metadata } from "next";
 import { companyInfo } from "@/lib/company";
-import type { Paper } from "@/lib/papers";
+import type { Insight } from "@/lib/content";
 
 export const seoConfig = {
   siteName: "Ochiga",
   companyName: companyInfo.legalName,
-  defaultTitle: "Ochiga — Technology Meets Architecture",
+  defaultTitle: "Ochiga — Development. Technology. Private Capital.",
   defaultDescription:
-    "Ochiga creates digital infrastructure for intelligent buildings, intelligent estates, command centers, digital twins, and future smart communities.",
+    "Ochiga develops and powers intelligent places. We combine real estate development, building technology and strategic investment partnerships across Ochiga Development, Oyi, and Ochiga Private.",
   get baseUrl() {
     return (process.env.NEXT_PUBLIC_SITE_URL || companyInfo.website).replace(/\/$/, "");
   },
-  logoPath: "/brand/ochiga-logo.PNG",
+  logoPath: "/brand/ochiga-logo.png",
   ogImagePath: "/opengraph-image",
   twitterCard: "summary_large_image" as const,
 };
@@ -26,153 +26,160 @@ export type PageSeo = {
 export const seoPages = {
   home: {
     path: "/",
-    title: "Ochiga — Technology Meets Architecture",
+    title: "Ochiga — Development. Technology. Private Capital.",
     description:
-      "Ochiga combines architecture, infrastructure, real estate technology, digital twins, intelligence, and operational systems for intelligent buildings and estates.",
+      "Ochiga develops and powers intelligent places, combining real estate development, building technology and strategic investment partnerships.",
   },
+
+  // ---- Development -------------------------------------------------
+  development: {
+    path: "/development",
+    title: "Development — Ochiga Real Estate Development",
+    description:
+      "Ochiga Development is the physical development engine behind Ochiga — real estate development company in Lagos, Nigeria creating residential and mixed-use environments built for what comes next.",
+  },
+  developmentResidential: {
+    path: "/development/residential",
+    title: "Residential Development — Ochiga",
+    description:
+      "Ochiga's residential development focus, from prime vertical living to contemporary residential communities.",
+  },
+  developmentMixedUse: {
+    path: "/development/mixed-use",
+    title: "Mixed Use & Future Sectors — Ochiga Development",
+    description:
+      "Ochiga's future development optionality across mixed-use and other built-environment sectors alongside its residential focus.",
+  },
+  developmentApproach: {
+    path: "/development/approach",
+    title: "Development Approach — Ochiga",
+    description:
+      "How Ochiga approaches development: architecture-led planning, disciplined delivery, and technology-enabled operation from day one.",
+  },
+  developmentJointVentures: {
+    path: "/development/joint-ventures",
+    title: "Joint Ventures — Ochiga Development",
+    description:
+      "How Ochiga structures joint venture development partnerships with landowners and strategic partners.",
+  },
+  developmentStudies: {
+    path: "/development/studies",
+    title: "Development Studies — Ochiga",
+    description:
+      "Current Ochiga development studies and concepts, including Prime Vertical Living and Contemporary Residential Community.",
+  },
+
+  // ---- Oyi ------------------------------------------------------------
   oyi: {
     path: "/oyi",
-    title: "Oyi Platform — Powered by Ochiga",
+    title: "Oyi — Building Operating Technology by Ochiga",
     description:
-      "Oyi is the product ecosystem under Ochiga, connecting residents, facility teams, devices, utilities, access, edge infrastructure, intelligence, and digital twins.",
+      "Oyi is the building operating technology developed by Ochiga, connecting people, buildings, infrastructure, hardware and intelligence. Explore the full Oyi product at getoyi.com.",
   },
-  technology: {
-    path: "/technology",
-    title: "Technology — Ochiga Infrastructure Systems",
+
+  // ---- Ochiga Private --------------------------------------------------
+  private: {
+    path: "/private",
+    title: "Ochiga Private — Private Access to Real Estate Opportunities",
     description:
-      "Explore Ochiga's technology model for intelligent buildings: realtime operations, intelligence, device integration, security, edge infrastructure, and digital twins.",
+      "Ochiga Private is a private investment circle connecting selected investors to carefully considered real-estate opportunities, development partnerships and property strategies.",
   },
-  infrastructure: {
-    path: "/infrastructure",
-    title: "Infrastructure — Ochiga",
+  privateInvestmentApproaches: {
+    path: "/private/investment-approaches",
+    title: "Investment Approaches — Ochiga Private",
     description:
-      "Ochiga helps estates and buildings operate as connected infrastructure across power, water, access, communications, payments, facilities, and maintenance.",
+      "How Ochiga Private gives selected members access to opportunities across the real-estate value cycle, from discovery to hold or exit.",
   },
-  architecture: {
-    path: "/architecture",
-    title: "Architecture — Ochiga Built Environment Technology",
+  privateAdvantage: {
+    path: "/private/advantage",
+    title: "The Ochiga Private Advantage",
     description:
-      "Understand the architecture behind Ochiga: interface layers, operational systems, digital twins, identity, access, and governance.",
+      "Curated access, development-led origination, built-environment intelligence, and the Oyi technology advantage that shape Ochiga Private opportunities.",
   },
-  governance: {
-    path: "/governance",
-    title: "Governance — Ochiga",
+  privateMembership: {
+    path: "/private/membership",
+    title: "Request Membership Requirements — Ochiga Private",
     description:
-      "Ochiga places authority, identity, auditability, and lifecycle governance at the center of physical infrastructure operations.",
+      "Ochiga Private membership is by application. Tell us about yourself and we'll share the appropriate membership information.",
   },
-  commandCenter: {
-    path: "/command-center",
-    title: "Command Center — Ochiga",
+
+  // ---- Partnerships -----------------------------------------------------
+  partnerships: {
+    path: "/partnerships",
+    title: "Partnerships — Ochiga",
     description:
-      "Ochiga Command Center is a large-screen operational environment for estate, facility, infrastructure, security, and incident coordination.",
+      "Pathways to work with Ochiga as a landowner, capital partner, buyer, or professional and strategic partner.",
   },
-  solutions: {
-    path: "/solutions",
-    title: "Solutions and Services — Ochiga",
+  partnershipsLandowners: {
+    path: "/partnerships/landowners",
+    title: "Landowners & Joint Ventures — Unlock the Potential of Your Land",
     description:
-      "Ochiga designs, deploys, and operates digital infrastructure systems for estates, buildings, command centers, and urban environments.",
+      "Ochiga evaluates strategically located real estate for structured joint venture development partnerships with landowners across Lagos and beyond.",
   },
-  engage: {
-    path: "/engage",
-    title: "Engage — Ochiga",
+  partnershipsCapital: {
+    path: "/partnerships/capital",
+    title: "Capital Partners — Ochiga",
     description:
-      "Learn how Ochiga engages with operators, developers, and institutions responsible for serious infrastructure deployments.",
+      "How Ochiga works with capital partners around structured real estate development opportunities.",
   },
-  deployments: {
-    path: "/deployments",
-    title: "Request Deployment — Ochiga",
+  partnershipsBuyers: {
+    path: "/partnerships/buyers",
+    title: "Buyers & Offtake — Ochiga Development",
     description:
-      "Submit a deployment request for Ochiga intelligent building systems, Oyi platform deployments, command centers, digital twins, or smart estate environments.",
+      "Priority access and offtake pathways for buyers interested in Ochiga development studies and future inventory.",
   },
+  partnershipsProfessional: {
+    path: "/partnerships/professional",
+    title: "Professional & Strategic Partners — Work With Ochiga",
+    description:
+      "Ochiga works with architecture, engineering, construction, sales, finance, legal, valuation, facility management and technology partners.",
+  },
+
+  // ---- About --------------------------------------------------------
+  about: {
+    path: "/about",
+    title: "About Ochiga — Company, Journey, Philosophy, Trust",
+    description:
+      "Ochiga's journey from built-environment and construction delivery to integrated real estate development and building technology.",
+  },
+
+  // ---- Insights -------------------------------------------------------
+  insights: {
+    path: "/insights",
+    title: "Insights — Ochiga on Development, Real Estate & Building Technology",
+    description:
+      "Ochiga perspectives on real estate development, African urbanisation, architecture, building technology, Oyi, and property investment.",
+  },
+
+  // ---- Contact / legal --------------------------------------------------
   contact: {
     path: "/contact",
-    title: "Contact Ochiga",
+    title: "Partner With Ochiga",
     description:
-      "Contact Ochiga for intelligent building deployments, Oyi platform deployments, digital twins, command centers, and smart estate enquiries.",
+      "Start a conversation with Ochiga about development, Oyi, Ochiga Private membership, or a professional partnership.",
   },
   privacy: {
     path: "/privacy",
     title: "Privacy — Ochiga",
-    description:
-      "Ochiga privacy information for website visitors, deployment enquiries, and enterprise infrastructure conversations.",
+    description: "Ochiga privacy information for website visitors and prospective partners.",
   },
   terms: {
     path: "/terms",
     title: "Terms — Ochiga",
-    description:
-      "Ochiga website terms for public information, deployment enquiries, and infrastructure conversations.",
+    description: "Ochiga website terms for public information and enquiries.",
   },
   support: {
     path: "/support",
     title: "Support — Ochiga",
-    description:
-      "Support information for Ochiga website visitors, deployment prospects, operators, and partners.",
+    description: "Support information for Ochiga website visitors, prospects and partners.",
   },
-  papers: {
-    path: "/papers",
-    title: "Knowledge Center — Ochiga Papers and Infrastructure Thinking",
-    description:
-      "Explore Ochiga papers on infrastructure operating systems, digital twins, smart estates, intelligence for built environments, identity, and infrastructure intelligence.",
-  },
-  insights: {
-    path: "/insights",
-    title: "Insights — Ochiga Infrastructure Notes",
-    description:
-      "Short-form Ochiga observations on deployment, source quality, edge infrastructure, command centers, and built environment operations.",
-  },
-  trust: {
-    path: "/trust",
-    title: "Trust — Ochiga Security, Privacy, and Data Ownership",
-    description:
-      "Ochiga trust principles covering security posture, privacy, data ownership, auditability, deployment standards, and infrastructure governance.",
-  },
-  identityPaper: {
-    path: "/papers/digital-identity-for-physical-spaces",
-    title: "Digital Identity for Physical Spaces — Ochiga Paper",
-    description:
-      "Why homes, residents, operators, visitors, and assets need durable authority relationships in physical infrastructure systems.",
-  },
-  digitalTwinPaper: {
-    path: "/papers/digital-twins-operational",
-    title: "Digital Twins as Operational Infrastructure — Ochiga Paper",
-    description:
-      "A foundational Ochiga paper reframing digital twins as operational infrastructure, not just visualization layers.",
-  },
-  infrastructureOperatingSystemsPaper: {
-    path: "/papers/infrastructure-operating-systems",
-    title: "Infrastructure Operating Systems — Ochiga Paper",
-    description:
-      "A framework for governing estates, facilities, and physical environments as living infrastructure systems.",
-  },
-  smartEstatesPaper: {
-    path: "/papers/smart-estates-beyond-access-control",
-    title: "Smart Estates Beyond Access Control — Ochiga Paper",
-    description:
-      "Why smart estates must connect residents, operators, devices, access, and services beyond gate control.",
-  },
-  aiBuiltEnvironmentsPaper: {
-    path: "/papers/ai-for-built-environments",
-    title: "Intelligence for Built Environments — Ochiga Paper",
-    description:
-      "How intelligence becomes useful when it is grounded in permissions, context, command paths, and operational state.",
-  },
-  infrastructureIntelligencePaper: {
-    path: "/papers/infrastructure-intelligence",
-    title: "Infrastructure Intelligence — Ochiga Paper",
-    description:
-      "From dashboards to systems that understand operational state, source quality, attention, and action.",
-  },
-  twin: {
-    path: "/twin",
-    title: "Digital Twin Concept Preview — Ochiga",
-    description:
-      "A read-only digital twin concept preview showing how infrastructure models can represent assets, systems, and events. Not live production telemetry.",
-  },
-  console: {
-    path: "/console",
-    title: "Infrastructure Console Preview — Ochiga",
-    description:
-      "A read-only infrastructure console preview for Ochiga's operational command and observability direction.",
+
+  // ---- Retained utility routes (not in primary nav) --------------------
+  deployments: {
+    path: "/deployments",
+    title: "Request Deployment — Ochiga",
+    description: "Submit a deployment request for Oyi-enabled Ochiga environments.",
+    index: false,
   },
 } satisfies Record<string, PageSeo>;
 
@@ -208,7 +215,7 @@ export function buildMetadata(page: PageSeo): Metadata {
           url: image,
           width: 1200,
           height: 630,
-          alt: "Ochiga Technology Meets Architecture",
+          alt: "Ochiga — Development. Technology. Private Capital.",
         },
       ],
     },
@@ -258,18 +265,19 @@ export function softwareApplicationJsonLd() {
     "@type": "SoftwareApplication",
     name: companyInfo.productName,
     applicationCategory: "BusinessApplication",
-    operatingSystem: "Web, iOS, Android, watchOS",
+    operatingSystem: "Web, iOS, Android",
     description:
-      "Oyi is Ochiga's platform ecosystem for estates, facilities, residents, devices, access, utilities, edge infrastructure, intelligence, and digital twins.",
+      "Oyi is Ochiga's building operating technology, connecting people, buildings, infrastructure, hardware and intelligence.",
     publisher: {
       "@type": "Organization",
       name: seoConfig.companyName,
       url: seoConfig.baseUrl,
     },
+    sameAs: [companyInfo.oyiWebsite],
   };
 }
 
-export function articleJsonLd(page: PageSeo, datePublished = "2026-06-03", author = seoConfig.companyName) {
+export function articleJsonLd(page: PageSeo, datePublished: string, author = seoConfig.companyName) {
   return {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -292,12 +300,11 @@ export function articleJsonLd(page: PageSeo, datePublished = "2026-06-03", autho
   };
 }
 
-
-export function paperToSeo(paper: Paper): PageSeo {
+export function insightToSeo(insight: Insight): PageSeo {
   return {
-    path: "/papers/" + paper.slug,
-    title: paper.title + " — Ochiga Paper",
-    description: paper.summary,
+    path: "/insights/" + insight.slug,
+    title: (insight.seoTitle || insight.title) + " — Ochiga Insights",
+    description: insight.seoDescription || insight.summary,
   };
 }
 

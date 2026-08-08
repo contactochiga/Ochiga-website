@@ -1,104 +1,71 @@
 import type { Metadata } from "next";
 import type React from "react";
-import Link from "next/link";
+import PageHero from "@/app/components/PageHero";
+import SectionBlock from "@/app/components/SectionBlock";
+import CTAButton from "@/app/components/CTAButton";
 import ContactIcon from "@/app/components/ContactIcon";
 import JsonLd from "@/app/components/JsonLd";
-import { companyInfo } from "@/lib/company";
-import { buildMetadata, faqJsonLd, seoPages } from "@/lib/seo";
+import { companyInfo, ctas } from "@/lib/company";
+import { buildMetadata, seoPages } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata(seoPages.contact);
 
-const contactFaq = [
-  {
-    question: "What should I prepare before contacting Ochiga?",
-    answer: "Prepare the estate or project location, rough unit count, current access or facility problems, existing smart device providers, and the operational team responsible for the site.",
-  },
-  {
-    question: "Does Ochiga handle small deployments?",
-    answer: "Ochiga reviews each deployment manually. Single properties, existing estates, new developments, and command-center projects can all be evaluated if the operational need is serious.",
-  },
-  {
-    question: "Is the first conversation a sales demo?",
-    answer: "The first conversation is usually an infrastructure fit review: context, constraints, workflows, source readiness, and what would be required for a responsible deployment.",
-  },
+const contextualCtas = [
+  { label: ctas.exploreDevelopment.label, href: ctas.exploreDevelopment.href, body: "Talk to us about a development study, joint venture, or the Ochiga approach." },
+  { label: ctas.discoverOyi.label, href: ctas.discoverOyi.href, body: "Understand how Oyi powers Ochiga developments, or explore getoyi.com directly." },
+  { label: ctas.requestMembership.label, href: ctas.requestMembership.href, body: "Start an Ochiga Private membership request." },
+  { label: ctas.proposeDevelopment.label, href: ctas.proposeDevelopment.href, body: "Landowners and JV partners — bring us a site." },
 ];
 
 export default function ContactPage() {
   return (
     <>
-      <JsonLd data={faqJsonLd(contactFaq)} />
-      <main className="inner-page">
-        <section className="inner-hero inner-hero-contact">
-          <div className="inner-hero-copy animate-fade-up">
-            <p>Contact</p>
-            <h1>Talk to Ochiga about serious infrastructure.</h1>
-            <span>
-              For intelligent buildings, estates, command centers, digital twins, and operational infrastructure deployments, reach the Ochiga team through the channels below.
-            </span>
-            <div className="inner-hero-actions">
-              <Link href="/deployments" className="btn-primary">Request deployment</Link>
-              <a href={`https://wa.me/${companyInfo.whatsapp.replace(/[^\d]/g, "")}`} className="btn-secondary">WhatsApp</a>
-            </div>
-          </div>
-          <div className="inner-arch-panel contact-visual" aria-hidden="true">
-            <i />
-            <span>Lagos, Nigeria</span>
-            <span>Built Environment</span>
-            <span>Deployment Review</span>
-          </div>
-        </section>
+      <JsonLd data={[]} />
+      <main>
+        <PageHero eyebrow="Contact" title="Partner with Ochiga." description="Start a conversation about development, Oyi, Ochiga Private, or a professional partnership.">
+          <CTAButton href={`mailto:${companyInfo.helloEmail}`}>Email {companyInfo.helloEmail}</CTAButton>
+        </PageHero>
 
-        <section className="inner-section contact-grid">
-          <ContactCard icon="email" label="Email" value={companyInfo.contactEmail} href={`mailto:${companyInfo.contactEmail}`} />
-          <ContactCard icon="phone" label="Phone" value={companyInfo.phone} href={`tel:${companyInfo.phone.replace(/[^\d+]/g, "")}`} />
-          <ContactCard icon="whatsapp" label="WhatsApp" value={companyInfo.whatsapp} href={`https://wa.me/${companyInfo.whatsapp.replace(/[^\d]/g, "")}`} />
-          <ContactCard icon="location" label="Location" value={companyInfo.location} />
-          <ContactCard icon="website" label="Website" value={companyInfo.website} href={companyInfo.website} />
-          <ContactCard icon="instagram" label="Instagram" value={companyInfo.socialLabels.instagram} href={companyInfo.social.instagram} />
-          <ContactCard icon="facebook" label="Facebook" value={companyInfo.socialLabels.facebook} href={companyInfo.social.facebook} />
-        </section>
-
-        <section className="inner-section inner-split contact-lane">
-          <div className="inner-copy-card">
-            <p>Deployment enquiries</p>
-            <h2>Start with project context, not a sales demo.</h2>
-            <ul>
-              <li>Estate or building location.</li>
-              <li>Approximate unit count and operator structure.</li>
-              <li>Current access, utility, device, facility, or resident workflow issues.</li>
-              <li>Deployment ambition and source readiness.</li>
-            </ul>
-            <Link href="/deployments" className="btn-primary">Request Deployment</Link>
-          </div>
-          <div className="contact-faq-panel">
-            <h2>Contact FAQ</h2>
-            {contactFaq.map((item) => (
-              <article key={item.question}>
-                <h3>{item.question}</h3>
-                <p>{item.answer}</p>
-              </article>
+        <SectionBlock eyebrow="Choose a pathway" title="Contextual ways to reach the right team.">
+          <div className="grid gap-6 md:grid-cols-2">
+            {contextualCtas.map((item) => (
+              <a key={item.href} href={item.href} className="rounded border border-ochiga-white/10 p-6 transition-colors duration-base hover:border-ochiga-white/30">
+                <h3 className="font-display text-lg text-ochiga-white">{item.label}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-ochiga-white/60">{item.body}</p>
+              </a>
             ))}
           </div>
-        </section>
+        </SectionBlock>
+
+        <SectionBlock eyebrow="Direct channels" title="Reach Ochiga directly.">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <ContactCard icon="email" label="Email" value={companyInfo.contactEmail} href={`mailto:${companyInfo.contactEmail}`} />
+            <ContactCard icon="phone" label="Phone" value={companyInfo.phone} href={`tel:${companyInfo.phone.replace(/[^\d+]/g, "")}`} />
+            <ContactCard icon="whatsapp" label="WhatsApp" value={companyInfo.whatsapp} href={`https://wa.me/${companyInfo.whatsapp.replace(/[^\d]/g, "")}`} />
+            <ContactCard icon="location" label="Location" value={companyInfo.location} />
+          </div>
+        </SectionBlock>
       </main>
     </>
   );
 }
 
 function ContactCard({ icon, label, value, href }: { icon: React.ComponentProps<typeof ContactIcon>["name"]; label: string; value: string; href?: string }) {
-  return (
-    <article className="contact-card">
-      <span>
+  const content = (
+    <>
+      <span className="mb-3 block h-5 w-5 text-ochiga-red">
         <ContactIcon name={icon} />
       </span>
-      <p>{label}</p>
-      {href ? (
-        <a href={href}>
-          {value}
-        </a>
-      ) : (
-        <strong>{value}</strong>
-      )}
-    </article>
+      <p className="text-xs uppercase tracking-wide text-ochiga-white/40">{label}</p>
+      <p className="mt-1 text-sm text-ochiga-white">{value}</p>
+    </>
+  );
+
+  return href ? (
+    <a href={href} className="rounded border border-ochiga-white/10 p-5 transition-colors duration-base hover:border-ochiga-white/30">
+      {content}
+    </a>
+  ) : (
+    <div className="rounded border border-ochiga-white/10 p-5">{content}</div>
   );
 }

@@ -8,8 +8,8 @@ export default defineConfig({
   name: 'ochiga-studio',
   title: 'Ochiga CMS',
 
-  projectId: 'ap1ku6sf',
-  dataset: 'production',
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'ap1ku6sf',
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
 
   plugins: [
     deskTool(),
