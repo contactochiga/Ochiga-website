@@ -5,6 +5,7 @@ import ProcessFlow from "@/app/components/ProcessFlow";
 import CTAButton from "@/app/components/CTAButton";
 import CTABand from "@/app/components/CTABand";
 import TrustDisclaimer from "@/app/components/TrustDisclaimer";
+import FullBleedMedia from "@/app/components/FullBleedMedia";
 import { TileGrid } from "@/app/components/TileCard";
 import TileCard from "@/app/components/TileCard";
 import { buildMetadata, seoPages } from "@/lib/seo";
@@ -32,6 +33,16 @@ export default function PrivatePage() {
       >
         <CTAButton href="/private/membership">Request Membership Requirements</CTAButton>
       </PageHero>
+
+      <FullBleedMedia
+        eyebrow="Ochiga Private"
+        title="A private circle, considered from every angle."
+        description="From portfolio review to acquisition strategy, every Ochiga Private engagement begins with a clear view of the opportunity — and the discipline to walk away from the wrong one."
+        surfaceLabel="Ochiga Private"
+        tone="black"
+        imageSrc="/images/private/ochiga-private-lounge-skyline.webp"
+        imageAlt="Ochiga Private client lounge at dusk with a curated real-estate and capital-strategy dashboard, overlooking a city skyline"
+      />
 
       <SectionBlock eyebrow="Opportunity Types" title="Opportunities across the real-estate value cycle.">
         <TileGrid columns={4}>

@@ -16,7 +16,19 @@ type Slide = {
   ctaLabel: string;
   ctaHref: string;
   tone: "black" | "charcoal" | "red";
-  image?: { src: string; alt: string; position?: string };
+  image?: {
+    src: string;
+    alt: string;
+    position?: string;
+    // Desktop-only crop bias (md:scale + md:origin) that nudges busy
+    // interface/dashboard content further right without the aggressive
+    // zoom a pure crop would need to hide it entirely.
+    desktopCrop?: string;
+    // Directional left→right legibility scrim (not a flat darken) so the
+    // hero copy's corner stays readable while the right side of the image
+    // stays fully vivid. CSS linear-gradient() value.
+    leftScrim?: string;
+  };
   surfaceLabel?: string;
 };
 
@@ -48,10 +60,15 @@ function buildSlides(insight: Insight | null): Slide[] {
       image: {
         src: "/images/oyi/oyi-hero-operating-intelligence.webp",
         alt: "Smart building lobby with live Oyi intelligence overlays for access control, energy, climate and security",
-        // Shift the visible crop right so the device/intelligence overlays
-        // and the busiest data cards stay center-right; the hero copy sits
-        // bottom-left, over the calmer wall/floor area of the frame.
-        position: "object-[58%_42%] md:object-[68%_42%]",
+        // Mobile crop is unchanged from the previous pass. Desktop gets a
+        // mild rightward bias plus the desktopCrop/leftScrim below —
+        // pure object-position can't do more here because the hero
+        // container and this image share the same ~16:9 aspect on most
+        // desktop viewports, so there's little natural overflow to shift.
+        position: "object-[58%_42%] md:object-[70%_44%]",
+        desktopCrop: "md:scale-[1.14] md:origin-[78%_46%]",
+        leftScrim:
+          "linear-gradient(to right, rgba(5,5,5,0.82) 0%, rgba(5,5,5,0.5) 32%, rgba(5,5,5,0.16) 55%, rgba(5,5,5,0) 68%)",
       },
     },
     {
@@ -65,11 +82,11 @@ function buildSlides(insight: Insight | null): Slide[] {
       tone: "black",
       image: {
         src: "/images/private/ochiga-private-hero.webp",
-        alt: "Private client lounge at dusk overlooking a city skyline, with a curated real-estate and capital opportunity dashboard",
-        // Shift right toward the skyline (the key real-estate/capital
-        // visual); the busier wall dashboard on the left is cropped
-        // further out of frame, keeping the hero copy's corner calm.
-        position: "object-[62%_40%] md:object-[70%_38%]",
+        alt: "Ochiga Private client lounge with a global investment-opportunities dashboard, lounge seating and a city skyline view",
+        position: "object-[60%_44%] md:object-[68%_44%]",
+        desktopCrop: "md:scale-[1.14] md:origin-[76%_46%]",
+        leftScrim:
+          "linear-gradient(to right, rgba(5,5,5,0.8) 0%, rgba(5,5,5,0.48) 30%, rgba(5,5,5,0.15) 52%, rgba(5,5,5,0) 65%)",
       },
     },
     {
@@ -252,15 +269,26 @@ export default function HomeHeroCarousel({ insight }: { insight: Insight | null 
                   reducedMotion ? "" : isActive ? "scale-100" : "scale-[1.06]"
                 }`}
               >
-                <AbstractSurface
-                  tone={slide.tone}
-                  aspect="h-full w-full"
-                  src={slide.image?.src}
-                  alt={slide.image?.alt}
-                  label={slide.image ? undefined : slide.surfaceLabel}
-                  objectPosition={slide.image?.position}
-                />
+                {/* Static per-slide desktop composition bias — not motion,
+                    so it applies regardless of reduced-motion preference. */}
+                <div className={`h-full w-full ${slide.image?.desktopCrop || ""}`}>
+                  <AbstractSurface
+                    tone={slide.tone}
+                    aspect="h-full w-full"
+                    src={slide.image?.src}
+                    alt={slide.image?.alt}
+                    label={slide.image ? undefined : slide.surfaceLabel}
+                    objectPosition={slide.image?.position}
+                  />
+                </div>
               </div>
+              {slide.image?.leftScrim ? (
+                <div
+                  aria-hidden
+                  className="absolute inset-0"
+                  style={{ backgroundImage: slide.image.leftScrim }}
+                />
+              ) : null}
             </div>
           );
         })}
