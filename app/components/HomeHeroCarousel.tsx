@@ -16,7 +16,7 @@ type Slide = {
   ctaLabel: string;
   ctaHref: string;
   tone: "black" | "charcoal" | "red";
-  image?: { src: string; alt: string };
+  image?: { src: string; alt: string; position?: string };
   surfaceLabel?: string;
 };
 
@@ -46,8 +46,12 @@ function buildSlides(insight: Insight | null): Slide[] {
       ctaHref: "/oyi",
       tone: "red",
       image: {
-        src: "/images/oyi/oyi-smart-lobby-dashboard.webp",
-        alt: "Oyi-powered building lobby showing residents, access and utility data",
+        src: "/images/oyi/oyi-hero-operating-intelligence.webp",
+        alt: "Smart building lobby with live Oyi intelligence overlays for access control, energy, climate and security",
+        // Shift the visible crop right so the device/intelligence overlays
+        // and the busiest data cards stay center-right; the hero copy sits
+        // bottom-left, over the calmer wall/floor area of the frame.
+        position: "object-[58%_42%] md:object-[68%_42%]",
       },
     },
     {
@@ -59,7 +63,14 @@ function buildSlides(insight: Insight | null): Slide[] {
       ctaLabel: "Request Membership",
       ctaHref: "/private/membership",
       tone: "black",
-      surfaceLabel: "Ochiga Private",
+      image: {
+        src: "/images/private/ochiga-private-hero.webp",
+        alt: "Private client lounge at dusk overlooking a city skyline, with a curated real-estate and capital opportunity dashboard",
+        // Shift right toward the skyline (the key real-estate/capital
+        // visual); the busier wall dashboard on the left is cropped
+        // further out of frame, keeping the hero copy's corner calm.
+        position: "object-[62%_40%] md:object-[70%_38%]",
+      },
     },
     {
       key: "insights",
@@ -247,6 +258,7 @@ export default function HomeHeroCarousel({ insight }: { insight: Insight | null 
                   src={slide.image?.src}
                   alt={slide.image?.alt}
                   label={slide.image ? undefined : slide.surfaceLabel}
+                  objectPosition={slide.image?.position}
                 />
               </div>
             </div>

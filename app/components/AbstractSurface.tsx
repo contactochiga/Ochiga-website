@@ -9,12 +9,13 @@ type Props = {
   aspect?: string; // Tailwind aspect-* class, e.g. "aspect-[4/5]"
   src?: string;
   alt?: string;
+  objectPosition?: string; // Tailwind object-* utilities, e.g. "object-[70%_center] md:object-[65%_center]"
 };
 
-export default function AbstractSurface({ label, tone = "charcoal", aspect = "aspect-[4/5]", src, alt }: Props) {
+export default function AbstractSurface({ label, tone = "charcoal", aspect = "aspect-[4/5]", src, alt, objectPosition }: Props) {
   if (src) {
     // eslint-disable-next-line @next/next/no-img-element
-    return <img src={src} alt={alt || ""} className={`w-full ${aspect} object-cover`} />;
+    return <img src={src} alt={alt || ""} className={`w-full ${aspect} object-cover ${objectPosition || ""}`} />;
   }
 
   const toneClass = {
