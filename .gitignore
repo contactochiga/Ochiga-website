@@ -2,6 +2,7 @@ node_modules/
 .next/
 .vercel/
 .env
+.env*.local
 data/deployment-requests.jsonl
 tsconfig.tsbuildinfo
 data/

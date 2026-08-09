@@ -1,8 +1,10 @@
 // Ochiga lead-notification email (Resend).
 //
 // Two emails per submission:
-//   1. Internal notification -> the routed Ochiga mailbox, reply-to the
-//      submitter, so a reply goes straight to them.
+//   1. Internal notification -> the single office inbox
+//      (OCHIGA_EMAIL_OFFICE), reply-to the submitter, so a reply goes
+//      straight to them. All five lead types route here — there is no
+//      per-department split.
 //   2. Acknowledgement -> the submitter, confirming receipt only. Never
 //      implies acceptance, approval, or commitment of any kind.
 //
@@ -12,16 +14,14 @@
 // real credentials, and the lead API route falls back to local JSONL
 // storage for that case (see lib/leads/persist.ts).
 import { Resend } from "resend";
-import { companyInfo } from "@/lib/company";
 import type { LeadPayload, LeadType } from "@/lib/leads/types";
 
-const leadRouting: Record<LeadType, string | undefined> = {
-  LAND_JV: companyInfo.developmentEmail,
-  PRIVATE_MEMBERSHIP: companyInfo.privateEmail,
-  STRATEGIC_PARTNER: companyInfo.partnersEmail,
-  GENERAL_CONTACT: companyInfo.helloEmail,
-  OYI_DEPLOYMENT: process.env.OCHIGA_EMAIL_OYI || undefined,
-};
+// Single source of truth for the internal notification destination — every
+// lead type resolves here so office@ochiga.com.ng is never hardcoded in
+// more than one place.
+function officeInbox(): string | undefined {
+  return process.env.OCHIGA_EMAIL_OFFICE || undefined;
+}
 
 const acknowledgementCopy: Record<LeadType, { subject: string; body: string }> = {
   LAND_JV: {
@@ -170,8 +170,11 @@ function acknowledgementEmailHtml(payload: LeadPayload) {
   `;
 }
 
-export function resolveLeadDestination(type: LeadType): string | null {
-  return leadRouting[type] || null;
+// `type` is kept in the signature (rather than dropped) so a future need
+// to differentiate routing per lead type again doesn't require touching
+// every call site — today every LeadType resolves to the same office inbox.
+export function resolveLeadDestination(_type: LeadType): string | null {
+  return officeInbox() || null;
 }
 
 export async function sendLeadEmails(payload: LeadPayload): Promise<{
