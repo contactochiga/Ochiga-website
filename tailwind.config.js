@@ -27,6 +27,13 @@ module.exports = {
             bright: "#d3372c",
           },
         },
+        // Scoped Oyi accent — used only where the site deliberately speaks
+        // as Oyi (e.g. the Development page's technology section CTA),
+        // never as a general-purpose alternative to Ochiga Red.
+        oyi: {
+          blue: "#3B82F6",
+          "blue-bright": "#5B93FA",
+        },
       },
       fontFamily: {
         display: [
