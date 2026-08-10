@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import SectionBlock from "@/app/components/SectionBlock";
 import StatementBlock from "@/app/components/StatementBlock";
 import ProjectPreviewCard from "@/app/components/ProjectPreviewCard";
+import NextDevelopmentCard from "@/app/components/NextDevelopmentCard";
+import DevelopmentJourney from "@/app/components/DevelopmentJourney";
 import StoryCarousel, { type StorySlide } from "@/app/components/StoryCarousel";
 import CTABand from "@/app/components/CTABand";
 import { TileGrid } from "@/app/components/TileCard";
@@ -11,10 +13,7 @@ import { buildMetadata, breadcrumbJsonLd, seoPages } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata(seoPages.development);
 
-const capabilities = [
-  "Land", "Development strategy", "Design", "Professional teams",
-  "Capital structuring", "Construction", "Sales / Offtake", "Technology", "Operations",
-];
+const JOURNEY_STAGES = ["Land", "Strategy", "Design", "Capital", "Delivery", "Sales", "Technology", "Operations"];
 
 const STATUS_STAGES = ["Concept", "Design Development", "Project Preview", "Delivery"];
 
@@ -77,29 +76,25 @@ export default function DevelopmentPage() {
         sectionClassName="relative flex min-h-[88vh] flex-col justify-end overflow-hidden border-b border-ochiga-white/10 bg-ochiga-black px-6 pb-24 pt-40 md:px-10 md:pb-28"
       />
 
-      <SectionBlock eyebrow="What Ochiga Brings Together" title="One team, across the full development chain.">
-        <div className="flex flex-wrap gap-3">
-          {capabilities.map((item) => (
-            <span key={item} className="rounded border border-ochiga-white/15 px-4 py-2 text-sm text-ochiga-white/70">
-              {item}
-            </span>
-          ))}
-        </div>
-        <p className="mt-8 max-w-2xl text-sm text-ochiga-white/45">
-          Ochiga does not currently operate a large existing development portfolio. Havana Residences
-          and Green Gardens below are its current developments in design development — this is a
-          disciplined, deliberately staged build-out.
+      <SectionBlock eyebrow="What Ochiga Brings Together" title="One development. One integrated team.">
+        <p className="max-w-2xl text-base leading-relaxed text-ochiga-white/65 md:text-lg">
+          From land and development strategy through design, capital, construction, sales and
+          long-term operations, Ochiga brings the disciplines required to move a development from
+          opportunity to operating asset.
         </p>
+        <div className="mt-12">
+          <DevelopmentJourney stages={JOURNEY_STAGES} />
+        </div>
       </SectionBlock>
 
-      <SectionBlock id="current-developments" eyebrow="Current Developments" title="Two developments, in design development.">
-        <div className="grid gap-8 md:grid-cols-2">
+      <SectionBlock id="current-developments" eyebrow="Current Developments">
+        <div className="grid gap-8 md:grid-cols-3">
           <ProjectPreviewCard
             name="Havana Residences"
             typeLine="Premium Vertical Living"
             location="Lagos, Nigeria"
             status="In Design Development"
-            story="Havana Residences explores a new generation of vertical living — combining contemporary residential architecture, generous private spaces, intelligent-building infrastructure and long-term operational thinking within one development."
+            story="A new generation of vertical living combining contemporary architecture, intelligent infrastructure and long-term operational thinking."
             imageSrc="/images/development/havana-tower-dusk.webp"
             imageAlt="Havana Residences tower at dusk on the Lagos waterfront"
             statusStages={STATUS_STAGES}
@@ -111,13 +106,14 @@ export default function DevelopmentPage() {
             typeLine="Contemporary Residential Community"
             location="Lagos, Nigeria"
             status="In Design Development"
-            story="Green Gardens is conceived as a contemporary residential community where modern homes, landscape, privacy and intelligent infrastructure are designed as a complete living environment rather than as isolated houses."
+            story="A thoughtfully planned residential community where modern homes, landscape, privacy and intelligent infrastructure are designed as one complete environment."
             imageSrc="/images/development/green-gardens-estate-dusk.webp"
             imageAlt="Green Gardens residential community entrance at dusk"
             statusStages={STATUS_STAGES}
             statusActiveIndex={1}
             tourHref="/development/green-gardens"
           />
+          <NextDevelopmentCard />
         </div>
       </SectionBlock>
 

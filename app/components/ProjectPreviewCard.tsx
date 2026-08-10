@@ -1,6 +1,14 @@
 import Link from "next/link";
 import AbstractSurface from "@/app/components/AbstractSurface";
-import ProjectStatusStepper from "@/app/components/ProjectStatusStepper";
+import ProjectProgressTrack from "@/app/components/ProjectProgressTrack";
+
+function ArrowIcon() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden focusable="false">
+      <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
 
 export default function ProjectPreviewCard({
   name,
@@ -26,27 +34,47 @@ export default function ProjectPreviewCard({
   tourHref: string;
 }) {
   return (
-    <div className="group overflow-hidden rounded border border-ochiga-white/10 transition-colors duration-base hover:border-ochiga-white/30">
-      <AbstractSurface tone="charcoal" aspect="aspect-[16/10]" src={imageSrc} alt={imageAlt} />
-      <div className="p-7 md:p-9">
+    <div className="h-full overflow-hidden rounded border border-ochiga-white/10 transition-colors duration-base hover:border-ochiga-white/30">
+      {/* The image itself is the tour entrance — a single accessible
+          link carries the action; the pill/affordance inside are
+          decorative reinforcement, not separate controls. */}
+      <Link href={tourHref} aria-label={`Take a tour of ${name}`} className="group relative block">
+        <AbstractSurface tone="charcoal" aspect="aspect-[16/10]" src={imageSrc} alt={imageAlt} />
+        <div aria-hidden className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ochiga-black/45 via-transparent to-transparent" />
+        <span
+          aria-hidden
+          className="absolute left-3 top-3 rounded-full border border-ochiga-white/25 bg-ochiga-black/55 px-3 py-1.5 text-[10px] uppercase tracking-wide text-ochiga-white backdrop-blur-sm"
+        >
+          {status}
+        </span>
+        <span
+          aria-hidden
+          className="absolute right-3 top-3 flex items-center gap-2 rounded-full border border-ochiga-white/25 bg-ochiga-black/55 px-3 py-1.5 text-[10px] uppercase tracking-wide text-ochiga-white backdrop-blur-sm transition-colors duration-base group-hover:border-ochiga-white/50"
+        >
+          Take a Tour
+          <span className="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full border border-ochiga-white/40">
+            <ArrowIcon />
+          </span>
+        </span>
+      </Link>
+
+      <div className="p-6">
         <p className="text-xs uppercase tracking-wide text-ochiga-white/45">
           {typeLine} · {location}
         </p>
-        <h3 className="mt-3 font-display text-2xl text-ochiga-white md:text-3xl">{name}</h3>
-        <span className="mt-3 inline-block rounded-sm border border-ochiga-red/40 px-2.5 py-1 text-[11px] uppercase tracking-wide text-ochiga-red">
-          {status}
-        </span>
-        <p className="mt-5 max-w-lg text-sm leading-relaxed text-ochiga-white/60">{story}</p>
+        <h3 className="mt-2 font-display text-xl text-ochiga-white md:text-2xl">{name}</h3>
+        <p className="mt-4 text-sm leading-relaxed text-ochiga-white/60">{story}</p>
 
-        <div className="mt-7 max-w-sm">
-          <ProjectStatusStepper stages={statusStages} activeIndex={statusActiveIndex} />
+        <div className="mt-6">
+          <ProjectProgressTrack stages={statusStages} activeIndex={statusActiveIndex} />
         </div>
 
         <Link
           href={tourHref}
-          className="mt-8 inline-flex items-center justify-center rounded border border-ochiga-white/25 px-7 py-3 text-sm font-medium text-ochiga-white transition-colors duration-base hover:border-ochiga-white/60"
+          className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-ochiga-white transition-colors duration-base hover:text-ochiga-white/75"
         >
-          Take a Tour
+          Project details
+          <ArrowIcon />
         </Link>
       </div>
     </div>
