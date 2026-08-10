@@ -39,7 +39,7 @@ export default function PrivateAdvantagePage() {
         tone="red"
         reverse
       >
-        <CTAButton href="/oyi" variant="secondary">Discover Oyi</CTAButton>
+        <CTAButton href="/technology" variant="secondary">Discover Oyi</CTAButton>
       </SplitSection>
     </main>
   );

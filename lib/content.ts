@@ -198,4 +198,37 @@ export async function getDevelopmentInsights(minimumCount = 3): Promise<Insight[
   return relevant.length >= minimumCount ? relevant : all;
 }
 
+// Technology-relevant subset of the editorial feed, for the Technology
+// page's "Ochiga Perspective" rail — a narrower lens than
+// getDevelopmentInsights, matching category/tags against the subject
+// areas the Technology page actually covers rather than the full
+// Development pillar list. Same safe fallback: never sparse or empty.
+const TECHNOLOGY_KEYWORDS = [
+  "building operating system",
+  "digital twin",
+  "intelligent building",
+  "intelligence",
+  "infrastructure",
+  "interoperability",
+  "smart infrastructure",
+  "smart estate",
+  "smart building",
+  "artificial intelligence",
+  "building automation",
+  "automation",
+  "energy intelligence",
+  "connected resident",
+  "technology",
+  "operations",
+];
+
+export async function getTechnologyInsights(minimumCount = 3): Promise<Insight[]> {
+  const all = await getAllInsights();
+  const relevant = all.filter((insight) => {
+    const haystack = [insight.category, ...insight.tags].join(" ").toLowerCase();
+    return TECHNOLOGY_KEYWORDS.some((keyword) => haystack.includes(keyword));
+  });
+  return relevant.length >= minimumCount ? relevant : all;
+}
+
 export { urlFor };

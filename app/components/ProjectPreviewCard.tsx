@@ -19,6 +19,15 @@ function LocationIcon() {
   );
 }
 
+// Generic "portfolio preview" card — originally built for Current
+// Developments (Havana/Green Gardens/Central One, which always pass
+// location + a construction-style status/progress track) and reused
+// as-is for Our Technology's product cards, which have neither a
+// geography nor a "design development" concept. location/status/
+// statusStages/statusActiveIndex are therefore optional: omitting them
+// simply skips that piece of the card rather than rendering something
+// fabricated. Existing development callers are unaffected — they still
+// pass every field, so their rendering is unchanged.
 export default function ProjectPreviewCard({
   name,
   typeLine,
@@ -33,13 +42,13 @@ export default function ProjectPreviewCard({
 }: {
   name: string;
   typeLine: string;
-  location: string;
-  status: string;
+  location?: string;
+  status?: string;
   story: string;
   imageSrc: string;
   imageAlt: string;
-  statusStages: string[];
-  statusActiveIndex: number;
+  statusStages?: string[];
+  statusActiveIndex?: number;
   tourHref: string;
 }) {
   return (
@@ -49,23 +58,29 @@ export default function ProjectPreviewCard({
       <div className="relative">
         <AbstractSurface tone="charcoal" aspect="aspect-[16/10]" src={imageSrc} alt={imageAlt} />
         <div aria-hidden className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ochiga-black/45 via-transparent to-transparent" />
-        <span className="absolute left-3 top-3 rounded-full border border-ochiga-white/25 bg-ochiga-black/55 px-3 py-1.5 text-[10px] uppercase tracking-wide text-ochiga-white backdrop-blur-sm">
-          {status}
-        </span>
+        {status ? (
+          <span className="absolute left-3 top-3 rounded-full border border-ochiga-white/25 bg-ochiga-black/55 px-3 py-1.5 text-[10px] uppercase tracking-wide text-ochiga-white backdrop-blur-sm">
+            {status}
+          </span>
+        ) : null}
       </div>
 
       <div className="p-6">
         <h3 className="font-display text-xl text-ochiga-white md:text-2xl">{name}</h3>
         <p className="mt-2 text-sm text-ochiga-white/55">{typeLine}</p>
-        <p className="mt-1.5 flex items-center gap-1.5 text-sm text-ochiga-white/45">
-          <LocationIcon />
-          {location}
-        </p>
+        {location ? (
+          <p className="mt-1.5 flex items-center gap-1.5 text-sm text-ochiga-white/45">
+            <LocationIcon />
+            {location}
+          </p>
+        ) : null}
         <p className="mt-4 text-sm leading-relaxed text-ochiga-white/60">{story}</p>
 
-        <div className="mt-6">
-          <ProjectProgressTrack stages={statusStages} activeIndex={statusActiveIndex} />
-        </div>
+        {statusStages && statusActiveIndex !== undefined ? (
+          <div className="mt-6">
+            <ProjectProgressTrack stages={statusStages} activeIndex={statusActiveIndex} />
+          </div>
+        ) : null}
 
         <Link
           href={tourHref}

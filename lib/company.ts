@@ -78,7 +78,7 @@ export const primaryNavigation = [
       { href: "/development/studies", label: "Development Studies" },
     ],
   },
-  { href: "/oyi", label: "Oyi" },
+  { href: "/technology", label: "Technology" },
   {
     href: "/private",
     label: "Ochiga Private",
@@ -122,7 +122,7 @@ export const footerNavigation = {
     { href: "/development/studies", label: "Development Studies" },
   ],
   ecosystem: [
-    { href: "/oyi", label: "Oyi" },
+    { href: "/technology", label: "Technology" },
     { href: "/private", label: "Ochiga Private" },
     { href: "/partnerships", label: "Partnerships" },
     { href: "/insights", label: "Insights" },
@@ -145,6 +145,6 @@ export const ctas = {
   discoverOyi: { label: "Discover Oyi", href: "/oyi" },
   requestMembership: { label: "Request Membership Requirements", href: "/private/membership" },
   proposeDevelopment: { label: "Propose a Development", href: "/partnerships/landowners" },
-  requestOyiDeployment: { label: "Request Oyi Deployment", href: "/oyi#deployment" },
+  requestOyiDeployment: { label: "Request Deployment", href: "/technology#deployment" },
   workWithOchiga: { label: "Work With Ochiga", href: "/partnerships/professional" },
 };

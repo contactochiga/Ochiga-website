@@ -31,8 +31,11 @@ export type TourChapter = {
 export type ProjectTourData = {
   name: string;
   typeLine: string;
-  location: string;
-  status: string;
+  // Optional: real-estate tours pass a construction location/status;
+  // technology-product tours (no geography, no construction status)
+  // reuse this same engine and simply omit them.
+  location?: string;
+  status?: string;
   oneLiner: string;
   chapters: TourChapter[];
 };
@@ -64,7 +67,7 @@ export default function ProjectTour({
           ← Development
         </Link>
         <p className="mt-4 text-xs uppercase tracking-wide text-ochiga-red">
-          {project.typeLine} · {project.location}
+          {project.location ? `${project.typeLine} · ${project.location}` : project.typeLine}
         </p>
         <p className="mt-1 font-display text-2xl text-ochiga-white">{project.name}</p>
       </div>
@@ -134,7 +137,7 @@ export default function ProjectTour({
             {isIntroVeiled ? (
               <div className="absolute inset-0 flex flex-col items-start justify-end bg-ochiga-black/50 p-6 md:p-10">
                 <p className="text-xs font-medium uppercase tracking-eyebrow text-ochiga-red">
-                  {project.typeLine} · {project.location}
+                  {project.location ? `${project.typeLine} · ${project.location}` : project.typeLine}
                 </p>
                 <h1 className="mt-4 max-w-md font-display text-3xl leading-[1.05] tracking-tight text-ochiga-white md:text-5xl">
                   {project.name}

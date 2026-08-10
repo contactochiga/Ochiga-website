@@ -4,7 +4,7 @@ import { absoluteUrl, seoPages, type PageSeo } from "@/lib/seo";
 const routePriority: Record<string, number> = {
   "/": 1,
   "/development": 0.95,
-  "/oyi": 0.9,
+  "/technology": 0.9,
   "/private": 0.9,
   "/partnerships": 0.8,
   "/partnerships/landowners": 0.85,

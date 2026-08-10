@@ -60,7 +60,7 @@ export default async function HomePage() {
         imageSrc="/images/oyi/oyi-smart-lobby-dashboard.webp"
         imageAlt="Illustrative concept render of an Oyi-powered building lobby showing residents, access and utility data"
       >
-        <CTAButton href="/oyi" variant="secondary">Discover Oyi</CTAButton>
+        <CTAButton href="/technology" variant="secondary">Discover Oyi</CTAButton>
       </SplitSection>
 
       {/* OCHIGA PRIVATE PREVIEW */}

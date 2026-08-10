@@ -87,12 +87,30 @@ export const seoPages = {
       "Central One: a proposed mixed-use urban development in design/concept development in Central Area, Abuja, Nigeria, from Ochiga Development.",
   },
 
-  // ---- Oyi ------------------------------------------------------------
-  oyi: {
-    path: "/oyi",
-    title: "Oyi — Building Operating Technology by Ochiga",
+  // ---- Technology (corporate division; Oyi is its product line) -------
+  technology: {
+    path: "/technology",
+    title: "Technology — Ochiga",
     description:
-      "Oyi is the building operating technology developed by Ochiga, connecting people, buildings, infrastructure, hardware and intelligence. Explore the full Oyi product at getoyi.com.",
+      "Ochiga's technology capability — building operating technology, resident experience and building intelligence that connect people, buildings, infrastructure and intelligence into environments that keep evolving.",
+  },
+  technologyFacilityOs: {
+    path: "/technology/facility-os",
+    title: "Oyi Facility OS — Ochiga Technology",
+    description:
+      "Oyi Facility OS: the operating environment for building and facility teams, connecting infrastructure, utilities, assets, maintenance, access and operational workflows.",
+  },
+  technologyExperience: {
+    path: "/technology/experience",
+    title: "Oyi Experience — Ochiga Technology",
+    description:
+      "Oyi Experience: a connected building experience for residents, tenants and guests, bringing visitors, devices, services, utilities and everyday interactions together.",
+  },
+  technologyCore: {
+    path: "/technology/core",
+    title: "Oyi Core — Ochiga Technology",
+    description:
+      "Oyi Core: the intelligence and orchestration layer beneath Oyi, interpreting building activity and coordinating secure execution across connected systems.",
   },
 
   // ---- Ochiga Private --------------------------------------------------

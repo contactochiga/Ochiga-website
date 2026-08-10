@@ -72,6 +72,49 @@ const ICONS: Record<string, () => ReactElement> = {
       <path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1" />
     </IconShell>
   ),
+  // Additive keys for the Technology page's Traditional-vs-Ochiga
+  // process comparison — the eight keys above are untouched, so
+  // Development's existing usage renders identically.
+  build: () => (
+    <IconShell>
+      <path d="M3 21h18" />
+      <path d="M6 21V10l6-5 6 5v11" />
+      <path d="M10 21v-6h4v6" />
+    </IconShell>
+  ),
+  connect: () => (
+    <IconShell>
+      <circle cx="6" cy="6" r="2.5" />
+      <circle cx="18" cy="6" r="2.5" />
+      <circle cx="12" cy="18" r="2.5" />
+      <path d="M8.2 7.3 10.5 16M15.8 7.3 13.5 16M8.5 6h7" />
+    </IconShell>
+  ),
+  handover: () => (
+    <IconShell>
+      <path d="M3 12h12" />
+      <path d="M11 7l4 5-4 5" />
+      <path d="M17 5v14" />
+    </IconShell>
+  ),
+  operate: () => (
+    <IconShell>
+      <circle cx="12" cy="12" r="3" />
+      <path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1" />
+    </IconShell>
+  ),
+  learn: () => (
+    <IconShell>
+      <path d="M2 8l10-4 10 4-10 4-10-4z" />
+      <path d="M6 10v5c0 1.5 3 3 6 3s6-1.5 6-3v-5" />
+    </IconShell>
+  ),
+  improve: () => (
+    <IconShell>
+      <path d="M3 17l5-5 4 4 8-8" />
+      <path d="M15 7h5v5" />
+    </IconShell>
+  ),
 };
 
 export default function DevelopmentJourney({ stages }: { stages: JourneyStage[] }) {
