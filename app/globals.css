@@ -96,3 +96,17 @@ video {
     width: 100%;
   }
 }
+
+/* Hides the scrollbar on deliberately-scrollable rails (e.g. the Oyi
+   capability marquee) where a visible track would fight the premium,
+   continuous-motion feel. The element remains fully scrollable —
+   native touch/trackpad/wheel input and programmatic scrollLeft are
+   unaffected; only the OS scrollbar affordance is hidden. */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
 import SectionBlock from "@/app/components/SectionBlock";
+import CTAButton from "@/app/components/CTAButton";
 import ProjectPreviewCard from "@/app/components/ProjectPreviewCard";
 import NextDevelopmentCard from "@/app/components/NextDevelopmentCard";
 import DevelopmentJourney, { type JourneyStage } from "@/app/components/DevelopmentJourney";
 import OyiCapabilitySection from "@/app/components/OyiCapabilitySection";
+import DevelopmentInsightsStory from "@/app/components/DevelopmentInsightsStory";
 import StoryCarousel, { type StorySlide } from "@/app/components/StoryCarousel";
-import CTABand from "@/app/components/CTABand";
-import { TileGrid } from "@/app/components/TileCard";
-import TileCard from "@/app/components/TileCard";
 import JsonLd from "@/app/components/JsonLd";
 import { buildMetadata, breadcrumbJsonLd, seoPages } from "@/lib/seo";
+import { ctas } from "@/lib/company";
+import { getAllInsights } from "@/lib/content";
 
 export const metadata: Metadata = buildMetadata(seoPages.development);
 
@@ -73,7 +74,9 @@ const developmentHeroSlides: StorySlide[] = [
   },
 ];
 
-export default function DevelopmentPage() {
+export default async function DevelopmentPage() {
+  const insights = (await getAllInsights()).slice(0, 6);
+
   return (
     <main>
       <JsonLd data={breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Development", path: "/development" }])} />
@@ -128,21 +131,22 @@ export default function DevelopmentPage() {
 
       <OyiCapabilitySection />
 
-      <SectionBlock eyebrow="Explore Development" title="">
-        <TileGrid columns={4}>
-          <TileCard href="/development/residential" tag="Residential" title="Residential Focus" body="Ochiga's current development direction." />
-          <TileCard href="/development/mixed-use" tag="Future Sectors" title="Mixed Use" body="Where the development capability may extend next." />
-          <TileCard href="/development/approach" tag="Approach" title="How We Develop" body="Opportunity through to operations." />
-          <TileCard href="/development/joint-ventures" tag="Joint Ventures" title="Unlock Your Land" body="Structured partnerships with landowners." />
-        </TileGrid>
+      <SectionBlock eyebrow="Explore Development" title="Have a development opportunity?">
+        <p className="max-w-2xl text-base leading-relaxed text-ochiga-white/65 md:text-lg">
+          From land and early-stage concepts to structured partnerships, development delivery and
+          technology-enabled operations, Ochiga works with landowners, developers and partners to
+          shape viable developments.
+        </p>
+        <div className="mt-8">
+          <CTAButton href={ctas.proposeDevelopment.href}>{ctas.proposeDevelopment.label} →</CTAButton>
+        </div>
       </SectionBlock>
 
-      <CTABand
-        eyebrow="Joint Ventures"
-        title="Unlock the potential of your land."
-        description="Ochiga evaluates strategically located real estate for structured development partnerships."
-        ctas={[{ label: "Propose a Development", href: "/partnerships/landowners" }]}
-      />
+      {insights.length ? (
+        <SectionBlock eyebrow="Development Insights" title="Ochiga perspectives.">
+          <DevelopmentInsightsStory insights={insights} />
+        </SectionBlock>
+      ) : null}
     </main>
   );
 }
