@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import SectionBlock from "@/app/components/SectionBlock";
-import StatementBlock from "@/app/components/StatementBlock";
 import ProjectPreviewCard from "@/app/components/ProjectPreviewCard";
 import NextDevelopmentCard from "@/app/components/NextDevelopmentCard";
-import DevelopmentJourney from "@/app/components/DevelopmentJourney";
+import DevelopmentJourney, { type JourneyStage } from "@/app/components/DevelopmentJourney";
+import OyiCapabilitySection from "@/app/components/OyiCapabilitySection";
 import StoryCarousel, { type StorySlide } from "@/app/components/StoryCarousel";
 import CTABand from "@/app/components/CTABand";
 import { TileGrid } from "@/app/components/TileCard";
@@ -13,7 +13,16 @@ import { buildMetadata, breadcrumbJsonLd, seoPages } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata(seoPages.development);
 
-const JOURNEY_STAGES = ["Land", "Strategy", "Design", "Capital", "Delivery", "Sales", "Technology", "Operations"];
+const JOURNEY_STAGES: JourneyStage[] = [
+  { key: "land", label: "Land" },
+  { key: "strategy", label: "Strategy" },
+  { key: "design", label: "Design" },
+  { key: "capital", label: "Capital" },
+  { key: "delivery", label: "Delivery" },
+  { key: "sales", label: "Sales" },
+  { key: "technology", label: "Technology" },
+  { key: "operations", label: "Operations" },
+];
 
 const STATUS_STAGES = ["Concept", "Design Development", "Project Preview", "Delivery"];
 
@@ -92,7 +101,7 @@ export default function DevelopmentPage() {
           <ProjectPreviewCard
             name="Havana Residences"
             typeLine="Premium Vertical Living"
-            location="Lagos, Nigeria"
+            location="Victoria Island, Lagos, Nigeria"
             status="In Design Development"
             story="A new generation of vertical living combining contemporary architecture, intelligent infrastructure and long-term operational thinking."
             imageSrc="/images/development/havana-tower-dusk.webp"
@@ -104,7 +113,7 @@ export default function DevelopmentPage() {
           <ProjectPreviewCard
             name="Green Gardens"
             typeLine="Contemporary Residential Community"
-            location="Lagos, Nigeria"
+            location="Ikoyi, Lagos, Nigeria"
             status="In Design Development"
             story="A thoughtfully planned residential community where modern homes, landscape, privacy and intelligent infrastructure are designed as one complete environment."
             imageSrc="/images/development/green-gardens-estate-dusk.webp"
@@ -117,10 +126,7 @@ export default function DevelopmentPage() {
         </div>
       </SectionBlock>
 
-      <StatementBlock
-        eyebrow="Technology-Enabled by Design"
-        statement="Every Ochiga development is conceived to run on Oyi from day one — not retrofitted after handover."
-      />
+      <OyiCapabilitySection />
 
       <SectionBlock eyebrow="Explore Development" title="">
         <TileGrid columns={4}>

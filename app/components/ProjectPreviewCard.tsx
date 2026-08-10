@@ -10,6 +10,15 @@ function ArrowIcon() {
   );
 }
 
+function LocationIcon() {
+  return (
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden focusable="false">
+      <path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 1 1 18 0z" />
+      <circle cx="12" cy="10" r="3" />
+    </svg>
+  );
+}
+
 export default function ProjectPreviewCard({
   name,
   typeLine,
@@ -35,34 +44,23 @@ export default function ProjectPreviewCard({
 }) {
   return (
     <div className="h-full overflow-hidden rounded border border-ochiga-white/10 transition-colors duration-base hover:border-ochiga-white/30">
-      {/* The image itself is the tour entrance — a single accessible
-          link carries the action; the pill/affordance inside are
-          decorative reinforcement, not separate controls. */}
-      <Link href={tourHref} aria-label={`Take a tour of ${name}`} className="group relative block">
+      {/* Purely visual — the tour entry point lives in the single
+          "Take a Tour" link below, not on the image. */}
+      <div className="relative">
         <AbstractSurface tone="charcoal" aspect="aspect-[16/10]" src={imageSrc} alt={imageAlt} />
         <div aria-hidden className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ochiga-black/45 via-transparent to-transparent" />
-        <span
-          aria-hidden
-          className="absolute left-3 top-3 rounded-full border border-ochiga-white/25 bg-ochiga-black/55 px-3 py-1.5 text-[10px] uppercase tracking-wide text-ochiga-white backdrop-blur-sm"
-        >
+        <span className="absolute left-3 top-3 rounded-full border border-ochiga-white/25 bg-ochiga-black/55 px-3 py-1.5 text-[10px] uppercase tracking-wide text-ochiga-white backdrop-blur-sm">
           {status}
         </span>
-        <span
-          aria-hidden
-          className="absolute right-3 top-3 flex items-center gap-2 rounded-full border border-ochiga-white/25 bg-ochiga-black/55 px-3 py-1.5 text-[10px] uppercase tracking-wide text-ochiga-white backdrop-blur-sm transition-colors duration-base group-hover:border-ochiga-white/50"
-        >
-          Take a Tour
-          <span className="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full border border-ochiga-white/40">
-            <ArrowIcon />
-          </span>
-        </span>
-      </Link>
+      </div>
 
       <div className="p-6">
-        <p className="text-xs uppercase tracking-wide text-ochiga-white/45">
-          {typeLine} · {location}
+        <h3 className="font-display text-xl text-ochiga-white md:text-2xl">{name}</h3>
+        <p className="mt-2 text-sm text-ochiga-white/55">{typeLine}</p>
+        <p className="mt-1.5 flex items-center gap-1.5 text-sm text-ochiga-white/45">
+          <LocationIcon />
+          {location}
         </p>
-        <h3 className="mt-2 font-display text-xl text-ochiga-white md:text-2xl">{name}</h3>
         <p className="mt-4 text-sm leading-relaxed text-ochiga-white/60">{story}</p>
 
         <div className="mt-6">
@@ -73,7 +71,7 @@ export default function ProjectPreviewCard({
           href={tourHref}
           className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-ochiga-white transition-colors duration-base hover:text-ochiga-white/75"
         >
-          Project details
+          Take a Tour
           <ArrowIcon />
         </Link>
       </div>
