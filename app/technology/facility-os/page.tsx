@@ -16,7 +16,7 @@ const facilityOs: ProjectTourData = {
     {
       key: "introduction",
       title: "Introduction",
-      image: { src: "/images/oyi/oyi-hero-operating-intelligence.webp", alt: "Smart building lobby overlaid with access control, energy, climate and security interface elements" },
+      image: { src: "/images/oyi/oyi-facility-os-command-centre.webp", alt: "Oyi Facility OS command centre dashboard for a residential building, showing building status, system health and real-time activity, alongside connected access and metering hardware", position: "object-[70%_40%]" },
       body: [
         "Oyi Facility OS is the operating environment for building and facility teams — bringing infrastructure, assets, utilities, maintenance and access into one connected layer, instead of scattered across disconnected systems and spreadsheets.",
       ],
@@ -102,7 +102,12 @@ export default function FacilityOsTourPage() {
           { name: "Oyi Facility OS", path: "/technology/facility-os" },
         ])}
       />
-      <ProjectTour project={facilityOs} backHref="/technology" />
+      <ProjectTour
+        project={facilityOs}
+        backHref="/technology"
+        backLabel="Technology"
+        headerCta={{ label: "Try Oyi for one month →", href: "/technology?intent=pilot-facility-os#deployment" }}
+      />
     </>
   );
 }

@@ -6,17 +6,23 @@
 // imagery or an invented product screenshot.
 const DOMAINS = [
   { key: "residents", label: "Residents" },
-  { key: "building-teams", label: "Building Teams" },
+  { key: "facility-teams", label: "Facility Teams" },
   { key: "utilities", label: "Utilities" },
-  { key: "access", label: "Access & Security" },
+  { key: "energy", label: "Energy" },
+  { key: "access", label: "Access" },
+  { key: "security", label: "Security" },
+  { key: "visitors", label: "Visitors" },
   { key: "devices", label: "Devices" },
+  { key: "maintenance", label: "Maintenance" },
   { key: "services", label: "Services" },
-  { key: "intelligence", label: "Intelligence" },
+  { key: "assets", label: "Assets" },
+  { key: "intelligence", label: "Operational Intelligence" },
 ] as const;
 
 const CENTER = 320;
-const RADIUS = 210;
+const RADIUS = 232;
 const NODE_RADIUS = 54;
+const SATELLITE_RADIUS = 34;
 
 function nodePosition(index: number, total: number) {
   const angle = (index / total) * Math.PI * 2 - Math.PI / 2;
@@ -57,12 +63,13 @@ export default function TechnologyConnectDiagram() {
 
         {DOMAINS.map((domain, index) => {
           const { x, y } = nodePosition(index, DOMAINS.length);
+          const words = domain.label.split(" ");
           return (
             <g key={domain.key}>
-              <circle cx={x} cy={y} r={38} fill="none" stroke="currentColor" className="text-oyi-blue/50" strokeWidth="1.5" />
-              <text x={x} y={y + 4} textAnchor="middle" className="fill-ochiga-white/85 text-[11px]">
-                {domain.label.length > 14 ? domain.label.split(" ").map((word, wordIndex) => (
-                  <tspan key={wordIndex} x={x} dy={wordIndex === 0 ? -6 : 13}>
+              <circle cx={x} cy={y} r={SATELLITE_RADIUS} fill="none" stroke="currentColor" className="text-oyi-blue/50" strokeWidth="1.5" />
+              <text x={x} y={y + (words.length > 1 ? -2 : 4)} textAnchor="middle" className="fill-ochiga-white/85 text-[10px]">
+                {words.length > 1 ? words.map((word, wordIndex) => (
+                  <tspan key={wordIndex} x={x} dy={wordIndex === 0 ? 0 : 12}>
                     {word}
                   </tspan>
                 )) : domain.label}

@@ -16,7 +16,7 @@ const core: ProjectTourData = {
     {
       key: "introduction",
       title: "Introduction",
-      image: { src: "/images/oyi/oyi-digital-twin-preview.webp", alt: "Live digital twin of a building with asset status and alert data panels" },
+      image: { src: "/images/oyi/oyi-core-digital-twin.webp", alt: "Oyi Core digital twin of a building connecting lighting, HVAC, security, energy, water, elevators, access and fire-safety systems into one operating view", position: "object-[38%_50%]" },
       body: [
         "Oyi Core is the intelligence and orchestration layer beneath Oyi — interpreting what is happening across a building and coordinating a secure, permissioned response, so Oyi Facility OS and Oyi Experience have a shared, consistent view of the building underneath them.",
       ],
@@ -101,7 +101,7 @@ export default function CoreTourPage() {
           { name: "Oyi Core", path: "/technology/core" },
         ])}
       />
-      <ProjectTour project={core} backHref="/technology" />
+      <ProjectTour project={core} backHref="/technology" backLabel="Technology" />
     </>
   );
 }

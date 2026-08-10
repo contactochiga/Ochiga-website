@@ -39,6 +39,7 @@ export default function ProjectPreviewCard({
   statusStages,
   statusActiveIndex,
   tourHref,
+  imagePosition,
 }: {
   name: string;
   typeLine: string;
@@ -50,13 +51,14 @@ export default function ProjectPreviewCard({
   statusStages?: string[];
   statusActiveIndex?: number;
   tourHref: string;
+  imagePosition?: string;
 }) {
   return (
     <div className="h-full overflow-hidden rounded border border-ochiga-white/10 transition-colors duration-base hover:border-ochiga-white/30">
       {/* Purely visual — the tour entry point lives in the single
           "Take a Tour" link below, not on the image. */}
       <div className="relative">
-        <AbstractSurface tone="charcoal" aspect="aspect-[16/10]" src={imageSrc} alt={imageAlt} />
+        <AbstractSurface tone="charcoal" aspect="aspect-[16/10]" src={imageSrc} alt={imageAlt} objectPosition={imagePosition} />
         <div aria-hidden className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ochiga-black/45 via-transparent to-transparent" />
         {status ? (
           <span className="absolute left-3 top-3 rounded-full border border-ochiga-white/25 bg-ochiga-black/55 px-3 py-1.5 text-[10px] uppercase tracking-wide text-ochiga-white backdrop-blur-sm">

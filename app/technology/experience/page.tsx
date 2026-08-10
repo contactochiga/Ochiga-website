@@ -16,7 +16,7 @@ const experience: ProjectTourData = {
     {
       key: "introduction",
       title: "Introduction",
-      image: { src: "/images/oyi/oyi-smart-lobby-dashboard.webp", alt: "Building lobby overlaid with resident access, visitor and utility interface elements" },
+      image: { src: "/images/oyi/oyi-experience-devices-floorplan.webp", alt: "Oyi Experience app open on a tablet, phone and watch, showing a home overview and room-level floor plan, in front of a modern residence at dusk", position: "object-[60%_55%]" },
       body: [
         "Oyi Experience is the connected building experience for residents, tenants and guests — bringing access, devices, services, utilities and everyday interactions into one interface.",
       ],
@@ -101,7 +101,7 @@ export default function ExperienceTourPage() {
           { name: "Oyi Experience", path: "/technology/experience" },
         ])}
       />
-      <ProjectTour project={experience} backHref="/technology" />
+      <ProjectTour project={experience} backHref="/technology" backLabel="Technology" />
     </>
   );
 }

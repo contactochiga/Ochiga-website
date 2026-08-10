@@ -8,6 +8,7 @@ type EventName =
   | "land_jv_submit"
   | "oyi_deployment_start"
   | "oyi_deployment_submit"
+  | "oyi_deployment_intent_prefill"
   | "private_membership_start"
   | "private_membership_submit"
   | "partner_form_submit"

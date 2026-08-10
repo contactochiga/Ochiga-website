@@ -14,9 +14,27 @@ import {
 } from "@/app/components/forms/fields";
 import { track } from "@/lib/analytics";
 
-const roleOptions = ["Developer", "Property Owner", "Facility Manager", "Hospitality Operator", "Healthcare Operator", "Enterprise / Corporate", "Other"];
+const roleOptions = ["Developer", "Property Owner", "Facility Manager", "Hospitality Operator", "Healthcare Operator", "Enterprise / Corporate", "Systems Integrator / Installer", "Other"];
 const stageOptions = ["Planning", "Under Construction", "Existing Building", "Portfolio Deployment"];
 const contactMethods = ["Email", "Phone", "WhatsApp"];
+
+// Hero/tour CTAs elsewhere on the Technology page link here with a plain
+// `?intent=` query param (e.g. `/technology?intent=integrator-program#deployment`).
+// No new backend, schema or field — this only prefills the existing
+// free-text/role fields so the intent travels in the same lead payload
+// every other deployment enquiry already uses. Read via
+// window.location.search (not next/navigation's useSearchParams) so this
+// client component never forces the static /technology page into
+// dynamic rendering.
+const INTENT_PREFILLS: Record<string, { requirement: string; roleType?: string }> = {
+  "integrator-program": {
+    requirement: "I'm interested in the Oyi Integrator Program — please share details on becoming an installer / systems integrator partner.",
+    roleType: "Systems Integrator / Installer",
+  },
+  "pilot-facility-os": {
+    requirement: "I'd like to pilot Oyi Facility OS in my building for one month.",
+  },
+};
 
 export default function OyiDeploymentForm() {
   const { state, error, fieldErrors, requestId, submit, errorSummaryRef } = useLeadSubmit("OYI_DEPLOYMENT");
@@ -30,6 +48,18 @@ export default function OyiDeploymentForm() {
 
   useEffect(() => {
     track("oyi_deployment_start");
+
+    const intent = new URLSearchParams(window.location.search).get("intent");
+    const prefill = intent ? INTENT_PREFILLS[intent] : undefined;
+    if (prefill) {
+      setForm((prev) => ({
+        ...prev,
+        requirement: prev.requirement || prefill.requirement,
+        roleType: prev.roleType || prefill.roleType || prev.roleType,
+      }));
+      track("oyi_deployment_intent_prefill", { intent: intent || "" });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function set<K extends keyof typeof form>(key: K, value: string) {

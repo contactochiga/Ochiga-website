@@ -6,7 +6,6 @@ import ProjectPreviewCard from "@/app/components/ProjectPreviewCard";
 import DevelopmentJourney, { type JourneyStage } from "@/app/components/DevelopmentJourney";
 import TechnologyCapabilityRail from "@/app/components/TechnologyCapabilityRail";
 import TechnologyConnectDiagram from "@/app/components/TechnologyConnectDiagram";
-import PilotPromoBanner from "@/app/components/PilotPromoBanner";
 import PerspectiveRail from "@/app/components/PerspectiveRail";
 import StoryCarousel, { type StorySlide } from "@/app/components/StoryCarousel";
 import OyiDeploymentForm from "@/app/components/forms/OyiDeploymentForm";
@@ -17,17 +16,20 @@ import { getTechnologyInsights } from "@/lib/content";
 
 export const metadata: Metadata = buildMetadata(seoPages.technology);
 
-// Set to false (or delete the <PilotPromoBanner /> line below and this
-// file) to remove the pilot offer without touching anything else.
-const SHOW_PILOT_PROMO = true;
-
-const TRADITIONAL_STAGES: JourneyStage[] = [
+const CONSTRUCTION_LIFECYCLE: JourneyStage[] = [
   { key: "design", label: "Design" },
   { key: "build", label: "Build" },
   { key: "handover", label: "Handover" },
 ];
 
-const OCHIGA_STAGES: JourneyStage[] = [
+const CONNECTED_BUILDING_LIFECYCLE: JourneyStage[] = [
+  { key: "connect", label: "Connect" },
+  { key: "operate", label: "Operate" },
+  { key: "learn", label: "Learn" },
+  { key: "improve", label: "Improve" },
+];
+
+const FULL_LIFECYCLE: JourneyStage[] = [
   { key: "design", label: "Design" },
   { key: "build", label: "Build" },
   { key: "connect", label: "Connect" },
@@ -45,6 +47,7 @@ type TechnologyProduct = {
   story: string;
   imageSrc: string;
   imageAlt: string;
+  imagePosition?: string;
   tourHref: string;
 };
 
@@ -55,8 +58,9 @@ const TECHNOLOGY_PRODUCTS: TechnologyProduct[] = [
     typeLine: "Building & Facility Operations",
     story:
       "One operating environment for building and facility teams — infrastructure, assets, utilities, maintenance and access, coordinated in one place instead of scattered across disconnected systems.",
-    imageSrc: "/images/oyi/oyi-command-center.webp",
-    imageAlt: "Building operations command centre with a wall of monitors showing live building data",
+    imageSrc: "/images/oyi/oyi-facility-os-command-centre.webp",
+    imageAlt: "Oyi Facility OS command centre dashboard for a residential building, alongside connected access and metering hardware",
+    imagePosition: "object-[68%_38%]",
     tourHref: "/technology/facility-os",
   },
   {
@@ -65,8 +69,9 @@ const TECHNOLOGY_PRODUCTS: TechnologyProduct[] = [
     typeLine: "Resident & Occupant Experience",
     story:
       "A connected experience for the people who live in, work in and visit a building — access, devices, services and everyday building life in one interface.",
-    imageSrc: "/images/oyi/oyi-smart-lobby-dashboard.webp",
-    imageAlt: "Building lobby overlaid with resident access, visitor and utility interface elements",
+    imageSrc: "/images/oyi/oyi-experience-devices-floorplan.webp",
+    imageAlt: "Oyi Experience app open on a tablet, phone and watch, showing a home overview and room-level floor plan",
+    imagePosition: "object-[60%_50%]",
     tourHref: "/technology/experience",
   },
   {
@@ -75,19 +80,23 @@ const TECHNOLOGY_PRODUCTS: TechnologyProduct[] = [
     typeLine: "Building Intelligence",
     story:
       "The intelligence and orchestration layer beneath Oyi — interpreting what is happening across a building and coordinating a secure, permissioned response.",
-    imageSrc: "/images/oyi/oyi-digital-twin-preview.webp",
-    imageAlt: "Live digital twin of a building with asset status and alert data panels",
+    imageSrc: "/images/oyi/oyi-core-digital-twin.webp",
+    imageAlt: "Oyi Core digital twin connecting lighting, HVAC, security, energy, water, elevators, access and fire-safety systems",
+    imagePosition: "object-[38%_48%]",
     tourHref: "/technology/core",
   },
 ];
 
-const BUILDING_ENVIRONMENTS = [
+type BuildingEnvironment = { key: string; label: string; description?: string };
+
+const BUILDING_ENVIRONMENTS: BuildingEnvironment[] = [
   { key: "residential-towers", label: "Residential Towers" },
   { key: "residential-communities", label: "Residential Communities" },
   { key: "mixed-use", label: "Mixed-Use Developments" },
-  { key: "hospitality", label: "Hospitality" },
   { key: "commercial", label: "Commercial Buildings" },
+  { key: "hospitality", label: "Hospitality" },
   { key: "portfolios", label: "Managed Building Portfolios" },
+  { key: "custom", label: "Custom Deployment", description: "Configured around your building, infrastructure and operating model." },
 ];
 
 function EnvironmentIcon() {
@@ -100,76 +109,84 @@ function EnvironmentIcon() {
   );
 }
 
+// A five-frame sales story, not a generic corporate carousel: Facility
+// Operations → Resident Experience → Building Intelligence → Connected
+// Infrastructure → the Integrator Program. Same StoryCarousel engine as
+// Development — no new control system. Image weight is biased toward
+// the right (via objectPosition) on the two slides that call for it
+// explicitly; hero copy always sits bottom-left.
 const technologyHeroSlides: StorySlide[] = [
   {
-    key: "ochiga-technology",
-    eyebrow: "Ochiga Technology",
-    title: "Buildings should keep getting smarter after they're built.",
+    key: "facility-os",
+    eyebrow: "Oyi Facility OS",
+    title: "One connected operating view for the building.",
     description:
-      "Ochiga's technology division designs the operating layer that lets a development keep evolving long after handover — starting with Oyi.",
-    ctaLabel: "Explore Our Technology",
-    ctaHref: "#our-technology",
-    tone: "charcoal",
-    image: {
-      src: "/images/oyi/oyi-hero-operating-intelligence.webp",
-      alt: "Smart building lobby overlaid with access control, energy, climate and security interface elements",
-    },
-  },
-  {
-    key: "operating-technology",
-    eyebrow: "Building Operating Technology",
-    title: "One operating layer for every building system.",
-    description:
-      "Oyi connects access, energy, climate, utilities and building infrastructure into a single coordinated layer — the technology foundation beneath every Ochiga environment.",
-    ctaLabel: "See How It Works",
-    ctaHref: "#evolving",
-    tone: "charcoal",
-    image: {
-      src: "/images/oyi/oyi-command-center-ui.webp",
-      alt: "Building operations desk with monitors overlooking a residential skyline",
-      position: "object-[50%_35%]",
-    },
-  },
-  {
-    key: "operations",
-    eyebrow: "Operations",
-    title: "Command and clarity for the teams who run a building.",
-    description:
-      "Facility and building teams get one place to see infrastructure, assets, maintenance and utilities — instead of stitching together disconnected systems.",
-    ctaLabel: "Explore Oyi Facility OS",
+      "Infrastructure, assets, utilities, maintenance and access — coordinated in one place for the teams who run a building.",
+    ctaLabel: "Explore Facility OS →",
     ctaHref: "/technology/facility-os",
-    tone: "black",
+    tone: "charcoal",
     image: {
-      src: "/images/oyi/oyi-command-center.webp",
-      alt: "Building operations control room with a wall of monitors showing live building data",
+      src: "/images/oyi/oyi-facility-os-command-centre.webp",
+      alt: "Oyi Facility OS command centre dashboard for a residential building, showing building status, system health and real-time activity, alongside connected access and metering hardware",
+      position: "object-[85%_45%] md:object-[65%_42%]",
     },
   },
   {
     key: "experience",
-    eyebrow: "Experience",
-    title: "A connected experience for the people who live and work there.",
-    description:
-      "Residents, tenants and guests get one interface for access, services, devices and everyday building life.",
-    ctaLabel: "Explore Oyi Experience",
+    eyebrow: "Oyi Experience",
+    title: "A smart living experience, in your pocket and on your wrist.",
+    description: "Devices, scenes, access and everyday building life — connected across phone, tablet and watch.",
+    ctaLabel: "Explore Oyi Experience →",
     ctaHref: "/technology/experience",
     tone: "red",
     image: {
-      src: "/images/oyi/oyi-smart-lobby-dashboard.webp",
-      alt: "Building lobby overlaid with resident access, visitor and utility interface elements",
+      src: "/images/oyi/oyi-experience-devices-floorplan.webp",
+      alt: "Oyi Experience app open on a tablet, phone and watch, showing a home overview and room-level floor plan, in front of a modern residence at dusk",
+      position: "object-[70%_75%] md:object-[62%_55%]",
     },
   },
   {
-    key: "intelligence",
-    eyebrow: "Intelligence",
-    title: "Awareness that turns building data into action.",
+    key: "core",
+    eyebrow: "Oyi Core",
+    title: "The intelligence layer beneath every building system.",
     description:
-      "Oyi Core interprets what's happening across a building and coordinates a secure, permissioned response — the intelligence layer beneath the experience.",
-    ctaLabel: "Explore Oyi Core",
+      "Oyi Core senses, understands and coordinates a building's systems — lighting, HVAC, security, energy, water, elevators, access and fire safety — as one connected picture.",
+    ctaLabel: "Explore Oyi Core →",
     ctaHref: "/technology/core",
     tone: "charcoal",
     image: {
-      src: "/images/oyi/oyi-digital-twin-preview.webp",
-      alt: "Live digital twin of a building with asset status and alert data panels",
+      src: "/images/oyi/oyi-core-digital-twin.webp",
+      alt: "Oyi Core digital twin of a building connecting lighting, HVAC, security, energy, water, elevators, access and fire-safety systems into one operating view",
+      position: "object-[32%_50%] md:object-[40%_48%]",
+    },
+  },
+  {
+    key: "infrastructure",
+    eyebrow: "Connected Infrastructure",
+    title: "Software that reaches the real building.",
+    description:
+      "Oyi connects to the devices, meters, sensors and access systems already running inside a building — not just a screen, but the infrastructure behind it.",
+    ctaLabel: "See What Oyi Connects →",
+    ctaHref: "#connects",
+    tone: "black",
+    image: {
+      src: "/images/oyi/oyi-connected-devices-residence.webp",
+      alt: "Oyi app on a phone, tablet and watch in front of a modern residence at dusk, controlling the building's lighting, climate and security",
+      position: "object-[68%_80%] md:object-[64%_55%]",
+    },
+  },
+  {
+    key: "integrator-program",
+    eyebrow: "Oyi Integrator Program",
+    title: "Deploy intelligent building technology with Oyi.",
+    description: "For installers, systems integrators and technical partners who want to deliver connected building experiences using Oyi.",
+    ctaLabel: "Become an Integrator →",
+    ctaHref: "/technology?intent=integrator-program#deployment",
+    tone: "charcoal",
+    image: {
+      src: "/images/oyi/oyi-integrator-program.webp",
+      alt: "A team of Oyi integrators reviewing a building floor plan alongside connected devices, sensors and installation tools",
+      position: "object-[35%_65%] md:object-[42%_45%]",
     },
   },
 ];
@@ -188,42 +205,50 @@ export default async function TechnologyPage() {
         sectionClassName="relative flex min-h-[88vh] flex-col justify-end overflow-hidden border-b border-ochiga-white/10 bg-ochiga-black px-6 pb-24 pt-40 md:px-10 md:pb-28"
       />
 
-      {SHOW_PILOT_PROMO ? <PilotPromoBanner /> : null}
-
-      <StatementBlock eyebrow="Ochiga Technology" statement="A building should not stop evolving at handover.">
-        <p className="max-w-xl text-base leading-relaxed text-ochiga-white/65">From a finished building to a living one.</p>
+      <StatementBlock eyebrow="Why Technology Matters" statement="A building should not stop evolving at handover.">
+        <p className="max-w-xl text-base leading-relaxed text-ochiga-white/65">
+          Construction may end at handover, but the building continues to operate every day.
+        </p>
       </StatementBlock>
 
-      <SectionBlock id="evolving" eyebrow="Why Oyi Exists" title="Traditional development ends at handover. Ochiga developments continue.">
+      <SectionBlock id="why-technology-matters" eyebrow="The Problem" title="Buildings run on fragmented systems, teams and data.">
         <p className="max-w-2xl text-base leading-relaxed text-ochiga-white/65 md:text-lg">
-          Most developments are designed, built and handed over — after that, how the building runs is
-          someone else&apos;s problem. Ochiga designs technology into a development from the outset, so
-          the same team that designs and builds a building can also help it connect, operate, learn and
-          improve once people are living and working in it.
+          The issue is rarely that a building has no systems — most have several. Utilities, access,
+          maintenance, residents, services, infrastructure and building teams all continue generating
+          activity long after handover. When those systems operate separately, the building becomes
+          harder to understand, coordinate and improve. Ochiga Technology connects those layers into
+          one more coherent operating environment.
         </p>
 
         <div className="mt-14 space-y-12">
           <div>
-            <p className="mb-6 text-xs uppercase tracking-eyebrow text-ochiga-white/45">Traditional Development</p>
-            <DevelopmentJourney stages={TRADITIONAL_STAGES} />
+            <p className="mb-6 text-xs uppercase tracking-eyebrow text-ochiga-white/45">Construction Lifecycle</p>
+            <DevelopmentJourney stages={CONSTRUCTION_LIFECYCLE} />
           </div>
           <div>
-            <p className="mb-6 text-xs uppercase tracking-eyebrow text-ochiga-white/45">Ochiga, with Oyi</p>
-            <DevelopmentJourney stages={OCHIGA_STAGES} />
+            <p className="mb-6 text-xs uppercase tracking-eyebrow text-ochiga-white/45">Connected Building Lifecycle</p>
+            <DevelopmentJourney stages={CONNECTED_BUILDING_LIFECYCLE} />
+          </div>
+          <div>
+            <p className="mb-6 text-xs uppercase tracking-eyebrow text-ochiga-white/45">The Full Lifecycle</p>
+            <DevelopmentJourney stages={FULL_LIFECYCLE} />
           </div>
         </div>
 
-        <p className="mt-12 max-w-2xl text-sm leading-relaxed text-ochiga-white/50">
-          This does not mean every Ochiga development has every Oyi capability deployed on day one —
-          it means the option to connect, operate, learn and improve is designed in from the start,
-          rather than retrofitted later.
-        </p>
+        <div className="mt-12 max-w-2xl rounded border border-oyi-blue/25 bg-oyi-blue/[0.06] p-6">
+          <p className="text-sm leading-relaxed text-ochiga-white/80">
+            Oyi can be designed into a development from the beginning, or integrated later into an
+            existing operating building. Either way, the goal is the same: connect, operate, learn and
+            improve — not just design, build and hand over.
+          </p>
+        </div>
       </SectionBlock>
 
-      <SectionBlock id="our-technology" eyebrow="Our Technology" title="One technology company. A growing set of capabilities.">
+      <SectionBlock id="our-technology" eyebrow="Our Technology" title="One building operating technology. A growing set of capabilities.">
         <p className="max-w-2xl text-base leading-relaxed text-ochiga-white/65 md:text-lg">
-          Oyi is Ochiga&apos;s flagship building operating technology today. It is delivered as a set of
-          connected products, each addressing a different part of how a building runs.
+          Oyi connects infrastructure, building operations, resident experience and intelligence
+          through one operating layer. It can be designed into new developments or integrated into
+          existing buildings and portfolios.
         </p>
         <div className="mt-12 grid gap-8 md:grid-cols-3">
           {TECHNOLOGY_PRODUCTS.map((product) => (
@@ -234,18 +259,15 @@ export default async function TechnologyPage() {
               story={product.story}
               imageSrc={product.imageSrc}
               imageAlt={product.imageAlt}
+              imagePosition={product.imagePosition}
               tourHref={product.tourHref}
             />
           ))}
         </div>
       </SectionBlock>
 
-      <SectionBlock eyebrow="What Oyi Connects" title="One operating layer, connected to everything around a building.">
-        <p className="max-w-2xl text-base leading-relaxed text-ochiga-white/65 md:text-lg">
-          Oyi sits at the centre of a building&apos;s operating environment — connecting the people, teams
-          and systems that keep it running.
-        </p>
-        <div className="mt-12">
+      <SectionBlock id="connects" eyebrow="What Oyi Connects" title="One operating layer. Everything around the building connected.">
+        <div className="mt-2">
           <TechnologyConnectDiagram />
         </div>
       </SectionBlock>
@@ -261,11 +283,16 @@ export default async function TechnologyPage() {
         </p>
         <div className="mt-10 grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-3">
           {BUILDING_ENVIRONMENTS.map((environment) => (
-            <div key={environment.key} className="flex items-center gap-3">
+            <div key={environment.key} className="flex items-start gap-3">
               <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-ochiga-white/15 text-ochiga-white/70">
                 <EnvironmentIcon />
               </span>
-              <span className="text-sm text-ochiga-white/70">{environment.label}</span>
+              <span>
+                <span className="block text-sm text-ochiga-white/70">{environment.label}</span>
+                {environment.description ? (
+                  <span className="mt-1 block text-xs leading-relaxed text-ochiga-white/45">{environment.description}</span>
+                ) : null}
+              </span>
             </div>
           ))}
         </div>

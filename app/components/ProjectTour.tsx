@@ -45,9 +45,16 @@ const PANEL_ID = "tour-chapter-panel";
 export default function ProjectTour({
   project,
   backHref = "/development",
+  backLabel = "Development",
+  headerCta,
 }: {
   project: ProjectTourData;
   backHref?: string;
+  backLabel?: string;
+  // Restrained, opt-in CTA at the far right of the tour header — e.g. a
+  // time-limited pilot offer. Omitted by default; existing tours are
+  // unaffected unless a page explicitly passes it.
+  headerCta?: { label: string; href: string };
 }) {
   const [started, setStarted] = useState(false);
   const [activeChapter, setActiveChapter] = useState(0);
@@ -63,13 +70,25 @@ export default function ProjectTour({
   return (
     <main className="bg-ochiga-black">
       <div className="border-b border-ochiga-white/10 px-6 pb-6 pt-32 md:px-10 md:pt-40">
-        <Link href={backHref} className="text-xs uppercase tracking-eyebrow text-ochiga-white/45 hover:text-ochiga-white">
-          ← Development
-        </Link>
-        <p className="mt-4 text-xs uppercase tracking-wide text-ochiga-red">
-          {project.location ? `${project.typeLine} · ${project.location}` : project.typeLine}
-        </p>
-        <p className="mt-1 font-display text-2xl text-ochiga-white">{project.name}</p>
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <Link href={backHref} className="text-xs uppercase tracking-eyebrow text-ochiga-white/45 hover:text-ochiga-white">
+              ← {backLabel}
+            </Link>
+            <p className="mt-4 text-xs uppercase tracking-wide text-ochiga-red">
+              {project.location ? `${project.typeLine} · ${project.location}` : project.typeLine}
+            </p>
+            <p className="mt-1 font-display text-2xl text-ochiga-white">{project.name}</p>
+          </div>
+          {headerCta ? (
+            <Link
+              href={headerCta.href}
+              className="inline-flex flex-shrink-0 items-center rounded border border-oyi-blue/40 px-4 py-2 text-sm font-medium text-oyi-blue-bright transition-colors duration-base hover:border-oyi-blue hover:text-oyi-blue"
+            >
+              {headerCta.label}
+            </Link>
+          ) : null}
+        </div>
       </div>
 
       <div className="mx-auto flex max-w-wide flex-col gap-8 px-6 py-10 md:flex-row md:gap-12 md:px-10 md:py-14">
