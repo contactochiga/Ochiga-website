@@ -2,15 +2,14 @@ import type { Metadata } from "next";
 import SectionBlock from "@/app/components/SectionBlock";
 import CTAButton from "@/app/components/CTAButton";
 import ProjectPreviewCard from "@/app/components/ProjectPreviewCard";
-import NextDevelopmentCard from "@/app/components/NextDevelopmentCard";
 import DevelopmentJourney, { type JourneyStage } from "@/app/components/DevelopmentJourney";
 import OyiCapabilitySection from "@/app/components/OyiCapabilitySection";
-import DevelopmentInsightsStory from "@/app/components/DevelopmentInsightsStory";
+import PerspectiveRail from "@/app/components/PerspectiveRail";
 import StoryCarousel, { type StorySlide } from "@/app/components/StoryCarousel";
 import JsonLd from "@/app/components/JsonLd";
 import { buildMetadata, breadcrumbJsonLd, seoPages } from "@/lib/seo";
 import { ctas } from "@/lib/company";
-import { getAllInsights } from "@/lib/content";
+import { getDevelopmentInsights } from "@/lib/content";
 
 export const metadata: Metadata = buildMetadata(seoPages.development);
 
@@ -75,7 +74,7 @@ const developmentHeroSlides: StorySlide[] = [
 ];
 
 export default async function DevelopmentPage() {
-  const insights = (await getAllInsights()).slice(0, 6);
+  const insights = (await getDevelopmentInsights()).slice(0, 6);
 
   return (
     <main>
@@ -125,7 +124,18 @@ export default async function DevelopmentPage() {
             statusActiveIndex={1}
             tourHref="/development/green-gardens"
           />
-          <NextDevelopmentCard />
+          <ProjectPreviewCard
+            name="Central One"
+            typeLine="Mixed-Use Urban Development"
+            location="Central Area, Abuja, Nigeria"
+            status="In Design Development"
+            story="Central One brings together contemporary residences, hospitality, commercial activity, landscaped outdoor spaces and lifestyle amenities within one connected development."
+            imageSrc="/images/development/central-one-aerial-night.webp"
+            imageAlt="Central One mixed-use development, aerial night render"
+            statusStages={STATUS_STAGES}
+            statusActiveIndex={1}
+            tourHref="/development/central-one"
+          />
         </div>
       </SectionBlock>
 
@@ -143,8 +153,8 @@ export default async function DevelopmentPage() {
       </SectionBlock>
 
       {insights.length ? (
-        <SectionBlock eyebrow="Development Insights" title="Ochiga perspectives.">
-          <DevelopmentInsightsStory insights={insights} />
+        <SectionBlock eyebrow="Ochiga Perspective" title="Ochiga perspectives on development.">
+          <PerspectiveRail insights={insights} />
         </SectionBlock>
       ) : null}
     </main>

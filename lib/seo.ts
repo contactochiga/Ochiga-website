@@ -80,6 +80,12 @@ export const seoPages = {
     description:
       "Green Gardens: a contemporary residential community in design development in Lagos, Nigeria, from Ochiga Development.",
   },
+  developmentCentralOne: {
+    path: "/development/central-one",
+    title: "Central One — Ochiga Development",
+    description:
+      "Central One: a proposed mixed-use urban development in design/concept development in Central Area, Abuja, Nigeria, from Ochiga Development.",
+  },
 
   // ---- Oyi ------------------------------------------------------------
   oyi: {

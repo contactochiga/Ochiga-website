@@ -28,6 +28,11 @@ export type Insight = {
   readingTime?: string;
   related: Array<{ href: string; label: string }>;
   source: "sanity" | "fallback";
+  // Only ever set for Sanity-sourced insights with an uploaded cover
+  // image — fallback content has no photography, so components should
+  // fall back to their existing decorative treatment when this is
+  // undefined rather than fabricating one.
+  coverImage?: { src: string; alt: string };
 };
 
 // The long-term content pillars Ochiga Insights should cover. Used to
@@ -111,6 +116,16 @@ function flattenPortableText(blocks: unknown): string[] {
     .filter(Boolean);
 }
 
+function normalizeCoverImage(doc: any): Insight["coverImage"] {
+  if (!doc.coverImage?.asset) return undefined;
+  try {
+    const src = urlFor(doc.coverImage).width(800).height(500).fit("crop").url();
+    return { src, alt: doc.coverImage.alt || doc.title || "" };
+  } catch {
+    return undefined;
+  }
+}
+
 function normalizeSanityDoc(doc: any): Insight {
   return {
     slug: doc.slug?.current || doc.slug,
@@ -125,6 +140,7 @@ function normalizeSanityDoc(doc: any): Insight {
     body: flattenPortableText(doc.body),
     seoTitle: doc.seoTitle,
     seoDescription: doc.seoDescription,
+    coverImage: normalizeCoverImage(doc),
     related: Array.isArray(doc.relatedPosts)
       ? doc.relatedPosts.map((post: any) => ({ href: `/insights/${post.slug?.current || post.slug}`, label: post.title }))
       : [],
@@ -161,6 +177,25 @@ export async function getInsightBySlug(slug: string): Promise<Insight | null> {
 export async function getFeaturedInsight(): Promise<Insight | null> {
   const all = await getAllInsights();
   return all.find((item) => item.featured) || all[0] || null;
+}
+
+// Development-relevant subset of the editorial feed, for the
+// Development page's "Ochiga Perspective" rail. Matches an insight's
+// category/tags against insightTopics — the site's own already-defined
+// content pillars — rather than any hardcoded article list. If that
+// filter comes back too thin to justify its own rail (e.g. current
+// bundled content predates the pillar taxonomy and doesn't consistently
+// use it yet), falls back to the general feed so the section is never
+// sparse or empty; the filter still takes effect the moment real
+// content is tagged against these pillars.
+export async function getDevelopmentInsights(minimumCount = 3): Promise<Insight[]> {
+  const all = await getAllInsights();
+  const pillars = insightTopics.map((topic) => topic.toLowerCase());
+  const relevant = all.filter((insight) => {
+    const haystack = [insight.category, ...insight.tags].join(" ").toLowerCase();
+    return pillars.some((pillar) => haystack.includes(pillar) || pillar.includes(insight.category.toLowerCase()));
+  });
+  return relevant.length >= minimumCount ? relevant : all;
 }
 
 export { urlFor };
