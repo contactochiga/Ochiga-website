@@ -20,7 +20,13 @@ export default function EngineTriad() {
               {engine.short}
             </p>
           </div>
-          <p className="mt-8 text-sm leading-relaxed text-ochiga-white/55">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={engine.image.src}
+            alt={engine.image.alt}
+            className="mt-6 h-32 w-full rounded-sm object-cover opacity-90 transition-opacity duration-base group-hover:opacity-100 md:h-36"
+          />
+          <p className="mt-6 text-sm leading-relaxed text-ochiga-white/55">
             {engine.description}
           </p>
           <span className="mt-8 inline-flex items-center gap-2 text-sm text-ochiga-white/70 group-hover:text-ochiga-white">

@@ -1,13 +1,9 @@
 import type { Metadata } from "next";
-import PageHero from "@/app/components/PageHero";
 import SectionBlock from "@/app/components/SectionBlock";
-import SplitSection from "@/app/components/SplitSection";
 import StatementBlock from "@/app/components/StatementBlock";
-import StudyCard from "@/app/components/StudyCard";
-import ProcessFlow from "@/app/components/ProcessFlow";
+import ProjectPreviewCard from "@/app/components/ProjectPreviewCard";
+import StoryCarousel, { type StorySlide } from "@/app/components/StoryCarousel";
 import CTABand from "@/app/components/CTABand";
-import CTAButton from "@/app/components/CTAButton";
-import FullBleedMedia from "@/app/components/FullBleedMedia";
 import { TileGrid } from "@/app/components/TileCard";
 import TileCard from "@/app/components/TileCard";
 import JsonLd from "@/app/components/JsonLd";
@@ -20,20 +16,66 @@ const capabilities = [
   "Capital structuring", "Construction", "Sales / Offtake", "Technology", "Operations",
 ];
 
+const STATUS_STAGES = ["Concept", "Design Development", "Project Preview", "Delivery"];
+
+const developmentHeroSlides: StorySlide[] = [
+  {
+    key: "mission",
+    eyebrow: "Ochiga Development",
+    title: "We create places designed for how people will live next.",
+    description:
+      "Development, architecture, engineering and technology are considered together from the outset — so a building is designed not only to be delivered, but to operate and evolve.",
+    ctaLabel: "See Current Developments",
+    ctaHref: "#current-developments",
+    tone: "charcoal",
+    image: {
+      src: "/images/development/development-construction-network.webp",
+      alt: "High-rise development under construction, overlaid with a connected technology network",
+    },
+  },
+  {
+    key: "havana",
+    eyebrow: "Havana Residences",
+    title: "Premium vertical living, considered from the ground up.",
+    description:
+      "Havana Residences explores a new generation of vertical living — contemporary residential architecture, generous private spaces and intelligent-building infrastructure within one development. In design development.",
+    ctaLabel: "Take a Tour",
+    ctaHref: "/development/havana",
+    tone: "charcoal",
+    image: {
+      src: "/images/development/havana-tower-dusk.webp",
+      alt: "Havana Residences tower at dusk on the Lagos waterfront",
+      position: "object-[55%_40%] md:object-[62%_38%]",
+    },
+  },
+  {
+    key: "green-gardens",
+    eyebrow: "Green Gardens",
+    title: "A contemporary residential community, designed as one living environment.",
+    description:
+      "Green Gardens brings modern homes, landscape, privacy and intelligent infrastructure together as a complete living environment. In design development.",
+    ctaLabel: "Take a Tour",
+    ctaHref: "/development/green-gardens",
+    tone: "red",
+    image: {
+      src: "/images/development/green-gardens-estate-dusk.webp",
+      alt: "Green Gardens residential community entrance at dusk",
+      position: "object-[45%_45%] md:object-[52%_42%]",
+    },
+  },
+];
+
 export default function DevelopmentPage() {
   return (
     <main>
       <JsonLd data={breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Development", path: "/development" }])} />
-      <PageHero
-        eyebrow="Ochiga Development"
-        title="Development built for what comes next."
-        description="Ochiga originates, structures and delivers intelligent real-estate developments through direct development, joint ventures and strategic partnerships."
-      >
-        <div className="flex flex-wrap gap-4">
-          <CTAButton href="/development/studies">View Development Studies</CTAButton>
-          <CTAButton href="/partnerships/landowners" variant="secondary">Propose a Development</CTAButton>
-        </div>
-      </PageHero>
+
+      <StoryCarousel
+        slides={developmentHeroSlides}
+        ariaLabel="Ochiga Development highlights"
+        sectionId="development-hero"
+        sectionClassName="relative flex min-h-[88vh] flex-col justify-end overflow-hidden border-b border-ochiga-white/10 bg-ochiga-black px-6 pb-24 pt-40 md:px-10 md:pb-28"
+      />
 
       <SectionBlock eyebrow="What Ochiga Brings Together" title="One team, across the full development chain.">
         <div className="flex flex-wrap gap-3">
@@ -44,36 +86,37 @@ export default function DevelopmentPage() {
           ))}
         </div>
         <p className="mt-8 max-w-2xl text-sm text-ochiga-white/45">
-          Ochiga does not currently operate a large existing development portfolio. This is a
-          disciplined, deliberately staged build-out — see Development Studies below for where that
-          starts.
+          Ochiga does not currently operate a large existing development portfolio. Havana Residences
+          and Green Gardens below are its current developments in design development — this is a
+          disciplined, deliberately staged build-out.
         </p>
       </SectionBlock>
 
-      <FullBleedMedia
-        eyebrow="Ochiga Development"
-        title="Development originated, structured and delivered — not simply built."
-        surfaceLabel="Ochiga Development"
-        tone="charcoal"
-        imageSrc="/images/development/development-construction-network.webp"
-        imageAlt="Illustrative concept render of a high-rise under construction overlaid with a connected technology network"
-      />
-
-      <SectionBlock eyebrow="Development Studies" title="Current development direction.">
+      <SectionBlock id="current-developments" eyebrow="Current Developments" title="Two developments, in design development.">
         <div className="grid gap-8 md:grid-cols-2">
-          <StudyCard
-            index="01"
-            name="Prime Vertical Living"
-            summary="Approximately 18–21 storeys of high-end residential development, for sites where location, planning and land economics support vertical density."
-            specs={["Premium apartments", "Family residences", "Penthouses", "Oyi throughout"]}
-            href="/development/studies"
+          <ProjectPreviewCard
+            name="Havana Residences"
+            typeLine="Premium Vertical Living"
+            location="Lagos, Nigeria"
+            status="In Design Development"
+            story="Havana Residences explores a new generation of vertical living — combining contemporary residential architecture, generous private spaces, intelligent-building infrastructure and long-term operational thinking within one development."
+            imageSrc="/images/development/havana-tower-dusk.webp"
+            imageAlt="Havana Residences tower at dusk on the Lagos waterfront"
+            statusStages={STATUS_STAGES}
+            statusActiveIndex={1}
+            tourHref="/development/havana"
           />
-          <StudyCard
-            index="02"
-            name="Contemporary Residential Community"
-            summary="Approximately 40 premium homes on larger sites, subject to feasibility — terraces, townhouses, duplexes and landscaped communal space."
-            specs={["Clubhouse", "Wellness & recreation", "Smart infrastructure", "Oyi integration"]}
-            href="/development/studies"
+          <ProjectPreviewCard
+            name="Green Gardens"
+            typeLine="Contemporary Residential Community"
+            location="Lagos, Nigeria"
+            status="In Design Development"
+            story="Green Gardens is conceived as a contemporary residential community where modern homes, landscape, privacy and intelligent infrastructure are designed as a complete living environment rather than as isolated houses."
+            imageSrc="/images/development/green-gardens-estate-dusk.webp"
+            imageAlt="Green Gardens residential community entrance at dusk"
+            statusStages={STATUS_STAGES}
+            statusActiveIndex={1}
+            tourHref="/development/green-gardens"
           />
         </div>
       </SectionBlock>

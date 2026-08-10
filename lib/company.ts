@@ -34,6 +34,7 @@ export const engines = [
     short: "We create the physical asset.",
     description:
       "The physical development engine — land, design, capital and delivery for residential and mixed-use environments.",
+    image: { src: "/images/development/havana-tower-dusk.webp", alt: "Havana Residences tower at dusk on the Lagos waterfront" },
   },
   {
     key: "oyi",
@@ -42,6 +43,7 @@ export const engines = [
     short: "We power how it operates.",
     description:
       "Ochiga's building operating technology — the intelligence layer that helps developments continue to evolve after handover.",
+    image: { src: "/images/oyi/oyi-hero-operating-intelligence.webp", alt: "Oyi building-intelligence overlays for access control, energy, climate and security" },
   },
   {
     key: "private",
@@ -50,6 +52,7 @@ export const engines = [
     short: "We connect selected people and capital to opportunity.",
     description:
       "A curated private real-estate investment and opportunity network for selected investors, buyers and partners.",
+    image: { src: "/images/private/ochiga-private-hero.webp", alt: "Ochiga Private client lounge with a global investment-opportunities dashboard and a city skyline view" },
   },
 ] as const;
 

@@ -68,6 +68,18 @@ export const seoPages = {
     description:
       "Current Ochiga development studies and concepts, including Prime Vertical Living and Contemporary Residential Community.",
   },
+  developmentHavana: {
+    path: "/development/havana",
+    title: "Havana Residences — Ochiga Development",
+    description:
+      "Havana Residences: a premium vertical residential tower in design development in Lagos, Nigeria, from Ochiga Development.",
+  },
+  developmentGreenGardens: {
+    path: "/development/green-gardens",
+    title: "Green Gardens — Ochiga Development",
+    description:
+      "Green Gardens: a contemporary residential community in design development in Lagos, Nigeria, from Ochiga Development.",
+  },
 
   // ---- Oyi ------------------------------------------------------------
   oyi: {
