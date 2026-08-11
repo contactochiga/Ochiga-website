@@ -15,7 +15,7 @@ export default function CapitalPartnersPage() {
         title="Structured relationships around qualifying opportunities."
         description="Ochiga works with private and institutional capital relationships around qualifying real-estate development opportunities — evaluated and structured on a per-opportunity basis, alongside Ochiga Development and Ochiga Private."
       >
-        <CTAButton href="/contact">Work With Ochiga</CTAButton>
+        <CTAButton href="/partnerships?type=capital#partner-with-ochiga">Discuss Capital Partnership</CTAButton>
       </PageHero>
 
       <SectionBlock width="content">

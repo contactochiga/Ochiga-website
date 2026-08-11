@@ -85,9 +85,9 @@ export function buildStrategicPartnerPayload(input: StrategicPartnerInput, ctx: 
     ...base(input, "STRATEGIC_PARTNER", ctx),
     lead_type: "STRATEGIC_PARTNER",
     strategic_partner: {
-      organisation: input.organisation,
+      organisation: input.organisation || undefined,
       website_or_linkedin: input.websiteOrLinkedin || undefined,
-      location: input.location,
+      location: input.location || undefined,
       partner_type: input.partnerType,
       capability_description: input.capabilityDescription,
       relevant_experience: input.relevantExperience || undefined,

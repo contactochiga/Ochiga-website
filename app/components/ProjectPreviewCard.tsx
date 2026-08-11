@@ -48,6 +48,7 @@ export default function ProjectPreviewCard({
   statusStages,
   statusActiveIndex,
   tourHref,
+  tourLabel = "Take a Tour",
   imagePosition,
 }: {
   name: string;
@@ -61,6 +62,10 @@ export default function ProjectPreviewCard({
   statusStages?: string[];
   statusActiveIndex?: number;
   tourHref?: string;
+  // Partnerships' 6 category cards each need a different link label
+  // ("Discuss a Development Partnership", "Work With Ochiga", ...) —
+  // defaults to "Take a Tour" so Development/Technology are unaffected.
+  tourLabel?: string;
   imagePosition?: string;
 }) {
   return (
@@ -106,7 +111,7 @@ export default function ProjectPreviewCard({
             href={tourHref}
             className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-ochiga-white transition-colors duration-base hover:text-ochiga-white/75"
           >
-            Take a Tour
+            {tourLabel}
             <ArrowIcon />
           </Link>
         ) : null}

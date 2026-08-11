@@ -62,9 +62,13 @@ export type PrivateMembershipInput = z.infer<typeof privateMembershipSchema>;
 
 export const strategicPartnerSchema = baseSchema.extend({
   phone: requiredPhone("Enter a valid phone number"),
-  organisation: z.string().trim().min(1).max(160),
+  // Optional: this schema now backs the general Partnership intake too
+  // (Capital / Buyer-Offtake / Strategic categories), where an
+  // individual may have no organisation or fixed location — "if
+  // applicable", per the Partnerships form spec.
+  organisation: z.string().trim().max(160).optional().or(z.literal("")),
   websiteOrLinkedin: z.string().trim().max(300).optional().or(z.literal("")),
-  location: z.string().trim().min(1).max(200),
+  location: z.string().trim().max(200).optional().or(z.literal("")),
   partnerType: z.string().trim().min(1).max(120),
   capabilityDescription: z.string().trim().min(1, "Tell us a little about your capability").max(1600),
   relevantExperience: z.string().trim().max(1600).optional().or(z.literal("")),

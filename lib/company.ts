@@ -81,7 +81,7 @@ export const primaryNavigation = [
   { href: "/technology", label: "Technology" },
   {
     href: "/private",
-    label: "Ochiga Private",
+    label: "Private",
     children: [
       { href: "/private", label: "Overview" },
       { href: "/private/investment-approaches", label: "Investment Approaches" },
@@ -109,8 +109,10 @@ export const primaryNavigation = [
       { href: "/about#trust", label: "Trust & Governance" },
     ],
   },
-  { href: "/insights", label: "Insights" },
-  { href: "/contact", label: "Contact" },
+  // Insights and Contact stay live routes — reachable from the footer and
+  // contextual links throughout the site — just no longer duplicated in
+  // the primary corporate nav (Development | Technology | Private |
+  // Partnerships | About + Partner With Ochiga).
 ] as const;
 
 export const footerNavigation = {
@@ -140,7 +142,7 @@ export const footerNavigation = {
 
 // Persistent + contextual CTAs referenced throughout the site (Section 4).
 export const ctas = {
-  primary: { label: "Partner With Ochiga", href: "/contact" },
+  primary: { label: "Partner With Ochiga", href: "/partnerships#partner-with-ochiga" },
   exploreDevelopment: { label: "Explore Development", href: "/development" },
   discoverOyi: { label: "Discover Oyi", href: "/oyi" },
   requestMembership: { label: "Request Membership", href: "/private#membership" },

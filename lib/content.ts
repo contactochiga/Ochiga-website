@@ -260,4 +260,32 @@ export async function getPrivateInsights(minimumCount = 3): Promise<Insight[]> {
   return relevant.length >= minimumCount ? relevant : all;
 }
 
+// Partnerships-relevant subset of the editorial feed, for the
+// Partnerships page's "Ochiga Perspective" rail — matches joint
+// ventures, delivery and industry-collaboration subject areas. Same
+// safe fallback: never sparse or empty.
+const PARTNERSHIPS_KEYWORDS = [
+  "joint venture",
+  "development structure",
+  "project delivery",
+  "real-estate partnership",
+  "capital",
+  "technology integration",
+  "construction",
+  "development economics",
+  "offtake",
+  "property market",
+  "collaboration",
+  "delivery",
+];
+
+export async function getPartnershipsInsights(minimumCount = 3): Promise<Insight[]> {
+  const all = await getAllInsights();
+  const relevant = all.filter((insight) => {
+    const haystack = [insight.category, ...insight.tags].join(" ").toLowerCase();
+    return PARTNERSHIPS_KEYWORDS.some((keyword) => haystack.includes(keyword));
+  });
+  return relevant.length >= minimumCount ? relevant : all;
+}
+
 export { urlFor };

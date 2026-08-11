@@ -137,9 +137,9 @@ export const seoPages = {
   // ---- Partnerships -----------------------------------------------------
   partnerships: {
     path: "/partnerships",
-    title: "Partnerships — Ochiga",
+    title: "Partnerships — How Ochiga Works With Its Ecosystem",
     description:
-      "Pathways to work with Ochiga as a landowner, capital partner, buyer, or professional and strategic partner.",
+      "Ochiga works through an ecosystem of landowners, capital partners, buyers, delivery professionals, technology partners and strategic organisations across development, technology and private real-estate relationships.",
   },
   partnershipsLandowners: {
     path: "/partnerships/landowners",

@@ -58,9 +58,9 @@ export type PrivateMembershipDetails = {
 };
 
 export type StrategicPartnerDetails = {
-  organisation: string;
+  organisation?: string;
   website_or_linkedin?: string;
-  location: string;
+  location?: string;
   partner_type: string;
   capability_description: string;
   relevant_experience?: string;

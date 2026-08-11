@@ -206,6 +206,40 @@ const ICONS: Record<string, () => ReactElement> = {
       <path d="M6 21v-6c3 0 3-3 6-3s3 3 6 3v6" />
     </IconShell>
   ),
+  // Additive keys for the Partnerships page's "How a Partnership
+  // Begins" sequence — the keys above are untouched, so Development,
+  // Technology and Private render identically.
+  introduce: () => (
+    <IconShell>
+      <path d="M4 4h16v13H8l-4 4z" />
+      <path d="M8 9h8M8 12h5" />
+    </IconShell>
+  ),
+  review: () => (
+    <IconShell>
+      <circle cx="11" cy="11" r="6.5" />
+      <path d="M20 20l-4.5-4.5" />
+    </IconShell>
+  ),
+  structure: () => (
+    <IconShell>
+      <rect x="4" y="4" width="7" height="7" />
+      <rect x="13" y="4" width="7" height="7" />
+      <rect x="8.5" y="13" width="7" height="7" />
+      <path d="M7.5 11v2M16.5 11v2M12 13v-2h0" />
+    </IconShell>
+  ),
+  align: () => (
+    <IconShell>
+      <path d="M4 7h16M4 12h16M4 17h10" />
+      <path d="M17 15l3 2-3 2" />
+    </IconShell>
+  ),
+  execute: () => (
+    <IconShell>
+      <path d="M13 3 4 14h6l-1 7 9-11h-6l1-7z" />
+    </IconShell>
+  ),
 };
 
 export default function DevelopmentJourney({ stages }: { stages: JourneyStage[] }) {
