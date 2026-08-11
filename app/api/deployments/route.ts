@@ -188,7 +188,7 @@ async function persistLocal(record: unknown) {
 }
 
 async function forwardToOffice(payload: unknown) {
-  const endpoint = process.env.OCHIGA_DEPLOYMENT_LEAD_ENDPOINT;
+  const endpoint = process.env.OCHIGA_OFFICE_INTAKE_ENDPOINT || process.env.OCHIGA_DEPLOYMENT_LEAD_ENDPOINT;
   if (!endpoint) {
     return { ok: false, skipped: true, reason: "missing_endpoint" };
   }
@@ -197,15 +197,50 @@ async function forwardToOffice(payload: unknown) {
     "content-type": "application/json",
     "x-ochiga-surface": "website",
   };
-  const token = process.env.OCHIGA_DEPLOYMENT_LEAD_TOKEN;
+  const token = process.env.OCHIGA_OFFICE_INTAKE_TOKEN || process.env.OCHIGA_DEPLOYMENT_LEAD_TOKEN;
   if (token) {
     headers.authorization = `Bearer ${token}`;
   }
 
+  const leadPayload = payload as ReturnType<typeof buildLeadPayload>;
+  const officeEnvelope = {
+    request_id: leadPayload.request_id,
+    idempotency_key: crypto
+      .createHash("sha256")
+      .update([
+        leadPayload.source,
+        leadPayload.email,
+        leadPayload.phone,
+        leadPayload.request_id,
+      ].join("|"))
+      .digest("hex"),
+    submitted_at: new Date().toISOString(),
+    source_channel: "website",
+    source_site: "ochiga_website",
+    source_page: "/deployments",
+    source_form: "legacy_deployments",
+    business_unit: "technology",
+    inquiry_type: "oyi_deployment",
+    contact: {
+      name: leadPayload.name,
+      email: leadPayload.email,
+      phone: leadPayload.phone,
+    },
+    organization: {
+      name: leadPayload.company,
+      location: leadPayload.location,
+      unit_count: leadPayload.metadata.project_size,
+    },
+    payload: leadPayload,
+    consent: { website_contact: true },
+    campaign: {},
+    metadata: leadPayload.metadata,
+  };
+
   const response = await fetch(endpoint, {
     method: "POST",
     headers,
-    body: JSON.stringify(payload),
+    body: JSON.stringify(officeEnvelope),
   });
 
   if (!response.ok) {

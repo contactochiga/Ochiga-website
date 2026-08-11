@@ -5,6 +5,7 @@ import type { LeadType } from "@/lib/leads/types";
 import { checkBotSignals, getIp, maxLeadBodyBytes, rateLimit } from "@/lib/leads/security";
 import { persistLead } from "@/lib/leads/persist";
 import { sendLeadEmails } from "@/lib/email";
+import { submitOfficeIntake } from "@/lib/leads/office-intake";
 import {
   buildGeneralContactPayload,
   buildLandJvPayload,
@@ -78,11 +79,12 @@ export async function POST(request: NextRequest) {
   const payload = buildPayload(leadType, parsed.data, { requestId, ip });
 
   try {
+    const office = await submitOfficeIntake(payload);
     const emailResult = await sendLeadEmails(payload);
     const emailDelivered = emailResult.internal.ok;
 
-    const local = emailDelivered ? { ok: false, reason: "email_succeeded" } : await persistLead(payload);
-    const delivered = emailDelivered || local.ok;
+    const local = office.ok || emailDelivered ? { ok: false, reason: "remote_or_email_succeeded" } : await persistLead(payload);
+    const delivered = office.ok || emailDelivered || local.ok;
 
     if (!delivered) {
       // Never silently discard a submission — surface a real failure so
@@ -104,10 +106,11 @@ export async function POST(request: NextRequest) {
         delivery: {
           email: emailResult.internal.ok ? "sent" : emailResult.internal.skipped ? "not_configured" : "failed",
           acknowledgement: emailResult.acknowledgement.ok ? "sent" : "not_sent",
+          office: office.ok ? "sent" : office.skipped ? "not_configured" : "failed",
           local: local.ok ? "persisted" : "disabled",
         },
       },
-      { status: emailDelivered ? 201 : 202 }
+      { status: office.ok ? 201 : emailDelivered ? 202 : 202 }
     );
   } catch {
     return NextResponse.json(
