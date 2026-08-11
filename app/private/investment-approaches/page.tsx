@@ -40,7 +40,7 @@ export default function InvestmentApproachesPage() {
           ))}
         </TileGrid>
         <div className="mt-8">
-          <CTAButton href="/private/membership">Request Membership Requirements</CTAButton>
+          <CTAButton href="/private#membership">Request Membership</CTAButton>
         </div>
       </SectionBlock>
     </main>

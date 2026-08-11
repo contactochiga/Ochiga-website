@@ -26,8 +26,16 @@ function LocationIcon() {
 // geography nor a "design development" concept. location/status/
 // statusStages/statusActiveIndex are therefore optional: omitting them
 // simply skips that piece of the card rather than rendering something
-// fabricated. Existing development callers are unaffected — they still
-// pass every field, so their rendering is unchanged.
+// fabricated. tourHref is likewise optional — Ochiga Private's
+// opportunity-category cards describe an interest, not a product with a
+// tour to take, so they omit it and the card simply has no footer link.
+// imageSrc/imageAlt are also optional — Ochiga Private's opportunity
+// categories (Income/Appreciation/Development/Strategic) are interests
+// to select around, not photographed products, so they render
+// AbstractSurface's restrained tone+label placeholder instead of a
+// fabricated or repeated stock photo. Existing development/technology
+// callers are unaffected — they still pass every field, so their
+// rendering is unchanged.
 export default function ProjectPreviewCard({
   name,
   typeLine,
@@ -36,6 +44,7 @@ export default function ProjectPreviewCard({
   story,
   imageSrc,
   imageAlt,
+  imageTone = "charcoal",
   statusStages,
   statusActiveIndex,
   tourHref,
@@ -46,11 +55,12 @@ export default function ProjectPreviewCard({
   location?: string;
   status?: string;
   story: string;
-  imageSrc: string;
-  imageAlt: string;
+  imageSrc?: string;
+  imageAlt?: string;
+  imageTone?: "black" | "charcoal" | "red";
   statusStages?: string[];
   statusActiveIndex?: number;
-  tourHref: string;
+  tourHref?: string;
   imagePosition?: string;
 }) {
   return (
@@ -58,7 +68,14 @@ export default function ProjectPreviewCard({
       {/* Purely visual — the tour entry point lives in the single
           "Take a Tour" link below, not on the image. */}
       <div className="relative">
-        <AbstractSurface tone="charcoal" aspect="aspect-[16/10]" src={imageSrc} alt={imageAlt} objectPosition={imagePosition} />
+        <AbstractSurface
+          tone={imageTone}
+          aspect="aspect-[16/10]"
+          src={imageSrc}
+          alt={imageAlt}
+          objectPosition={imagePosition}
+          label={imageSrc ? undefined : name}
+        />
         <div aria-hidden className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ochiga-black/45 via-transparent to-transparent" />
         {status ? (
           <span className="absolute left-3 top-3 rounded-full border border-ochiga-white/25 bg-ochiga-black/55 px-3 py-1.5 text-[10px] uppercase tracking-wide text-ochiga-white backdrop-blur-sm">
@@ -84,13 +101,15 @@ export default function ProjectPreviewCard({
           </div>
         ) : null}
 
-        <Link
-          href={tourHref}
-          className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-ochiga-white transition-colors duration-base hover:text-ochiga-white/75"
-        >
-          Take a Tour
-          <ArrowIcon />
-        </Link>
+        {tourHref ? (
+          <Link
+            href={tourHref}
+            className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-ochiga-white transition-colors duration-base hover:text-ochiga-white/75"
+          >
+            Take a Tour
+            <ArrowIcon />
+          </Link>
+        ) : null}
       </div>
     </div>
   );

@@ -15,6 +15,9 @@
 // storage for that case (see lib/leads/persist.ts).
 import { Resend } from "resend";
 import type { LeadPayload, LeadType } from "@/lib/leads/types";
+import { formatPrivateReference } from "@/lib/leads/reference";
+import { absoluteUrl } from "@/lib/seo";
+import { companyInfo } from "@/lib/company";
 
 // Single source of truth for the internal notification destination — every
 // lead type resolves here so office@ochiga.com.ng is never hardcoded in
@@ -33,8 +36,11 @@ const acknowledgementCopy: Record<LeadType, { subject: string; body: string }> =
     body: "Thank you. Our team will review your deployment request and contact you with the appropriate next step.",
   },
   PRIVATE_MEMBERSHIP: {
-    subject: "Thank you for your interest in Ochiga Private",
-    body: "Thank you for your interest in Ochiga Private. Membership is considered individually. Our team will review your request and share further information where appropriate.",
+    subject: "Your Ochiga Private membership request has been received",
+    // Unused by the HTML body (see privateMembershipAcknowledgementHtml
+    // below) — kept accurate here since this record still supplies the
+    // email subject line for this lead type.
+    body: "Your request to join Ochiga Private has been received and will be reviewed by our team.",
   },
   STRATEGIC_PARTNER: {
     subject: "We've received your partner profile — Ochiga",
@@ -150,6 +156,7 @@ function escapeHtml(value: string) {
 }
 
 function internalEmailHtml(payload: LeadPayload) {
+  if (payload.lead_type === "PRIVATE_MEMBERSHIP") return privateMembershipInternalHtml(payload);
   return `
     <div style="font-family:Arial,sans-serif;max-width:560px;">
       <p style="font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#b3241b;">${payload.lead_type.replace("_", " ")}</p>
@@ -160,6 +167,7 @@ function internalEmailHtml(payload: LeadPayload) {
 }
 
 function acknowledgementEmailHtml(payload: LeadPayload) {
+  if (payload.lead_type === "PRIVATE_MEMBERSHIP") return privateMembershipAcknowledgementHtml(payload);
   const copy = acknowledgementCopy[payload.lead_type];
   return `
     <div style="font-family:Arial,sans-serif;max-width:520px;">
@@ -167,6 +175,135 @@ function acknowledgementEmailHtml(payload: LeadPayload) {
       <p style="font-size:15px;line-height:1.6;color:#141414;">${copy.body}</p>
       <p style="font-size:12px;color:#8c887f;margin-top:24px;">Reference: ${payload.metadata.request_id}</p>
     </div>
+  `;
+}
+
+// ---------------------------------------------------------------------
+// Ochiga Private — branded internal + acknowledgement emails. Private
+// membership requests get a properly designed HTML email rather than
+// the shared generic template above; every other lead type is
+// untouched (see the branches in internalEmailHtml/acknowledgementEmailHtml).
+// ---------------------------------------------------------------------
+
+function privateMembershipInternalHtml(payload: LeadPayload & { lead_type: "PRIVATE_MEMBERSHIP" }) {
+  const d = payload.private_membership;
+  const rows: Array<[string, string]> = [
+    ["Reference", payload.metadata.request_id],
+    ["Name", payload.full_name],
+    ["Email", payload.email],
+    ["Phone", payload.phone || "—"],
+    ["Profile", d.investor_profile],
+    ["Preferred strategy", d.investment_strategy.join(", ") || "—"],
+    ["Experience", d.investment_experience],
+    ["Reason / note", d.notes || "—"],
+    ["Source page", payload.page_url || "—"],
+    ["Submission date", payload.submitted_at],
+  ];
+  return `
+    <div style="font-family:Arial,sans-serif;max-width:560px;">
+      <p style="font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#b3241b;">Ochiga Private</p>
+      <h2 style="font-size:18px;margin:8px 0 20px;">New Ochiga Private Membership Request</h2>
+      <table>${rowsToHtml(rows)}</table>
+    </div>
+  `;
+}
+
+function privateMembershipAcknowledgementHtml(payload: LeadPayload & { lead_type: "PRIVATE_MEMBERSHIP" }) {
+  const d = payload.private_membership;
+  const firstName = payload.full_name.trim().split(/\s+/)[0] || "there";
+  const reference = formatPrivateReference(payload.metadata.request_id, new Date(payload.submitted_at));
+  const submittedDate = new Date(payload.submitted_at).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+  const privateUrl = absoluteUrl("/private");
+  const privacyUrl = absoluteUrl("/privacy");
+
+  const summaryRows: Array<[string, string]> = [
+    ["Name", payload.full_name],
+    ["Profile", d.investor_profile],
+    ["Preferred strategy", d.investment_strategy.join(", ") || "—"],
+    ["Submitted", submittedDate],
+    ["Reference", reference],
+  ];
+
+  const steps = [
+    { number: "01", title: "Review", body: "We review your profile and interests." },
+    { number: "02", title: "Qualification", body: "Where appropriate, we may contact you to better understand your objectives." },
+    { number: "03", title: "Access", body: "Approved members may receive access to relevant Ochiga Private opportunities and communications." },
+  ];
+
+  return `
+  <div style="background:#050505;padding:40px 16px;font-family:Arial,Helvetica,sans-serif;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;margin:0 auto;background:#141414;border-radius:6px;overflow:hidden;">
+      <tr>
+        <td style="padding:40px 40px 8px;">
+          <p style="margin:0;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#b3241b;font-weight:600;">Ochiga Private</p>
+          <h1 style="margin:16px 0 0;font-family:Georgia,'Iowan Old Style','Times New Roman',serif;font-size:24px;line-height:1.25;color:#ffffff;">Membership Request Received</h1>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding:20px 40px 0;">
+          <p style="margin:0 0 16px;font-size:15px;line-height:1.65;color:#f6f3ec;">Thank you, ${escapeHtml(firstName)}.</p>
+          <p style="margin:0 0 16px;font-size:14px;line-height:1.7;color:#d8d5cf;">Your request to join Ochiga Private has been received. Ochiga Private is a private network built around selected real-estate opportunities, development participation and long-term relationships within the Ochiga ecosystem.</p>
+          <p style="margin:0;font-size:14px;line-height:1.7;color:#d8d5cf;">Our team will review the information provided and contact you if anything further is required.</p>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding:32px 40px 0;">
+          <hr style="border:none;border-top:1px solid rgba(255,255,255,0.1);margin:0;" />
+        </td>
+      </tr>
+      <tr>
+        <td style="padding:28px 40px 0;">
+          <p style="margin:0 0 14px;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8c887f;">Request Summary</p>
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+            ${summaryRows
+              .map(
+                ([label, value]) =>
+                  `<tr><td style="padding:5px 12px 5px 0;font-size:13px;color:#8c887f;white-space:nowrap;vertical-align:top;">${escapeHtml(label)}</td><td style="padding:5px 0;font-size:13px;color:#f6f3ec;">${escapeHtml(value)}</td></tr>`
+              )
+              .join("")}
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding:32px 40px 0;">
+          <hr style="border:none;border-top:1px solid rgba(255,255,255,0.1);margin:0;" />
+        </td>
+      </tr>
+      <tr>
+        <td style="padding:28px 40px 0;">
+          <p style="margin:0 0 18px;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8c887f;">What Happens Next</p>
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+            ${steps
+              .map(
+                (step) => `
+              <tr>
+                <td style="padding:0 12px 18px 0;vertical-align:top;width:34px;">
+                  <span style="font-size:12px;color:#b3241b;font-weight:600;">${step.number}</span>
+                </td>
+                <td style="padding:0 0 18px;vertical-align:top;">
+                  <p style="margin:0 0 4px;font-size:13px;font-weight:600;color:#ffffff;text-transform:uppercase;letter-spacing:0.04em;">${escapeHtml(step.title)}</p>
+                  <p style="margin:0;font-size:13px;line-height:1.6;color:#8c887f;">${escapeHtml(step.body)}</p>
+                </td>
+              </tr>`
+              )
+              .join("")}
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding:12px 40px 40px;">
+          <a href="${privateUrl}" style="display:inline-block;background:#b3241b;color:#ffffff;text-decoration:none;font-size:14px;font-weight:600;padding:12px 28px;border-radius:4px;">Visit Ochiga Private</a>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding:24px 40px 32px;border-top:1px solid rgba(255,255,255,0.1);">
+          <p style="margin:0 0 4px;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#f6f3ec;">Ochiga Private</p>
+          <p style="margin:0 0 16px;font-size:12px;color:#8c887f;">Selected opportunities. Long-term relationships.</p>
+          <p style="margin:0;font-size:11px;line-height:1.6;color:#57534a;">Ochiga · ${escapeHtml(companyInfo.location)} · <a href="${privacyUrl}" style="color:#57534a;text-decoration:underline;">Privacy Policy</a></p>
+        </td>
+      </tr>
+    </table>
+  </div>
   `;
 }
 

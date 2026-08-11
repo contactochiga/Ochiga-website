@@ -113,12 +113,13 @@ export const seoPages = {
       "Oyi Core: the intelligence and orchestration layer beneath Oyi, interpreting building activity and coordinating secure execution across connected systems.",
   },
 
-  // ---- Ochiga Private --------------------------------------------------
+  // ---- Ochiga Private (private real-estate opportunity, capital and
+  // relationship network; membership request lives inline at /private#membership) --
   private: {
     path: "/private",
-    title: "Ochiga Private — Private Access to Real Estate Opportunities",
+    title: "Ochiga Private — A Private Real-Estate Opportunity & Relationship Network",
     description:
-      "Ochiga Private is a private investment circle connecting selected investors to carefully considered real-estate opportunities, development partnerships and property strategies.",
+      "Ochiga Private connects qualified individuals, institutions, property owners and partners to selected real-estate opportunities, capital relationships and long-term participation across the Ochiga ecosystem.",
   },
   privateInvestmentApproaches: {
     path: "/private/investment-approaches",
@@ -131,12 +132,6 @@ export const seoPages = {
     title: "The Ochiga Private Advantage",
     description:
       "Curated access, development-led origination, built-environment intelligence, and the Oyi technology advantage that shape Ochiga Private opportunities.",
-  },
-  privateMembership: {
-    path: "/private/membership",
-    title: "Request Membership Requirements — Ochiga Private",
-    description:
-      "Ochiga Private membership is by application. Tell us about yourself and we'll share the appropriate membership information.",
   },
 
   // ---- Partnerships -----------------------------------------------------

@@ -86,7 +86,7 @@ export const primaryNavigation = [
       { href: "/private", label: "Overview" },
       { href: "/private/investment-approaches", label: "Investment Approaches" },
       { href: "/private/advantage", label: "Private Advantage" },
-      { href: "/private/membership", label: "Membership" },
+      { href: "/private#membership", label: "Membership" },
     ],
   },
   {
@@ -143,7 +143,7 @@ export const ctas = {
   primary: { label: "Partner With Ochiga", href: "/contact" },
   exploreDevelopment: { label: "Explore Development", href: "/development" },
   discoverOyi: { label: "Discover Oyi", href: "/oyi" },
-  requestMembership: { label: "Request Membership Requirements", href: "/private/membership" },
+  requestMembership: { label: "Request Membership", href: "/private#membership" },
   proposeDevelopment: { label: "Propose a Development", href: "/partnerships/landowners" },
   requestOyiDeployment: { label: "Request Deployment", href: "/technology#deployment" },
   workWithOchiga: { label: "Work With Ochiga", href: "/partnerships/professional" },

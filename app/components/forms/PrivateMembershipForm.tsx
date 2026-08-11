@@ -10,17 +10,18 @@ import {
   ConsentField,
   Honeypot,
   ErrorSummary,
-  SuccessPanel,
 } from "@/app/components/forms/fields";
+import { formatPrivateReference } from "@/lib/leads/reference";
 import { track } from "@/lib/analytics";
 
-const investorProfiles = ["Individual Investor", "Institutional Investor", "Family Office / Private Investment Company", "Corporate Investor"];
+const investorProfiles = ["Individual", "Institutional / Corporate"];
 const strategyOptions = [
-  "Income-Generating Assets", "Capital Appreciation", "Joint Venture Development", "Property Acquisition",
-  "Development Opportunities", "Property Transformation / Conversion", "Strategic / Short-Term Property Trading",
-  "Off-Plan / Early-Stage Acquisition", "Open to Selected Opportunities",
+  "Income-generating property",
+  "Capital appreciation",
+  "Property / development opportunities",
+  "Open to selected opportunities",
 ];
-const experienceOptions = ["New Investor", "Some Previous Investment Experience", "Experienced Investor", "Professional / Institutional Investor"];
+const experienceOptions = ["New", "Some experience", "Previously invested / participated"];
 
 export default function PrivateMembershipForm() {
   const { state, error, fieldErrors, requestId, submit, errorSummaryRef } = useLeadSubmit("PRIVATE_MEMBERSHIP");
@@ -47,11 +48,19 @@ export default function PrivateMembershipForm() {
   }
 
   if (state === "success") {
+    const firstName = form.fullName.trim().split(/\s+/)[0] || "there";
     return (
-      <SuccessPanel
-        message="Thank you for your interest in Ochiga Private. Membership is considered individually. Our team will review your request and share further information where appropriate."
-        requestId={requestId}
-      />
+      <div role="status" className="rounded border border-ochiga-white/15 bg-ochiga-charcoal px-6 py-10 text-center md:px-10">
+        <p className="text-xs font-medium uppercase tracking-eyebrow text-ochiga-red">Ochiga Private</p>
+        <h3 className="mt-4 font-display text-2xl text-ochiga-white md:text-3xl">Membership Request Received</h3>
+        <p className="mt-5 text-base leading-relaxed text-ochiga-white/70">
+          Thank you, {firstName}. Your request has been received and will be reviewed by the Ochiga Private
+          team. We will contact you if any additional information is required.
+        </p>
+        {requestId ? (
+          <p className="mt-6 text-xs text-ochiga-white/35">Reference: {formatPrivateReference(requestId)}</p>
+        ) : null}
+      </div>
     );
   }
 
@@ -71,11 +80,11 @@ export default function PrivateMembershipForm() {
         <TextField id="phone" label="Phone / WhatsApp (optional)" value={form.phone} onChange={(v) => set("phone", v)} autoComplete="tel" />
       </div>
 
-      <RadioGroupField id="investorProfile" label="Investor profile" required value={form.investorProfile} onChange={(v) => set("investorProfile", v)} options={investorProfiles} error={fieldErrors.investorProfile} />
+      <RadioGroupField id="investorProfile" label="Profile" required value={form.investorProfile} onChange={(v) => set("investorProfile", v)} options={investorProfiles} error={fieldErrors.investorProfile} />
 
       <CheckboxGroupField
         id="investmentStrategy"
-        label="Preferred investment strategy (select all that apply)"
+        label="Preferred strategy (select all that apply)"
         required
         values={investmentStrategy}
         onChange={setInvestmentStrategy}
@@ -83,9 +92,9 @@ export default function PrivateMembershipForm() {
         error={fieldErrors.investmentStrategy}
       />
 
-      <RadioGroupField id="investmentExperience" label="Real estate / investment experience" required value={form.investmentExperience} onChange={(v) => set("investmentExperience", v)} options={experienceOptions} error={fieldErrors.investmentExperience} />
+      <RadioGroupField id="investmentExperience" label="Experience" required value={form.investmentExperience} onChange={(v) => set("investmentExperience", v)} options={experienceOptions} error={fieldErrors.investmentExperience} />
 
-      <TextAreaField id="notes" label="Anything you'd like us to know? (optional)" value={form.notes} onChange={(v) => set("notes", v)} />
+      <TextAreaField id="notes" label="Reason for joining / note (optional)" value={form.notes} onChange={(v) => set("notes", v)} />
 
       <ConsentField id="consent" checked={consent} onChange={setConsent} error={fieldErrors.consent} />
 
@@ -94,7 +103,7 @@ export default function PrivateMembershipForm() {
         disabled={state === "submitting"}
         className="rounded bg-ochiga-red px-7 py-3 text-sm font-medium text-ochiga-white transition-colors duration-base hover:bg-ochiga-red-bright disabled:opacity-60"
       >
-        {state === "submitting" ? "Submitting…" : "Request Membership Requirements"}
+        {state === "submitting" ? "Submitting…" : "Request Membership"}
       </button>
     </form>
   );

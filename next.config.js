@@ -6,6 +6,10 @@ const nextConfig = {
       // the real corporate route, so /oyi redirects here instead (kept
       // for backward compatibility with anything already linking to it).
       { source: "/oyi", destination: "/technology", permanent: true },
+      // The membership form now lives inline on /private (#membership),
+      // matching the Technology page's #deployment pattern — kept for
+      // backward compatibility with anything already linking here.
+      { source: "/private/membership", destination: "/private#membership", permanent: true },
       { source: "/infrastructure", destination: "/development", permanent: true },
       { source: "/architecture", destination: "/development/approach", permanent: true },
       { source: "/solutions", destination: "/development/approach", permanent: true },

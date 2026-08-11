@@ -231,4 +231,33 @@ export async function getTechnologyInsights(minimumCount = 3): Promise<Insight[]
   return relevant.length >= minimumCount ? relevant : all;
 }
 
+// Private-relevant subset of the editorial feed, for the Ochiga Private
+// page's "Ochiga Perspective" rail — matches real-estate ownership,
+// capital and market-intelligence subject areas rather than the
+// Development or Technology pillar lists. Same safe fallback: never
+// sparse or empty.
+const PRIVATE_KEYWORDS = [
+  "real estate investment",
+  "property ownership",
+  "development economics",
+  "capital",
+  "market intelligence",
+  "property income",
+  "appreciation",
+  "development participation",
+  "property value",
+  "private market",
+  "investment",
+  "property",
+];
+
+export async function getPrivateInsights(minimumCount = 3): Promise<Insight[]> {
+  const all = await getAllInsights();
+  const relevant = all.filter((insight) => {
+    const haystack = [insight.category, ...insight.tags].join(" ").toLowerCase();
+    return PRIVATE_KEYWORDS.some((keyword) => haystack.includes(keyword));
+  });
+  return relevant.length >= minimumCount ? relevant : all;
+}
+
 export { urlFor };
