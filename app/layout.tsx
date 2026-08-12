@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import "./globals.css";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import JsonLd from "@/app/components/JsonLd";
+import { OyiWidget } from "@/app/components/oyi/OyiWidget";
 import {
   buildMetadata,
   organizationJsonLd,
@@ -23,34 +23,11 @@ export const metadata: Metadata = {
   manifest: "/manifest.webmanifest",
 };
 
-function resolveWidgetConfig() {
-  const defaultWidgetUrl = "https://ochiga-lead-agents.onrender.com/widget.js";
-  const widgetUrl =
-    process.env.NEXT_PUBLIC_OCHIGA_WIDGET_URL ||
-    defaultWidgetUrl;
-  if (!widgetUrl) {
-    return null;
-  }
-
-  let apiBase = process.env.NEXT_PUBLIC_OCHIGA_WIDGET_API_BASE || "";
-  if (!apiBase) {
-    try {
-      apiBase = new URL(widgetUrl).origin;
-    } catch {
-      apiBase = "";
-    }
-  }
-
-  return apiBase ? { widgetUrl, apiBase } : null;
-}
-
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const widget = resolveWidgetConfig();
-
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="bg-ochiga-black text-ochiga-white antialiased">
@@ -60,19 +37,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
-        {widget ? (
-          <Script
-            id="oma-widget"
-            src={widget.widgetUrl}
-            data-oma-widget="true"
-            data-api-base={widget.apiBase}
-            data-agent-name="Oma"
-            data-title="Talk to Oma"
-            data-subtitle="Ochiga concierge for Development, Oyi, and Ochiga Private"
-            data-greeting="Hi, I'm Oma. I can help you explore Ochiga Development, Oyi, Ochiga Private and partnership opportunities."
-            strategy="afterInteractive"
-          />
-        ) : null}
+        <OyiWidget />
       </body>
     </html>
   );
