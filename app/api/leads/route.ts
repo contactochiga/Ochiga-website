@@ -100,7 +100,7 @@ export async function POST(request: NextRequest) {
 
     if (!officeDelivered && !officeResult.skipped) {
       console.error(
-        `[api/leads] Office CRM intake failed for ${leadType} (${requestId}): ${officeResult.reason || "unknown_error"}`
+        `[api/leads] Office CRM intake failed for ${leadType} (${requestId}): status=${officeResult.status ?? "n/a"} reason=${officeResult.reason || "unknown_error"}`
       );
     }
 
