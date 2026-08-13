@@ -59,6 +59,7 @@ export async function postOfficeIntakeEnvelope(envelope: OfficeIntakeEnvelope): 
       headers: {
         "Content-Type": "application/json",
         "x-api-key": apiKey,
+        "x-office-api-key": apiKey,
         "x-request-id": envelope.request_id,
       },
       body: JSON.stringify(envelope),
