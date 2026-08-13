@@ -15,7 +15,7 @@ function officeBaseUrl() {
 }
 
 function officeApiKey() {
-  return process.env.OCHIGA_OFFICE_API_KEY || "";
+  return String(process.env.OCHIGA_OFFICE_API_KEY || "").trim();
 }
 
 export type OfficeIntakeEnvelope = {
@@ -64,9 +64,21 @@ export async function postOfficeIntakeEnvelope(envelope: OfficeIntakeEnvelope): 
       body: JSON.stringify(envelope),
       signal: controller.signal,
     });
-    const json = await response.json().catch(() => null);
+    const rawText = await response.text();
+    let json: Record<string, unknown> | null = null;
+    try {
+      json = rawText ? JSON.parse(rawText) : null;
+    } catch {
+      json = null;
+    }
     if (!response.ok) {
-      return { ok: false, skipped: false, status: response.status, reason: json?.error || `office_http_${response.status}` };
+      if (process.env.OCHIGA_OFFICE_DEBUG === "true") {
+        console.error(
+          `[office/intakeClient] debug: status=${response.status} url=${officeBaseUrl()}/api/office/intake key_len=${apiKey.length} body_head=${rawText.slice(0, 300)}`
+        );
+      }
+      const errorText = typeof json?.error === "string" ? json.error : "";
+      return { ok: false, skipped: false, status: response.status, reason: errorText || `office_http_${response.status}` };
     }
     return { ok: true, skipped: false, status: response.status, duplicate: Boolean(json?.duplicate) };
   } catch (error) {
