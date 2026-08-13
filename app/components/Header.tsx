@@ -32,10 +32,10 @@ export default function Header() {
         >
           <Link href="/" aria-label="Ochiga home" className="flex items-center">
             <Image
-              src="/brand/ochiga-logo.png"
+              src="/brand/ochiga-logo-dark.png"
               alt="Ochiga"
-              width={160}
-              height={40}
+              width={2048}
+              height={768}
               priority
               className="h-9 w-auto md:h-11"
             />

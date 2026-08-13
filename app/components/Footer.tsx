@@ -12,10 +12,10 @@ export default function Footer() {
           <div className="max-w-md">
             <Link href="/" aria-label="Ochiga home">
               <Image
-                src="/brand/ochiga-logo.png"
+                src="/brand/ochiga-logo-dark.png"
                 alt="Ochiga"
-                width={140}
-                height={35}
+                width={2048}
+                height={768}
                 className="mb-5 h-9 w-auto"
               />
             </Link>
