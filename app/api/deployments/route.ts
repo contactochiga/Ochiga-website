@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { appendFile, mkdir } from "fs/promises";
 import path from "path";
 import crypto from "crypto";
+import { postOfficeIntakeEnvelope } from "@/lib/office/intakeClient";
 
 export const runtime = "nodejs";
 
@@ -164,6 +165,32 @@ function buildLeadPayload(body: DeploymentRequest, requestId: string, ip: string
       ip_hash: crypto.createHash("sha256").update(ip).digest("hex"),
     },
   };
+}
+
+// Independent, best-effort addition alongside this route's existing
+// office-endpoint/webhook/agent/local cascade — not part of it. This is
+// the one real, canonical Ochiga Office CRM contract (POST
+// /api/office/intake); the cascade above is a separate, generically
+// user-configurable delivery chain this route already had and this
+// change does not alter its behavior or success/failure semantics.
+async function sendOfficeCrmIntake(body: DeploymentRequest, requestId: string) {
+  return postOfficeIntakeEnvelope({
+    request_id: requestId,
+    idempotency_key: requestId,
+    source_channel: "website",
+    source_site: "ochiga_website",
+    source_page: "/deployments",
+    source_form: "deployment_request",
+    business_unit: "technology",
+    inquiry_type: "oyi_deployment_request",
+    contact: { name: body.name, email: body.email, phone: body.phone },
+    organization: { name: body.company, location: body.location },
+    payload: {
+      message: [`Project type: ${body.projectType}.`, `Project size: ${body.projectSize}.`, `Interest: ${body.deploymentInterest}.`, body.notes]
+        .filter(Boolean)
+        .join(" "),
+    },
+  });
 }
 
 async function persistLocal(record: unknown) {
@@ -355,12 +382,23 @@ export async function POST(request: NextRequest) {
   };
 
   try {
-    const office = await forwardToOffice(payload);
+    // The real Ochiga Office CRM intake runs independently of, and in
+    // parallel with, this route's existing generic office/webhook/agent
+    // cascade below — its success or failure neither blocks nor is
+    // masked by the other's outcome (same principle as
+    // app/api/leads/route.ts).
+    const [office, officeCrm] = await Promise.all([forwardToOffice(payload), sendOfficeCrmIntake(body, requestId)]);
+    if (!officeCrm.ok && !officeCrm.skipped) {
+      console.error(`[api/deployments] Office CRM intake failed (${requestId}): ${officeCrm.reason || "unknown_error"}`);
+    }
     const webhook = office.ok ? { ok: false, skipped: true, reason: "office_succeeded" } : await forwardToWebhook(payload);
     const agent = office.ok || webhook.ok ? { ok: false, skipped: true, reason: "primary_delivery_succeeded" } : await forwardToAgent(payload, body);
-    const local = office.ok || webhook.ok || agent.ok ? { ok: false, skipped: true, reason: "remote_delivery_succeeded" } : await persistLocal(auditRecord);
+    const local =
+      office.ok || webhook.ok || agent.ok || officeCrm.ok
+        ? { ok: false, skipped: true, reason: "remote_delivery_succeeded" }
+        : await persistLocal(auditRecord);
 
-    const delivered = office.ok || webhook.ok || agent.ok || local.ok;
+    const delivered = office.ok || webhook.ok || agent.ok || officeCrm.ok || local.ok;
 
     if (!delivered) {
       return NextResponse.json(
@@ -379,12 +417,13 @@ export async function POST(request: NextRequest) {
         requestId,
         delivery: {
           office: office.ok ? "sent" : office.skipped ? "not_configured" : "failed",
+          officeCrm: officeCrm.ok ? (officeCrm.duplicate ? "duplicate" : "synced") : officeCrm.skipped ? "not_configured" : "failed",
           webhook: webhook.ok ? "sent" : webhook.skipped ? "not_configured" : "failed",
           agent: agent.ok ? "sent" : agent.skipped ? "not_configured" : "failed",
           local: local.ok ? "persisted" : "disabled",
         },
       },
-      { status: office.ok || webhook.ok || agent.ok ? 201 : 202 }
+      { status: office.ok || officeCrm.ok || webhook.ok || agent.ok ? 201 : 202 }
     );
   } catch {
     return NextResponse.json(

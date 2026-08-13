@@ -5,6 +5,7 @@ import type { LeadType } from "@/lib/leads/types";
 import { checkBotSignals, getIp, maxLeadBodyBytes, rateLimit } from "@/lib/leads/security";
 import { persistLead } from "@/lib/leads/persist";
 import { sendLeadEmails } from "@/lib/email";
+import { sendOfficeIntake } from "@/lib/office/intakeClient";
 import {
   buildGeneralContactPayload,
   buildLandJvPayload,
@@ -16,6 +17,14 @@ import {
 export const runtime = "nodejs";
 
 const validLeadTypes = Object.keys(leadSchemas) as LeadType[];
+
+const sourceFormForLeadType: Record<LeadType, string> = {
+  LAND_JV: "land_jv",
+  OYI_DEPLOYMENT: "oyi_deployment",
+  PRIVATE_MEMBERSHIP: "private_membership",
+  STRATEGIC_PARTNER: "strategic_partner",
+  GENERAL_CONTACT: "general_contact",
+};
 
 function buildPayload(type: LeadType, input: any, ctx: { requestId: string; ip: string }) {
   switch (type) {
@@ -78,11 +87,26 @@ export async function POST(request: NextRequest) {
   const payload = buildPayload(leadType, parsed.data, { requestId, ip });
 
   try {
-    const emailResult = await sendLeadEmails(payload);
+    // Email delivery and Office CRM intake are independently observable —
+    // neither blocks or is masked by the other's outcome. A failure in
+    // either is logged; the visitor only ever sees a hard failure if
+    // *nothing* durable captured their submission (see `delivered` below).
+    const [emailResult, officeResult] = await Promise.all([
+      sendLeadEmails(payload),
+      sendOfficeIntake(payload, { requestId, sourceForm: sourceFormForLeadType[leadType] }),
+    ]);
     const emailDelivered = emailResult.internal.ok;
+    const officeDelivered = officeResult.ok;
 
-    const local = emailDelivered ? { ok: false, reason: "email_succeeded" } : await persistLead(payload);
-    const delivered = emailDelivered || local.ok;
+    if (!officeDelivered && !officeResult.skipped) {
+      console.error(
+        `[api/leads] Office CRM intake failed for ${leadType} (${requestId}): ${officeResult.reason || "unknown_error"}`
+      );
+    }
+
+    const local =
+      emailDelivered || officeDelivered ? { ok: false, reason: "already_delivered" } : await persistLead(payload);
+    const delivered = emailDelivered || officeDelivered || local.ok;
 
     if (!delivered) {
       // Never silently discard a submission — surface a real failure so
@@ -104,6 +128,7 @@ export async function POST(request: NextRequest) {
         delivery: {
           email: emailResult.internal.ok ? "sent" : emailResult.internal.skipped ? "not_configured" : "failed",
           acknowledgement: emailResult.acknowledgement.ok ? "sent" : "not_sent",
+          office: officeDelivered ? (officeResult.duplicate ? "duplicate" : "synced") : officeResult.skipped ? "not_configured" : "failed",
           local: local.ok ? "persisted" : "disabled",
         },
       },
