@@ -7,6 +7,12 @@ import { buildMetadata, collectionPageJsonLd, seoPages } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata(seoPages.insights);
 
+// Without this, the page is pure SSG frozen at build time - a newly
+// published Sanity article would never appear until the next manual
+// deploy. Time-based ISR means it appears within this window with no
+// code change and no deploy required for future publishes.
+export const revalidate = 300;
+
 export default async function InsightsPage() {
   const [insights, featured] = await Promise.all([getAllInsights(), getFeaturedInsight()]);
 

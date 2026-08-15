@@ -6,6 +6,15 @@ import CTABand from "@/app/components/CTABand";
 import { getAllInsights, getInsightBySlug } from "@/lib/content";
 import { articleJsonLd, breadcrumbJsonLd, buildMetadata, insightToSeo } from "@/lib/seo";
 
+// Same reasoning as app/insights/page.tsx's revalidate export: without
+// this, only slugs known at build time (from generateStaticParams
+// below) would ever render — a newly published Office article's slug
+// wouldn't exist yet at build time. dynamicParams defaults to true, so
+// Next.js can still render an unknown slug on first request, but
+// without revalidate that render would be cached forever after the
+// first hit rather than checking Sanity again on subsequent edits.
+export const revalidate = 300;
+
 export async function generateStaticParams() {
   const insights = await getAllInsights();
   return insights.map((insight) => ({ slug: insight.slug }));
