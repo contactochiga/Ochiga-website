@@ -9,6 +9,16 @@ export type OyiTextResponse = {
   answer: string;
   business_unit: string;
   handoff_recommended: boolean;
+  // The Backend's real CorporateOyiCoreResponse contract carries these
+  // too (confirmed via direct Ochiga-backend audit) — /api/oyi/message
+  // forwards the Backend's raw JSON verbatim (see backendProxy.ts's
+  // oyiResponse()), so they're already present on the wire; this type
+  // just hadn't caught up. Fed through the shared response normalizer
+  // (normalizeCorporateResponse) rather than read ad hoc.
+  suggested_next_action?: string | null;
+  knowledge_references?: Array<{ id?: string; title: string; source: string }>;
+  tool_proposals?: Array<Record<string, unknown>>;
+  commercial_signal?: string | null;
   error?: string;
   message?: string;
 };
@@ -87,4 +97,9 @@ export type OyiMessage = {
   mode: "text" | "voice" | "visual";
   text: string;
   createdAt: number;
+  // Populated for "oyi"-role text replies via the shared response
+  // normalizer (lib/oyi-shell/core/responseNormalizer.mjs) — optional
+  // because voice/visual replies and system messages don't carry it.
+  suggestions?: string[];
+  knowledgeReferences?: Array<{ title: string; source: string }>;
 };
