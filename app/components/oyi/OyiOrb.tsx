@@ -50,7 +50,7 @@ export function OyiOrb({
           ? { left: position.x, top: position.y, right: "auto", bottom: "auto" }
           : { right: "1.25rem", bottom: "calc(1.5rem + env(safe-area-inset-bottom))" }
       }
-      className={`fixed z-[70] flex h-[60px] w-[60px] touch-none select-none items-center justify-center overflow-hidden rounded-full border border-ochiga-white/15 shadow-[0_8px_24px_rgba(0,0,0,0.45)] transition-transform duration-fast ease-editorial focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-oyi-blue ${
+      className={`fixed z-[70] flex h-[54px] w-[54px] touch-none select-none items-center justify-center overflow-hidden rounded-full border border-ochiga-white/15 shadow-[0_8px_24px_rgba(0,0,0,0.45)] transition-transform duration-fast ease-editorial focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-oyi-blue ${
         dragging ? "scale-105 cursor-grabbing" : "cursor-grab hover:scale-105"
       }`}
     >

@@ -10,7 +10,7 @@ import * as docking from "@/lib/oyi-shell/core/docking.mjs";
 
 const POSITION_KEY = "oyi_orb_anchor";
 const MOBILE_BREAKPOINT = 640;
-const ORB_SIZE = 60; // matches OyiBubble's existing h-[60px] w-[60px]
+const ORB_SIZE = 54; // matches Office's .oyi-orb exactly — same shell, same geometry
 const EDGE_MARGIN = 20;
 const DRAG_THRESHOLD = 4;
 
