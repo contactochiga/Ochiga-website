@@ -38,6 +38,31 @@ export function MessageList({ messages, thinking }: { messages: OyiMessage[]; th
           className={`max-w-[85%] rounded-lg px-3.5 py-2.5 text-sm leading-relaxed ${bubbleClasses(message.role)}`}
         >
           {message.text}
+          {message.suggestions && message.suggestions.length > 0 ? (
+            <div className="mt-2.5 border-t border-ochiga-white/10 pt-2.5">
+              <p className="text-[10px] uppercase tracking-wide text-ochiga-grey-300">You might also ask</p>
+              <ul className="mt-1 space-y-1">
+                {message.suggestions.map((suggestion, index) => (
+                  <li key={index} className="text-xs text-ochiga-grey-300">
+                    {suggestion}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+          {message.knowledgeReferences && message.knowledgeReferences.length > 0 ? (
+            <div className="mt-2.5 border-t border-ochiga-white/10 pt-2.5">
+              <p className="text-[10px] uppercase tracking-wide text-ochiga-grey-300">References</p>
+              <ul className="mt-1 space-y-1">
+                {message.knowledgeReferences.map((ref, index) => (
+                  <li key={index} className="text-xs text-ochiga-grey-300">
+                    {ref.title}
+                    {ref.source ? <span className="text-ochiga-grey-500"> · {ref.source}</span> : null}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
         </div>
       ))}
       {thinking ? (

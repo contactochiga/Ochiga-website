@@ -114,7 +114,15 @@ export function useOyiWidget() {
           if (result.conversation_thread_id) setOyiThreadId(result.conversation_thread_id);
           if (result.business_unit) setLastBusinessUnit(result.business_unit);
           setHandoffRecommended(Boolean(result.handoff_recommended) && handoffPhase === "none");
-          pushMessage({ role: "oyi", mode: "text", text: result.answer || "" });
+          const { normalizeCorporateResponse } = await import("@/lib/oyi-shell/core/responseNormalizer.mjs");
+          const normalized = normalizeCorporateResponse(result);
+          pushMessage({
+            role: "oyi",
+            mode: "text",
+            text: normalized.answer,
+            suggestions: normalized.suggestions,
+            knowledgeReferences: normalized.knowledgeReferences,
+          });
         } else {
           setBackendUnavailable(true);
           pushMessage({
