@@ -7,6 +7,7 @@ import { VoiceDock } from "./VoiceDock";
 import { CameraDock } from "./CameraDock";
 import { HandoffBanner } from "./HandoffBanner";
 import { IconClose, IconMinimize, IconNewConversation } from "./icons";
+import { dockedSurfaceStyle, type OpenDirection } from "./useDockedOrb";
 import type { useOyiWidget } from "./useOyiWidget";
 
 type Mode = "text" | "voice" | "camera";
@@ -15,12 +16,16 @@ export function OyiPanel({
   widget,
   mode,
   setMode,
+  dock,
+  onMinimize,
   onClose,
   onNewConversation,
 }: {
   widget: ReturnType<typeof useOyiWidget>;
   mode: Mode;
   setMode: (mode: Mode) => void;
+  dock: { position: { x: number; y: number } | null; openDirection: OpenDirection };
+  onMinimize: () => void;
   onClose: () => void;
   onNewConversation: () => void;
 }) {
@@ -29,16 +34,18 @@ export function OyiPanel({
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") onClose();
+      if (event.key === "Escape") onMinimize();
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [onClose]);
+  }, [onMinimize]);
 
   useEffect(() => {
     const firstFocusable = panelRef.current?.querySelector<HTMLElement>("input, button");
     firstFocusable?.focus({ preventScroll: true });
   }, []);
+
+  const dockedStyle = dockedSurfaceStyle(dock.position, dock.openDirection);
 
   return (
     <div
@@ -46,20 +53,25 @@ export function OyiPanel({
       role="dialog"
       aria-modal="false"
       aria-labelledby={titleId}
-      className="fixed inset-x-0 bottom-0 z-[80] flex h-[min(640px,85dvh)] w-full flex-col overflow-hidden border border-ochiga-white/10 bg-ochiga-black shadow-[0_20px_60px_rgba(0,0,0,0.55)] sm:inset-x-auto sm:bottom-6 sm:right-6 sm:h-[600px] sm:w-[384px] sm:rounded-lg"
-      style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
+      className="fixed inset-x-0 bottom-0 z-[80] flex h-[min(640px,85dvh)] w-full flex-col overflow-hidden border border-ochiga-white/10 bg-ochiga-black shadow-[0_20px_60px_rgba(0,0,0,0.55)] sm:inset-x-auto sm:bottom-6 sm:right-6 sm:h-auto sm:max-h-[min(600px,calc(100vh-120px))] sm:w-[384px] sm:rounded-lg"
+      style={{ paddingBottom: "env(safe-area-inset-bottom)", ...dockedStyle }}
     >
       <header className="flex shrink-0 items-center gap-3 border-b border-ochiga-white/10 px-4 py-3.5">
+        <span
+          aria-hidden="true"
+          className="h-[22px] w-[22px] shrink-0 rounded-full"
+          style={{ background: "radial-gradient(circle at 32% 28%, #5B93FA, #3B82F6 55%, #0b1220 100%)" }}
+        />
         <div className="flex-1 min-w-0">
           <h2 id={titleId} className="truncate text-sm font-medium text-ochiga-white">
-            Ochiga Intelligence
+            Oyi
           </h2>
           <p className="flex items-center gap-1.5 text-xs text-ochiga-grey-500">
             <span
               className={`h-1.5 w-1.5 rounded-full ${widget.backendUnavailable ? "bg-ochiga-red" : "bg-oyi-blue"}`}
               aria-hidden="true"
             />
-            {widget.backendUnavailable ? "Unavailable — retrying" : "Oyi"}
+            {widget.backendUnavailable ? "Unavailable — retrying" : "Living Intelligence"}
           </p>
         </div>
         <button
@@ -73,7 +85,7 @@ export function OyiPanel({
         </button>
         <button
           type="button"
-          onClick={onClose}
+          onClick={onMinimize}
           aria-label="Minimize"
           title="Minimize"
           className="flex h-8 w-8 items-center justify-center rounded-full text-ochiga-grey-500 transition-colors duration-fast hover:bg-ochiga-graphite hover:text-ochiga-white"
