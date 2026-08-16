@@ -40,7 +40,7 @@ export function OyiWidget() {
           drag state survive open/minimize/close transitions instead
           of resetting on every remount. */}
       <div className={shellState === "closed" ? "" : "hidden"}>
-        <OyiOrb onOpen={open} onPositionChange={handlePositionChange} panelHeight={DEFAULT_PANEL_HEIGHT} />
+        <OyiOrb onOpen={open} onPositionChange={handlePositionChange} panelHeight={DEFAULT_PANEL_HEIGHT} thinking={widget.sending} />
       </div>
       {shellState === "open" ? (
         <OyiPanel

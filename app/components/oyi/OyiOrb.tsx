@@ -13,10 +13,16 @@ export function OyiOrb({
   onOpen,
   onPositionChange,
   panelHeight,
+  thinking = false,
 }: {
   onOpen: () => void;
   onPositionChange: (position: { x: number; y: number } | null, openDirection: OpenDirection) => void;
   panelHeight: number;
+  // Presence (shared/oyi-shell/core/presence.mjs) — the orb only ever
+  // shows "thinking" today (while awaiting a reply); the other states
+  // the shared vocabulary defines are reachable once voice/vision are
+  // wired to it too.
+  thinking?: boolean;
 }) {
   const { position, dragging, openDirection, onPointerDown, onPointerMove, onPointerUp, onPointerCancel, consumeWasDragged } =
     useDockedOrb(panelHeight);
@@ -53,6 +59,15 @@ export function OyiOrb({
         className="absolute inset-0"
         style={{ background: "radial-gradient(circle at 32% 28%, #5B93FA, #3B82F6 55%, #0b1220 100%)" }}
       />
+      {/* Presence (shared/oyi-shell/core/presence.mjs) — a restrained
+          pulse is the only "thinking" signal; no motion at idle. */}
+      {thinking ? (
+        <span
+          aria-hidden="true"
+          className="absolute inset-0 animate-pulse motion-reduce:animate-none"
+          style={{ boxShadow: "inset 0 0 0 2px rgba(255,255,255,0.55)" }}
+        />
+      ) : null}
       <span aria-hidden="true" className="relative text-[11px] font-semibold tracking-wide text-white">
         Oyi
       </span>
