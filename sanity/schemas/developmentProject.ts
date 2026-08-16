@@ -63,6 +63,25 @@ export default {
       description: "0-based index into Milestone Stages for the current stage.",
     },
     {
+      name: "order",
+      title: "Display Order",
+      type: "number",
+      description: "Lower numbers appear first on the Development listing page.",
+    },
+    {
+      name: "coverImage",
+      title: "Cover Image",
+      type: "image",
+      options: { hotspot: true },
+      fields: [
+        {
+          name: "alt",
+          title: "Alt text",
+          type: "string",
+        },
+      ],
+    },
+    {
       name: "updatedAt",
       title: "Updated At",
       type: "datetime",

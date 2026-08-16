@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import ProjectTour, { type ProjectTourData } from "@/app/components/ProjectTour";
 import JsonLd from "@/app/components/JsonLd";
 import { buildMetadata, breadcrumbJsonLd, seoPages } from "@/lib/seo";
+import { getDevelopmentProjectOverride, mergeProjectTourData } from "@/lib/development";
 
 export const metadata: Metadata = buildMetadata(seoPages.developmentCentralOne);
 
@@ -109,7 +110,10 @@ const centralOne: ProjectTourData = {
   ],
 };
 
-export default function CentralOneTourPage() {
+export default async function CentralOneTourPage() {
+  const override = await getDevelopmentProjectOverride("central-one");
+  const project = mergeProjectTourData(centralOne, override);
+
   return (
     <>
       <JsonLd
@@ -119,7 +123,7 @@ export default function CentralOneTourPage() {
           { name: "Central One", path: "/development/central-one" },
         ])}
       />
-      <ProjectTour project={centralOne} />
+      <ProjectTour project={project} />
     </>
   );
 }

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import ProjectTour, { type ProjectTourData } from "@/app/components/ProjectTour";
 import JsonLd from "@/app/components/JsonLd";
 import { buildMetadata, breadcrumbJsonLd, seoPages } from "@/lib/seo";
+import { getDevelopmentProjectOverride, mergeProjectTourData } from "@/lib/development";
 
 export const metadata: Metadata = buildMetadata(seoPages.developmentGreenGardens);
 
@@ -90,7 +91,10 @@ const greenGardens: ProjectTourData = {
   ],
 };
 
-export default function GreenGardensTourPage() {
+export default async function GreenGardensTourPage() {
+  const override = await getDevelopmentProjectOverride("green-gardens");
+  const project = mergeProjectTourData(greenGardens, override);
+
   return (
     <>
       <JsonLd
@@ -100,7 +104,7 @@ export default function GreenGardensTourPage() {
           { name: "Green Gardens", path: "/development/green-gardens" },
         ])}
       />
-      <ProjectTour project={greenGardens} />
+      <ProjectTour project={project} />
     </>
   );
 }

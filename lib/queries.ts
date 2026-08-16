@@ -58,3 +58,23 @@ export const TRAINING_QUERY = `
   description
 }
 `;
+
+// Office-managed status/progress overrides for the Development section
+// (see sanity/schemas/developmentProject.ts). No "published" filter is
+// needed here — perspective: "published" in lib/sanity.ts already
+// excludes any drafts.* document, matching the Insights queries above.
+export const DEVELOPMENT_PROJECTS_QUERY = `
+*[_type == "developmentProject"] | order(order asc) {
+  name,
+  "slug": slug.current,
+  typeLine,
+  location,
+  status,
+  oneLiner,
+  statusStages,
+  statusActiveIndex,
+  order,
+  coverImage,
+  updatedAt
+}
+`;

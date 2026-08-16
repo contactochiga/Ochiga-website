@@ -10,6 +10,7 @@ import JsonLd from "@/app/components/JsonLd";
 import { buildMetadata, breadcrumbJsonLd, seoPages } from "@/lib/seo";
 import { ctas } from "@/lib/company";
 import { getDevelopmentInsights } from "@/lib/content";
+import { getDevelopmentProjectOverrides } from "@/lib/development";
 
 export const metadata: Metadata = buildMetadata(seoPages.development);
 
@@ -25,6 +26,73 @@ const JOURNEY_STAGES: JourneyStage[] = [
 ];
 
 const STATUS_STAGES = ["Concept", "Design Development", "Project Preview", "Delivery"];
+
+// Base card content for Current Developments. Office-managed overrides
+// (status, milestone stage, order, cover image) are merged in per-slug
+// at render time by mergeCurrentDevelopmentCard below; a missing or
+// unavailable override leaves this hardcoded content untouched.
+type CurrentDevelopmentCard = {
+  slug: string;
+  name: string;
+  typeLine: string;
+  location: string;
+  status: string;
+  story: string;
+  imageSrc: string;
+  imageAlt: string;
+  statusStages: string[];
+  statusActiveIndex: number;
+  tourHref: string;
+  order: number;
+};
+
+const CURRENT_DEVELOPMENTS: CurrentDevelopmentCard[] = [
+  {
+    slug: "havana",
+    name: "Havana Residences",
+    typeLine: "Premium Vertical Living",
+    location: "Victoria Island, Lagos, Nigeria",
+    status: "In Design Development",
+    story:
+      "A new generation of vertical living combining contemporary architecture, intelligent infrastructure and long-term operational thinking.",
+    imageSrc: "/images/development/havana-tower-dusk.webp",
+    imageAlt: "Havana Residences tower at dusk on the Lagos waterfront",
+    statusStages: STATUS_STAGES,
+    statusActiveIndex: 1,
+    tourHref: "/development/havana",
+    order: 0,
+  },
+  {
+    slug: "green-gardens",
+    name: "Green Gardens",
+    typeLine: "Contemporary Residential Community",
+    location: "Ikoyi, Lagos, Nigeria",
+    status: "In Design Development",
+    story:
+      "A thoughtfully planned residential community where modern homes, landscape, privacy and intelligent infrastructure are designed as one complete environment.",
+    imageSrc: "/images/development/green-gardens-estate-dusk.webp",
+    imageAlt: "Green Gardens residential community entrance at dusk",
+    statusStages: STATUS_STAGES,
+    statusActiveIndex: 1,
+    tourHref: "/development/green-gardens",
+    order: 1,
+  },
+  {
+    slug: "central-one",
+    name: "Central One",
+    typeLine: "Mixed-Use Urban Development",
+    location: "Central Area, Abuja, Nigeria",
+    status: "In Design Development",
+    story:
+      "Central One brings together contemporary residences, hospitality, commercial activity, landscaped outdoor spaces and lifestyle amenities within one connected development.",
+    imageSrc: "/images/development/central-one-aerial-night.webp",
+    imageAlt: "Central One mixed-use development, aerial night render",
+    statusStages: STATUS_STAGES,
+    statusActiveIndex: 1,
+    tourHref: "/development/central-one",
+    order: 2,
+  },
+];
 
 const developmentHeroSlides: StorySlide[] = [
   {
@@ -75,6 +143,23 @@ const developmentHeroSlides: StorySlide[] = [
 
 export default async function DevelopmentPage() {
   const insights = (await getDevelopmentInsights()).slice(0, 6);
+  const overrides = await getDevelopmentProjectOverrides();
+  const currentDevelopments = CURRENT_DEVELOPMENTS.map((card) => {
+    const override = overrides[card.slug];
+    if (!override) return card;
+    return {
+      ...card,
+      name: override.name || card.name,
+      typeLine: override.typeLine || card.typeLine,
+      location: override.location || card.location,
+      status: override.status || card.status,
+      imageSrc: override.coverImage?.src || card.imageSrc,
+      imageAlt: override.coverImage?.alt || card.imageAlt,
+      statusStages: override.statusStages || card.statusStages,
+      statusActiveIndex: override.statusActiveIndex ?? card.statusActiveIndex,
+      order: override.order ?? card.order,
+    };
+  }).sort((a, b) => a.order - b.order);
 
   return (
     <main>
@@ -100,42 +185,21 @@ export default async function DevelopmentPage() {
 
       <SectionBlock id="current-developments" eyebrow="Current Developments">
         <div className="grid gap-8 md:grid-cols-3">
-          <ProjectPreviewCard
-            name="Havana Residences"
-            typeLine="Premium Vertical Living"
-            location="Victoria Island, Lagos, Nigeria"
-            status="In Design Development"
-            story="A new generation of vertical living combining contemporary architecture, intelligent infrastructure and long-term operational thinking."
-            imageSrc="/images/development/havana-tower-dusk.webp"
-            imageAlt="Havana Residences tower at dusk on the Lagos waterfront"
-            statusStages={STATUS_STAGES}
-            statusActiveIndex={1}
-            tourHref="/development/havana"
-          />
-          <ProjectPreviewCard
-            name="Green Gardens"
-            typeLine="Contemporary Residential Community"
-            location="Ikoyi, Lagos, Nigeria"
-            status="In Design Development"
-            story="A thoughtfully planned residential community where modern homes, landscape, privacy and intelligent infrastructure are designed as one complete environment."
-            imageSrc="/images/development/green-gardens-estate-dusk.webp"
-            imageAlt="Green Gardens residential community entrance at dusk"
-            statusStages={STATUS_STAGES}
-            statusActiveIndex={1}
-            tourHref="/development/green-gardens"
-          />
-          <ProjectPreviewCard
-            name="Central One"
-            typeLine="Mixed-Use Urban Development"
-            location="Central Area, Abuja, Nigeria"
-            status="In Design Development"
-            story="Central One brings together contemporary residences, hospitality, commercial activity, landscaped outdoor spaces and lifestyle amenities within one connected development."
-            imageSrc="/images/development/central-one-aerial-night.webp"
-            imageAlt="Central One mixed-use development, aerial night render"
-            statusStages={STATUS_STAGES}
-            statusActiveIndex={1}
-            tourHref="/development/central-one"
-          />
+          {currentDevelopments.map((card) => (
+            <ProjectPreviewCard
+              key={card.slug}
+              name={card.name}
+              typeLine={card.typeLine}
+              location={card.location}
+              status={card.status}
+              story={card.story}
+              imageSrc={card.imageSrc}
+              imageAlt={card.imageAlt}
+              statusStages={card.statusStages}
+              statusActiveIndex={card.statusActiveIndex}
+              tourHref={card.tourHref}
+            />
+          ))}
         </div>
       </SectionBlock>
 
