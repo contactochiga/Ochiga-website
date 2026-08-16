@@ -14,6 +14,12 @@ import { getDevelopmentProjectOverrides } from "@/lib/development";
 
 export const metadata: Metadata = buildMetadata(seoPages.development);
 
+// Without this, the page is pure SSG frozen at build time — an Office
+// edit to the managed status/progress/order/cover image would never
+// appear until the next manual deploy. Matches app/insights/page.tsx's
+// fix for the same underlying issue.
+export const revalidate = 300;
+
 const JOURNEY_STAGES: JourneyStage[] = [
   { key: "land", label: "Land" },
   { key: "strategy", label: "Strategy" },

@@ -6,6 +6,12 @@ import { getDevelopmentProjectOverride, mergeProjectTourData } from "@/lib/devel
 
 export const metadata: Metadata = buildMetadata(seoPages.developmentGreenGardens);
 
+// Without this, the page is pure SSG frozen at build time — an Office
+// edit to the managed status/progress/cover image would never appear
+// until the next manual deploy. Matches app/insights/page.tsx's fix
+// for the same underlying issue.
+export const revalidate = 300;
+
 const STATUS_STAGES = ["Concept", "Design Development", "Project Preview", "Delivery"];
 const COMMUNITY_IMAGE = { src: "/images/development/green-gardens-estate-dusk.webp", alt: "Green Gardens residential community entrance at dusk" };
 

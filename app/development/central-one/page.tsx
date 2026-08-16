@@ -6,6 +6,12 @@ import { getDevelopmentProjectOverride, mergeProjectTourData } from "@/lib/devel
 
 export const metadata: Metadata = buildMetadata(seoPages.developmentCentralOne);
 
+// Without this, the page is pure SSG frozen at build time — an Office
+// edit to the managed status/progress/cover image would never appear
+// until the next manual deploy. Matches app/insights/page.tsx's fix
+// for the same underlying issue.
+export const revalidate = 300;
+
 const STATUS_STAGES = ["Concept", "Design Development", "Project Preview", "Delivery"];
 const AERIAL_IMAGE = { src: "/images/development/central-one-aerial-night.webp", alt: "Central One mixed-use development, aerial night render" };
 
