@@ -235,7 +235,10 @@ export function useOyiWidget() {
         pushMessage({
           role: "system",
           mode: "visual",
-          text: result.detail || result.message || "Oyi could not analyze that.",
+          // `message` is Backend's clean, user-facing copy; `detail`
+          // (e.g. "visual_analysis_failed:429") is technical and must
+          // never be shown to a user directly.
+          text: result.message || "Oyi could not analyze that.",
         });
         return { ok: false as const };
       } catch {
